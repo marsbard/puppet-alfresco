@@ -40,12 +40,12 @@ db.pool.validate.query=select 1
 # System paramaters
 #-------------
 alfresco.context=alfresco
-alfresco.host=babelfish.orderofthebee.org
+alfresco.host=<%= @domain_name %>
 alfresco.port=8080
 alfresco.protocol=http
 #
 share.context=share
-share.host=babelfish.orderofthebee.org
+share.host=<%= @domain_name %>
 share.port=443
 share.protocol=https
 
@@ -57,7 +57,7 @@ system.usages.enabled=false
 #
 # External locations
 #-------------
-ooo.exe=/usr/bin/soffice
+ooo.exe=<%= @lo_install_loc %>/program/soffice
 ooo.enabled=true
 swf.exe=/usr/local/bin/pdf2swf
 #Shell script to limit cpu used by ImageMagick convert. Edit to match your number of cpu:s
@@ -109,7 +109,7 @@ mail.port=25
 mail.username=anonymous
 mail.password=
 mail.encoding=UTF-8
-mail.from.default=alfresco@babelfish.orderofthebee.org
+mail.from.default=<%= @mail_from_default %>
 mail.protocol=smtp
 # Additional Java Mail properties for SMTP protocol
 mail.smtp.auth=false

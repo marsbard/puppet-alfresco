@@ -49,8 +49,6 @@ class alfresco::install inherits alfresco {
 	}
 
 
-
-
 	class { '::mysql::server':
 		  root_password    => $db_root_password,
 	}
@@ -342,5 +340,45 @@ class alfresco::install inherits alfresco {
 		user => "tomcat7",
 	}	
 
+
+	exec { "retrieve-loffice":
+		cwd => $download_path,
+		command => "wget $loffice_dl",
+		creates => "${download_path}/${loffice_name}.tar.gz",
+		path => "/usr/bin",
+		timeout => 0,
+	}
+
+	exec { "unpack-loffice":
+		cwd => $download_path,
+		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
+		path => "/bin:/usr/bin",
+		creates => "${download_path}/${loffice_name}",
+		require => Exec["retrieve-loffice"],
+	}
+
+	case $::osfamily {
+    		'RedHat': {
+			$pkgdir = "${download_path}/${loffice_name}/RPMS"
+			$instcmd = "yum localinstall *.rpm"
+		}
+		'Debian': {
+			$pkgdir = "${download_path}/${loffice_name}/DEBS"
+			$instcmd = "dpkg -i *.deb"
+		}
+		default:{
+			exit("Unsupported osfamily $osfamily")
+		} 
+	}
+
+	exec { "install-loffice":
+		logoutput => true,
+		command => $instcmd,
+		cwd => $pkgdir,
+		path => "/bin:/usr/bin:/sbin:/usr/sbin",
+		require => Exec["unpack-loffice"],
+		creates => "${lo_install_loc}",
+		
+	}
 
 }

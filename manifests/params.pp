@@ -2,6 +2,10 @@
 #
 #
 class alfresco::params {
+
+	$domain_name		= ''
+	$mail_from_default	= 'admin@localhost'
+
 	$alfresco_base_dir	= "/opt/alfresco"
 	$tomcat_home		= "/opt/alfresco/tomcat"
 

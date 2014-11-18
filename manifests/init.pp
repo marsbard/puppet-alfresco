@@ -1,5 +1,6 @@
 class alfresco (
-	
+	$domain_name			= $alfresco::params::domain_name,
+	$mail_from_default		= $alfresco::params::mail_from_default,	
 	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
 	$tomcat_home			= $alfresco::params::tomcat_home,
 	$alfresco_version		= $alfresco::params::alfresco_version,
@@ -21,6 +22,21 @@ class alfresco (
 		}	
 	}
 
+  	case $::osfamily {
+    		'RedHat': {
+			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_rpm"
+			$loffice_dl = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/rpm/x86_64/${loffice_name}.tar.gz"
+		}
+		'Debian': {
+			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_deb"
+			$loffice_dl= "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name}.tar.gz"
+		}
+		default:{
+			exit("Unsupported osfamily $osfamily")
+		} 
+	}
+
+	$lo_install_loc = "/opt/libreoffice4.2"
 
 	$name_tomcat = "apache-tomcat-7.0.55"
 	$filename_tomcat = "${name_tomcat}.tar.gz"
@@ -47,8 +63,7 @@ class alfresco (
 	$solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
 
 
-# TODO this isn't cross platform
-	$loffice_dl= "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz"
+
 
 	$swftools_dl = "http://www.swftools.org/swftools-2013-04-09-1007.tar.gz"
 
@@ -78,7 +93,6 @@ class alfresco (
 
 
 	anchor { 'alfresco::begin': } ->
-	#class { 'alfresco::update': } ->
 	class { 'alfresco::install': } ->
 	class { 'alfresco::addons': } ->
 	class { 'alfresco::config': 
