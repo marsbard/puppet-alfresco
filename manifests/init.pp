@@ -70,14 +70,15 @@ class alfresco (
 	if($osfamily == 'Debian'){
 		exec{ "reinstall-bsdutils":
 			command => "apt-get -y --reinstall install bsdutils",
-			path => "/bin:/usr/bin:/sbin:/usr/sbin",			
+			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
+			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
 		}
 	}
 
 
 
 	anchor { 'alfresco::begin': } ->
-	class { 'alfresco::update': } ->
+	#class { 'alfresco::update': } ->
 	class { 'alfresco::install': } ->
 	class { 'alfresco::addons': } ->
 	class { 'alfresco::config': 

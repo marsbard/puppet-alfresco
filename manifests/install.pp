@@ -13,6 +13,19 @@ class alfresco::install inherits alfresco {
 		} 
 	}
 
+	schedule { 'nightly':
+		period => daily,
+		range  => "2 - 4",
+	}
+
+
+
+	exec { "apt-update":
+	    	command => "/usr/bin/apt-get update",
+		schedule => "nightly",
+	}
+
+#	Exec["apt-update"] -> Package <| |>
 
     	$packages = [ 
 		"git", 
@@ -28,7 +41,7 @@ class alfresco::install inherits alfresco {
 	]
 
     	package { $packages:
-        	ensure => "present", 
+        	ensure => "installed", 
     	}
 
 	package { $rmpackages:
@@ -323,13 +336,11 @@ class alfresco::install inherits alfresco {
 		site => "$keystorebase",
 		cwd => "${alfresco_base_dir}/alf_data/keystore",
 		creates => "${alfresco_base_dir}/alf_data/keystore/${name}",
-		require => [ User["tomcat7"], Exec["check_if_keystore_download_required"],  ],
+		require => [ 
+			User["tomcat7"], 
+		],
 		user => "tomcat7",
 	}	
 
 
-	exec{ "check_if_keystore_download_required":
-		command => "/bin/true",
-		unless => '/usr/bin/test -f ${alfresco_base_dir}/alf_data/keystore/ssl.keystore',
-	}
 }
