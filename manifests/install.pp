@@ -7,6 +7,10 @@ class alfresco::install inherits alfresco {
 		}
 		'Debian': {
 			$jdkpackage = "openjdk-7-jdk"
+			exec { "apt-update":
+			    	command => "/usr/bin/apt-get update",
+				schedule => "nightly",
+			}
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
@@ -20,12 +24,8 @@ class alfresco::install inherits alfresco {
 
 
 
-	exec { "apt-update":
-	    	command => "/usr/bin/apt-get update",
-		schedule => "nightly",
-	}
 
-#	Exec["apt-update"] -> Package <| |>
+
 
     	$packages = [ 
 		"git", 
