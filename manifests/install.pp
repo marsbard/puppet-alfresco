@@ -3,10 +3,40 @@ class alfresco::install inherits alfresco {
 
   	case $::osfamily {
     		'RedHat': {
-			$jdkpackage = "java-1.7.0-openjdk"
+		    	$packages = [ 
+				"git", 
+				"java-1.7.0-openjdk",
+		 		"unzip",
+				"curl",
+				#"ttf-mscorefonts-installer", 
+				#"fonts-droid", 
+				#"imagemagick", 
+				"ghostscript", 
+				#"libgs-dev", 
+				#"libjpeg62", 
+				#"libpng3",
+		 	] 
+			$rmpackages = [ 
+			]
 		}
 		'Debian': {
-			$jdkpackage = "openjdk-7-jdk"
+		    	$packages = [ 
+				"gdebi-core",
+				"git", 
+				"openjdk-7-jdk",
+		 		"unzip",
+				"curl",
+				"fonts-liberation", 
+				"fonts-droid", 
+				"imagemagick", 
+				"ghostscript", 
+				"libjpeg62", 
+				"libpng3",
+		 	] 
+			$rmpackages = [ 
+				"openjdk-6-jdk",
+		 		"openjdk-6-jre-lib",
+			]
 			exec { "apt-update":
 			    	command => "/usr/bin/apt-get update",
 				schedule => "nightly",
@@ -23,22 +53,8 @@ class alfresco::install inherits alfresco {
 	}
 
 
-
-
-
-
-    	$packages = [ 
-		"git", 
-		$jdkpackage,
- 		"unzip",
-		"curl",
- 	] 
     
-	# this for debian-ish systems. kind of irrelevant for centos etc but doesn't hurt
-	$rmpackages = [ 
-		"openjdk-6-jdk",
- 		"openjdk-6-jre-lib",
-	]
+
 
     	package { $packages:
         	ensure => "installed", 
@@ -359,26 +375,121 @@ class alfresco::install inherits alfresco {
 
 	case $::osfamily {
     		'RedHat': {
-			$pkgdir = "${download_path}/${loffice_name}/RPMS"
-			$instcmd = "yum localinstall *.rpm"
+
+			exec { "install-loffice":
+				command => "yum -y localinstall *.rpm",
+				cwd => "${download_path}/${loffice_name}/RPMS",
+				path => "/bin:/usr/bin:/sbin:/usr/sbin",
+				require => Exec["unpack-loffice"],
+				creates => "${lo_install_loc}",
+		
+			}
+
+#			exec { "retrieve-swftools":
+#				command => "wget $swftools",
+#				cwd => $download_path,
+#				path => "/usr/bin",
+#				creates => "${download_path}/${swfpkg}",
+#			}
+#
+#			exec { "install-swftools":
+#				command => "yum -y localinstall ${download_path}/${swfpkg}",
+#				cwd => $download_path,
+#				path => "/bin:/usr/bin:/sbin:/usr/sbin",
+#				#require => 
+#				#creates => $swf_creates,
+#			}
+
+
 		}
 		'Debian': {
-			$pkgdir = "${download_path}/${loffice_name}/DEBS"
-			$instcmd = "dpkg -i *.deb"
+
+
+			exec { "install-loffice":
+				command => "dpkg -i *.deb",
+				cwd => "${download_path}/${loffice_name}/DEBS",
+				path => "/bin:/usr/bin:/sbin:/usr/sbin",
+				require => Exec["unpack-loffice"],
+				creates => "${lo_install_loc}",
+		
+			}
+
+#			exec { "retrieve-swftools":
+#				command => "wget $swftools",
+#				cwd => $download_path,
+#				path => "/usr/bin",
+#				creates => "${download_path}/${swfpkg}",
+#			}
+#
+#			exec { "install-swftools":
+#				command => "gdebi ${download_path}/${swfpkg}",
+#				cwd => $download_path,
+#				path => "/bin:/usr/bin:/sbin:/usr/sbin",
+#				require => Package["gdebi-core"],
+#				#creates => $swf_creates,
+#			}
+
+		}
+		default:{
+			exit("Unsupported osfamily $osfamily")
+		} 
+	}
+	
+
+
+##################################################
+# trying to keep swftools config separate in case I can find a build with pdf2swf in
+###################################################
+
+	case $::osfamily {
+    		'RedHat': {
+			$swfpkgs = []
+		}
+		'Debian': {
+			$swfpkgs = [
+				"build-essential",
+				"ccache", 
+				"g++", 
+				"libgif-dev", 
+				"libjpeg62-dev", 
+				"libfreetype6-dev", 
+				"libpng12-dev", 
+				"libt1-dev",
+			]
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
 
-	exec { "install-loffice":
-		logoutput => true,
-		command => $instcmd,
-		cwd => $pkgdir,
-		path => "/bin:/usr/bin:/sbin:/usr/sbin",
-		require => Exec["unpack-loffice"],
-		creates => "${lo_install_loc}",
-		
+    	package { $swfpkgs:
+        	ensure => "installed",
+    	}
+	
+	# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
+
+	exec { "retrieve-swftools":
+		command => "wget ${swftools_src_url}",
+		cwd => $download_path,
+		path => "/usr/bin",		
+		creates => "${download_path}/${swftools_src_name}.tar.gz",
 	}
 
+		
+	exec { "unpack-swftools":
+		command => "tar xzvf ${swftools_src_name}.tar.gz",
+		cwd => $download_path,
+		path => "/bin:/usr/bin",
+		creates => "${download_path}/${swftools_src_name}",
+		require => Exec["retrieve-swftools"],
+	}
+
+
+	exec { "build-swftools":
+		command => "bash ./configure && make && make install",
+		cwd => "${download_path}/${swftools_src_name}",
+		path => "/bin:/usr/bin",
+		require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+		creates => "/usr/local/bin/pdf2swf",
+	}
 }

@@ -22,20 +22,31 @@ class alfresco (
 		}	
 	}
 
+
+	
   	case $::osfamily {
     		'RedHat': {
 			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_rpm"
 			$loffice_dl = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/rpm/x86_64/${loffice_name}.tar.gz"
+
+			#$swfpkg = "swftools-0.8.1-1.el6.rf.x86_64.rpm"
+			#$swftools = "http://pkgs.repoforge.org/swftools/${swfkg}"
 		}
 		'Debian': {
 			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_deb"
 			$loffice_dl= "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name}.tar.gz"
+
+			#$swfpkg = "swftools_0.8.1-1ubuntu1_amd64.deb"
+			#$swftools = "http://launchpadlibrarian.net/11111323/${swfpkg}"
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
 
+
+	$swftools_src_name = "swftools-2013-04-09-1007"
+	$swftools_src_url = "http://www.swftools.org/${swftools_src_name}.tar.gz"
 	$lo_install_loc = "/opt/libreoffice4.2"
 
 	$name_tomcat = "apache-tomcat-7.0.55"
@@ -64,8 +75,8 @@ class alfresco (
 
 
 
-
-	$swftools_dl = "http://www.swftools.org/swftools-2013-04-09-1007.tar.gz"
+	$swftools_name = "swftools-2013-04-09-1007"
+	$swftools_dl = "http://www.swftools.org/${swftools_name}.tar.gz"
 
 
 	$alfresco_db_name = $db_name
