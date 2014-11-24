@@ -228,27 +228,40 @@ class alfresco::install inherits alfresco {
 	}
 
 
+	file { "${tomcat_home}/conf":
+		ensure => directory,
+		require => Exec['unpack-tomcat7'],
+	}
 
+	file { "${tomcat_home}/conf/Catalina":
+		ensure => directory,
+		require => [
+			File["${tomcat_home}/conf"],
+		],
+	}
 
+	file { "${tomcat_home}/conf/Catalina/localhost":
+		ensure => directory,
+		require => [
+			File["${tomcat_home}/conf/Catalina"],
+		],
+	}
 
+	#file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
+	#	content => template("alfresco/solr.xml.erb"),
+	#}
 
-
-
-
+	file { "${tomcat_home}/conf/tomcat-users.xml":
+		ensure => present,
+		require => Exec['unpack-tomcat7'],
+		source => 'puppet:///modules/alfresco/tomcat-users.xml',
+	}
 
 	file { "${alfresco_base_dir}":
 		ensure => directory,
 		owner => "tomcat7",
 		require => [ 
 			User["tomcat7"], 
-		],
-	}
-
-	file { "${alfresco_base_dir}/solr":
-		ensure => directory,
-		owner => "tomcat7",
-		require => [ 
-			File[$alfresco_base_dir],	
 		],
 	}
 
@@ -260,11 +273,18 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { "unpack-solr":
-		command => "unzip solr.zip -d solr/",
-		cwd => $download_path,
-		path => "/usr/bin",
-		creates => "${download_path}/solr/",
-		require => Exec["retrieve-solr"],
+		command => "unzip ${download_path}/solr.zip -d solr/",
+		cwd => $alfresco_base_dir,
+		path => '/usr/bin',
+		creates => "${alfresco_base_dir}/solr/solr.xml",
+		require => [
+		 	Exec["retrieve-solr"],
+		],
+	}
+
+	file { "${alfresco_base_dir}/solr/alf_data":
+		ensure => absent,
+		force => true,
 	}
 
 
@@ -493,3 +513,5 @@ class alfresco::install inherits alfresco {
 		creates => "/usr/local/bin/pdf2swf",
 	}
 }
+
+# vim: tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab 

@@ -12,13 +12,21 @@ class alfresco (
 	$db_port			= 3306,
 ) inherits alfresco::params {
 
+#	if($domain_name==''){
+#
+#		notice('Domain name must be provided')
+#		errorz
+#	}
+
+
 	case($alfresco_version){
 		'4.2.f': {
 			$alfresco_ce_filename = "alfresco-community-4.2.f.zip"
 			$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
 		}
 		default: {
-			exit("Unsupported version ${alfresco_version}")
+			# TODO: err exit() nonexistent!
+			notice("Unsupported version ${alfresco_version}")
 		}	
 	}
 
