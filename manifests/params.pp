@@ -4,6 +4,10 @@
 class alfresco::params {
 
 	$domain_name		= ''
+
+	$admin_user 		= 'admin'
+	$admin_pass		= 'admin'
+
 	$mail_from_default	= 'admin@localhost'
 
 	$alfresco_base_dir	= "/opt/alfresco"

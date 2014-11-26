@@ -27,17 +27,28 @@ class alfresco::config inherits alfresco {
 		ensure => present,
 	}
 
-
-	file { "${tomcat_home}/conf/catalina.properties":
-		content => template("alfresco/catalina.properties.erb"),
+	file { "${tomcat_home}/shared/classes/alfresco/web-extension/share-config-custom.xml":
+		require => File["${tomcat_home}/shared/classes/alfresco/web-extension"],
 		ensure => present,
-		require => [ Exec["copy tomcat to ${tomcat_home}"] ],
+		content => template('alfresco/share-config-custom.xml.erb'),
 	}
 
 	file { "/etc/init.d/tomcat7":
 		ensure => present,
 		content => template($init_template),
 		mode => "0755",
+	}
+
+	file { "${tomcat_home}/conf/server.xml":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/server.xml',
+		owner => 'tomcat7',
+	}
+
+	file { "${tomcat_home}/conf/catalina.properties":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/catalina.properties',
+		owner => 'tomcat7',
 	}
 
 

@@ -57,11 +57,14 @@ system.usages.enabled=false
 #
 # External locations
 #-------------
+jodconverter.enabled=false
 ooo.exe=<%= @lo_install_loc %>/program/soffice
 ooo.enabled=true
+ooo.port=8100
 swf.exe=/usr/local/bin/pdf2swf
 #Shell script to limit cpu used by ImageMagick convert. Edit to match your number of cpu:s
-img.exe=/opt/alfresco/scripts/limitconvert.sh
+#img.exe=/opt/alfresco/scripts/limitconvert.sh
+img.exe=/usr/bin/convert
 img.root=/etc/ImageMagick
 img.config=${img.root}
 # Check this path if you get "no decode delegate for this image format" error
@@ -72,10 +75,9 @@ img.gslib=/usr/local/lib
 #
 # Index
 #-------------
-index.subsystem.name=lucene
+#index.subsystem.name=lucene
 index.recovery.mode=AUTO
-#index.recovery.mode=FULL
-#index.subsystem.name=solr
+index.subsystem.name=solr
 solr.host=localhost
 solr.port=8080
 solr.port.ssl=8443

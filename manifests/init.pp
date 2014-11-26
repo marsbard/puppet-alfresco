@@ -1,5 +1,7 @@
 class alfresco (
 	$domain_name			= $alfresco::params::domain_name,
+	$admin_user			= $alfresco::params::admin_user,
+	$admin_pass			= $alfresco::params::admin_pass,
 	$mail_from_default		= $alfresco::params::mail_from_default,	
 	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
 	$tomcat_home			= $alfresco::params::tomcat_home,
@@ -12,12 +14,8 @@ class alfresco (
 	$db_port			= 3306,
 ) inherits alfresco::params {
 
-#	if($domain_name==''){
-#
-#		notice('Domain name must be provided')
-#		errorz
-#	}
 
+	
 
 	case($alfresco_version){
 		'4.2.f': {
@@ -37,20 +35,19 @@ class alfresco (
 			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_rpm"
 			$loffice_dl = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/rpm/x86_64/${loffice_name}.tar.gz"
 
-			#$swfpkg = "swftools-0.8.1-1.el6.rf.x86_64.rpm"
-			#$swftools = "http://pkgs.repoforge.org/swftools/${swfkg}"
 		}
 		'Debian': {
 			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_deb"
 			$loffice_dl= "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name}.tar.gz"
 
-			#$swfpkg = "swftools_0.8.1-1ubuntu1_amd64.deb"
-			#$swftools = "http://launchpadlibrarian.net/11111323/${swfpkg}"
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
+
+	$share_host = $domain_name
+	$repo_host = $domain_name
 
 
 	$swftools_src_name = "swftools-2013-04-09-1007"
