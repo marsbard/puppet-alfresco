@@ -1,6 +1,7 @@
 class alfresco::install inherits alfresco {
 
 
+
   	case $::osfamily {
     		'RedHat': {
 		    	$packages = [ 
@@ -8,6 +9,7 @@ class alfresco::install inherits alfresco {
 				"java-1.7.0-openjdk",
 		 		"unzip",
 				"curl",
+				#"libtcnative-1"
 				#"ttf-mscorefonts-installer", 
 				#"fonts-droid", 
 				#"imagemagick", 
@@ -26,6 +28,7 @@ class alfresco::install inherits alfresco {
 				"openjdk-7-jdk",
 		 		"unzip",
 				"curl",
+				#"libtcnative-1",
 				"fonts-liberation", 
 				"fonts-droid", 
 				"imagemagick", 
@@ -152,11 +155,9 @@ class alfresco::install inherits alfresco {
 
 
 
+
 	# files under tomcat home
-	file { "${tomcat_home}/shared/classes":
-		ensure => directory,
-		require => File["${tomcat_home}/shared"],
-	}
+
 	file{"${tomcat_home}/shared/lib":
 		ensure => directory,
 	}
@@ -166,6 +167,20 @@ class alfresco::install inherits alfresco {
 		require => Exec["copy tomcat to ${tomcat_home}"],
 	}
 
+	file { "${tomcat_home}/shared/classes":
+		ensure => directory,
+		require => File["${tomcat_home}/shared"],
+	}
+
+	file { "${tomcat_home}/shared/classes/alfresco":
+		ensure => directory,
+		require => File["${tomcat_home}/shared/classes"],
+	}
+
+	file { "${tomcat_home}/shared/classes/alfresco/web-extension":
+		require => File["${tomcat_home}/shared/classes"],
+		ensure => directory,
+	}
 
 
 	exec { "retrieve-alfresco-ce":
@@ -265,6 +280,34 @@ class alfresco::install inherits alfresco {
 		],
 	}
 
+
+	# XALAN
+
+	$xalan = 'http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/COMMUNITYTAGS/V4.2f/root/projects/3rd-party/lib/xalan-2.7.0/'
+
+	file { "${tomcat_home}/endorsed":
+		ensure => directory,
+		require => Exec['unpack-tomcat7'],
+	}
+
+	exec { 'retrieve-xalan-xalan-jar':
+		command => "wget ${xalan}/xalan.jar",
+		path => '/usr/bin',
+		cwd => "${tomcat_home}/endorsed",
+		creates => "${tomcat_home}/endorsed/xalan.jar",
+		require => File["${tomcat_home}/endorsed"],
+	}
+
+	exec { 'retrieve-xalan-serializer-jar':
+		command => "wget ${xalan}/serializer.jar",
+		path => '/usr/bin',
+		cwd => "${tomcat_home}/endorsed",
+		creates => "${tomcat_home}/endorsed/serializer.jar",
+		require => File["${tomcat_home}/endorsed"],
+	}
+
+
+
 	exec { "retrieve-solr":
 		command => "wget ${solr_dl} -O solr.zip",
 		cwd => $download_path,
@@ -325,6 +368,31 @@ class alfresco::install inherits alfresco {
 		require => File["${alfresco_base_dir}"],
 		owner => "tomcat7",
 	}
+
+
+
+
+	file { "${alfresco_base_dir}/bin":
+		ensure => directory,
+		require => File["${alfresco_base_dir}"],
+		owner => "tomcat7",
+	}
+
+	file { "${alfresco_base_dir}/bin/update-admin-passwd.sh":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/update-admin-passwd.sh',
+		owner => 'tomcat7',
+		mode => '0755',
+	}
+	
+	file { "${alfresco_base_dir}/bin/show-admin-passwd-hash.sh":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/show-admin-passwd-hash.sh',
+		owner => 'tomcat7',
+		mode => '0755',
+	}
+
+
 
 	file { "${tomcat_home}/common":
 		ensure => directory,

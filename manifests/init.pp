@@ -1,7 +1,6 @@
 class alfresco (
 	$domain_name			= $alfresco::params::domain_name,
-	$admin_user			= $alfresco::params::admin_user,
-	$admin_pass			= $alfresco::params::admin_pass,
+	$initial_admin_pass		= $alfresco::params::initial_admin_pass,
 	$mail_from_default		= $alfresco::params::mail_from_default,	
 	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
 	$tomcat_home			= $alfresco::params::tomcat_home,
@@ -14,6 +13,8 @@ class alfresco (
 	$db_port			= 3306,
 ) inherits alfresco::params {
 
+
+	#$admin_pass_hash = calc_ntlm_hash($admin_pass)
 
 	
 

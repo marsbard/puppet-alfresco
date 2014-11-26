@@ -3,10 +3,9 @@
 #
 class alfresco::params {
 
-	$domain_name		= ''
+	$domain_name		= 'localhost'
 
-	$admin_user 		= 'admin'
-	$admin_pass		= 'admin'
+	$initial_admin_pass	= 'admin'
 
 	$mail_from_default	= 'admin@localhost'
 
