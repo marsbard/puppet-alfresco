@@ -9,7 +9,7 @@ UPDATE
   INNER JOIN (
     SELECT anp1.node_id, anp1.qname_id, anp1.string_value FROM alf_node_properties anp1 INNER JOIN alf_qname aq1 ON aq1.id = anp1.qname_id INNER JOIN alf_node_properties anp2 ON anp2.node_id = anp1.node_id INNER JOIN alf_qname aq2 ON aq2.id = anp2.qname_id WHERE aq1.local_name    = 'password'  AND aq2.local_name  = 'username' AND anp2.string_value = 'admin'
   ) AS anp3 ON anp.node_id = anp3.node_id AND anp.qname_id = anp3.qname_id
-SET anp.string_value = '<%= @admin_pass %>'
+SET anp.string_value = '<%= @admin_pass_hash %>'
 
 --
 -- Record script finish

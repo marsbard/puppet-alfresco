@@ -270,6 +270,7 @@ class alfresco::install inherits alfresco {
 		ensure => present,
 		require => Exec['unpack-tomcat7'],
 		source => 'puppet:///modules/alfresco/tomcat-users.xml',
+		owner => 'tomcat7',
 	}
 
 	file { "${alfresco_base_dir}":
@@ -279,6 +280,15 @@ class alfresco::install inherits alfresco {
 			User["tomcat7"], 
 		],
 	}
+
+
+
+#	# grr can't figure how to do it on the first run, this should add the admin password on the second run
+#	file { "${tomcat_home}/webapps/alfresco/WEB-INF/classes/alfresco/dbscripts/db-schema-context.xml":
+#		source => 'puppet:///modules/alfresco/db-schema-context.xml',
+#		ensure => present,
+#		require => Exec['unpack-alfresco-war'],
+#	}
 
 
 	# XALAN
@@ -582,4 +592,3 @@ class alfresco::install inherits alfresco {
 	}
 }
 
-# vim: tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab 

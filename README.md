@@ -1,7 +1,6 @@
 Don't rely on this too much yet but currently it will install Alfresco 4.2.f with a Mysql database on either debian or redhat type systems (tested with Ubuntu 14.04 and CentOS 6.5)
 
-This script is a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
-
+This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 current limitations:
 
@@ -9,9 +8,14 @@ current limitations:
 
 	mysql root passwd is not set
 
-	Search is lucene not solr
+	thumbnail generation does not work (so presumably other transforms fail too)
 
-	Libre Office is not installed
+	CentOS build does not work right now
 
-	Swftools is not installed
 
+
+To install on a new blank vm or machine, running Ubuntu 12.04 (or later):
+
+	git clone https://github.com/marsbard/puppet-alfresco.git
+
+	<NOT FINISHED, DON'T USE THESE INSTRUCTIONS>
