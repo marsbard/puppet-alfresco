@@ -149,4 +149,12 @@ EOF
 		puppet module install --force $MOD --target-dir modules
 	done
 	puppet apply --modulepath=modules go.pp
+	echo
+	echo Completed, please allow some time for alfresco to start
+	echo You may tail the logs at ${tomcat_home}/logs/catalina.out
+	echo
+	echo Note that you can reapply the puppet configuration from this directory
+	echo with:
+	echo	puppet apply --modulepath=modules.go.pp
+	echo
 }
