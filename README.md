@@ -1,10 +1,12 @@
 
-* [As a puppet module](#puppetmodule)
-* [Standalone installer](#standalone)
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
-current limitations:
+Use it:
+* [As a puppet module](#puppetmodule)
+* [Standalone installer](#standalone)
+
+Current limitations:
 
 	Username and password are not configurable (currently 'admin')
 
