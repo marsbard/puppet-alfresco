@@ -1,10 +1,13 @@
+## marsbard's puppet-alfresco
+
 NOT READY YET
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 Use it:
 * [As a puppet module](#puppetmodule)
-* [Standalone installer](#standalone)
+* [As a standalone installer](#standalone)
+* [Run it under Vagrant](#vagrant)
 
 Current limitations:
 
@@ -29,7 +32,7 @@ Here is an example of a minimal puppet script to install alfresco:
 		domain_name => 'marsbard.com',
 	}
 
-And here's a complete example:
+And here's a complete example, showing the default values:
 
 	class { 'alfresco':
 		domain_name => 'marsbard.com',	
@@ -45,17 +48,16 @@ And here's a complete example:
 		db_port => '3306',	
 	}
 
-Note that currently the only supported value for "alfresco_version" is "4.2.f"
+The domain name value should be resolvable to the machine we're working on.
+
+Note that currently the only supported value for "alfresco_version" is "4.2.f". 
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
-installer script (replace "/path/to/base" with the path to a folder on 
-the machine):
+installer script:
  
-	mkdir -p /path/to/base 
-	cd /path/to/base
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
-	mv modules/alfresco/install* .
+	cp -r modules/alfresco/install* .
 	./install.sh
 
 
@@ -95,3 +97,27 @@ If you choose a parameter you will see a short help message, and the current def
 	[admin@localhost]: 
 
 Edit any parameters you would like to change. If you select "Q" then any parameters you have changed will be saved before quitting, likewise changes are saved before doing the install. Actually selecting the install option will download puppet if necessary and then proceed to apply the puppet configuration to bring the system up to a running alfresco instance.
+
+#### <a name='vagrant'></a>Run under Vagrant
+
+It's useful to run the script under Vagrant sometimes for testing purposes.
+
+To set up a Vagrant environment:
+
+	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
+	cp -r modules/alfresco/install* modules/alfresco/Vagrantfile .
+
+You need to run './install.sh' once and quit out of it in order to save the 'go.pp' initial puppet script. 
+While in the installer you must set the domain_name parameter and that domain name must be resolvable on the network to the machine you are installing upon. 
+(Admittedly this is a bit 'chicken and egg', the best thing is to register the MAC address of the VM with your DHCP server once the VM is running).
+
+	./install.sh
+	vagrant up
+
+The network starts as bridged ("public network") and it will ask you which interface you want to bridge to at startup. 
+
+If you need to interrupt provisioning for some reason, when you restart it, "vagrant reload --provision" is probably your best option, it reboots the machine and then restarts provisioning. If you just restart, Vagrant thinks you've done with provisioning.
+
+
+
+
