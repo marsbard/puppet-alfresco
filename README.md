@@ -1,6 +1,6 @@
 
-### [As a puppet module](#puppetmodule)
-### [Standalone installer](#standalone)
+* [As a puppet module](#puppetmodule)
+* [Standalone installer](#standalone)
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
@@ -15,7 +15,7 @@ current limitations:
 	CentOS build does not work right now but it is planned to be fixed
 
 
-#### <a name='puppetmodule'>Use it as a puppet module</a>
+#### <a name='puppetmodule'></a>Use it as a puppet module
 It can be used as a puppet module, for example on your puppet master node 
 you can do:
 
@@ -25,7 +25,7 @@ you can do:
 to make the module available for use in your puppet scripts.
 
 
-#### <a name='standalone'>Standalone installer</a>
+#### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
 installer script (replace "/path/to/base" with the path to a folder on 
 the machine):
