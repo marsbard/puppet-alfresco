@@ -146,6 +146,7 @@ function run_install {
 	tomcat_home=`get_param tomcat_home`
 	alfresco_version=`get_param alfresco_version`
 	download_path=`get_param download_path`
+	db_root_password=`get_param db_root_password`
 	db_user=`get_param db_user`
 	db_pass=`get_param db_pass`
 	db_name=`get_param db_name`
@@ -161,6 +162,7 @@ class { 'alfresco':
 	tomcat_home => '${tomcat_home}',	
 	alfresco_version => '${alfresco_version}',	
 	download_path => '${download_path}',	
+	db_root_password => '${db_root_password}',
 	db_user => '${db_user}',	
 	db_pass => '${db_pass}',	
 	db_name => '${db_name}',	
