@@ -1,4 +1,4 @@
-## marsbard's puppet-alfrescSo
+## marsbard's puppet-alfresco
 
 NOT READY YET
 
