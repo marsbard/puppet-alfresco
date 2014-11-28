@@ -44,7 +44,6 @@
 # === Examples
 #
 #  class { 'alfresco':
-#    ntp_servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
 #	domain_name => "test.orderofthebee.org",
 #	mail_from_default => "admin@test.orderofthebee.org",
 #  }
