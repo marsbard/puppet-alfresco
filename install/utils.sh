@@ -143,5 +143,6 @@ EOF
 	then
 		install_puppet
 	fi
+	puppet module install puppetlabs-stdlib
 	puppet apply --modulepath=modules go.pp
 }
