@@ -66,4 +66,11 @@ You will see an installer like this:
 	Please choose an index number to edit, I to install, or Q to quit
 	 -> 
 
+If you choose a parameter you will see a short help message, and the current default value will be shown prior to your entry prompt:
+	Please choose an index number to edit, I to install, or Q to quit
+	 -> 2
+	Parameter: mail_from_default
+	Default mail address to use in the 'From' field of sent mails
+	[admin@localhost]: 
+
 Edit any parameters you would like to change. If you select "Q" then any parameters you have changed will be saved before quitting, likewise changes are saved before doing the install. Actually selecting the install option will download puppet if necessary and then proceed to apply the puppet configuration to bring the system up to a running alfresco instance.
