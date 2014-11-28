@@ -3,7 +3,7 @@
 set -e
 
 
-ANS_FILE="install/answers.sh"
+ANS_FILE="_answers.sh"
 
 function bee_banner {
 	#clear
