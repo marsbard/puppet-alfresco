@@ -1,6 +1,6 @@
 
 params[0]="domain_name"
-descr[0]="Domain name at which the installation will be resolved, e.g. test.orderofthebee.org"
+descr[0]="Domain name at which the installation will be resolved, e.g. test.orderofthebee.org. This domain name must be resolvable to this machine."
 default[0]=""
 required[0]=1
 
@@ -24,24 +24,28 @@ params[5]="download_path"
 descr[5]="Where to store downloaded files"
 default[5]="/opt/downloads"
 
-params[6]="db_user"
-descr[6]="Database user"
+params[6]="db_root_password"
+descr[6]="Password to use for root user when installing Mysql"
 default[6]="alfresco"
 
-params[7]="db_pass"
-descr[7]="Database password"
+params[7]="db_user"
+descr[7]="Database user"
 default[7]="alfresco"
 
-params[8]="db_name"
-descr[8]="Database name"
+params[8]="db_pass"
+descr[8]="Database password"
 default[8]="alfresco"
 
-params[9]="db_host"
-descr[9]="Database host. Not really useful yet. In future, if this is localhost then the DB will be installed locally, if anything  else then no local DB server is installed"
-default[9]="localhost"
+params[9]="db_name"
+descr[9]="Database name"
+default[9]="alfresco"
 
-params[10]="db_port"
-descr[10]="Database port"
-default[10]="3306"
+params[10]="db_host"
+descr[10]="Database host. Not really useful yet. In future, if this is localhost then the DB will be installed locally, if anything  else then no local DB server is installed"
+default[10]="localhost"
+
+params[11]="db_port"
+descr[11]="Database port"
+default[11]="3306"
 
 
