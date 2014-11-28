@@ -26,6 +26,29 @@ you can do:
 
 to make the module available for use in your puppet scripts.
 
+Here is an example of a minimal puppet script to install alfresco:
+
+	class { 'alfresco':
+		domain_name => 'marsbard.com',
+	}
+
+And here's a complete example:
+
+	class { 'alfresco':
+		domain_name => 'marsbard.com',	
+		mail_from_default => 'admin@localhost',	
+		alfresco_base_dir => '/opt/alfresco',	
+		tomcat_home => '/opt/alfresco/tomcat',	
+		alfresco_version => '4.2.f',	
+		download_path => '/opt/downloads',	
+		db_user => 'alfresco',	
+		db_pass => 'alfresco',	
+		db_name => 'alfresco',	
+		db_host => 'localhost',	
+		db_port => '3306',	
+	}
+
+Note that currently the only supported value for "alfresco_version" is "4.2.f"
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
