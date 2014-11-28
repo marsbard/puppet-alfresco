@@ -16,6 +16,7 @@ class alfresco::params {
 
 	$download_path		= "/opt/downloads"
 
+	$db_root_password	= "alfresco"
 	$db_user		= "alfresco"
 	$db_pass		= "alfresco"
 	$db_name		= "alfresco"

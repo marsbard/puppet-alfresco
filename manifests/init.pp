@@ -24,6 +24,9 @@
 # [*download_path*]
 # Where to store downloaded files. Defaults to '/opt/downloads'
 #
+# [*db_root_password*]
+# Root password to use when setting up mysql
+#
 # [*db_user*]
 # Database user. Defaults to 'alfresco'
 #
@@ -65,6 +68,7 @@ class alfresco (
 	$tomcat_home			= $alfresco::params::tomcat_home,
 	$alfresco_version		= $alfresco::params::alfresco_version,
 	$download_path			= $alfresco::params::download_path,
+	$db_root_password		= $alfresco::params::db_root_password	,
 	$db_user			= $alfresco::params::db_user,
 	$db_pass			= $alfresco::params::db_pass,
 	$db_name			= $alfresco::params::db_name,
