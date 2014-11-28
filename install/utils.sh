@@ -139,5 +139,9 @@ class { 'alfresco':
 	db_port => '${db_port}',	
 }
 EOF
-	puppet apply --modulepath=. go.pp
+	if [ "`which puppet`" = "" ]
+	then
+		install_puppet
+	fi
+	puppet apply --modulepath=modules go.pp
 }
