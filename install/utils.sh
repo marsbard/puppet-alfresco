@@ -181,13 +181,11 @@ EOF
 	done
 	puppet apply --modulepath=modules go.pp
 
-	# HMM TODO - this doesn't get run for some reason when puppet finishes
 	echo
 	echo Completed, please allow some time for alfresco to start
 	echo You may tail the logs at ${tomcat_home}/logs/catalina.out
 	echo
-	echo Note that you can reapply the puppet configuration from this directory
-	echo with:
+	echo Note that you can reapply the puppet configuration from this directory with:
 	echo	puppet apply --modulepath=modules.go.pp
 	echo
 }
