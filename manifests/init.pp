@@ -1,6 +1,66 @@
+# == Class: alfresco
+#
+# A class to install Alfresco CE
+#
+# === Parameters
+#
+# [*domain_name*]
+# Domain name at which the installation will be resolved, e.g.
+# 'test.orderofthebee.org'
+#
+# [*alfresco_base_dir*]
+# Where alfresco base folder is, i.e. location of alf_data. Defaults
+# to '/opt/alfresco'
+#
+# [*tomcat_home*]
+# Where to install tomcat. Defaults to '/opt/alfresco/tomcat'
+#
+# [*mail_from_default*]
+# Default mail address to use in the 'From' field of sent mails
+#
+# [*alfresco_version*]
+# For now only '4.2.f' is supported
+#
+# [*download_path*]
+# Where to store downloaded files. Defaults to '/opt/downloads'
+#
+# [*db_user*]
+# Database user. Defaults to 'alfresco'
+#
+# [*db_pass*]
+# Password for database user. Defaults to 'alfresco'
+#
+# [*db_name*]
+# Name of database. Defaults to 'alfresco'
+#
+# [*db_host*]
+# Hostname of database. Not really useful yet. In future, if this
+# is localhost then the DB will be installed locally, if anything
+# else then no local DB server is installed
+#
+# [*db_port*]
+# Port of DB server. Default to 3306.
+#
+# === Examples
+#
+#  class { 'alfresco':
+#    ntp_servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
+#	domain_name => "test.orderofthebee.org",
+#	mail_from_default => "admin@test.orderofthebee.org",
+#  }
+#
+# === Authors
+#
+# Author Name <author@example.com>
+#
+# === Copyright
+#
+# Copyright 2011 Your name here, unless otherwise noted.
+#
+
 class alfresco (
 	$domain_name			= $alfresco::params::domain_name,
-	$initial_admin_pass		= $alfresco::params::initial_admin_pass,
+	#$initial_admin_pass		= $alfresco::params::initial_admin_pass,
 	$mail_from_default		= $alfresco::params::mail_from_default,	
 	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
 	$tomcat_home			= $alfresco::params::tomcat_home,
