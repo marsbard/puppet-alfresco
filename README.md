@@ -1,4 +1,4 @@
-
+NOT READY YET
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
@@ -34,7 +34,7 @@ the machine):
  
 	mkdir -p /path/to/base 
 	cd /path/to/base
-        git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
+	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
 	mv modules/alfresco/install* .
 	./install.sh
 
@@ -51,17 +51,17 @@ You will see an installer like this:
 	--------------------
 	Idx	Param                Value
 
-	[1]	domain_name          marsbard.com
-	[2]	mail_from_default    admin@localhost
-	[3]	alfresco_base_dir    /opt/alfresco
-	[4]	tomcat_home          /opt/alfresco/tomcat
-	[5]	alfresco_version     4.2.f
-	[6]	download_path        /opt/downloads
-	[7]	db_user              alfresco
-	[8]	db_pass              alfresco
-	[9]	db_name              alfresco
-	[10]	db_host              localhost
-	[11]	db_port              3306
+	[1]     domain_name          marsbard.com
+	[2]     mail_from_default    admin@localhost
+	[3]     alfresco_base_dir    /opt/alfresco
+	[4]     tomcat_home          /opt/alfresco/tomcat
+	[5]     alfresco_version     4.2.f
+	[6]     download_path        /opt/downloads
+	[7]     db_user              alfresco
+	[8]     db_pass              alfresco
+	[9]     db_name              alfresco
+	[10]    db_host              localhost
+	[11]    db_port              3306
 
 	Please choose an index number to edit, I to install, or Q to quit
 	 -> 
