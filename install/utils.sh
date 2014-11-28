@@ -188,6 +188,6 @@ EOF
 	echo You may tail the logs at ${tomcat_home}/logs/catalina.out
 	echo
 	echo Note that you can reapply the puppet configuration from this directory with:
-	echo	puppet apply --modulepath=modules.go.pp
+	echo	puppet apply --modulepath=modules go.pp
 	echo
 }
