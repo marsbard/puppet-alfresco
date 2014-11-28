@@ -67,6 +67,7 @@ You will see an installer like this:
 	 -> 
 
 If you choose a parameter you will see a short help message, and the current default value will be shown prior to your entry prompt:
+
 	Please choose an index number to edit, I to install, or Q to quit
 	 -> 2
 	Parameter: mail_from_default
