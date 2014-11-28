@@ -12,7 +12,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "base"
 
+  config.vm.network "public_network"
+
+  config.vbguest.auto_update = false
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 3072
+    v.cpus = 2
+  end
+
   config.vm.box = "hashicorp/precise64"
+
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -77,9 +87,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # #               Managed by Puppet.\n"
   # # }
   #
+
+  config.vm.provision :shell do |shell|
+    #shell.inline = "apt-get update; apt-get -y upgrade"
+    shell.inline = "apt-get update"
+  end
+
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "."
     puppet.manifest_file  = "go.pp"
+    puppet.module_path = ["modules"]
   end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
