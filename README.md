@@ -1,4 +1,6 @@
-Don't rely on this too much yet but currently it will install Alfresco 4.2.f with a Mysql database on either debian or redhat type systems (tested with Ubuntu 14.04 and CentOS 6.5)
+
+### [As a puppet module](#puppetmodule)
+### [Standalone installer](#standalone)
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
@@ -10,9 +12,10 @@ current limitations:
 
 	thumbnail generation does not work (so presumably other transforms fail too)
 
-	CentOS build does not work right now
+	CentOS build does not work right now but it is planned to be fixed
 
 
+#### <a name='puppetmodule'>Use it as a puppet module</a>
 It can be used as a puppet module, for example on your puppet master node 
 you can do:
 
@@ -21,6 +24,8 @@ you can do:
 
 to make the module available for use in your puppet scripts.
 
+
+#### <a name='standalone'>Standalone installer</a>
 It is also possible to install directly to a machine using a simple bash
 installer script (replace "/path/to/base" with the path to a folder on 
 the machine):
