@@ -20,10 +20,10 @@ function paramloop() {
 
 
 
-	for i in `seq 0 ${#params}`
+	for i in `seq 1 $(( ${#params} + 1 ))`
 	do
-		#IDX=$(( $i -1 ))
-		IDX=$i
+		IDX=$(( $i -1 ))
+		#IDX=$i
 		VAL=`get_answer $IDX`
 		echo -en "[$i]\t${params[$IDX]}"
 		$MOVE_TO_COL
