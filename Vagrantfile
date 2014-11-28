@@ -12,8 +12,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "base"
 
-  config.vm.memory = 3072
-  config.vm.cpus = 2
+  config.vbguest.auto_update = false
+
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 3072
+    v.cpus = 2
+  end
 
   config.vm.box = "hashicorp/precise64"
 
