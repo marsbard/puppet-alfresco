@@ -35,6 +35,7 @@ function read_entry {
 	if [ "$ENTRY" = "I" -o "$ENTRY" = "i" ]
 	then
 		write_answers
+		write_go_pp
 		set +e
 		run_install
 		# non zero exit might mean that a required field is not filled
@@ -48,6 +49,7 @@ function read_entry {
 	elif [ "$ENTRY" = "Q" -o "$ENTRY" = "q" ]
 	then
 		write_answers
+		write_go_pp
 		exit
 	else
 		edit_param $ENTRY
@@ -106,7 +108,7 @@ function edit_param {
 # and return the value
 function get_param {
 	param=$1
-	for i in `seq 0 $(( ${#params} -1 ))`
+	for i in `seq 0 ${#params} `
 	do
 		if [ "${params[i]}" = "$param" ]
 		then
@@ -132,13 +134,7 @@ function check_required {
 }
 
 
-function run_install {
-	check_required
-	ERR=$?
-	if [ $ERR != 0 ]
-	then
-		return 1
-	fi
+function write_go_pp {
 
 	domain_name=`get_param domain_name`
 	mail_from_default=`get_param mail_from_default`
@@ -171,6 +167,15 @@ class { 'alfresco':
 }
 EOF
 	sleep 1
+}
+
+function run_install {
+	check_required
+	ERR=$?
+	if [ $ERR != 0 ]
+	then
+		return 1
+	fi
 
 	if [ "`which puppet`" = "" ]
 	then
