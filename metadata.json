@@ -1,0 +1,14 @@
+{
+	"name": "marsbard-alfresco",
+	"version": "0.1.0",
+	"author": "marsbard",
+	"summary": "A module to install a standalone alfresco server with mysql",
+	"license": "unlicensed",
+	"source": "http://github.com/marsbard/puppet-alfresco",
+	"dependencies": [
+		{ "name": "puppetlabs-stdlib" },
+		{ "name": "puppetlabs-mysql" }
+	]
+		
+
+}
