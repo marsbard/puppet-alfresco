@@ -69,7 +69,8 @@ class alfresco::install inherits alfresco {
 
 
 	class { '::mysql::server':
-		  root_password    => $db_root_password,
+		#bind_address => '0.0.0.0',
+		root_password    => $db_root_password,
 	}
 
 	mysql::db { "$alfresco_db_name":
