@@ -78,7 +78,7 @@ function read_answers {
 			param=`echo $line | cut -f1 -d= `
 			value=`echo $line | cut -f2 -d= `
 
-			for i in `seq 0 ${#params} -1 ))`
+			for i in `seq 0 $(( ${#params} -1 ))`
 			do
 				if [ "${params[i]}" = "$param" ]
 				then
