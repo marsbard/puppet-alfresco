@@ -143,6 +143,10 @@ EOF
 	then
 		install_puppet
 	fi
-	puppet module install puppetlabs-stdlib
+	MODS="puppetlabs-stdlib puppetlabs-mysql"
+	for MOD in $MODS
+	do
+		puppet module install $MOD --target-dir modules
+	done
 	puppet apply --modulepath=modules go.pp
 }
