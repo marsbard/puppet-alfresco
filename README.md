@@ -52,8 +52,7 @@ Note that currently the only supported value for "alfresco_version" is "4.2.f".
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
-installer script (replace "/path/to/base" with the path to a folder on 
-the machine):
+installer script:
  
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
 	cp -r modules/alfresco/install* .
