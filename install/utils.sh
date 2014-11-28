@@ -35,8 +35,16 @@ function read_entry {
 	if [ "$ENTRY" = "I" -o "$ENTRY" = "i" ]
 	then
 		write_answers
+		set +e
 		run_install
-		exit
+		# non zero exit might mean that a required field is not filled
+		if [ $? = 0 ] 
+		then
+			exit
+		fi
+		set -e
+		sleep 2
+		echo
 	elif [ "$ENTRY" = "Q" -o "$ENTRY" = "q" ]
 	then
 		write_answers
@@ -108,8 +116,29 @@ function get_param {
 	done
 }
 
+function check_required {
+	ERRS=0
+	echo
+	for i in `seq 0 $(( ${#params} -1 ))`
+        do
+		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
+		then
+			echo "Error: ${params[i]} is required"
+			ERRS=1
+		fi		
+	done
+	echo
+	return $ERRS
+}
+
+
 function run_install {
-	#check_required
+	check_required
+	ERR=$?
+	if [ $ERR != 0 ]
+	then
+		return 1
+	fi
 
 	domain_name=`get_param domain_name`
 	mail_from_default=`get_param mail_from_default`
@@ -139,6 +168,8 @@ class { 'alfresco':
 	db_port => '${db_port}',	
 }
 EOF
+	sleep 1
+
 	if [ "`which puppet`" = "" ]
 	then
 		install_puppet

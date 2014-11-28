@@ -2,6 +2,7 @@
 params[0]="domain_name"
 descr[0]="Domain name at which the installation will be resolved, e.g. test.orderofthebee.org"
 default[0]=""
+required[0]=1
 
 params[1]="mail_from_default"
 descr[1]="Default mail address to use in the 'From' field of sent mails"
