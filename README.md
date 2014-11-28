@@ -1,11 +1,13 @@
+## marsbard's puppet-alfrescSo
+
 NOT READY YET
 
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 Use it:
 * [As a puppet module](#puppetmodule)
-* [Standalone installer](#standalone)
-* [Run under Vagrant](#vagrant)
+* [As a standalone installer](#standalone)
+* [Run it under Vagrant](#vagrant)
 
 Current limitations:
 
