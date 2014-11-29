@@ -12,7 +12,6 @@ Use it:
 Current limitations:
 
 * Username and password are not configurable (currently 'admin')
-* mysql root passwd is not set
 * thumbnail generation does not work (so presumably other transforms fail too)
 * CentOS build does not work right now but support is planned. Only tested on Ubuntu, Debian may work if you're lucky
 
