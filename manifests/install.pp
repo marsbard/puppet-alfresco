@@ -185,7 +185,7 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-alfresco-ce":
-		command => "wget -q ${alfresco_ce_url} -O ${download_path}/${alfresco_ce_filename}	",
+		command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
 		path => "/usr/bin",
 		creates => "${download_path}/${alfresco_ce_filename}",
         	timeout => 0,
@@ -222,15 +222,15 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-tomcat7":
-		creates => "${download_path}/$filename_tomcat",
-		command => "wget $url_tomcat -O ${download_path}/$filename_tomcat",
+		creates => "${download_path}/$urls::filename_tomcat",
+		command => "wget $urls::url_tomcat -O ${download_path}/$urls::filename_tomcat",
 		path => "/usr/bin",
 	}
 
 	exec { "unpack-tomcat7":
 		cwd => "${download_path}",
 		path => "/bin:/usr/bin",
-		command => "tar xzf ${download_path}/$filename_tomcat",
+		command => "tar xzf ${download_path}/$urls::filename_tomcat",
 		require => Exec["retrieve-tomcat7"],
 		creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
 	}
@@ -321,7 +321,7 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-solr":
-		command => "wget ${solr_dl} -O solr.zip",
+		command => "wget ${urls::solr_dl} -O solr.zip",
 		cwd => $download_path,
 		path => "/usr/bin",
 		creates => "${download_path}/solr.zip",
@@ -346,14 +346,14 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-mysql-connector":
-		command => "wget $mysql_connector_url",
+		command => "wget ${urls::mysql_connector_url}",
 		cwd => "${download_path}",
 		path => "/usr/bin",
-		creates => "${download_path}/${mysql_connector_file}",
+		creates => "${download_path}/${urls::mysql_connector_file}",
 	}
 
 	exec { "unpack-mysql-connector":
-		command => "tar xzvf $mysql_connector_file",
+		command => "tar xzvf ${urls::mysql_connector_file}",
 		cwd => $download_path,
 		path => "/bin",
 		require => Exec["retrieve-mysql-connector"],
@@ -461,17 +461,17 @@ class alfresco::install inherits alfresco {
 
 	exec { "retrieve-loffice":
 		cwd => $download_path,
-		command => "wget $loffice_dl",
-		creates => "${download_path}/${loffice_name}.tar.gz",
+		command => "wget ${urls::loffice_dl_deb}",
+		creates => "${download_path}/${urls::loffice_name}.tar.gz",
 		path => "/usr/bin",
 		timeout => 0,
 	}
 
 	exec { "unpack-loffice":
 		cwd => $download_path,
-		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
+		command => "tar xzvf ${download_path}/${urls::loffice_name}.tar.gz",
 		path => "/bin:/usr/bin",
-		creates => "${download_path}/${loffice_name}",
+		creates => "${download_path}/${urls::loffice_name}",
 		require => Exec["retrieve-loffice"],
 	}
 
@@ -480,28 +480,12 @@ class alfresco::install inherits alfresco {
 
 			exec { "install-loffice":
 				command => "yum -y localinstall *.rpm",
-				cwd => "${download_path}/${loffice_name}/RPMS",
+				cwd => "${download_path}/${urls::loffice_name}/RPMS",
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",
 		
 			}
-
-#			exec { "retrieve-swftools":
-#				command => "wget $swftools",
-#				cwd => $download_path,
-#				path => "/usr/bin",
-#				creates => "${download_path}/${swfpkg}",
-#			}
-#
-#			exec { "install-swftools":
-#				command => "yum -y localinstall ${download_path}/${swfpkg}",
-#				cwd => $download_path,
-#				path => "/bin:/usr/bin:/sbin:/usr/sbin",
-#				#require => 
-#				#creates => $swf_creates,
-#			}
-
 
 		}
 		'Debian': {
@@ -509,27 +493,12 @@ class alfresco::install inherits alfresco {
 
 			exec { "install-loffice":
 				command => "dpkg -i *.deb",
-				cwd => "${download_path}/${loffice_name}/DEBS",
+				cwd => "${download_path}/${urls::loffice_name}/DEBS",
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",
 		
 			}
-
-#			exec { "retrieve-swftools":
-#				command => "wget $swftools",
-#				cwd => $download_path,
-#				path => "/usr/bin",
-#				creates => "${download_path}/${swfpkg}",
-#			}
-#
-#			exec { "install-swftools":
-#				command => "gdebi ${download_path}/${swfpkg}",
-#				cwd => $download_path,
-#				path => "/bin:/usr/bin:/sbin:/usr/sbin",
-#				require => Package["gdebi-core"],
-#				#creates => $swf_creates,
-#			}
 
 		}
 		default:{
@@ -571,25 +540,25 @@ class alfresco::install inherits alfresco {
 	# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
 
 	exec { "retrieve-swftools":
-		command => "wget ${swftools_src_url}",
+		command => "wget ${urls::swftools_src_url}",
 		cwd => $download_path,
 		path => "/usr/bin",		
-		creates => "${download_path}/${swftools_src_name}.tar.gz",
+		creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
 	}
 
 		
 	exec { "unpack-swftools":
-		command => "tar xzvf ${swftools_src_name}.tar.gz",
+		command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
 		cwd => $download_path,
 		path => "/bin:/usr/bin",
-		creates => "${download_path}/${swftools_src_name}",
+		creates => "${download_path}/${urls::swftools_src_name}",
 		require => Exec["retrieve-swftools"],
 	}
 
 
 	exec { "build-swftools":
 		command => "bash ./configure && make && make install",
-		cwd => "${download_path}/${swftools_src_name}",
+		cwd => "${download_path}/${urls::swftools_src_name}",
 		path => "/bin:/usr/bin",
 		require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
 		creates => "/usr/local/bin/pdf2swf",

@@ -76,6 +76,10 @@ class alfresco (
 	$db_port			= 3306,
 ) inherits alfresco::params {
 
+	# all the URLs kept in here, if testing, you can create a 'urls-local.pp'
+	# with nearer files and change this include. 
+	include urls
+
 
 	#$admin_pass_hash = calc_ntlm_hash($admin_pass)
 
@@ -89,8 +93,9 @@ class alfresco (
 
 	case($alfresco_version){
 		'4.2.f': {
-			$alfresco_ce_filename = "alfresco-community-4.2.f.zip"
-			$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
+			#$alfresco_ce_filename = "alfresco-community-4.2.f.zip"
+			#$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
+			$alfresco_ce_url = $urls::alfresco_ce
 		}
 		default: {
 			# TODO: err exit() nonexistent!
@@ -102,36 +107,43 @@ class alfresco (
 	
   	case $::osfamily {
     		'RedHat': {
-			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_rpm"
-			$loffice_dl = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/rpm/x86_64/${loffice_name}.tar.gz"
+			$loffice_dl=$urls::loffice_dl_red
 
 		}
 		'Debian': {
-			$loffice_name = "LibreOffice_4.2.7.2_Linux_x86-64_deb"
-			$loffice_dl= "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name}.tar.gz"
-
+			$loffice_dl=$urls::loffice_dl_deb
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
-
-
-	$swftools_src_name = "swftools-2013-04-09-1007"
-	$swftools_src_url = "http://www.swftools.org/${swftools_src_name}.tar.gz"
+	notice($loffice_dl)
 	$lo_install_loc = "/opt/libreoffice4.2"
 
-	$name_tomcat = "apache-tomcat-7.0.55"
-	$filename_tomcat = "${name_tomcat}.tar.gz"
-	$url_tomcat = "http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/${filename_tomcat}"
+
+
+
+	#$swftools_src_url = $urls::swftools_src_url
+	
+
+
+
+
+
+
+	#$name_tomcat = "apache-tomcat-7.0.55"
+	#$filename_tomcat = "${name_tomcat}.tar.gz"
+	#$url_tomcat = "http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/${filename_tomcat}"
+
+	
 
 
 	$keystorebase = "http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/HEAD/root/projects/repository/config/alfresco/keystore"
 
 
-	$mysql_connector_name = "mysql-connector-java-5.1.34"
-	$mysql_connector_file = "${mysql_connector_name}.tar.gz"
-	$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
+	#i#$mysql_connector_name = "mysql-connector-java-5.1.34"
+	#$mysql_connector_file = "${mysql_connector_name}.tar.gz"
+	#$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
 
 
 # - oops this is for 5.0 ...
@@ -142,13 +154,13 @@ class alfresco (
 #	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_cfg_file"
 
 
-	$solr_dl_file = "alfresco-community-solr-4.2.f.zip"
-	$solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
+	#$solr_dl_file = "alfresco-community-solr-4.2.f.zip"
+	#$solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
 
 
 
-	$swftools_name = "swftools-2013-04-09-1007"
-	$swftools_dl = "http://www.swftools.org/${swftools_name}.tar.gz"
+	#$swftools_name = "swftools-2013-04-09-1007"
+	#$swftools_dl = "http://www.swftools.org/${swftools_name}.tar.gz"
 
 
 	$alfresco_db_name = $db_name
