@@ -25,9 +25,11 @@ function paramloop() {
 		IDX=$(( $i -1 ))
 		#IDX=$i
 		VAL=`get_answer $IDX`
-		echo -en "[$i]\t${params[$IDX]}"
+		echo -en "[${GREEN}$i${WHITE}]\t${PURPLE}${params[$IDX]}${WHITE}"
 		$MOVE_TO_COL
+		echo -en $CYAN
 		echo $VAL
+		echo -en $WHITE
 	done
 	echo
 

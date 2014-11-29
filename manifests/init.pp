@@ -79,6 +79,12 @@ class alfresco (
 
 	#$admin_pass_hash = calc_ntlm_hash($admin_pass)
 
+
+	# at some point I'll use these for a non-allinone version. For now pre-empting
+	# the change where I can but do not try editing these, please.
+	$repo_host = $domain_name
+	$share_host = $domain_name
+	$solr_host = $domain_name
 	
 
 	case($alfresco_version){
@@ -109,9 +115,6 @@ class alfresco (
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
-
-	$share_host = $domain_name
-	$repo_host = $domain_name
 
 
 	$swftools_src_name = "swftools-2013-04-09-1007"

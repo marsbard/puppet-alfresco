@@ -5,14 +5,22 @@ set -e
 
 ANS_FILE="_answers.sh"
 
+YELLOW='\e[0;33m'
+PURPLE='\e[0;35m' # Purple
+WHITE='\e[0;37m'
+GREEN='\e[0;32m' # Green
+BLUE='\e[0;34m'
+CYAN='\e[0;36m' # Cyan
+RED='\e[0;31m' # Red
+
 function bee_banner {
 	#clear
 	echo
-	echo "    __    __    __    __    __    __    __    __    __    __"
-	echo " __/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__"
-	echo "/  \\__ ORDER OF THE BEE /  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\"
-	echo "\\__/  \\__/  \\__/  \\__/  \\ Alfresco (TM) Honeycomb Edition   \\__/"
-	echo "   \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  "
+	echo -e "${YELLOW}    __    __    __    __    __    __    __    __    __    __"
+	echo -e " __/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__"
+	echo -e "/  \\__ ${BLUE}ORDER OF THE BEE${YELLOW} /  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\"
+	echo -e "\\__/  \\__/  \\__/  \\__/  \\ ${BLUE}Alfresco (TM) Honeycomb Edition${YELLOW}   \\__/"
+	echo -e "   \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/  \\__/ ${WHITE} "
 	echo
 
 }
@@ -28,9 +36,11 @@ function get_answer {
 }
 
 
+NUMERIC='^[0-9]+$'
 function read_entry {
 	echo "Please choose an index number to edit, I to install, or Q to quit"
 	read -ep" -> " ENTRY
+
 
 	if [ "$ENTRY" = "I" -o "$ENTRY" = "i" ]
 	then
@@ -52,14 +62,30 @@ function read_entry {
 		write_go_pp
 		exit
 	else
-		edit_param $ENTRY
+		if [[ $ENTRY =~ $NUMERIC ]]
+		then
+			if [ $ENTRY -gt $(( ${#params} + 1 )) ]
+			then	
+				echo
+				echo -e ${RED}Error: that number is too high${WHITE}
+				echo 
+				sleep 2
+			else	
+				edit_param $ENTRY
+			fi
+		else
+			echo
+			echo -e ${RED}Error: that entry was not numeric or one of the allowed characters${WHITE}
+			echo
+			sleep 2
+		fi
 	fi
 
 }
 
 function write_answers {
-	echo Writing answer file $ANS_FILE
-	if [ -f $ANS_FILE ]; then mv $ANS_FILE $ANS_FILE.1; fi
+	echo -e ${GREEN}Writing answer file ${BLUE}$ANS_FILE${WHITE}
+	#if [ -f $ANS_FILE ]; then mv $ANS_FILE $ANS_FILE.1; fi
 	touch $ANS_FILE
 	for i in `seq 0 $(( ${#params} -1))`
 	do
@@ -97,10 +123,14 @@ function edit_param {
 	param="${params[IDX]}"
 	descr="${descr[IDX]}"
 	value=`get_answer $IDX`
-	echo "Parameter: $param"
+	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
+	echo -en $YELLOW
 	echo $descr
+	echo -en $BLUE
 	echo -n "[$value]"
+	echo -en $CYAN
 	read -ep": " ANSWER
+	echo -en $WHITE
 	answers[$IDX]=$ANSWER
 }
 
@@ -125,7 +155,9 @@ function check_required {
         do
 		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
 		then
+			echo -ne $RED
 			echo "Error: ${params[i]} is required"
+			echo -en $WHITE
 			ERRS=1
 		fi		
 	done
@@ -149,7 +181,7 @@ function write_go_pp {
 	db_host=`get_param db_host`
 	db_port=`get_param db_port`
 
-	echo "Writing puppet file go.pp"
+	echo -e "${GREEN}Writing puppet file ${BLUE}go.pp${WHITE}"
 	cat > go.pp <<EOF
 class { 'alfresco':
 	domain_name => '${domain_name}',	
