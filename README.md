@@ -82,10 +82,11 @@ You will see an installer like this:
 	[5]     alfresco_version     4.2.f
 	[6]     download_path        /opt/downloads
 	[7]     db_user              alfresco
-	[8]     db_pass              alfresco
-	[9]     db_name              alfresco
-	[10]    db_host              localhost
-	[11]    db_port              3306
+	[8]     db_root_password     alfresco
+	[9]     db_pass              alfresco
+	[10]    db_name              alfresco
+	[11]    db_host              localhost
+	[12]    db_port              3306
 
 	Please choose an index number to edit, I to install, or Q to quit
 	 -> 
