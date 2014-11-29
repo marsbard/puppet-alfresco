@@ -12,7 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "base"
 
-  config.vm.network "public_network"
+  # http://www.miniwebtool.com/mac-address-generator/
+  config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
   config.vbguest.auto_update = false
 
