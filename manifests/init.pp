@@ -62,7 +62,7 @@
 
 class alfresco (
 	$domain_name			= $alfresco::params::domain_name,
-	#$initial_admin_pass		= $alfresco::params::initial_admin_pass,
+	$initial_admin_pass		= $alfresco::params::initial_admin_pass,
 	$mail_from_default		= $alfresco::params::mail_from_default,	
 	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
 	$tomcat_home			= $alfresco::params::tomcat_home,

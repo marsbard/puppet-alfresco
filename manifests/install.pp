@@ -272,6 +272,7 @@ class alfresco::install inherits alfresco {
 		require => Exec['unpack-tomcat7'],
 		source => 'puppet:///modules/alfresco/tomcat-users.xml',
 		owner => 'tomcat7',
+		notify => Service['tomcat7'],
 	}
 
 	file { "${alfresco_base_dir}":
@@ -339,6 +340,8 @@ class alfresco::install inherits alfresco {
 	file { "${alfresco_base_dir}/solr/alf_data":
 		ensure => absent,
 		force => true,
+		require => Exec["unzip-alfresco-ce"],
+		before => Service["tomcat7"],
 	}
 
 
