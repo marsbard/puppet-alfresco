@@ -32,7 +32,9 @@ Here is an example of a minimal puppet script to install alfresco:
 		domain_name => 'marsbard.com',
 	}
 
-And here's a complete example, showing the default values:
+The domain_name value should be resolvable to the machine we're working on.
+
+Here's a complete example, showing the default values (domain_name has no default):
 
 	class { 'alfresco':
 		domain_name => 'marsbard.com',	
@@ -41,6 +43,7 @@ And here's a complete example, showing the default values:
 		tomcat_home => '/opt/alfresco/tomcat',	
 		alfresco_version => '4.2.f',	
 		download_path => '/opt/downloads',	
+		db_root_password => 'alfresco',
 		db_user => 'alfresco',	
 		db_pass => 'alfresco',	
 		db_name => 'alfresco',	
@@ -48,7 +51,6 @@ And here's a complete example, showing the default values:
 		db_port => '3306',	
 	}
 
-The domain name value should be resolvable to the machine we're working on.
 
 Note that currently the only supported value for "alfresco_version" is "4.2.f". 
 
