@@ -187,7 +187,7 @@ class alfresco::install inherits alfresco {
 	exec { "retrieve-alfresco-ce":
 		command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
 		path => "/usr/bin",
-		creates => "${download_path}/${alfresco_ce_filename}",
+		creates => "${download_path}/${urls::alfresco_ce_filename}",
         	timeout => 0,
 		require => File[$download_path],
 	}
@@ -197,7 +197,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { "unzip-alfresco-ce":
-		command => "unzip -o ${download_path}/${alfresco_ce_filename} -d ${download_path}/alfresco",
+		command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
 		path => "/usr/bin",
 		require => [ 
 			Exec["retrieve-alfresco-ce"],
@@ -222,21 +222,21 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-tomcat7":
-		creates => "${download_path}/$urls::filename_tomcat",
-		command => "wget $urls::url_tomcat -O ${download_path}/$urls::filename_tomcat",
+		creates => "${download_path}/${urls::filename_tomcat}",
+		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
 		path => "/usr/bin",
 	}
 
 	exec { "unpack-tomcat7":
 		cwd => "${download_path}",
 		path => "/bin:/usr/bin",
-		command => "tar xzf ${download_path}/$urls::filename_tomcat",
+		command => "tar xzf ${download_path}/${urls::filename_tomcat}",
 		require => Exec["retrieve-tomcat7"],
 		creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
 	}
 
 	exec { "copy tomcat to ${tomcat_home}":
-		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${name_tomcat}/* ${tomcat_home} && chown -R tomcat7 ${tomcat_home}",
+		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat7 ${tomcat_home}",
 		path => "/bin:/usr/bin",
 		provider => shell,		
 		require => [ Exec["unpack-tomcat7"], User["tomcat7"], ],
@@ -357,17 +357,17 @@ class alfresco::install inherits alfresco {
 		cwd => $download_path,
 		path => "/bin",
 		require => Exec["retrieve-mysql-connector"],
-		creates => "${download_path}/${mysql_connector_name}",
+		creates => "${download_path}/${urls::mysql_connector_name}",
 	}
 
 	exec { "copy-mysql-connector":
-		command => "cp ${download_path}/${mysql_connector_name}/${mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
+		command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
 		path => "/bin:/usr/bin",
 		require => [
 			Exec["unpack-mysql-connector"],
 			File["${tomcat_home}/shared/lib"],
 		],
-		creates => "${tomcat_home}/shared/lib/${mysql_connector_name}-bin.jar",
+		creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}-bin.jar",
 	}
 
 	
@@ -461,17 +461,17 @@ class alfresco::install inherits alfresco {
 
 	exec { "retrieve-loffice":
 		cwd => $download_path,
-		command => "wget ${urls::loffice_dl_deb}",
-		creates => "${download_path}/${urls::loffice_name}.tar.gz",
+		command => "wget ${loffice_dl}",
+		creates => "${download_path}/${loffice_name}.tar.gz",
 		path => "/usr/bin",
 		timeout => 0,
 	}
 
 	exec { "unpack-loffice":
 		cwd => $download_path,
-		command => "tar xzvf ${download_path}/${urls::loffice_name}.tar.gz",
+		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
 		path => "/bin:/usr/bin",
-		creates => "${download_path}/${urls::loffice_name}",
+		creates => "${download_path}/${loffice_name}",
 		require => Exec["retrieve-loffice"],
 	}
 
@@ -480,7 +480,7 @@ class alfresco::install inherits alfresco {
 
 			exec { "install-loffice":
 				command => "yum -y localinstall *.rpm",
-				cwd => "${download_path}/${urls::loffice_name}/RPMS",
+				cwd => "${download_path}/${loffice_name}/RPMS",
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",
@@ -493,7 +493,7 @@ class alfresco::install inherits alfresco {
 
 			exec { "install-loffice":
 				command => "dpkg -i *.deb",
-				cwd => "${download_path}/${urls::loffice_name}/DEBS",
+				cwd => "${download_path}/${loffice_name}/DEBS",
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",

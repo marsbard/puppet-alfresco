@@ -107,17 +107,17 @@ class alfresco (
 	
   	case $::osfamily {
     		'RedHat': {
-			$loffice_dl=$urls::loffice_dl_red
-
+			$loffice_dl="${urls::loffice_dl_red}"
+			$loffice_name="{$urls::loffice_name_red}"
 		}
 		'Debian': {
-			$loffice_dl=$urls::loffice_dl_deb
+			$loffice_dl="${urls::loffice_dl_deb}"
+			$loffice_name="${urls::loffice_name_deb}"
 		}
 		default:{
 			exit("Unsupported osfamily $osfamily")
 		} 
 	}
-	notice($loffice_dl)
 	$lo_install_loc = "/opt/libreoffice4.2"
 
 
