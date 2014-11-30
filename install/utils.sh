@@ -64,7 +64,7 @@ function read_entry {
 	else
 		if [[ $ENTRY =~ $NUMERIC ]]
 		then
-			if [ $ENTRY -gt $(( ${#params} + 1 )) ]
+			if [ $ENTRY -gt $NUMPARAMS ]
 			then	
 				echo
 				echo -e ${RED}Error: that number is too high${WHITE}
@@ -87,7 +87,7 @@ function write_answers {
 	echo -e ${GREEN}Writing answer file ${BLUE}$ANS_FILE${WHITE}
 	#if [ -f $ANS_FILE ]; then mv $ANS_FILE $ANS_FILE.1; fi
 	touch $ANS_FILE
-	for i in `seq 0 $(( ${#params} -1))`
+	for i in `seq 0 $(( $NUMPARAMS -1))`
 	do
 		if [ "${answers[$i]}" != "" ]
 		then
@@ -100,13 +100,13 @@ function read_answers {
 	if [ -f $ANS_FILE ]
 	then
 		readarray LINES < $ANS_FILE
-		for lineIdx in `seq 0 $(( ${#LINES} ))`
+		for lineIdx in `seq 0 $(( ${#LINES[@]} ))`
 		do
 			line="${LINES[$lineIdx]}"
 			param=`echo $line | cut -f1 -d= `
 			value=`echo $line | cut -f2 -d= `
 
-			for i in `seq 0 $(( ${#params} -1 ))`
+			for i in `seq 0 $(( $NUMPARAMS -1 ))`
 			do
 				if [ "${params[i]}" = "$param" ]
 				then
@@ -120,12 +120,12 @@ function read_answers {
 
 function edit_param {
 	IDX=$(( $1 -1 ))
+	echo "IDX=$IDX"
 	param="${params[IDX]}"
-	descr="${descr[IDX]}"
 	value=`get_answer $IDX`
 	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
 	echo -en $YELLOW
-	echo $descr
+	echo "${descr[IDX]}"
 	echo -en $BLUE
 	echo -n "[$value]"
 	echo -en $CYAN
@@ -138,7 +138,7 @@ function edit_param {
 # and return the value
 function get_param {
 	param=$1
-	for i in `seq 0 ${#params} `
+	for i in `seq 0 $(( $NUMPARAMS -1 )) `
 	do
 		if [ "${params[i]}" = "$param" ]
 		then
@@ -151,7 +151,7 @@ function get_param {
 function check_required {
 	ERRS=0
 	echo
-	for i in `seq 0 $(( ${#params} -1 ))`
+	for i in `seq 0 $(( $NUMPARAMS -1 ))`
         do
 		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
 		then
@@ -198,6 +198,8 @@ class { 'alfresco':
 	db_name => '${db_name}',	
 	db_host => '${db_host}',	
 	db_port => '${db_port}',	
+	mem_xmx => '${mem_xmx}',
+	mem_xxmaxpermsize => '${mem_xxmaxpermsizes}',
 }
 EOF
 	sleep 1

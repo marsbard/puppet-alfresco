@@ -10,9 +10,17 @@ source install/params.sh
 RES_COL=30
 MOVE_TO_COL="echo -en \\033[${RES_COL}G"
 
+
+NUMPARAMS="${#params[@]}"
+
 function paramloop() {
 	echo "Installer parameters"
 	echo "--------------------"
+	echo
+	echo
+	echo Number of parameters: "${NUMPARAMS}"
+	echo
+	echo
 	echo -en "Idx\tParam"
 	$MOVE_TO_COL
 	echo Value
@@ -20,7 +28,7 @@ function paramloop() {
 
 
 
-	for i in `seq 1 $(( ${#params} + 1 ))`
+	for i in `seq 1 ${NUMPARAMS}`
 	do
 		IDX=$(( $i -1 ))
 		#IDX=$i
