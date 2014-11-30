@@ -180,6 +180,8 @@ function write_go_pp {
 	db_name=`get_param db_name`
 	db_host=`get_param db_host`
 	db_port=`get_param db_port`
+	mem_xmx=`get_param mem_xmx`
+	mem_xxmaxpermsize=`get_param mem_xxmaxpermsize`
 
 	echo -e "${GREEN}Writing puppet file ${BLUE}go.pp${WHITE}"
 	cat > go.pp <<EOF

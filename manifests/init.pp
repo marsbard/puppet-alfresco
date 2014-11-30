@@ -74,6 +74,8 @@ class alfresco (
 	$db_name			= $alfresco::params::db_name,
 	$db_host			= $alfresco::params::db_host,
 	$db_port			= 3306,
+	$mem_xmx			= "32G",
+	$mem_xxmaxpermsize		= "256m"
 ) inherits alfresco::params {
 
 	# all the URLs kept in here, if testing, you can create a 'urls-local.pp'
@@ -83,6 +85,9 @@ class alfresco (
 
 	#$admin_pass_hash = calc_ntlm_hash($admin_pass)
 
+
+	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS
+	$java_opts = "-Xmx${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize}"
 
 	# at some point I'll use these for a non-allinone version. For now pre-empting
 	# the change where I can but do not try editing these, please.

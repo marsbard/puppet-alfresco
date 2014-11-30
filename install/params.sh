@@ -48,4 +48,10 @@ params[11]="db_port"
 descr[11]="Database port"
 default[11]="3306"
 
+params[12]="mem_xmx"
+descr[12]="Setting to pass as '-Xmx' for JAVA_OPTS"
+default[12]="32G"
 
+params[13]="mem_xxmaxpermsize"
+descr[13]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
+default[13]="256m"
