@@ -103,8 +103,7 @@ class alfresco (
 			$alfresco_ce_url = $urls::alfresco_ce
 		}
 		default: {
-			# TODO: err exit() nonexistent!
-			notice("Unsupported version ${alfresco_version}")
+			fail("Unsupported version ${alfresco_version}")
 		}	
 	}
 
@@ -120,7 +119,7 @@ class alfresco (
 			$loffice_name="${urls::loffice_name_deb}"
 		}
 		default:{
-			exit("Unsupported osfamily $osfamily")
+			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 	$lo_install_loc = "/opt/libreoffice4.2"

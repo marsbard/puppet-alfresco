@@ -46,7 +46,7 @@ class alfresco::install inherits alfresco {
 			}
 		}
 		default:{
-			exit("Unsupported osfamily $osfamily")
+			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 
@@ -494,7 +494,7 @@ class alfresco::install inherits alfresco {
 
 		}
 		default:{
-			exit("Unsupported osfamily $osfamily")
+			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 	
@@ -521,7 +521,7 @@ class alfresco::install inherits alfresco {
 			]
 		}
 		default:{
-			exit("Unsupported osfamily $osfamily")
+			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 

@@ -9,7 +9,7 @@ class alfresco::config inherits alfresco {
 			$init_template = "alfresco/tomcat7-init.erb"
 		}
 		default:{
-			exit("Unsupported osfamily $osfamily")
+			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 

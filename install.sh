@@ -17,10 +17,10 @@ function paramloop() {
 	echo "Installer parameters"
 	echo "--------------------"
 	echo
-	echo
-	echo Number of parameters: "${NUMPARAMS}"
-	echo
-	echo
+#	echo
+#	echo Number of parameters: "${NUMPARAMS}"
+#	echo
+#	echo
 	echo -en "Idx\tParam"
 	$MOVE_TO_COL
 	echo Value
