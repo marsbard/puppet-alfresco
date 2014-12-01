@@ -24,8 +24,8 @@ do
 done
 
 
-mkdir /opt/work
-cd /opt/work
+mkdir /opt/alfresco
+cd /opt/alfresco
 
 git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
 
@@ -38,5 +38,5 @@ class { 'alfresco':
 }
 EOF
 
-puppet apply --modulepath=modules go.pp
+#puppet apply --modulepath=modules go.pp
 
