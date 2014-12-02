@@ -13,15 +13,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box = "base"
 
   # http://www.miniwebtool.com/mac-address-generator/
-  #config.vm.network "public_network", :mac => 'B8B2253CFD00'
+  config.vm.network "public_network", :mac => 'B8B2253CFD00'
   #config.vm.network "public_network"
 
 #  config.vbguest.auto_update = false
 
-#  config.vm.provider "virtualbox" do |v|
-#    v.memory = 3072
-#    v.cpus = 2
-#  end
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 3072
+    v.cpus = 2
+  end
 
   config.vm.box = "hashicorp/precise64"
 
