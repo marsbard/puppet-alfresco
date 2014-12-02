@@ -38,5 +38,5 @@ class { 'alfresco':
 }
 EOF
 
-#puppet apply --modulepath=modules go.pp
+puppet apply --modulepath=modules go.pp
 
