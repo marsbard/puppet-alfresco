@@ -13,6 +13,36 @@ BLUE='\e[0;34m'
 CYAN='\e[0;36m' # Cyan
 RED='\e[0;31m' # Red
 
+
+
+function paramloop() {
+	echo "Installer parameters"
+	echo "--------------------"
+	echo
+	echo -en "Idx\tParam"
+	$MOVE_TO_COL
+	echo Value
+	echo
+
+
+
+	for i in `seq 1 ${NUMPARAMS}`
+	do
+		IDX=$(( $i -1 ))
+		#IDX=$i
+		VAL=`get_answer $IDX`
+		echo -en "[${GREEN}$i${WHITE}]\t${PURPLE}${params[$IDX]}${WHITE}"
+		$MOVE_TO_COL
+		echo -en $CYAN
+		echo $VAL
+		echo -en $WHITE
+	done
+	echo
+
+}
+
+
+
 function bee_banner {
 	#clear
 	echo
@@ -198,7 +228,7 @@ class { 'alfresco':
 	db_host => '${db_host}',	
 	db_port => '${db_port}',	
 	mem_xmx => '${mem_xmx}',
-	mem_xxmaxpermsize => '${mem_xxmaxpermsizes}',
+	mem_xxmaxpermsize => '${mem_xxmaxpermsize}',
 }
 EOF
 	sleep 1
