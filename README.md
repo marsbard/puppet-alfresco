@@ -58,7 +58,8 @@ It is also possible to install directly to a machine using a simple bash
 installer script:
  
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
-	cp -r modules/alfresco/install* .
+	ln -s modules/alfresco/install
+	ln -s modules/alfresco/install.sh
 	./install.sh
 
 
@@ -72,23 +73,26 @@ You will see an installer like this:
 
 	Installer parameters
 	--------------------
-	Idx	Param                Value
+	Idx     Param                Value
 
-	[1]     domain_name          marsbard.com
-	[2]     mail_from_default    admin@localhost
-	[3]     alfresco_base_dir    /opt/alfresco
-	[4]     tomcat_home          /opt/alfresco/tomcat
-	[5]     alfresco_version     4.2.f
-	[6]     download_path        /opt/downloads
-	[7]     db_user              alfresco
+	[1]     domain_name
+	[2]     initial_admin_pass   admin
+	[3]     mail_from_default    admin@localhost
+	[4]     alfresco_base_dir    /opt/alfresco
+	[5]     tomcat_home          /opt/alfresco/tomcat
+	[6]     alfresco_version     4.2.f
+	[7]     download_path        /opt/downloads
 	[8]     db_root_password     alfresco
-	[9]     db_pass              alfresco
-	[10]    db_name              alfresco
-	[11]    db_host              localhost
-	[12]    db_port              3306
+	[9]     db_user              alfresco
+	[10]    db_pass              alfresco
+	[11]    db_name              alfresco
+	[12]    db_host              localhost
+	[13]    db_port              3306
+	[14]    mem_xmx              32G
+	[15]    mem_xxmaxpermsize    256m
 
 	Please choose an index number to edit, I to install, or Q to quit
-	 -> 
+	 ->
 
 If you choose a parameter you will see a short help message, and the current default value will be shown prior to your entry prompt, pressing enter without typing anything will accept the previous value, whether it is a default or a previous answer, as your current answer:
 
@@ -107,7 +111,10 @@ It's useful to run the script under Vagrant sometimes for testing purposes.
 To set up a Vagrant environment:
 
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
-	cp -r modules/alfresco/install* modules/alfresco/Vagrantfile .
+	ln -s modules/alfresco/install
+	ln -s modules/alfresco/install.sh
+	ln -s modules/alfresco/Vagrantfile
+	./install/modules-for-vagrant.sh
 
 You need to run './install.sh' once and quit out of it in order to save the 'go.pp' initial puppet script. 
 While in the installer you must set the domain_name parameter and that domain name must be resolvable on the network to the machine you are installing upon. 
