@@ -78,14 +78,18 @@ ooo.exe=<%= @lo_install_loc %>/program/soffice
 ooo.enabled=true
 ooo.port=8100
 swf.exe=/usr/local/bin/pdf2swf
-#img.exe=/opt/alfresco/scripts/limitconvert.sh
-img.exe=/usr/bin/convert
+img.exe=<%= @alfresco_base_dir %>/bin/limitconvert.sh
+#img.exe=/usr/bin/convert
 img.root=/etc/ImageMagick
 img.config=${img.root}
 # Check this path if you get "no decode delegate for this image format" error
 #img.coders=/usr/lib/ImageMagick/modules-Q16/coders
 #img.dyn=/usr/local/lib
 #img.gslib=/usr/local/lib
+
+# TODO will this work with CentOS? prob not
+img.gslib=/usr/share/ghostscript/current/lib
+img.coders=/usr/lib/x86_64-linux-gnu/ImageMagick-6.7.7/modules-Q16/coders
 
 #
 # Index
