@@ -198,6 +198,7 @@ function check_required {
 function write_go_pp {
 
 	domain_name=`get_param domain_name`
+	initial_admin_pass=`get_param initial_admin_pass`
 	mail_from_default=`get_param mail_from_default`
 	alfresco_base_dir=`get_param alfresco_base_dir`
 	tomcat_home=`get_param tomcat_home`
@@ -216,6 +217,7 @@ function write_go_pp {
 	cat > go.pp <<EOF
 class { 'alfresco':
 	domain_name => '${domain_name}',	
+	initial_admin_pass => '${initial_admin_pass}',
 	mail_from_default => '${mail_from_default}',	
 	alfresco_base_dir => '${alfresco_base_dir}',	
 	tomcat_home => '${tomcat_home}',	
