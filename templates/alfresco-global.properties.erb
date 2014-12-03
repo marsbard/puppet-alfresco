@@ -2,6 +2,11 @@
 ## Common Alfresco Properties #
 ###############################
 
+# on the very first repo start, this is evaluated to create the
+# initial admin password. No use changing it after that, it is 
+# not used again
+alfresco_user_store.adminpassword=<%= @admin_pass_hash %>
+
 solr.solrConnectTimeout=500000
 
 

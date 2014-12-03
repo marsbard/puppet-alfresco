@@ -83,7 +83,7 @@ class alfresco (
 	include urls
 
 
-	#$admin_pass_hash = calc_ntlm_hash($admin_pass)
+	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
 
 	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS

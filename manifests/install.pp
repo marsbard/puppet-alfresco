@@ -1,6 +1,8 @@
 class alfresco::install inherits alfresco {
 
 
+	notify { "msgv1": message => "admin_pass=${alfresco::initial_admin_pass}" }
+	notify { "msgv2": message => "admin_pass_hash=${alfresco::admin_pass_hash}", require => Notify['msgv1'], }
 
   	case $::osfamily {
     		'RedHat': {
