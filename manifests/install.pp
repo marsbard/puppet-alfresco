@@ -1,9 +1,5 @@
 class alfresco::install inherits alfresco {
 
-
-	notify { "msgv1": message => "admin_pass=${alfresco::initial_admin_pass}" }
-	notify { "msgv2": message => "admin_pass_hash=${alfresco::admin_pass_hash}", require => Notify['msgv1'], }
-
   	case $::osfamily {
     		'RedHat': {
 		    	$packages = [ 
@@ -221,8 +217,6 @@ class alfresco::install inherits alfresco {
 	}
 
 
-
-
 	exec { "retrieve-tomcat7":
 		creates => "${download_path}/${urls::filename_tomcat}",
 		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
@@ -275,6 +269,33 @@ class alfresco::install inherits alfresco {
 		require => [ 
 			User["tomcat7"], 
 		],
+	}
+
+	file { "${alfresco_base_dir}/bin":
+		ensure => directory,
+		require => File["${alfresco_base_dir}"],
+		owner => "tomcat7",
+	}
+
+	file { "${alfresco_base_dir}/bin/limitconvert.sh":
+		ensure => present,
+		mode => '0755',
+		owner => 'tomcat7',
+		source => 'puppet:///modules/alfresco/limitconvert.sh',
+	}
+
+	file { "${alfresco_base_dir}/bin/update-admin-passwd.sh":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/update-admin-passwd.sh',
+		owner => 'tomcat7',
+		mode => '0755',
+	}
+	
+	file { "${alfresco_base_dir}/bin/show-admin-passwd-hash.sh":
+		ensure => present,
+		source => 'puppet:///modules/alfresco/show-admin-passwd-hash.sh',
+		owner => 'tomcat7',
+		mode => '0755',
 	}
 
 
@@ -379,26 +400,6 @@ class alfresco::install inherits alfresco {
 
 
 
-
-	file { "${alfresco_base_dir}/bin":
-		ensure => directory,
-		require => File["${alfresco_base_dir}"],
-		owner => "tomcat7",
-	}
-
-	file { "${alfresco_base_dir}/bin/update-admin-passwd.sh":
-		ensure => present,
-		source => 'puppet:///modules/alfresco/update-admin-passwd.sh',
-		owner => 'tomcat7',
-		mode => '0755',
-	}
-	
-	file { "${alfresco_base_dir}/bin/show-admin-passwd-hash.sh":
-		ensure => present,
-		source => 'puppet:///modules/alfresco/show-admin-passwd-hash.sh',
-		owner => 'tomcat7',
-		mode => '0755',
-	}
 
 
 
