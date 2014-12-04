@@ -1,7 +1,7 @@
 
 IDX=0
 params[$IDX]="domain_name"
-descr[$IDX]="Domain name at which the installation will be resolved, e.g. test.orderofthebee.org. This domain name must be resolvable to this machine."
+descr[$IDX]="Domain name at which the installation will be resolved, e.g. test.orderofthebee.org. This domain name should be resolvable to this machine. For testing, 'localhost' might work." 
 default[$IDX]=""
 required[$IDX]=1
 

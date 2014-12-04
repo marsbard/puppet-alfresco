@@ -117,7 +117,7 @@ To set up a Vagrant environment:
 	./install/modules-for-vagrant.sh
 
 You need to run './install.sh' once and quit out of it in order to save the 'go.pp' initial puppet script. 
-While in the installer you must set the domain_name parameter and that domain name must be resolvable on the network to the machine you are installing upon. 
+While in the installer you must set the domain_name parameter and that domain name should be resolvable on the network to the machine you are installing upon. 
 (Admittedly this is a bit 'chicken and egg', the best thing is to register the MAC address of the VM with your DHCP server once the VM is running - to help with this I have included a static MAC address in the network config, otherwise Vagrant/Virtualbox gives you a new MAC address each time which is kind of annoying).
 
 	./install.sh
