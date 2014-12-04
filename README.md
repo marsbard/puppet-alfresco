@@ -1,7 +1,5 @@
 ## marsbard's puppet-alfresco
 
-NOT READY YET
-
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 Use it:
