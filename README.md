@@ -9,8 +9,7 @@ Use it:
 
 Current limitations:
 
-* Username and password are not configurable (currently 'admin')
-* thumbnail generation does not work (so presumably other transforms fail too)
+* Mysql root password does not get set correctly
 * CentOS build does not work right now but support is planned. Only tested on Ubuntu, Debian may work if you're lucky
 
 
