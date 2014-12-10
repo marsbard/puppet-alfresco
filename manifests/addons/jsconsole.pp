@@ -18,6 +18,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
                 require => [
                         File["/opt/downloads/jsconsole"],
                         Exec["retrieve-jsconsole"],
+			Package["unzip"],
                 ],
                 path => "/usr/bin",
         }

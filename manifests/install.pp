@@ -1,13 +1,33 @@
 class alfresco::install inherits alfresco {
 
+
+
+
   	case $::osfamily {
     		'RedHat': {
+
+			exec { "get-repoforge":
+				command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
+				path => "/bin:/usr/bin",
+				creates => "/etc/yum.repos.d/rpmforge.repo",
+				
+			}
+
+			Exec["get-repoforge"] -> Package <| |>
+
+
 		    	$packages = [ 
 				"git", 
 				"java-1.7.0-openjdk",
 		 		"unzip",
 				"curl",
-				#"libtcnative-1"
+				#"gcc", 
+				#"gcc-c++", 
+				#"kernel-devel",
+				#"zlib-devel",
+				#"libjpeg-turbo-devel", 
+				#"giflib-devel", 
+				#"freetype-devel",
 				#"ttf-mscorefonts-installer", 
 				#"fonts-droid", 
 				#"imagemagick", 
@@ -509,7 +529,7 @@ class alfresco::install inherits alfresco {
 
 	case $::osfamily {
     		'RedHat': {
-			$swfpkgs = []
+			$swfpkgs = ["swftools"]
 		}
 		'Debian': {
 			$swfpkgs = [
@@ -522,6 +542,36 @@ class alfresco::install inherits alfresco {
 				"libpng12-dev", 
 				"libt1-dev",
 			]
+
+
+			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
+
+			exec { "retrieve-swftools":
+				command => "wget ${urls::swftools_src_url}",
+				cwd => $download_path,
+				path => "/usr/bin",		
+				creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
+			}
+
+		
+			exec { "unpack-swftools":
+				command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
+				cwd => $download_path,
+				path => "/bin:/usr/bin",
+				creates => "${download_path}/${urls::swftools_src_name}",
+				require => Exec["retrieve-swftools"],
+			}
+
+
+			exec { "build-swftools":
+				command => "bash ./configure && make && make install",
+				cwd => "${download_path}/${urls::swftools_src_name}",
+				path => "/bin:/usr/bin",
+				require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+				creates => "/usr/local/bin/pdf2swf",
+			}
+
+
 		}
 		default:{
 			fail("Unsupported osfamily $osfamily")
@@ -532,31 +582,5 @@ class alfresco::install inherits alfresco {
         	ensure => "installed",
     	}
 	
-	# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
-
-	exec { "retrieve-swftools":
-		command => "wget ${urls::swftools_src_url}",
-		cwd => $download_path,
-		path => "/usr/bin",		
-		creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
-	}
-
-		
-	exec { "unpack-swftools":
-		command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
-		cwd => $download_path,
-		path => "/bin:/usr/bin",
-		creates => "${download_path}/${urls::swftools_src_name}",
-		require => Exec["retrieve-swftools"],
-	}
-
-
-	exec { "build-swftools":
-		command => "bash ./configure && make && make install",
-		cwd => "${download_path}/${urls::swftools_src_name}",
-		path => "/bin:/usr/bin",
-		require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-		creates => "/usr/local/bin/pdf2swf",
-	}
 }
 

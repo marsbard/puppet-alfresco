@@ -112,7 +112,7 @@ class alfresco (
   	case $::osfamily {
     		'RedHat': {
 			$loffice_dl="${urls::loffice_dl_red}"
-			$loffice_name="{$urls::loffice_name_red}"
+			$loffice_name="${urls::loffice_name_red}"
 		}
 		'Debian': {
 			$loffice_dl="${urls::loffice_dl_deb}"

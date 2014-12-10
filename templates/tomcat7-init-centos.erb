@@ -6,7 +6,9 @@ JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64
 export JAVA_HOME
 PATH=$JAVA_HOME/bin:$PATH
 export PATH
-CATALINA_HOME=<%= tomcat_home %>
+CATALINA_HOME=<%= @tomcat_home %>
+
+JAVA_OPTS=<%= @java_opts %>
 
 case $1 in
 start)
