@@ -211,6 +211,12 @@ case "$1" in
 #			>> "$POLICY_CACHE"
 #
 
+# MC OOTB 20141010 - restarting doesn't work unless tomcat 
+# temp dirs are cleared down, copied this from clean_tomcat.sh
+		rm -rf $CATALINA_BASE/temp/Alfresco $CATALINA_BASE/work/Catalina/localhost/alfresco
+		rm -rf $CATALINA_BASE/work/Catalina/localhost/share
+		rm -rf $CATALINA_BASE/work/Catalina/localhost/awe
+		rm -rf $CATALINA_BASE/work/Catalina/localhost/wcmqs 
 
 		# Remove / recreate JVM_TMP directory
 		rm -rf "$JVM_TMP"

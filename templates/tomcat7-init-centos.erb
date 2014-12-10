@@ -12,6 +12,13 @@ JAVA_OPTS=<%= @java_opts %>
 
 case $1 in
 start)
+# MC OOTB 20141010 - restarting doesn't work unless tomcat
+# temp dirs are cleared down, copied this from clean_tomcat.sh
+rm -rf $CATALINA_HOME/temp/Alfresco $CATALINA_HOME/work/Catalina/localhost/alfresco
+rm -rf $CATALINA_HOME/work/Catalina/localhost/share
+rm -rf $CATALINA_HOME/work/Catalina/localhost/awe
+rm -rf $CATALINA_HOME/work/Catalina/localhost/wcmqs
+
 sh $CATALINA_HOME/bin/startup.sh
 ;; 
 stop)   
