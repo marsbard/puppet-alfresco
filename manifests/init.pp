@@ -190,6 +190,14 @@ class alfresco (
 	}
 
 
+	# for some reason packages are being applied out of order, so bind them to a run stage:
+	stage { 'deps':
+		before => Stage['main'],	
+	}
+	class { 'alfresco::packages':
+		stage => 'deps',
+	}
+	
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
