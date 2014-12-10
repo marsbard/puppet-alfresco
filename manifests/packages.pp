@@ -19,6 +19,7 @@ class alfresco::packages inherits alfresco {
 		 		"unzip",
 				"curl",
 				"ghostscript", 
+				"haveged",
 		 	] 
 			$rmpackages = [ 
 			]
@@ -36,6 +37,7 @@ class alfresco::packages inherits alfresco {
 				"ghostscript", 
 				"libjpeg62", 
 				"libpng3",
+				"haveged",
 		 	] 
 			$rmpackages = [ 
 				"openjdk-6-jdk",
