@@ -96,9 +96,15 @@ class alfresco (
 	
 
 	case($alfresco_version){
-		'4.2.f': {
-			$alfresco_ce_url = $urls::alfresco_ce
+		'4.2.f', '4.2.x': {
+			$alfresco_ce_url = $urls::alfresco_ce_url_42x
+      $alfresco_ce_filename = $urls::alfresco_ce_filename_42x
 		}
+    '5.0.c','5.0.x': {
+			$alfresco_ce_url = $urls::alfresco_ce_url_50x
+      $alfresco_ce_filename = $urls::alfresco_ce_filename_50x
+
+    }
 		default: {
 			fail("Unsupported version ${alfresco_version}")
 		}	

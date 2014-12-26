@@ -51,27 +51,6 @@ class alfresco::config inherits alfresco {
 		owner => 'tomcat7',
 	}
 
-
-	# SOLR
-
-	file { "${alfresco_base_dir}/solr/workspace-SpacesStore/conf/solrcore.properties":
-		require => Exec['unpack-solr'],
-		content => template('alfresco/solrcore-workspace.properties.erb'),
-		ensure => present,
-	}
-
-
-	file { "${alfresco_base_dir}/solr/archive-SpacesStore/conf/solrcore.properties":
-		require => Exec['unpack-solr'],
-		content => template('alfresco/solrcore-archive.properties.erb'),
-		ensure => present,
-	}
-
-	file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
-                content => template('alfresco/solr.xml.erb'),
-		ensure => present,
-	}
-
 	file { "${tomcat_home}/conf/tomcat-users.xml":
 		ensure => present,
 		require => Exec['unpack-tomcat7'],
