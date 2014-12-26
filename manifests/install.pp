@@ -59,21 +59,37 @@ class alfresco::install inherits alfresco {
 
 
 
-	# the war files
-	file { "${tomcat_home}/webapps/alfresco.war":
-		source => "${alfresco_war_loc}/alfresco.war",
+#	# the war files
+#	file { "${tomcat_home}/webapps/alfresco.war":
+#		source => "${alfresco_war_loc}/alfresco.war",
+#		require => Exec["unzip-alfresco-ce"],
+#		ensure => present,
+#	}
+#	file { "${tomcat_home}/webapps/share.war":
+#		source => "${alfresco_war_loc}/share.war",
+#		require => Exec["unzip-alfresco-ce"],
+#		ensure => present,
+#	}
+#
+
+	exec { "${tomcat_home}/webapps/alfresco.war":
+		command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
 		require => Exec["unzip-alfresco-ce"],
-		ensure => present,
+    creates => "${tomcat_home}/webapps/alfresco.war",
+    path => '/bin:/usr/bin',
+    notify => Service['tomcat7']
 	}
-	file { "${tomcat_home}/webapps/share.war":
-		source => "${alfresco_war_loc}/share.war",
+	exec { "${tomcat_home}/webapps/share.war":
+		command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
 		require => Exec["unzip-alfresco-ce"],
-		ensure => present,
+    creates => "${tomcat_home}/webapps/share.war",
+    path => '/bin:/usr/bin',
+    notify => Service['tomcat7']
 	}
 
 	exec { "unpack-alfresco-war": 
 		require => [
-			File["${tomcat_home}/webapps/alfresco.war"],
+			Exec["${tomcat_home}/webapps/alfresco.war"],
 		],
 		path => "/bin:/usr/bin",
 		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
@@ -82,7 +98,7 @@ class alfresco::install inherits alfresco {
 
 	exec { "unpack-share-war": 
 		require => [
-			File["${tomcat_home}/webapps/share.war"],
+			Exec["${tomcat_home}/webapps/share.war"],
 		],
 		path => "/bin:/usr/bin",
 		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
@@ -498,6 +514,7 @@ class alfresco::install inherits alfresco {
 
     	package { $swfpkgs:
         	ensure => "installed",
+          #allow_virtual => false,
     	}
 	
 }

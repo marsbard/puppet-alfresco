@@ -1,7 +1,9 @@
 class alfresco::packages inherits alfresco {
 
-  	case $::osfamily {
-    		'RedHat': {
+  case $::osfamily {
+    'RedHat': {
+
+			class {'epel':}
 
 			exec { "get-repoforge":
 				command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
@@ -13,19 +15,21 @@ class alfresco::packages inherits alfresco {
 			Exec["get-repoforge"] -> Package <| |>
 
 
-		    	$packages = [ 
+		  $packages = [ 
 				"git", 
 				"java-1.7.0-openjdk",
 		 		"unzip",
 				"curl",
 				"ghostscript", 
 				"haveged",
+				"ImageMagick",
 		 	] 
-			$rmpackages = [ 
+			
+      $rmpackages = [ 
 			]
-		}
+    }
 		'Debian': {
-		    	$packages = [ 
+		  $packages = [ 
 				"gdebi-core",
 				"git", 
 				"openjdk-7-jdk",
@@ -43,26 +47,17 @@ class alfresco::packages inherits alfresco {
 				"openjdk-6-jdk",
 		 		"openjdk-6-jre-lib",
 			]
-			exec { "apt-update":
-			    	command => "/usr/bin/apt-get update",
-				schedule => "nightly",
-			}
 		}
 		default:{
 			fail("Unsupported osfamily $osfamily")
 		} 
 	}
 
-	schedule { 'nightly':
-		period => daily,
-		range  => "2 - 4",
-	}
 
-
-
-    	package { $packages:
-        	ensure => "installed", 
-    	}
+  package { $packages:
+    ensure => "installed", 
+    #allow_virtual => false,
+  }
 
 	package { $rmpackages:
 		ensure => "absent",
