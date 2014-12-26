@@ -56,7 +56,6 @@ class alfresco::packages inherits alfresco {
 
   package { $packages:
     ensure => "installed", 
-    #allow_virtual => false,
   }
 
 	package { $rmpackages:

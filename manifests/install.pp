@@ -59,19 +59,7 @@ class alfresco::install inherits alfresco {
 
 
 
-#	# the war files
-#	file { "${tomcat_home}/webapps/alfresco.war":
-#		source => "${alfresco_war_loc}/alfresco.war",
-#		require => Exec["unzip-alfresco-ce"],
-#		ensure => present,
-#	}
-#	file { "${tomcat_home}/webapps/share.war":
-#		source => "${alfresco_war_loc}/share.war",
-#		require => Exec["unzip-alfresco-ce"],
-#		ensure => present,
-#	}
-#
-
+	# the war files
 	exec { "${tomcat_home}/webapps/alfresco.war":
 		command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
 		require => Exec["unzip-alfresco-ce"],
@@ -213,10 +201,6 @@ class alfresco::install inherits alfresco {
 		],
 	}
 
-	#file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
-	#	content => template("alfresco/solr.xml.erb"),
-	#}
-
 	file { "${alfresco_base_dir}":
 		ensure => directory,
 		owner => "tomcat7",
@@ -253,17 +237,6 @@ class alfresco::install inherits alfresco {
 	}
 
 
-
-#	# grr can't figure how to do it on the first run, this should add the admin password on the second run
-#	file { "${tomcat_home}/webapps/alfresco/WEB-INF/classes/alfresco/dbscripts/db-schema-context.xml":
-#		source => 'puppet:///modules/alfresco/db-schema-context.xml',
-#		ensure => present,
-#		require => Exec['unpack-alfresco-war'],
-#	}
-
-
-	# XALAN
-
 	$xalan = 'http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/COMMUNITYTAGS/V4.2f/root/projects/3rd-party/lib/xalan-2.7.0/'
 
 	file { "${tomcat_home}/endorsed":
@@ -285,32 +258,6 @@ class alfresco::install inherits alfresco {
 		cwd => "${tomcat_home}/endorsed",
 		creates => "${tomcat_home}/endorsed/serializer.jar",
 		require => File["${tomcat_home}/endorsed"],
-	}
-
-
-
-	exec { "retrieve-solr":
-		command => "wget ${urls::solr_dl} -O solr.zip",
-		cwd => $download_path,
-		path => "/usr/bin",
-		creates => "${download_path}/solr.zip",
-	}
-
-	exec { "unpack-solr":
-		command => "unzip ${download_path}/solr.zip -d solr/",
-		cwd => $alfresco_base_dir,
-		path => '/usr/bin',
-		creates => "${alfresco_base_dir}/solr/solr.xml",
-		require => [
-		 	Exec["retrieve-solr"],
-		],
-	}
-
-	file { "${alfresco_base_dir}/solr/alf_data":
-		ensure => absent,
-		force => true,
-		require => Exec["unzip-alfresco-ce"],
-		before => Service["tomcat7"],
 	}
 
 
