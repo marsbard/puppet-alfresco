@@ -27,7 +27,17 @@ class alfresco::addons inherits alfresco {
 		mode => '0755',
 		source => "${download_path}/alfresco/bin/clean_tomcat.sh",
     require => File["${alfresco_base_dir}/bin"],
-	}
+    mode => '0755',
+    owner => 'tomcat7',
+  }
+ 
+  file { "${alfresco_base_dir}/bin/iptables.sh":
+    source => 'puppet:///modules/alfresco/iptables.sh',
+    ensure => present,
+    require => File["${alfresco_base_dir}/bin"],
+    mode => '0755',
+    owner => 'tomcat7',
+  }
 
 	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
 		ensure => present,
@@ -40,8 +50,8 @@ class alfresco::addons inherits alfresco {
     path => "/bin",
     command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
     onlyif => [
-      "ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\ | grep tomcat7",
-      "ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\ | grep tomcat7",
+      "ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d | grep tomcat7",
+      "ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d | grep tomcat7",
       "test -r ${tomcat_home}/webapps/alfresco.war",
       "test -r ${tomcat_home}/webapps/share.war",
     ]

@@ -15,10 +15,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # http://www.miniwebtool.com/mac-address-generator/
   config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
-  config.vbguest.auto_update = false
+  config.vbguest.auto_update = true
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 3072
+    v.memory = 1900 
     v.cpus = 2
   end
 
