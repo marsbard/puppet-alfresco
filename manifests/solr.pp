@@ -3,7 +3,7 @@ class alfresco::solr inherits alfresco {
 
 
   case ($alfresco_version) {
-    '4.2.f', '4.2.x': {
+    '4.2.f': {
       $solr_dl_file = "alfresco-community-solr-4.2.f.zip"
       $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
 	
@@ -68,7 +68,7 @@ class alfresco::solr inherits alfresco {
 
 
     }
-    '5.0.c', '5.0.x': {
+    '5.0.x': {
 
 	    $solr_war_file = "alfresco-solr4-5.0.b-ssl.war"
 	    $solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_war_file"
@@ -89,20 +89,20 @@ class alfresco::solr inherits alfresco {
       }
 
       exec { "retrieve-solr-cfg":
-        command => "wget ${solr_cfg_dl} -O solrconfig.zip",
-    		cwd => $download_path,
-		    path => '/usr/bin',
+        command => "wget ${solar_cfg_dl} -O solrconfig.zip",
+    		cwd => "${alfresco_base_dir}/solr4",
+		    path => "/usr/bin",
     		creates => "${alfresco_base_dir}/solr4/solrconfig.zip",
         require => File["${alfresco_base_dir}/solr4"],
       }
 
       exec { "unpack-solr-cfg":
-        command => "unzip ${download_path}/solrconfig.zip",
+        command => "unzip solrconfig.zip",
     		cwd => "${alfresco_base_dir}/solr4",
-		    path => '/usr/bin',
+		    path => "/usr/bin",
     		creates => "${alfresco_base_dir}/solr4/solrconfig",
-        require => Exec['retrieve-solr-cfg"],
-        notify => Service['tomcat7'],
+        require => Exec["retrieve-solr-cfg"],
+
       }
 
 
