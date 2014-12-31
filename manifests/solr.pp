@@ -101,7 +101,7 @@ class alfresco::solr inherits alfresco {
     		cwd => "${alfresco_base_dir}/solr4",
 		    path => '/usr/bin',
     		creates => "${alfresco_base_dir}/solr4/solrconfig",
-        require => Exec['retrieve-solr-cfg'],
+        require => Exec['retrieve-solr-cfg"],
         notify => Service['tomcat7'],
       }
 
