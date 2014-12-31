@@ -5,8 +5,8 @@ class alfresco::addons inherits alfresco {
 
 
 	exec { "apply-addons":
-                require => [
-                        File["${alfresco_base_dir}/bin/apply_amps.sh"],
+    require => [
+      File["${alfresco_base_dir}/bin/apply_amps.sh"],
 			File["${alfresco_base_dir}/bin/alfresco-mmt.jar"],
     ],
     path => "/bin:/usr/bin",
@@ -27,7 +27,6 @@ class alfresco::addons inherits alfresco {
 		mode => '0755',
 		source => "${download_path}/alfresco/bin/clean_tomcat.sh",
     require => File["${alfresco_base_dir}/bin"],
-    mode => '0755',
     owner => 'tomcat7',
   }
  
