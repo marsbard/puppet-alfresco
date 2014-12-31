@@ -93,6 +93,7 @@ class alfresco (
 	# the change where I can but do not try editing these, please.
 	$repo_host = $domain_name
 	$share_host = $domain_name
+	$solr_host = $domain_name
 	
 
 	case($alfresco_version){
@@ -106,8 +107,8 @@ class alfresco (
 
 
 	
-  case $::osfamily {
-    'RedHat': {
+  	case $::osfamily {
+    		'RedHat': {
 			$loffice_dl="${urls::loffice_dl_red}"
 			$loffice_name="${urls::loffice_name_red}"
 		}
@@ -121,7 +122,47 @@ class alfresco (
 	}
 	$lo_install_loc = "/opt/libreoffice4.2"
 
+
+
+
+	#$swftools_src_url = $urls::swftools_src_url
+	
+
+
+
+
+
+
+	#$name_tomcat = "apache-tomcat-7.0.55"
+	#$filename_tomcat = "${name_tomcat}.tar.gz"
+	#$url_tomcat = "http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/${filename_tomcat}"
+
+	
+
+
 	$keystorebase = "http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/HEAD/root/projects/repository/config/alfresco/keystore"
+
+
+	#i#$mysql_connector_name = "mysql-connector-java-5.1.34"
+	#$mysql_connector_file = "${mysql_connector_name}.tar.gz"
+	#$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
+
+
+# - oops this is for 5.0 ...
+#	$solr_war_file = "alfresco-solr4-5.0.b-ssl.war"
+#	$solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_war_file"
+#	
+#	$solr_cfg_file = "alfresco-solr4-5.0.b-config-ssl.zip"
+#	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_cfg_file"
+
+
+	#$solr_dl_file = "alfresco-community-solr-4.2.f.zip"
+	#$solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
+
+
+
+	#$swftools_name = "swftools-2013-04-09-1007"
+	#$swftools_dl = "http://www.swftools.org/${swftools_name}.tar.gz"
 
 
 	$alfresco_db_name = $db_name
@@ -133,6 +174,8 @@ class alfresco (
 
 	$alfresco_unpacked = "${download_path}/alfresco"
 	$alfresco_war_loc = "${alfresco_unpacked}/web-server/webapps"
+
+
 
 
 	#http://askubuntu.com/a/519783/33804
@@ -156,7 +199,6 @@ class alfresco (
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
-  class { 'alfresco::solr': } ->
 	class { 'alfresco::addons': } ->
 	class { 'alfresco::config': 
 		notify => Class['alfresco::service'],

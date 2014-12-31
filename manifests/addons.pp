@@ -5,8 +5,8 @@ class alfresco::addons inherits alfresco {
 
 
 	exec { "apply-addons":
-    require => [
-      File["${alfresco_base_dir}/bin/apply_amps.sh"],
+                require => [
+                        File["${alfresco_base_dir}/bin/apply_amps.sh"],
 			File["${alfresco_base_dir}/bin/alfresco-mmt.jar"],
     ],
     path => "/bin:/usr/bin",
@@ -50,8 +50,8 @@ class alfresco::addons inherits alfresco {
     path => "/bin",
     command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
     onlyif => [
-      "ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d | grep tomcat7",
-      "ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d | grep tomcat7",
+      "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
+      "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat7",
       "test -r ${tomcat_home}/webapps/alfresco.war",
       "test -r ${tomcat_home}/webapps/share.war",
     ]
