@@ -5,8 +5,10 @@ class alfresco::service inherits alfresco {
 		enable => true,
 		subscribe => [
 			File["${tomcat_home}/shared/classes/alfresco-global.properties"],
-			File["${tomcat_home}/webapps/alfresco.war"],
-			File["${tomcat_home}/webapps/share.war"],
+			#Exec["${tomcat_home}/webapps/alfresco.war"],
+			#Exec["${tomcat_home}/webapps/share.war"],
+      Exec["unpack-alfresco-war"],
+      Exec["unpack-share-war"],
 		],
 	}
 

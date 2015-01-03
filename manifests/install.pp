@@ -55,21 +55,21 @@ class alfresco::install inherits alfresco {
 		],
 	}
 
+  # the war files
+  exec { "${tomcat_home}/webapps/alfresco.war":
+    command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
+    require => Exec["unpack-alfresco-ce"],
+    creates => "${tomcat_home}/webapps/alfresco.war",
+    path => '/bin:/usr/bin',
+  }
+  exec { "${tomcat_home}/webapps/share.war":
+    command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
+    require => Exec["unpack-alfresco-ce"],
+    creates => "${tomcat_home}/webapps/share.war",
+    path => '/bin:/usr/bin',
+  }
 
 
-
-
-	# the war files
-	file { "${tomcat_home}/webapps/alfresco.war":
-		source => "${alfresco_war_loc}/alfresco.war",
-		require => Exec["unzip-alfresco-ce"],
-		ensure => present,
-	}
-	file { "${tomcat_home}/webapps/share.war":
-		source => "${alfresco_war_loc}/share.war",
-		require => Exec["unzip-alfresco-ce"],
-		ensure => present,
-	}
 
 	exec { "unpack-alfresco-war": 
 		require => [
@@ -78,6 +78,7 @@ class alfresco::install inherits alfresco {
 		path => "/bin:/usr/bin",
 		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
 		creates => "${tomcat_home}/webapps/alfresco/",
+    notify => Service['tomcat7'],
 	}
 
 	exec { "unpack-share-war": 
@@ -87,6 +88,7 @@ class alfresco::install inherits alfresco {
 		path => "/bin:/usr/bin",
 		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
 		creates => "${tomcat_home}/webapps/share/",
+    notify => Service['tomcat7'],
 	}
 
 
@@ -132,7 +134,7 @@ class alfresco::install inherits alfresco {
 		ensure => directory,
 	}
 
-	exec { "unzip-alfresco-ce":
+	exec { "unpack-alfresco-ce":
 		command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
 		path => "/usr/bin",
 		require => [ 
@@ -293,7 +295,7 @@ class alfresco::install inherits alfresco {
 	file { "${alfresco_base_dir}/solr/alf_data":
 		ensure => absent,
 		force => true,
-		require => Exec["unzip-alfresco-ce"],
+		require => Exec["unpack-alfresco-ce"],
 		before => Service["tomcat7"],
 	}
 
@@ -406,6 +408,7 @@ class alfresco::install inherits alfresco {
 		path => "/bin:/usr/bin",
 		creates => "${download_path}/${loffice_name}",
 		require => Exec["retrieve-loffice"],
+    timeout => 0,
 	}
 
 	case $::osfamily {

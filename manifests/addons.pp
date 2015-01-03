@@ -46,7 +46,7 @@ class alfresco::addons inherits alfresco {
 	}
 
   exec { "fix-war-permissions":
-    path => "/bin",
+    path => "/bin:/usr/bin",
     command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
     onlyif => [
       "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
