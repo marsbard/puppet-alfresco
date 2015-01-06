@@ -10,10 +10,13 @@ class alfresco::packages inherits alfresco {
 				
 			}
 
-			Exec["get-repoforge"] -> Package <| |>
+      class { 'epel':
+      }
+
+			Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
 
 
-		    	$packages = [ 
+		  $packages = [ 
 				"git", 
 				"java-1.7.0-openjdk",
 		 		"unzip",
@@ -44,7 +47,7 @@ class alfresco::packages inherits alfresco {
 		 		"openjdk-6-jre-lib",
 			]
 			exec { "apt-update":
-			    	command => "/usr/bin/apt-get update",
+			  command => "/usr/bin/apt-get update",
 				schedule => "nightly",
 			}
 		}
@@ -60,9 +63,9 @@ class alfresco::packages inherits alfresco {
 
 
 
-    	package { $packages:
-        	ensure => "installed", 
-    	}
+  package { $packages:
+    ensure => "installed", 
+  }
 
 	package { $rmpackages:
 		ensure => "absent",
