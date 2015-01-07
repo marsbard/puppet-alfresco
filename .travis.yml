@@ -13,7 +13,9 @@ before_script:
 script:
   - puppet apply go.pp
 
-#notifications:
+notifications:
+  email:
+    martin@ciderpunk.com
 #  irc:
 #    channels:
 #      - "irc.freenode.org#phantomjs"
