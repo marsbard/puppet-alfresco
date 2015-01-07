@@ -11,7 +11,7 @@ class alfresco::addons inherits alfresco {
     ],
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
-    notify => Exec["fix-war-permissions"],
+    #notify => Exec["fix-war-permissions"],
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
   }
 
@@ -45,15 +45,37 @@ class alfresco::addons inherits alfresco {
     require => File["${alfresco_base_dir}/bin"],
 	}
 
-  exec { "fix-war-permissions":
-    path => "/bin:/usr/bin",
-    command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
-    onlyif => [
-      "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
-      "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat7",
-      "test -r ${tomcat_home}/webapps/alfresco.war",
-      "test -r ${tomcat_home}/webapps/share.war",
-    ]
-  }
+  #exec { "fix-war-permissions":
+  #  path => "/bin:/usr/bin",
+  #  command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
+  #  onlyif => [
+  #    "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
+  #    "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat7",
+  #    "test -r ${tomcat_home}/webapps/alfresco.war",
+  #    "test -r ${tomcat_home}/webapps/share.war",
+  #  ]
+  #}
+
+	exec { "unpack-alfresco-war": 
+		require => [
+			Exec["${tomcat_home}/webapps/alfresco.war"],
+      Exec['apply-addons'],
+		],
+		path => "/bin:/usr/bin",
+		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
+		creates => "${tomcat_home}/webapps/alfresco/",
+    notify => Service['tomcat7'],
+	}
+
+	exec { "unpack-share-war": 
+		require => [
+			Exec["${tomcat_home}/webapps/share.war"],
+      Exec['apply-addons'],
+		],
+		path => "/bin:/usr/bin",
+		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
+		creates => "${tomcat_home}/webapps/share/",
+    notify => Service['tomcat7'],
+	}
 
 }
