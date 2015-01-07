@@ -12,9 +12,10 @@ before_script:
   - ls
   - puppet module install puppetlabs-stdlib --target-dir modules
   - puppet module install puppetlabs-mysql --target-dir modules
+  - echo 'class { alfresco: }' > go.pp
 
 script:
-  - puppet apply --modulepath=modules manifests/init.pp
+  - puppet apply --modulepath=modules go.pp
 
 notifications:
   email:
