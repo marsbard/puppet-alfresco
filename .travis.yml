@@ -7,6 +7,10 @@ before_install:
 install:
   - sudo apt-get -yq install puppet #< Build Dependencies
 
+before_script:
+  - pwd
+  - ls
+
 script:
   - puppet apply manifests/init.pp
 
