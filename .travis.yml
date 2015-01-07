@@ -10,9 +10,11 @@ install:
 before_script:
   - pwd
   - ls
+  - puppet module install puppetlabs-stdlib --target-dir modules
+  - puppet module install puppetlabs-mysql --target-dir modules
 
 script:
-  - puppet apply manifests/init.pp
+  - puppet apply --modulepath=modules manifests/init.pp
 
 notifications:
   email:
