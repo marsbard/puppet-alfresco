@@ -8,17 +8,17 @@ install:
   - sudo apt-get -yq install puppet #< Build Dependencies
 
 before_script:
-  - echo "class { 'alfresco':    domain_name => 'marsbard.com', }" > go.pp
+  - echo "class { 'alfresco':    domain_name => 'example.com', }" > go.pp
   
 script:
   - puppet apply go.pp
 
 notifications:
   email:
-    martin@ciderpunk.com
+    martin@bettercode.com
 #  irc:
 #    channels:
-#      - "irc.freenode.org#phantomjs"
+#      - "irc.freenode.org#orderofthebee"
 #    on_success: always
 #    on_failure: always
 #    use_notice: true
