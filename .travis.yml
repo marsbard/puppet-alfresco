@@ -8,8 +8,6 @@ install:
   - sudo apt-get -yq install puppet #< Build Dependencies
 
 before_script:
-  - pwd
-  - ls
   - puppet module install puppetlabs-stdlib --target-dir modules
   - puppet module install puppetlabs-mysql --target-dir modules
   - echo 'class { alfresco: }' > go.pp
