@@ -7,11 +7,8 @@ before_install:
 install:
   - sudo apt-get -yq install puppet #< Build Dependencies
 
-before_script:
-  - echo "class { 'alfresco':    domain_name => 'example.com', }" > go.pp
-  
 script:
-  - puppet apply go.pp
+  - puppet apply manifests/init.pp
 
 notifications:
   email:
