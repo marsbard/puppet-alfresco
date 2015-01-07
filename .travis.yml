@@ -1,0 +1,22 @@
+cache: apt
+
+before_install:
+  - sudo apt-get -yqq update    #< Suggested by the Travis CI doc
+  - sudo apt-get -fyq install   #< Fixes inconsistency of packages installed previously
+
+install:
+  - sudo apt-get -yq install puppet #< Build Dependencies
+
+before_script:
+  - echo "class { 'alfresco':    domain_name => 'marsbard.com', }" > go.pp
+  
+script:
+  - puppet apply go.pp
+
+#notifications:
+#  irc:
+#    channels:
+#      - "irc.freenode.org#phantomjs"
+#    on_success: always
+#    on_failure: always
+#    use_notice: true
