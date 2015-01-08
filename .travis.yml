@@ -16,13 +16,9 @@ before_script:
   - mv files lib manifests templates modules/alfresco
   - puppet module install puppetlabs-stdlib --target-dir modules
   - puppet module install puppetlabs-mysql --target-dir modules
-  - ls -l
-  - ls -l modules
-  - ls -l modules/alfresco
-  - cat go.pp
 
 script:
-  - puppet apply --modulepath=modules --verbose --debug go.pp
+  - sudo puppet apply --modulepath=modules go.pp
 
 notifications:
   email:
