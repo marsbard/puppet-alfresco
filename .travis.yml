@@ -13,6 +13,7 @@ install:
   - sudo apt-get install puppet -y
 
 before_script:
+  - phantomjs --version
   - mkdir -p modules/alfresco
   - mv files lib manifests templates modules/alfresco
   - puppet module install puppetlabs-stdlib --target-dir modules
