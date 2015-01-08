@@ -7,8 +7,8 @@ before_install:
 install:
 #  - sudo apt-get -yq install puppet #< Build Dependencies
   - wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-  - dpkg -i puppetlabs-release-precise.deb
-  - apt-get install puppet -y
+  - sudo dpkg -i puppetlabs-release-precise.deb
+  - sudo apt-get install puppet -y
 
 before_script:
   - mkdir -p modules/alfresco
