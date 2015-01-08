@@ -9,5 +9,5 @@ export DOMAIN_NAME=<%= @domain_name %>
 set -e
 for file in ${TESTDIR}/*
 do
-	phantomjs --ignore-ssl-errors $file
+	phantomjs --ignore-ssl-errors=true $file
 done
