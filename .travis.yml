@@ -12,7 +12,7 @@ before_script:
   - puppet module install puppetlabs-mysql --target-dir modules
 
 script:
-  - puppet apply --modulepath=modules go.pp
+  - puppet apply --modulepath=modules --verbose --debug manifests/go.pp
 
 notifications:
   email:
