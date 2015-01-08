@@ -1,0 +1,13 @@
+#!/bin/bash
+
+TESTDIR=<%= @testdir %>
+export USERNAME=admin
+export PASSWORD=<%= @initial_admin_pass %>
+export DOMAIN_NAME=<%= @domain_name %>
+
+
+set -e
+for file in ${TESTDIR}/*
+do
+	phantomjs --ignore-ssl-errors $file
+done
