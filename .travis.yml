@@ -5,7 +5,10 @@ before_install:
   - sudo apt-get -fyq install   #< Fixes inconsistency of packages installed previously
 
 install:
-  - sudo apt-get -yq install puppet #< Build Dependencies
+#  - sudo apt-get -yq install puppet #< Build Dependencies
+  - wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+  - dpkg -i puppetlabs-release-precise.deb
+  - apt-get install puppet -y
 
 before_script:
   - mkdir -p modules/alfresco
