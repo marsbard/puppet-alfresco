@@ -24,7 +24,7 @@ script:
   - echo Waiting for $(( $WAIT * 10 )) seconds before running tests
   #- sleep 100 # will that be long enough? - actually do it the funky way below:
   - COUNTER=$(( $WAIT + 1)); for i in `seq 1 $WAIT`; do echo -n "$(( $COUNTER - $i))... "; sleep 10; done; echo
-  - sudo puppet apply --modulepath=modules test.pp
+  - sudo puppet apply --debug --verbose --modulepath=modules test.pp
 
 notifications:
   email:
