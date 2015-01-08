@@ -10,7 +10,7 @@ install:
 before_script:
   - puppet module install puppetlabs-stdlib --target-dir modules
   - puppet module install puppetlabs-mysql --target-dir modules
-  - echo "class { alfresco: }" > go.pp
+  - echo "class \{ alfresco: \}" > go.pp
 
 script:
   - puppet apply --modulepath=modules go.pp
