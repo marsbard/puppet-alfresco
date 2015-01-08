@@ -34,23 +34,11 @@ class alfresco::tests inherits alfresco {
     require => File[$testdir],
   }
 
-  exec { 'test login.js':
-    require => File["${testdir}/login.js"],
-    command => "phantomjs --ignore-ssl-errors=true ${testdir}/login.js",
-    path => '/bin:/usr/bin',
-    logoutput => true,
-  }
-
-
-	
-
-
-  # WHEN DONE - delete the tests as they may have admin password in 
-
-  exec { "remove ${testdir}/login.js":
-    command => "rm ${testdir}/login.js",
-    path => '/bin',
-    require => Exec['test login.js'],
+  file { "${testdir}/test.sh":
+    ensure => present,
+    content => template('alfresco/test.sh.erb'),
+    require => File[$testdir],
+    mode => '0755',
   }
 
 }
