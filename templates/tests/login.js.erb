@@ -1,0 +1,16 @@
+
+var page = require('webpage').create(),
+  srv ="https://<%= @domain_name %>:8443/share/page/dologin", 
+  data = "username=admin&password=<%= @initial_admin_pass %>";
+
+page.open(srv, 'post', data, function(status){
+  if(status !== 'success'){
+    throw new Error('login POST was unsuccessful');
+    phantom.exit(1);
+  } else {
+    console.log(page.content);
+  }
+  phantom.exit();
+  
+});
+
