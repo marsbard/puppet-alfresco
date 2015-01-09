@@ -1,6 +1,6 @@
 class alfresco::tests inherits alfresco {
 
-  package { [ 'maven', 'firefox' ]:
+  package { [ 'maven', 'firefox', 'xvfb' ]:
     ensure => latest,
   }
 
