@@ -16,7 +16,7 @@ class alfresco::tests inherits alfresco {
   }
 
   $testbase = "${alfresco_base_dir}/tests/alfresco-test-scripts/ABFT_4_2"
-  $confloc = ${testbase}/src/test/resources"
+  $confloc = "${testbase}/src/test/resources"
 
   file { "${confloc}/TestProperties.xml":
     content => template('alfresco/ZaiziTestProperties.xml.erb'),
