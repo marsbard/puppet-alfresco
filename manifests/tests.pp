@@ -9,7 +9,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-zaizi-tests":
-    comand => 'git clone https://github.com/zaizi/alfresco-test-scripts.git',
+    command => 'git clone https://github.com/zaizi/alfresco-test-scripts.git',
     cwd => "${alfresco_base_dir}/tests",
     creates => "${alfresco_base_dir}/tests/alfresco-test-scripts/README.md",
     path => '/usr/bin',
