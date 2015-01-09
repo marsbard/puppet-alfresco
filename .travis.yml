@@ -26,7 +26,7 @@ script:
   - COUNTER=$(( $WAIT + 1)); for i in `seq 1 $WAIT`; do echo -n "$(( $COUNTER - $i))... "; sleep 10; done; echo
   - sudo puppet apply --debug --verbose --modulepath=modules test.pp
  # this is the old way now - /opt/alfresco/tests/test.sh
-  - cd /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2; mvn test
+  - cd /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2; sudo mvn test
   - ls -l /opt/alfresco/tests
   - ls -l /opt/alfresco/tests/alfresco-test-scripts
   - ls -l /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2
