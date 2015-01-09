@@ -32,11 +32,9 @@ script:
   - ls -l /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2
 
 notifications:
-  email:
-    martin@bettercode.com
-#  irc:
-#    channels:
-#      - "irc.freenode.org#orderofthebee"
-#    on_success: always
-#    on_failure: always
-#    use_notice: true
+  irc:
+    channels:
+      - "irc.freenode.org#orderofthebee"
+    on_success: change
+    on_failure: change
+    use_notice: true
