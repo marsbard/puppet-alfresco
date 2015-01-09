@@ -36,16 +36,16 @@ class alfresco::tests inherits alfresco {
     require => Exec['clone-zaizi-tests'],
   }
 
-  exec { "run-tests":
-    command => "mvn test",
-    cwd => $testbase,
-    path => '/usr/bin',
-    require => [
-      File["${confloc}/TestProperties.xml"],
-      File["${confloc}/TestValues.xml"],
-      File["${testbase}/AbftsUploadTest.txt"],
-    ],
-  }
+#  exec { "run-tests":
+#    command => "mvn test",
+#    cwd => $testbase,
+#    path => '/usr/bin',
+#    require => [
+#      File["${confloc}/TestProperties.xml"],
+#      File["${confloc}/TestValues.xml"],
+#      File["${testbase}/AbftsUploadTest.txt"],
+#    ],
+#  }
 
 #  package { 'phantomjs':
 #    ensure => latest,
