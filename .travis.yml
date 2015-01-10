@@ -31,6 +31,10 @@ script:
   - ls -l /opt/alfresco/tests/alfresco-test-scripts
   - ls -l /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2
 
+after_script:
+  - cat phantomjsdriver.log | sendmail martin@ciderpunk.com
+
+
 notifications:
 #  irc:
 #    channels:
