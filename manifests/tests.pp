@@ -17,30 +17,29 @@ class alfresco::tests inherits alfresco {
     ensure => latest,
   }
 
-  exec { "install cmislib":
-    command => "easy_install cmislib",
-    path => "/usr/bin",
-# TODO - find out what this creates and put it here:
-    # creates => "/usr/lib/cmislib???",
-    require => Package['python'],
+  python::pip { 'cmislib':
+    ensure => '0.5.1',
+    owner => 'root',
+    pkgname => 'configure',
+    require => Package['python-pip'],
   }
 
   python::pip { 'configure':
     owner => 'root',
     pkgname => 'configure',
-    require => Package['python'],
+    require => Package['python-pip'],
   }
 
   python::pip { 'configuration':
     owner => 'root',
     pkgname => 'configuration',
-    require => Package['python'],
+    require => Package['python-pip'],
   }
 
   python::pip { 'selenium':
     owner => 'root',
     pkgname => 'selenium',
-    require => Package['python'],
+    require => Package['python-pip'],
   }
 
   exec { "clone-digcat-tests":
