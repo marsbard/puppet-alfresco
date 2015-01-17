@@ -16,6 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
   config.vbguest.auto_update = true
+  #config.vbguest.auto_update = false
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 1900 
@@ -98,6 +99,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.manifests_path = "."
     puppet.manifest_file  = "go.pp"
     puppet.module_path = ["modules"]
+  end
+
+  config.vm.provision :puppet do |puptest|
+    puptest.manifests_path = "modules/alfresco"
+    puptest.manifest_file  = "test.pp"
+    puptest.module_path = ["modules"]
+    #puptest.options = "--verbose --debug"
   end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
