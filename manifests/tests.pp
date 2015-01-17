@@ -18,7 +18,7 @@ class alfresco::tests inherits alfresco {
   }
 
   python::pip { 'cmislib':
-    ensure => '0.5.1',
+    ensure => '0.5',
     owner => 'root',
     pkgname => 'configure',
     require => Package['python-pip'],
