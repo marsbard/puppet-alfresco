@@ -50,7 +50,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-digcat-tests":
-    command => "git clone https://github.com/digcat/alfresco-tests.git",
+    command => "git clone https://github.com/marsbard/alfresco-tests.git",
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
     require => File["${alfresco_base_dir}/tests"],
