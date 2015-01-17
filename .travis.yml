@@ -27,8 +27,10 @@ script:
 # this will install the testing dependencies
   - sudo puppet apply --debug --verbose --modulepath=modules test.pp
 # and now run the tests:
-  - cd /opt/alfresco/tests/alfresco-tests; ./runtests.sh
-
+  - cd /opt/alfresco/tests/alfresco-tests
+  - xvfb-run python test_swsdp.py
+  - xvfb-run python test_cmis.py
+  - xvfb-run python test_ftp.py
 
 notifications:
    email:
