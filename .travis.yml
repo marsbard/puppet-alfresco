@@ -31,6 +31,8 @@ script:
 
 
 notifications:
+   email:
+     - marsbard.alfresco.puppet@gmail.com
 #  irc:
 #    channels:
 #      - "irc.freenode.org#orderofthebee"
