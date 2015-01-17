@@ -28,6 +28,7 @@ class alfresco::tests inherits alfresco {
   exec { "install-cmislib":
     command => "easy_install cmislib",
     path => '/usr/bin',
+    creates => '/usr/local/lib/python2.7/dist-packages/cmislib-0.5.1-py2.7.egg',
   }
 
   python::pip { 'configure':
