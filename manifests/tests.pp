@@ -60,4 +60,25 @@ class alfresco::tests inherits alfresco {
     require => Exec['clone-digcat-tests'],
   }
 
+  exec { "runtests-cmis":
+    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
+    command => "xvfb-run python test_cmis.py",
+    path => '/bin:/usr/bin',
+    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+  }
+
+  exec { "runtests-ftp":
+    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
+    command => "xvfb-run python test_ftp.py",
+    path => '/bin:/usr/bin',
+    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+  }
+
+  exec { "runtests-swsdp":
+    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
+    command => "xvfb-run python test_swsdp.py",
+    path => '/bin:/usr/bin',
+    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+  }
+
 }
