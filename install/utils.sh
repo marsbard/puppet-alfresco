@@ -3,17 +3,6 @@
 set -e
 
 
-ANS_FILE="_answers.sh"
-
-YELLOW='\e[0;33m'
-PURPLE='\e[0;35m' # Purple
-WHITE='\e[0;37m'
-GREEN='\e[0;32m' # Green
-BLUE='\e[0;34m'
-CYAN='\e[0;36m' # Cyan
-RED='\e[0;31m' # Red
-
-
 
 function paramloop() {
 	echo "Installer parameters"
@@ -249,7 +238,6 @@ function run_install {
 	then
 		install_puppet
 	fi
-	MODS="puppetlabs-stdlib puppetlabs-mysql"
 	for MOD in $MODS
 	do
 		puppet module install --force $MOD --target-dir modules
