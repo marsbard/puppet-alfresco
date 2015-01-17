@@ -2,6 +2,7 @@ class alfresco::tests inherits alfresco {
 
   $packages = [ 
     'python',
+    'python-pip',
     'python-setuptools',
     'xvfb', 'x11-xkb-utils',
     'xfonts-100dpi', 'xfonts-75dpi', 
