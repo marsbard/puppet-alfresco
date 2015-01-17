@@ -48,6 +48,7 @@ class alfresco::tests inherits alfresco {
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
     require => File["${alfresco_base_dir}/tests"],
+    creates => "${alfresco_base_dir}/tests/alfresco-tests",
   }
 
   file { "${alfresco_base_dir}/tests":
