@@ -13,26 +13,21 @@ install:
   - sudo apt-get install puppet -y
 
 before_script:
-  - phantomjs --version
   - mkdir -p modules/alfresco
   - mv files lib manifests templates modules/alfresco
   - puppet module install puppetlabs-stdlib --target-dir modules
   - puppet module install puppetlabs-mysql --target-dir modules
+  - puppet module install stankevich-python --target-dir modules
 
 script:
   - sudo puppet apply --modulepath=modules go.pp
   - echo Waiting for $(( $WAIT * 10 )) seconds before running tests
   #- sleep 100 # will that be long enough? - actually do it the funky way below:
   - COUNTER=$(( $WAIT + 1)); for i in `seq 1 $WAIT`; do echo -n "$(( $COUNTER - $i))... "; sleep 10; done; echo
+# this will install the testing dependencies
   - sudo puppet apply --debug --verbose --modulepath=modules test.pp
- # this is the old way now - /opt/alfresco/tests/test.sh
-  - cd /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2; sudo mvn test
-  - ls -l /opt/alfresco/tests
-  - ls -l /opt/alfresco/tests/alfresco-test-scripts
-  - ls -l /opt/alfresco/tests/alfresco-test-scripts/ABFT_4_2
-
-after_script:
-  - cat phantomjsdriver.log | sendmail martin@ciderpunk.com
+# and now run the tests:
+  - cd /opt/alfresco/tests/alfresco-tests; ./runtests.sh
 
 
 notifications:
