@@ -69,6 +69,7 @@ function get_answer {
 NUMERIC='^[0-9]+$'
 function read_entry {
 	echo "Please choose an index number to edit, I to install, or Q to quit"
+	echo "(if using Vagrant, choose Q not I)"
 	read -ep" -> " ENTRY
 
 
