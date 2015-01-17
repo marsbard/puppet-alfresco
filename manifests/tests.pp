@@ -72,7 +72,6 @@ class alfresco::tests inherits alfresco {
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      #Python::Pip['cmislib'],
       Exec["install-cmislib"],
     ]
   }
@@ -83,8 +82,6 @@ class alfresco::tests inherits alfresco {
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      #Python::Pip['cmislib'],
-      Exec["install-cmislib"],
     ]
   }
 
@@ -94,8 +91,6 @@ class alfresco::tests inherits alfresco {
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      #Python::Pip['cmislib'],
-      Exec["install-cmislib"],
     ]
   }
 
