@@ -4,6 +4,8 @@ env: WAIT=12
 before_install:
   - sudo apt-get -yqq update    #< Suggested by the Travis CI doc
   - sudo apt-get -fyq install   #< Fixes inconsistency of packages installed previously
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 install:
 #  - sudo apt-get -yq install puppet #< Build Dependencies
