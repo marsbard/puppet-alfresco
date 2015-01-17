@@ -17,11 +17,17 @@ class alfresco::tests inherits alfresco {
     ensure => latest,
   }
 
-  python::pip { 'cmislib':
-    ensure => '0.5',
-    owner => 'root',
-    pkgname => 'configure',
-    require => Package['python-pip'],
+#  python::pip { 'cmislib':
+#    #ensure => '0.5',
+#    ensure => latest,
+#    owner => 'root',
+#    pkgname => 'configure',
+#    require => Package['python-pip'],
+#  }
+
+  exec { "install-cmislib":
+    command => "easy_install cmislib",
+    path => '/usr/bin',
   }
 
   python::pip { 'configure':
@@ -64,21 +70,33 @@ class alfresco::tests inherits alfresco {
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "xvfb-run python test_cmis.py",
     path => '/bin:/usr/bin',
-    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+    require => [
+      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+      #Python::Pip['cmislib'],
+      Exec["install-cmislib"],
+    ]
   }
 
   exec { "runtests-ftp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "xvfb-run python test_ftp.py",
     path => '/bin:/usr/bin',
-    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+    require => [
+      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+      #Python::Pip['cmislib'],
+      Exec["install-cmislib"],
+    ]
   }
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "xvfb-run python test_swsdp.py",
     path => '/bin:/usr/bin',
-    require => File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+    require => [
+      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+      #Python::Pip['cmislib'],
+      Exec["install-cmislib"],
+    ]
   }
 
 }
