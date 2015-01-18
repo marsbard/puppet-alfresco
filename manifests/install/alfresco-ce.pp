@@ -6,9 +6,9 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
     
 
         exec { "retrieve-alfresco-ce":
-          command => "wget -q ${alfresco_ce_url} -O ${download_path}/${alfresco_ce_filename}	",
+          command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
           path => "/usr/bin",
-          creates => "${download_path}/${alfresco_ce_filename}",
+          creates => "${download_path}/${urls::alfresco_ce_filename}",
           timeout => 0,
           require => File[$download_path],
         }
@@ -18,7 +18,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { "unpack-alfresco-ce":
-          command => "unzip -o ${download_path}/${alfresco_ce_filename} -d ${download_path}/alfresco",
+          command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
             Exec["retrieve-alfresco-ce"],
@@ -72,6 +72,9 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
         
 
+        exec { "unpack-alfresco-ce":
+          command => '/bin/true',
+        }
       }
   }
 

@@ -19,7 +19,7 @@
 # Default mail address to use in the 'From' field of sent mails
 #
 # [*alfresco_version*]
-# For now only '4.2.f' is supported
+# Either '4.2.f' or '5.0.x'
 #
 # [*download_path*]
 # Where to store downloaded files. Defaults to '/opt/downloads'
@@ -100,6 +100,9 @@ class alfresco (
 		'4.2.f': {
 			$alfresco_ce_url = $urls::alfresco_ce
 		}
+    '5.0.x': {
+
+    }
 		default: {
 			fail("Unsupported version ${alfresco_version}")
 		}	
