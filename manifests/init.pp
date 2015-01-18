@@ -161,6 +161,7 @@ class alfresco (
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
+	class { 'alfresco::install::solr': } ->
 	class { 'alfresco::addons': } ->
 	class { 'alfresco::config': 
 		notify => Class['alfresco::service'],

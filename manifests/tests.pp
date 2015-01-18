@@ -1,5 +1,5 @@
 class alfresco::tests ( 
-  $delay_before = 120 
+  $delay_before = 20 
 ) inherits alfresco {
 
   $testsrc = 'digcat' 
@@ -107,7 +107,7 @@ class alfresco::tests (
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_swsdp.py",
+    command => "${xvfb} python ${testfile}",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
