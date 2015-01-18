@@ -16,8 +16,8 @@ install:
   - sudo apt-get install puppet -y
 # downloading libre office in the puppet build sometimes times travis out
 # due to lack of output, so preload it here
-#  - sudo mkdir -p /opt/alfresco/downloads
-#  - sudo wget http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz -O /opt/alfresco/downloads/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz
+  - sudo mkdir -p /opt/downloads
+  - sudo wget http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz -O /opt/downloads/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz
 
 before_script:
   - mkdir -p modules/alfresco
