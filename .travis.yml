@@ -1,7 +1,6 @@
 cache: apt
 env: WAIT=12
 
-language: java
 
 before_install:
   - sudo apt-get -yqq update    #< Suggested by the Travis CI doc
