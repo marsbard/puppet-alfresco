@@ -13,6 +13,9 @@ class alfresco::tests inherits alfresco {
     'firefox',
   ]
 
+  # default wait is 3s, we may need a bit more
+  $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
+
   package {  $packages :
     ensure => latest,
   }
@@ -50,7 +53,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-digcat-tests":
-    command => "git clone https://github.com/marsbard/alfresco-tests.git",
+    command => "git clone https://github.com/digcat/alfresco-tests.git",
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
     require => File["${alfresco_base_dir}/tests"],
@@ -69,7 +72,7 @@ class alfresco::tests inherits alfresco {
 
   exec { "runtests-cmis":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run -a -e /dev/stdout python test_cmis.py",
+    command => "${xvfb} python test_cmis.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
@@ -80,7 +83,7 @@ class alfresco::tests inherits alfresco {
 
   exec { "runtests-ftp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run -a -e /dev/stdout python test_ftp.py",
+    command => "${xvfb} python test_ftp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
@@ -90,7 +93,7 @@ class alfresco::tests inherits alfresco {
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run -a -e /dev/stdout python test_swsdp.py",
+    command => "${xvfb} python test_swsdp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
