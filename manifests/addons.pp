@@ -56,26 +56,26 @@ class alfresco::addons inherits alfresco {
   #  ]
   #}
 
-	exec { "unpack-alfresco-war": 
-		require => [
-			Exec["${tomcat_home}/webapps/alfresco.war"],
-      Exec['apply-addons'],
-		],
-		path => "/bin:/usr/bin",
-		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
-		creates => "${tomcat_home}/webapps/alfresco/",
-    notify => Service['tomcat7'],
-	}
-
-	exec { "unpack-share-war": 
-		require => [
-			Exec["${tomcat_home}/webapps/share.war"],
-      Exec['apply-addons'],
-		],
-		path => "/bin:/usr/bin",
-		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
-		creates => "${tomcat_home}/webapps/share/",
-    notify => Service['tomcat7'],
-	}
+#	exec { "unpack-alfresco-war": 
+#		require => [
+#			Exec["${tomcat_home}/webapps/alfresco.war"],
+#      Exec['apply-addons'],
+#		],
+#		path => "/bin:/usr/bin",
+#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
+#		creates => "${tomcat_home}/webapps/alfresco/",
+#    notify => Service['tomcat7'],
+#	}
+#
+#	exec { "unpack-share-war": 
+#		require => [
+#			Exec["${tomcat_home}/webapps/share.war"],
+#      Exec['apply-addons'],
+#		],
+#		path => "/bin:/usr/bin",
+#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
+#		creates => "${tomcat_home}/webapps/share/",
+#    notify => Service['tomcat7'],
+#	}
 
 }
