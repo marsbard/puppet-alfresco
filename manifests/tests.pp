@@ -77,7 +77,6 @@ class alfresco::tests inherits alfresco {
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Exec["install-cmislib"],
-     # Service['xvfb'],
     ]
   }
 
@@ -87,17 +86,15 @@ class alfresco::tests inherits alfresco {
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      #Service['xvfb'],
     ]
   }
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_swsdp.py",
+    command => "${xvfb} python test_ex_swsdp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      #Service['xvfb'],
     ]
   }
 
