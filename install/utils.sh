@@ -1,5 +1,8 @@
 # helper functions for installer
 
+PYMODS="puppetlabs-stdlib puppetlabs-mysql stankevich-python"
+
+
 set -e
 
 
@@ -249,8 +252,7 @@ function run_install {
 	then
 		install_puppet
 	fi
-	MODS="puppetlabs-stdlib puppetlabs-mysql"
-	for MOD in $MODS
+	for MOD in $PYMODS
 	do
 		puppet module install --force $MOD --target-dir modules
 	done
