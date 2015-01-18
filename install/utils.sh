@@ -237,6 +237,7 @@ class { 'alfresco':
 	mem_xxmaxpermsize => '${mem_xxmaxpermsize}',
 }
 EOF
+	echo -e "${GREEN}Writing puppet file ${BLUE}test.pp${WHITE}"
 	cat > test.pp <<EOF
 class { 'alfresco::tests':
   delay_before => 10,
