@@ -1,5 +1,10 @@
 class alfresco::tests inherits alfresco {
 
+  $testsrc = 'marsbard' # 'marsbard' or 'digcat'
+
+  # default wait is 3s, we may need a bit more
+  $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
+
   $packages = [ 
     'python',
     'python-pip',
@@ -12,9 +17,6 @@ class alfresco::tests inherits alfresco {
     'python-yaml',
     'firefox',
   ]
-
-  # default wait is 3s, we may need a bit more
-  $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
 
   package {  $packages :
     ensure => latest,
@@ -53,7 +55,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-digcat-tests":
-    command => "git clone https://github.com/digcat/alfresco-tests.git",
+    command => "git clone https://github.com/${testsrc}/alfresco-tests.git",
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
     require => File["${alfresco_base_dir}/tests"],
