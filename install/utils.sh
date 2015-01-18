@@ -237,6 +237,26 @@ class { 'alfresco':
 	mem_xxmaxpermsize => '${mem_xxmaxpermsize}',
 }
 EOF
+	cat > test.pp <<EOF
+class { 'alfresco::tests':
+  delay_before => 10,
+	domain_name => '${domain_name}',	
+	initial_admin_pass => '${initial_admin_pass}',
+	mail_from_default => '${mail_from_default}',	
+	alfresco_base_dir => '${alfresco_base_dir}',	
+	tomcat_home => '${tomcat_home}',	
+	alfresco_version => '${alfresco_version}',	
+	download_path => '${download_path}',	
+	db_root_password => '${db_root_password}',
+	db_user => '${db_user}',	
+	db_pass => '${db_pass}',	
+	db_name => '${db_name}',	
+	db_host => '${db_host}',	
+	db_port => '${db_port}',	
+	mem_xmx => '${mem_xmx}',
+	mem_xxmaxpermsize => '${mem_xxmaxpermsize}',
+}
+EOF
 	sleep 1
 }
 
@@ -263,6 +283,9 @@ function run_install {
 	echo You may tail the logs at ${tomcat_home}/logs/catalina.out
 	echo
 	echo Note that you can reapply the puppet configuration from this directory with:
-	echo	puppet apply --modulepath=modules go.pp
+	echo "	puppet apply --modulepath=modules go.pp"
+	echo
+	echo You can also run the tests with:
+  echo "  puppet apply --modulepath=modules test.pp"
 	echo
 }
