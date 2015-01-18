@@ -93,7 +93,7 @@ class alfresco::tests inherits alfresco {
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_ex_swsdp.py",
+    command => "${xvfb} python test_swsdp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
