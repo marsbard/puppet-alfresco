@@ -69,37 +69,33 @@ class alfresco::tests inherits alfresco {
 
   exec { "runtests-cmis":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run python test_cmis.py",
+    command => "xvfb-run -a -e /dev/stdout python test_cmis.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Exec["install-cmislib"],
-      Service['xvfb'],
+     # Service['xvfb'],
     ]
   }
 
   exec { "runtests-ftp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run python test_ftp.py",
+    command => "xvfb-run -a -e /dev/stdout python test_ftp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      Service['xvfb'],
+      #Service['xvfb'],
     ]
   }
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "xvfb-run python test_swsdp.py",
+    command => "xvfb-run -a -e /dev/stdout python test_swsdp.py",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      Service['xvfb'],
+      #Service['xvfb'],
     ]
-  }
-
-  service { 'xvfb':
-    ensure => running,
   }
 
 }
