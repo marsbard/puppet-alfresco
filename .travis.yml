@@ -18,6 +18,9 @@ install:
 # due to lack of output, so preload it here
   - sudo mkdir -p /opt/downloads
   - sudo wget http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz -O /opt/downloads/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz
+  - sudo wget http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip -O /opt/downloads/alfresco-community-4.2.f.zip
+  - sudo wget http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz -O /opt/downloads/apache-tomcat-7.0.55.tar.gz
+
 
 before_script:
   - mkdir -p modules/alfresco
