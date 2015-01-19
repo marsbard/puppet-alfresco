@@ -45,9 +45,9 @@ script:
 notifications:
    email:
      - marsbard.alfresco.puppet@gmail.com
-#  irc:
-#    channels:
-#      - "irc.freenode.org#orderofthebee"
-#    on_success: change
-#    on_failure: change
-#    use_notice: true
+  irc:
+    channels:
+      - "irc.freenode.org#orderofthebee"
+    on_success: change
+    on_failure: change
+    use_notice: true
