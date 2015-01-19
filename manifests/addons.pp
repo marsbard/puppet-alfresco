@@ -25,7 +25,8 @@ class alfresco::addons inherits alfresco {
 	file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
 		ensure => present,
 		mode => '0755',
-		source => "${download_path}/alfresco/bin/clean_tomcat.sh",
+		#source => "${download_path}/alfresco/bin/clean_tomcat.sh",
+    source => 'puppet:///modules/alfresco/clean_tomcat.sh',
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat7',
   }
@@ -41,7 +42,8 @@ class alfresco::addons inherits alfresco {
 	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
 		ensure => present,
 		mode => '0755',
-		source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
+		#source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
+    source => 'puppet:///modules/alfresco/alfresco-mmt.jar',
     require => File["${alfresco_base_dir}/bin"],
 	}
 

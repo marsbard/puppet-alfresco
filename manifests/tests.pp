@@ -1,5 +1,5 @@
 class alfresco::tests ( 
-  $delay_before = 20 
+  $delay_before = 120 
 ) inherits alfresco {
 
   $testsrc = 'digcat' 

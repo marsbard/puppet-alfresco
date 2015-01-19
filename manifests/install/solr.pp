@@ -59,7 +59,7 @@ class alfresco::install::solr inherits alfresco {
       }
 
       exec { "unpack-solr-cfg":
-        command => "unzip ${download_path}/solrconfig.zip",
+        command => "unzip -o ${download_path}/solrconfig.zip",
     		cwd => "${alfresco_base_dir}/solr4",
 		    path => '/usr/bin',
     		creates => "${alfresco_base_dir}/solr4/solrconfig",
