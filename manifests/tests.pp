@@ -80,6 +80,7 @@ class alfresco::tests (
 
   exec { 'delay-before':
     command => "/bin/sleep ${delay_before}",
+    require => Service['tomcat7'],
   }
 
   exec { "runtests-cmis":
