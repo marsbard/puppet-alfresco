@@ -75,11 +75,11 @@ class alfresco (
 	$db_host			= $alfresco::params::db_host,
 	$db_port			= 3306,
 	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "256m"
+	$mem_xxmaxpermsize		= "256m",
+  $lo_deb_url       = '',
+  $alf_42f_url      = '',
 ) inherits alfresco::params {
 
-	# all the URLs kept in here, if testing, you can create a 'urls-local.pp'
-	# with nearer files and change this include. 
 	include urls
 
 
