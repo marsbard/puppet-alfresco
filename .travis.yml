@@ -36,11 +36,12 @@ script:
   - COUNTER=$(( $WAIT + 1)); for i in `seq 1 $WAIT`; do echo -n "$(( $COUNTER - $i))... "; sleep 10; done; echo
 # this will install the testing dependencies
   - sudo puppet apply --debug --verbose --modulepath=modules test.pp
-# and now run the tests: (BUT NOW THEY ARE RUN FROM test.pp)
-  #- cd /opt/alfresco/tests/alfresco-tests
-  #- xvfb-run python test_swsdp.py
-  #- xvfb-run python test_cmis.py
-  #- xvfb-run python test_ftp.py
+# and now run the tests: (BUT NOW THEY ARE RUN FROM test.pp) - ACTUALLY you need 
+# them to run here too so they can trigger a failure to travis if necessary
+  - cd /opt/alfresco/tests/alfresco-tests
+  - xvfb-run python test_swsdp.py
+  - xvfb-run python test_cmis.py
+  - xvfb-run python test_ftp.py
 
 notifications:
    email:
