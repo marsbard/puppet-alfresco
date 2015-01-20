@@ -71,9 +71,20 @@ class alfresco::install::solr inherits alfresco {
       file { "${tomcat_home}/conf/Catalina/localhost/solr4.xml":
         content => template('alfresco/solr4.xml.erb'),
         ensure => present,
+        require => Exec['unpack-solr-cfg'],
       }
 
+      file { "${alfresco_base_dir}/solr4/workspace-SpacesStore/conf/solrcore.properties":
+        ensure => present,
+        content => template('alfresco/solr4core-workspace.properties.erb'),
+        require => Exec['unpack-solr-cfg'],
+      }
 
+      file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrcore.properties":
+        ensure => present,
+        content => template('alfresco/solr4core-archive.properties.erb'),
+        require => Exec['unpack-solr-cfg'],
+      }
 
 
     }
