@@ -48,6 +48,12 @@ class alfresco::install::solr inherits alfresco {
       file { "${alfresco_base_dir}/solr4":
         ensure => directory,
         require => File[$alfresco_base_dir],
+        owner => 'tomcat7',
+      }
+      file { "${alfresco_base_dir}/alf_data/solr4":
+        ensure => directory,
+        require => File[$alfresco_base_dir],
+        owner => 'tomcat7',
       }
 
       exec { "retrieve-solr-cfg":
@@ -85,6 +91,7 @@ class alfresco::install::solr inherits alfresco {
         content => template('alfresco/solr4core-archive.properties.erb'),
         require => Exec['unpack-solr-cfg'],
       }
+
 
 
     }
