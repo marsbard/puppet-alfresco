@@ -97,9 +97,10 @@ class alfresco (
 	case($alfresco_version){
 		'4.2.f': {
 			$alfresco_ce_url = $urls::alfresco_ce
+      $indexer = 'solr'
 		}
     '5.0.x': {
-
+      $indexer = 'solr4'
     }
 		default: {
 			fail("Unsupported version ${alfresco_version}")
