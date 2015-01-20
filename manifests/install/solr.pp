@@ -84,12 +84,14 @@ class alfresco::install::solr inherits alfresco {
         ensure => present,
         content => template('alfresco/solr4core-workspace.properties.erb'),
         require => Exec['unpack-solr-cfg'],
+        before => Service['alfresco-start'],
       }
 
       file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrcore.properties":
         ensure => present,
         content => template('alfresco/solr4core-archive.properties.erb'),
         require => Exec['unpack-solr-cfg'],
+        before => Service['alfresco-start'],
       }
 
 
