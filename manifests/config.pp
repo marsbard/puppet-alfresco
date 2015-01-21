@@ -81,14 +81,14 @@ class alfresco::config inherits alfresco {
 
     }
 
-	  file { "${tomcat_home}/conf/tomcat-users.xml":
-		  ensure => present,
-		  require => Exec['unpack-tomcat7'],
-		  source => 'puppet:///modules/alfresco/tomcat-users.xml',
-		  owner => 'tomcat7',
-	  }
   }
 	
+	file { "${tomcat_home}/conf/tomcat-users.xml":
+		ensure => present,
+		require => Exec['unpack-tomcat7'],
+		source => 'puppet:///modules/alfresco/tomcat-users.xml',
+		owner => 'tomcat7',
+	}
 	
 	# admin password
 

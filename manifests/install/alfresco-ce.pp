@@ -56,6 +56,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           path => "/usr/bin",
           creates => "${tomcat_home}/webapps/alfresco.war",
           require => File["${tomcat_home}/webapps/"],
+          timeout => 0,
         }
 
 	      exec { "${tomcat_home}/webapps/share.war":
@@ -64,6 +65,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           path => "/usr/bin",
           creates => "${tomcat_home}/webapps/share.war",
           require => File["${tomcat_home}/webapps/"],
+          timeout => 0,
         }
 
         file { "${tomcat_home}/webapps":
@@ -72,9 +74,9 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
         
 
-        exec { "unpack-alfresco-ce":
-          command => '/bin/true',
-        }
+        #exec { "unpack-alfresco-ce":
+        #  command => '/bin/true',
+        #}
       }
   }
 

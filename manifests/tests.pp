@@ -1,5 +1,5 @@
 class alfresco::tests ( 
-  $delay_before = 120 
+  $delay_before = 180 
 ) inherits alfresco {
 
   $testsrc = 'digcat' 
@@ -78,7 +78,7 @@ class alfresco::tests (
     require => Exec['clone-digcat-tests'],
   }
 
-  exec { 'delay-before':
+  exec { "delay-${delay_before}-before-tests":
     command => "/bin/sleep ${delay_before}",
     require => Service['tomcat7'],
   }
@@ -91,7 +91,7 @@ class alfresco::tests (
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Exec["install-cmislib"],
       Service['alfresco-start'],
-      Exec['delay-before'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 
@@ -102,7 +102,7 @@ class alfresco::tests (
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Service['alfresco-start'],
-      Exec['delay-before'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 
@@ -113,7 +113,7 @@ class alfresco::tests (
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Service['alfresco-start'],
-      Exec['delay-before'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 
