@@ -1,28 +1,56 @@
 class alfresco::tests ( 
-  $delay_before = 180 
+  $delay_before = 0 
 ) inherits alfresco {
 
-  $testsrc = 'digcat' 
+  #$testsrc = 'digcat' 
+  $testsrc = 'marsbard' 
   $testfile = 'test_ex_swsdp.py'
-  
-  #$testsrc = 'marsbard' 
-  #$testfile = 'test_swsdp.py'
 
   # default wait is 3s, we may need a bit more
   $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
 
-  $packages = [ 
-    'python',
-    'python-pip',
-    'python-setuptools',
-    'xvfb', 'x11-xkb-utils',
-    'xfonts-100dpi', 'xfonts-75dpi', 
-    'xfonts-scalable', 
-    'xfonts-cyrillic', 
-    'x11-apps',
-    'python-yaml',
-    'firefox',
-  ]
+  case $::osfamily {
+    'RedHat': {
+
+      $packages = [ 
+        'xorg-x11-server-Xvfb', 
+        'python',
+        'python-pip',
+        'python-setuptools',
+        'python-yaml',
+        'firefox',
+        'dejavu-sans-fonts',
+        'dejavu-sans-mono-fonts',
+        'dejavu-serif-fonts',
+        'liberation-mono-fonts',
+        'liberation-sans-fonts',
+        'liberation-serif-fonts',
+      ]
+
+
+      file { "/usr/bin/xvfb-run":
+        source => 'puppet:///modules/alfresco/xvfb-run',
+        mode => '0755',
+        ensure => present,
+      }
+
+    }
+    'Debian': {
+
+      $packages = [ 
+        'python',
+        'python-pip',
+        'python-setuptools',
+        'xvfb', 'x11-xkb-utils',
+        'xfonts-100dpi', 'xfonts-75dpi', 
+        'xfonts-scalable', 
+        'xfonts-cyrillic', 
+        'x11-apps',
+        'python-yaml',
+        'firefox',
+      ]
+    }
+  }
 
   package {  $packages :
     ensure => latest,
