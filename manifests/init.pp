@@ -98,9 +98,11 @@ class alfresco (
 		'4.2.f': {
 			$alfresco_ce_url = $urls::alfresco_ce
       $indexer = 'solr'
+      $cmis_url = '/alfresco/s/cmis'
 		}
     '5.0.x': {
       $indexer = 'solr4'
+      $cmis_url = '/alfresco'
     }
 		default: {
 			fail("Unsupported version ${alfresco_version}")
