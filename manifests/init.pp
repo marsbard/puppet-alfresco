@@ -19,7 +19,7 @@
 # Default mail address to use in the 'From' field of sent mails
 #
 # [*alfresco_version*]
-# For now only '4.2.f' is supported
+# Either '4.2.f' or '5.0.x'
 #
 # [*download_path*]
 # Where to store downloaded files. Defaults to '/opt/downloads'
@@ -78,8 +78,6 @@ class alfresco (
 	$mem_xxmaxpermsize		= "256m"
 ) inherits alfresco::params {
 
-	# all the URLs kept in here, if testing, you can create a 'urls-local.pp'
-	# with nearer files and change this include. 
 	include urls
 
 
@@ -99,7 +97,13 @@ class alfresco (
 	case($alfresco_version){
 		'4.2.f': {
 			$alfresco_ce_url = $urls::alfresco_ce
+      $indexer = 'solr'
+      $cmis_url = '/alfresco/s/cmis'
 		}
+    '5.0.x': {
+      $indexer = 'solr4'
+      $cmis_url = '/alfresco/cmisatom'
+    }
 		default: {
 			fail("Unsupported version ${alfresco_version}")
 		}	
@@ -158,6 +162,7 @@ class alfresco (
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
+	class { 'alfresco::install::solr': } ->
 	class { 'alfresco::addons': } ->
 	class { 'alfresco::config': 
 		notify => Class['alfresco::service'],

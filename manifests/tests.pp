@@ -1,6 +1,12 @@
-class alfresco::tests inherits alfresco {
+class alfresco::tests ( 
+  $delay_before = 180 
+) inherits alfresco {
 
-  $testsrc = 'marsbard' # 'marsbard' or 'digcat'
+  $testsrc = 'digcat' 
+  $testfile = 'test_ex_swsdp.py'
+  
+  #$testsrc = 'marsbard' 
+  #$testfile = 'test_swsdp.py'
 
   # default wait is 3s, we may need a bit more
   $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
@@ -72,6 +78,11 @@ class alfresco::tests inherits alfresco {
     require => Exec['clone-digcat-tests'],
   }
 
+  exec { "delay-${delay_before}-before-tests":
+    command => "/bin/sleep ${delay_before}",
+    require => Service['tomcat7'],
+  }
+
   exec { "runtests-cmis":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "${xvfb} python test_cmis.py",
@@ -79,6 +90,8 @@ class alfresco::tests inherits alfresco {
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
       Exec["install-cmislib"],
+      Service['alfresco-start'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 
@@ -88,15 +101,19 @@ class alfresco::tests inherits alfresco {
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+      Service['alfresco-start'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 
   exec { "runtests-swsdp":
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_swsdp.py",
+    command => "${xvfb} python ${testfile}",
     path => '/bin:/usr/bin',
     require => [
       File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
+      Service['alfresco-start'],
+      Exec["delay-${delay_before}-before-tests"],
     ]
   }
 

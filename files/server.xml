@@ -74,10 +74,10 @@
                connectionTimeout="20000"
                redirectPort="8443"
                maxHttpHeaderSize="32768"
-               compression="off"               
-               compressableMimeType="text/html,text/xml,text/plain,application/json,text/javascript,application/x-javascript,text/css,text/csv,text/x-web-markdown,application/atom+xml,application/rss+xml,application/atomsvc+xml"
+               compression="on"               
+               compressableMimeType="text/html,text/xml,application/atomsvc+xml,application/atom+xml;type=entry,application/atom+xml;type=feed,application/cmisquery+xml,application/cmisallowableactions+xml,application/cmisatom+xml,application/cmistree+xml,application/cmisacl+xml"
                noCompressionUserAgents=".*MSIE 6.*"
-               compressionMinSize="256"
+               compressionMinSize="2048"
                maxThreads="200"
                acceptCount="100"
                />

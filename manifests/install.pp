@@ -2,6 +2,8 @@ class alfresco::install inherits alfresco {
 
 
 
+  class { 'alfresco::install::alfresco-ce': }
+
 
 
 	class { '::mysql::server':
@@ -55,19 +57,19 @@ class alfresco::install inherits alfresco {
 		],
 	}
 
-  # the war files
-  exec { "${tomcat_home}/webapps/alfresco.war":
-    command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
-    require => Exec["unpack-alfresco-ce"],
-    creates => "${tomcat_home}/webapps/alfresco.war",
-    path => '/bin:/usr/bin',
-  }
-  exec { "${tomcat_home}/webapps/share.war":
-    command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
-    require => Exec["unpack-alfresco-ce"],
-    creates => "${tomcat_home}/webapps/share.war",
-    path => '/bin:/usr/bin',
-  }
+#  # the war files
+#  exec { "${tomcat_home}/webapps/alfresco.war":
+#    command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
+#    require => Exec["unpack-alfresco-ce"],
+#    creates => "${tomcat_home}/webapps/alfresco.war",
+#    path => '/bin:/usr/bin',
+#  }
+#  exec { "${tomcat_home}/webapps/share.war":
+#    command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
+#    require => Exec["unpack-alfresco-ce"],
+#    creates => "${tomcat_home}/webapps/share.war",
+#    path => '/bin:/usr/bin',
+#  }
 
 
 
@@ -102,29 +104,29 @@ class alfresco::install inherits alfresco {
 	}
 
 
-	exec { "retrieve-alfresco-ce":
-		command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
-		path => "/usr/bin",
-		creates => "${download_path}/${urls::alfresco_ce_filename}",
-        	timeout => 0,
-		require => File[$download_path],
-	}
-
-	file { "${download_path}/alfresco":
-		ensure => directory,
-	}
-
-	exec { "unpack-alfresco-ce":
-		command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
-		path => "/usr/bin",
-		require => [ 
-			Exec["retrieve-alfresco-ce"],
-			Exec["copy tomcat to ${tomcat_home}"], 
-			Package["unzip"], 
-			File["${download_path}/alfresco"],
-		],
-		creates => "${download_path}/alfresco/README.txt",
-	}
+#	exec { "retrieve-alfresco-ce":
+#		command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
+#		path => "/usr/bin",
+#		creates => "${download_path}/${urls::alfresco_ce_filename}",
+#        	timeout => 0,
+#		require => File[$download_path],
+#	}
+#
+#	file { "${download_path}/alfresco":
+#		ensure => directory,
+#	}
+#
+#	exec { "unpack-alfresco-ce":
+#		command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
+#		path => "/usr/bin",
+#		require => [ 
+#			Exec["retrieve-alfresco-ce"],
+#			Exec["copy tomcat to ${tomcat_home}"], 
+#			Package["unzip"], 
+#			File["${download_path}/alfresco"],
+#		],
+#		creates => "${download_path}/alfresco/README.txt",
+#	}
 
 
 
@@ -204,30 +206,6 @@ class alfresco::install inherits alfresco {
 		source => 'puppet:///modules/alfresco/limitconvert.sh',
 	}
 
-	file { "${alfresco_base_dir}/bin/update-admin-passwd.sh":
-		ensure => present,
-		source => 'puppet:///modules/alfresco/update-admin-passwd.sh',
-		owner => 'tomcat7',
-		mode => '0755',
-	}
-	
-	file { "${alfresco_base_dir}/bin/show-admin-passwd-hash.sh":
-		ensure => present,
-		source => 'puppet:///modules/alfresco/show-admin-passwd-hash.sh',
-		owner => 'tomcat7',
-		mode => '0755',
-	}
-
-
-
-#	# grr can't figure how to do it on the first run, this should add the admin password on the second run
-#	file { "${tomcat_home}/webapps/alfresco/WEB-INF/classes/alfresco/dbscripts/db-schema-context.xml":
-#		source => 'puppet:///modules/alfresco/db-schema-context.xml',
-#		ensure => present,
-#		require => Exec['unpack-alfresco-war'],
-#	}
-
-
 	# XALAN
 
 	$xalan = 'http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/COMMUNITYTAGS/V4.2f/root/projects/3rd-party/lib/xalan-2.7.0/'
@@ -254,30 +232,6 @@ class alfresco::install inherits alfresco {
 	}
 
 
-
-	exec { "retrieve-solr":
-		command => "wget ${urls::solr_dl} -O solr.zip",
-		cwd => $download_path,
-		path => "/usr/bin",
-		creates => "${download_path}/solr.zip",
-	}
-
-	exec { "unpack-solr":
-		command => "unzip ${download_path}/solr.zip -d solr/",
-		cwd => $alfresco_base_dir,
-		path => '/usr/bin',
-		creates => "${alfresco_base_dir}/solr/solr.xml",
-		require => [
-		 	Exec["retrieve-solr"],
-		],
-	}
-
-	file { "${alfresco_base_dir}/solr/alf_data":
-		ensure => absent,
-		force => true,
-		require => Exec["unpack-alfresco-ce"],
-		before => Service["tomcat7"],
-	}
 
 
 	exec { "retrieve-mysql-connector":
