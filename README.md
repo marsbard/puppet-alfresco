@@ -48,7 +48,7 @@ Here's a complete example, showing the default values (domain_name has no defaul
 	}
 
 
-Note that currently the only supported value for "alfresco_version" is "4.2.f". 
+Note that currently the only supported values for "alfresco_version" are "4.2.f" and "5.0.x". 
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
