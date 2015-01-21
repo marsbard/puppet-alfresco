@@ -19,6 +19,7 @@ class alfresco::install::solr inherits alfresco {
 		    require => [
 		  	  Exec["retrieve-solr"],
 		    ],
+        user => 'tomcat7',
 	    }
 
 	    file { "${alfresco_base_dir}/solr/alf_data":
@@ -60,7 +61,7 @@ class alfresco::install::solr inherits alfresco {
         command => "wget ${solr_cfg_dl} -O solrconfig.zip",
     		cwd => $download_path,
 		    path => '/usr/bin',
-    		creates => "${alfresco_base_dir}/solr4/solrconfig.zip",
+    		creates => "${download_path}/solrconfig.zip",
         require => File["${alfresco_base_dir}/solr4"],
       }
 
@@ -68,9 +69,10 @@ class alfresco::install::solr inherits alfresco {
         command => "unzip -o ${download_path}/solrconfig.zip",
     		cwd => "${alfresco_base_dir}/solr4",
 		    path => '/usr/bin',
-    		creates => "${alfresco_base_dir}/solr4/solrconfig",
+    		creates => "${alfresco_base_dir}/solr4/context.xml",
         require => Exec['retrieve-solr-cfg'],
         notify => Service['tomcat7'],
+        user => 'tomcat7',
       }
 
 
