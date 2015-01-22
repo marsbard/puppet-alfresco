@@ -117,8 +117,10 @@ You need to run './install.sh' once and quit out of it in order to save the 'go.
 While in the installer you must set the domain_name parameter and that domain name should be resolvable on the network to the machine you are installing upon. 
 (Admittedly this is a bit 'chicken and egg', the best thing is to register the MAC address of the VM with your DHCP server once the VM is running - to help with this I have included a static MAC address in the network config, otherwise Vagrant/Virtualbox gives you a new MAC address each time which is kind of annoying).
 
-	./install.sh
+	./install.sh # Choose Q after setting parameters
 	vagrant up
+
+It is a good idea to set download_path to be under /vagrant as then you will only need to download Libre Office etc. once, and subsequently after doing "vagrant destroy" they will still be available. Since Libre Office takes a long time to download this is a good idea.
 
 The network starts as bridged ("public network") and it will ask you which interface you want to bridge to at startup. 
 
