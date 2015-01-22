@@ -41,8 +41,8 @@ default[$IDX]="/opt/alfresco/tomcat"
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="alfresco_version"
-descr[$IDX]="Alfresco version to install. For now only '4.2.f' is supported"
-default[$IDX]="4.2.f"
+descr[$IDX]="Alfresco version to install. Choices '4.2.f' and '5.0.x' are supported"
+default[$IDX]="5.0.x"
 
 
 IDX=$(( $IDX + 1 ))
