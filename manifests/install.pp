@@ -3,6 +3,7 @@ class alfresco::install inherits alfresco {
 
 
   class { 'alfresco::install::alfresco-ce': }
+  class { 'alfresco::install::postfix': }
 
 
 

@@ -16,6 +16,16 @@ params[$IDX]="mail_from_default"
 descr[$IDX]="Default mail address to use in the 'From' field of sent mails"
 default[$IDX]="admin@localhost"
 
+IDX=$(( $IDX + 1 ))
+params[$IDX]="mail_host"
+descr[$IDX]="Address of mail server which will accept mails from us. Leave this as 'localhost' and postfix will be installed locally"
+default[$IDX]="localhost"
+
+IDX=$(( $IDX + 1 ))
+params[$IDX]="mail_port"
+descr[$IDX]="Mail server port. Leave at '25' for localhost."
+default[$IDX]="25"
+
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="alfresco_base_dir"

@@ -44,6 +44,18 @@
 # [*db_port*]
 # Port of DB server. Default to 3306.
 #
+# [*mail_host*]
+# Address of mail server who will accept mail from us. If left as 
+# 'localhost' then postfix will be installed locally
+#
+# [*mem_xmx*]
+# Equivalent to the -Xmx switch
+#
+# [*mem_xxmaxpermsize*]
+# Equivalent to the -XX:MaxPermSize switch
+#
+#
+#
 # === Examples
 #
 #  class { 'alfresco':
@@ -74,6 +86,7 @@ class alfresco (
 	$db_name			= $alfresco::params::db_name,
 	$db_host			= $alfresco::params::db_host,
 	$db_port			= 3306,
+  $mail_host    = 'localhost',
 	$mem_xmx			= "32G",
 	$mem_xxmaxpermsize		= "256m"
 ) inherits alfresco::params {
