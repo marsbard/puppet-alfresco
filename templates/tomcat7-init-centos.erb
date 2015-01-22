@@ -19,14 +19,14 @@ rm -rf $CATALINA_HOME/work/Catalina/localhost/share
 rm -rf $CATALINA_HOME/work/Catalina/localhost/awe
 rm -rf $CATALINA_HOME/work/Catalina/localhost/wcmqs
 
-sh $CATALINA_HOME/bin/startup.sh
+su tomcat7 -c "sh $CATALINA_HOME/bin/startup.sh"
 ;; 
 stop)   
-sh $CATALINA_HOME/bin/shutdown.sh
+su tomcat7 -c "sh $CATALINA_HOME/bin/shutdown.sh"
 ;; 
 restart)
-sh $CATALINA_HOME/bin/shutdown.sh
-sh $CATALINA_HOME/bin/startup.sh
+su tomcat7 -c "sh $CATALINA_HOME/bin/shutdown.sh"
+su tomcat7 -c "sh $CATALINA_HOME/bin/startup.sh"
 ;; 
 esac    
 exit 0

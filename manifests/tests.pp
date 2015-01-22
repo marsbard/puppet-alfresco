@@ -2,8 +2,8 @@ class alfresco::tests (
   $delay_before = 0 
 ) inherits alfresco {
 
-  #$testsrc = 'digcat' 
-  $testsrc = 'marsbard' 
+  $testsrc = 'digcat' 
+  #$testsrc = 'marsbard' 
   $testfile = 'test_ex_swsdp.py'
 
   # default wait is 3s, we may need a bit more

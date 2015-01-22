@@ -62,7 +62,7 @@ class alfresco::install::solr inherits alfresco {
     		cwd => $download_path,
 		    path => '/usr/bin',
     		creates => "${download_path}/solrconfig.zip",
-        require => File["${alfresco_base_dir}/solr4"],
+        #require => File["${alfresco_base_dir}/solr4"],
       }
 
       exec { "unpack-solr-cfg":
@@ -80,6 +80,7 @@ class alfresco::install::solr inherits alfresco {
         content => template('alfresco/solr4.xml.erb'),
         ensure => present,
         require => Exec['unpack-solr-cfg'],
+        owner => 'tomcat7',
       }
 
       file { "${alfresco_base_dir}/solr4/workspace-SpacesStore/conf/solrcore.properties":
@@ -87,6 +88,7 @@ class alfresco::install::solr inherits alfresco {
         content => template('alfresco/solr4core-workspace.properties.erb'),
         require => Exec['unpack-solr-cfg'],
         before => Service['alfresco-start'],
+        owner => 'tomcat7',
       }
 
       file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrcore.properties":
@@ -94,6 +96,7 @@ class alfresco::install::solr inherits alfresco {
         content => template('alfresco/solr4core-archive.properties.erb'),
         require => Exec['unpack-solr-cfg'],
         before => Service['alfresco-start'],
+        owner => 'tomcat7',
       }
 
 
