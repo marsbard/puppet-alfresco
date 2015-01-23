@@ -88,7 +88,8 @@ class alfresco (
 	$db_port			= 3306,
   $mail_host    = 'localhost',
 	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "256m"
+	$mem_xxmaxpermsize		= "256m",
+  $delay_before_tests = 60
 ) inherits alfresco::params {
 
 	include urls

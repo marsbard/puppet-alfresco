@@ -1,6 +1,6 @@
-class alfresco::tests ( 
-  $delay_before = 0 
-) inherits alfresco {
+class alfresco::tests inherits alfresco {
+
+  $delay_before = $delay_before_tests 
 
   $testsrc = 'digcat' 
   #$testsrc = 'marsbard' 
