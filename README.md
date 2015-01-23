@@ -30,7 +30,7 @@ Here is an example of a minimal puppet script to install alfresco:
 
 The domain_name value should be resolvable to the machine we're working on.
 
-Here's a complete example, showing the default values (domain_name has no default):
+Here's a more complete example, showing the default values (domain_name has no default). See the output of install.sh (go.pp) for the latest configuration:
 
 	class { 'alfresco':
 		domain_name => 'marsbard.com',	
@@ -49,6 +49,8 @@ Here's a complete example, showing the default values (domain_name has no defaul
 
 
 Note that currently the only supported values for "alfresco_version" are "4.2.f" and "5.0.x". 
+
+If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
@@ -101,6 +103,8 @@ If you choose a parameter you will see a short help message, and the current def
 
 Edit any parameters you would like to change. If you select "Q" then any parameters you have changed will be saved before quitting, likewise changes are saved before doing the install. Actually selecting the install option will download puppet if necessary and then proceed to apply the puppet configuration to bring the system up to a running alfresco instance.
 
+If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
+
 #### <a name='vagrant'></a>Run under Vagrant
 
 It's useful to run the script under Vagrant sometimes for testing purposes.
@@ -121,6 +125,8 @@ While in the installer you must set the domain_name parameter and that domain na
 	vagrant up
 
 It is a good idea to set download_path to be under /vagrant as then you will only need to download Libre Office etc. once, and subsequently after doing "vagrant destroy" they will still be available. Since Libre Office takes a long time to download this is a good idea.
+
+If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
 
 The network starts as bridged ("public network") and it will ask you which interface you want to bridge to at startup. 
 
