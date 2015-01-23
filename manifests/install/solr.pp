@@ -99,11 +99,6 @@ class alfresco::install::solr inherits alfresco {
         owner => 'tomcat7',
       }
 
-      file { "${tomcat_home}/webapps/alfresco/WEB-INF/lib/solr-solrj-1.4.1.jar":
-        ensure => absent,
-        before => Service['alfresco-start'],
-      }
-
     }
 
 
