@@ -1,10 +1,24 @@
 class alfresco::install::mysql inherits alfresco {
 
 
-	class { '::mysql::server':
-		#bind_address => '0.0.0.0',
-		root_password    => $db_root_password,
-	}
+  if($alfresco_db_host != 'localhost') {
+
+	  class { '::mysql::server':
+		  #root_password    => $db_root_password,
+	  }
+
+    # for some reason setting it above does not always(?) work
+    exec { "Set MySQL server root password":
+      subscribe => [ Class["::mysql::server"] ],
+      refreshonly => true,
+      unless => "mysqladmin -uroot -p$db_root_password status",
+      path => "/bin:/usr/bin",
+      command => "mysqladmin -uroot password $db_root_password",
+    }
+
+  }
+
+
 
 	mysql::db { "$alfresco_db_name":
 		user     => "${alfresco_db_user}",
