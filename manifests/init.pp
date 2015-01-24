@@ -94,6 +94,10 @@ class alfresco (
 
 	include urls
 
+  notify{ 'check-version-init':
+    message => "alfresco_version is ${alfresco_version}",
+  }
+
 
 	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 

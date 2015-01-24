@@ -1,6 +1,10 @@
 class alfresco::install inherits alfresco {
 
 
+  notify{ 'check-version-install':
+    message => "alfresco_version is ${alfresco_version}",
+  }
+
 
   class { 'alfresco::install::alfresco-ce': }
   class { 'alfresco::install::postfix': }

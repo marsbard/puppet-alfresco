@@ -1,5 +1,9 @@
 class alfresco::config inherits alfresco {
 
+  notify{ 'check-version-config':
+    message => "alfresco_version is ${alfresco_version}",
+  }
+
 
  	case $::osfamily {
     		'RedHat': {

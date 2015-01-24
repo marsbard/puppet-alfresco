@@ -2,6 +2,11 @@ class alfresco::tests (
   $delay_before = 0 
 ) inherits alfresco {
 
+  notify{ 'check-version-tests':
+    message => "alfresco_version is ${alfresco_version}",
+  }
+
+
   $testsrc = 'digcat' 
   #$testsrc = 'marsbard' 
   $testfile = 'test_ex_swsdp.py'
