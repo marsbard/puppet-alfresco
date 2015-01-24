@@ -88,7 +88,8 @@ class alfresco (
 	$db_port			= 3306,
   $mail_host    = 'localhost',
 	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "256m"
+	$mem_xxmaxpermsize		= "256m",
+  $apt_cache = ''
 ) inherits alfresco::params {
 
 	include urls
@@ -161,6 +162,14 @@ class alfresco (
 			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
 			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
 		}
+
+
+    if $apt_cache != '' {
+      file { '/etc/apt/apt.conf':
+        content => "Acquire::http { Proxy \"${apt_cache}\"; }; 
+      }
+    }
+
 	}
 
 
