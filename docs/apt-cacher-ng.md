@@ -1,4 +1,4 @@
-## How to set up apt-cache-ng to speed up repeated testing
+## How to set up apt-cacher-ng to speed up repeated testing
 
 On some Debian or Ubuntu host, install the 'apt-cacher-ng' package.
 
