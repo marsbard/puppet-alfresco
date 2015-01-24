@@ -335,7 +335,7 @@ class alfresco::install inherits alfresco {
 		creates => "${download_path}/${loffice_name}.tar.gz",
 		path => "/usr/bin",
 		timeout => 0,
-    logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
+    #logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
 	}
 
 	exec { "unpack-loffice":
