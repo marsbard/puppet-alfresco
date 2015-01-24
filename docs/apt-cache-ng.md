@@ -11,3 +11,6 @@ If you have changed the port on which apt-cacher-ng listens you may also use the
     apt_cache_port => 1234,
 
 
+
+Note that you also have the option of overriding some of the other large downloads by editing manifests/urls.pp and making the urls point to local copies.
+
