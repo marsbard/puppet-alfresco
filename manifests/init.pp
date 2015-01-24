@@ -166,7 +166,7 @@ class alfresco (
 
     if $apt_cache != '' {
       file { '/etc/apt/apt.conf':
-        content => "Acquire::http { Proxy \"${apt_cache}\"; }; 
+        content => "Acquire::http { Proxy \"${apt_cache}\"; }; ",
       }
     }
 
