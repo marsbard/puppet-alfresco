@@ -87,6 +87,7 @@ class alfresco (
 	$db_host			= $alfresco::params::db_host,
 	$db_port			= 3306,
   $mail_host    = 'localhost',
+  $mail_port    = 25,
 	$mem_xmx			= "32G",
 	$mem_xxmaxpermsize		= "256m",
   $delay_before_tests = 180,
