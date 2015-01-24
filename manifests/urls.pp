@@ -18,6 +18,8 @@ class urls {
   $alfresco_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/5.0.c/alfresco-5.0.c.war'
   $share_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/5.0.c/share-5.0.c.war'
 
+  #$alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
+  #$share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
 
 
 	$loffice_name_deb = 'LibreOffice_4.2.7.2_Linux_x86-64_deb'

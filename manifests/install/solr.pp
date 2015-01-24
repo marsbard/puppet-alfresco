@@ -1,6 +1,11 @@
 class alfresco::install::solr inherits alfresco {
 
 
+  notify{ 'check-version-solr':
+    message => "alfresco_version is ${alfresco_version}",
+  }
+
+
   case ($alfresco_version) {
     '4.2.f': {
 
@@ -28,6 +33,26 @@ class alfresco::install::solr inherits alfresco {
 		    require => Exec["unpack-alfresco-ce"],
 		    before => Service["tomcat7"],
 	    }
+
+
+	    file { "${alfresco_base_dir}/solr/workspace-SpacesStore/conf/solrcore.properties":
+		    require => Exec['unpack-solr'],
+		    content => template('alfresco/solrcore-workspace.properties.erb'),
+		    ensure => present,
+	    }
+
+
+	    file { "${alfresco_base_dir}/solr/archive-SpacesStore/conf/solrcore.properties":
+		    require => Exec['unpack-solr'],
+		    content => template('alfresco/solrcore-archive.properties.erb'),
+		    ensure => present,
+	    }
+
+	    file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
+        content => template('alfresco/solr.xml.erb'),
+		    ensure => present,
+	    }
+
     }
 
 
@@ -98,8 +123,6 @@ class alfresco::install::solr inherits alfresco {
         before => Service['alfresco-start'],
         owner => 'tomcat7',
       }
-
-
 
     }
 

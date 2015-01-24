@@ -1,6 +1,5 @@
 class alfresco::config inherits alfresco {
 
-
  	case $::osfamily {
     		'RedHat': {
 			$init_template = "alfresco/tomcat7-init-centos.erb"
@@ -51,37 +50,6 @@ class alfresco::config inherits alfresco {
 		owner => 'tomcat7',
 	}
 
-
-	# SOLR
-
-  case ($alfresco_version) {
-    '4.2.f', '4.2.x': {
-
-
-	    file { "${alfresco_base_dir}/solr/workspace-SpacesStore/conf/solrcore.properties":
-		    require => Exec['unpack-solr'],
-		    content => template('alfresco/solrcore-workspace.properties.erb'),
-		    ensure => present,
-	    }
-
-
-	    file { "${alfresco_base_dir}/solr/archive-SpacesStore/conf/solrcore.properties":
-		    require => Exec['unpack-solr'],
-		    content => template('alfresco/solrcore-archive.properties.erb'),
-		    ensure => present,
-	    }
-
-	    file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
-        content => template('alfresco/solr.xml.erb'),
-		    ensure => present,
-	    }
-
-    }
-    '5.0.x': {
-
-    }
-
-  }
 	
 	file { "${tomcat_home}/conf/tomcat-users.xml":
 		ensure => present,

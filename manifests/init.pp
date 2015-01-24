@@ -89,10 +89,16 @@ class alfresco (
   $mail_host    = 'localhost',
 	$mem_xmx			= "32G",
 	$mem_xxmaxpermsize		= "256m",
-  $delay_before_tests = 60
+  $delay_before_tests = 180,
+  $apt_cache_host = '',
+  $apt_cache_port = 3142
 ) inherits alfresco::params {
 
 	include urls
+
+  notify{ 'check-version-init':
+    message => "alfresco_version is ${alfresco_version}",
+  }
 
 
 	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
@@ -162,6 +168,8 @@ class alfresco (
 			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
 			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
 		}
+
+
 	}
 
 
@@ -172,7 +180,12 @@ class alfresco (
 	class { 'alfresco::packages':
 		stage => 'deps',
 	}
-	
+	stage { 'aptcache':
+    before => Stage['deps'],
+  }
+  class { 'alfresco::aptcache':
+    stage => 'aptcache',
+  }
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
