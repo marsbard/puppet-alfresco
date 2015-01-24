@@ -89,7 +89,8 @@ class alfresco (
   $mail_host    = 'localhost',
 	$mem_xmx			= "32G",
 	$mem_xxmaxpermsize		= "256m",
-  $apt_cache = ''
+  $apt_cache_host = '',
+  $apt_cache_port = 3142
 ) inherits alfresco::params {
 
 	include urls
@@ -168,12 +169,6 @@ class alfresco (
 		}
 
 
-    if $apt_cache != '' {
-      file { '/etc/apt/apt.conf':
-        content => "Acquire::http { Proxy \"${apt_cache}\"; }; ",
-      }
-    }
-
 	}
 
 
@@ -184,7 +179,12 @@ class alfresco (
 	class { 'alfresco::packages':
 		stage => 'deps',
 	}
-	
+	stage { 'aptcache':
+    before => Stage['deps'],
+  }
+  class { 'alfresco::aptcache':
+    stage => 'aptcache',
+  }
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->
