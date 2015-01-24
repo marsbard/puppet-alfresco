@@ -1,11 +1,6 @@
 class alfresco::service inherits alfresco {
 
 
-  notify{ 'check-version-service':
-    message => "alfresco_version is ${alfresco_version}",
-  }
-
-
 	service { 'alfresco-start':
 		name => 'tomcat7',
 		ensure => running,

@@ -1,11 +1,5 @@
 class alfresco::install::solr inherits alfresco {
 
-
-  notify{ 'check-version-solr':
-    message => "alfresco_version is ${alfresco_version}",
-  }
-
-
   case ($alfresco_version) {
     '4.2.f': {
 
