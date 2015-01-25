@@ -1,9 +1,5 @@
 class alfresco::packages inherits alfresco {
 
-  notify{ 'check-version-packages':
-    message => "alfresco_version is ${alfresco_version}",
-  }
-
   	case $::osfamily {
     		'RedHat': {
 

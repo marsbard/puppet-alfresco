@@ -1,9 +1,5 @@
 class alfresco::install::alfresco-ce inherits alfresco::install {
 
-  notify{ 'check-version-alfce':
-    message => "alfresco_version is ${alfresco_version}",
-  }
-
   case ($alfresco_version){
       '4.2.f', '4.2.x': {
 

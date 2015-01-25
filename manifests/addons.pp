@@ -3,11 +3,6 @@ class alfresco::addons inherits alfresco {
 	include alfresco::addons::jsconsole
 
 
-  notify{ 'check-version-addons':
-    message => "alfresco_version is ${alfresco_version}",
-  }
-
-
 	exec { "apply-addons":
     require => [
       File["${alfresco_base_dir}/bin/apply_amps.sh"],
