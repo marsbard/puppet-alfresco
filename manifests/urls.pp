@@ -4,6 +4,7 @@ class urls {
 
 
 
+  # v4 wars
 	$alfresco_ce_filename = 'alfresco-community-4.2.f.zip'
   # these selective overrides are just for my dev to get the biggest files a lot
   # a lot closer and so speed things up
@@ -14,12 +15,17 @@ class urls {
   }
 
 
+  # v5 wars
+  $alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
+  $share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
 
-  $alfresco_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/5.0.c/alfresco-5.0.c.war'
-  $share_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/5.0.c/share-5.0.c.war'
+	$solr_war_file = "alfresco-solr4-5.0.c-ssl.war"
+	$solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_war_file"
+	
+	$solr_cfg_file = "alfresco-solr4-5.0.c-config-ssl.zip"
+	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_cfg_file"
 
-  #$alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
-  #$share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
+
 
 
 	$loffice_name_deb = 'LibreOffice_4.2.7.2_Linux_x86-64_deb'
