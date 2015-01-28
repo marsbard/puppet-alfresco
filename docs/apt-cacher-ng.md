@@ -10,6 +10,14 @@ If you have changed the port on which apt-cacher-ng listens you may also use the
 
     apt_cache_port => 1234,
 
+It uses the puppetlabs-apt module, you need to either install it in your puppetmaster:
+
+    puppet module install puppetlabs-apt 
+
+Or if you are using Vagrant, into your local modules folder
+
+    puppet module install puppetlabs-apt --target-dir=modules
+
 It is worth tailing the logs in __/var/log/apt-cacher-ng/__ to make sure that the .deb packages are in fact being requested from there. The configuration for the proxy is in __/etc/apt/apt.conf.d/01proxy__
 
 
