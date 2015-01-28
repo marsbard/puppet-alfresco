@@ -52,14 +52,8 @@ class alfresco::install::solr inherits alfresco {
 
     '5.0.c', '5.0.x': {
 
-	    $solr_war_file = "alfresco-solr4-5.0.b-ssl.war"
-	    $solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_war_file"
-	
-	    $solr_cfg_file = "alfresco-solr4-5.0.b-config-ssl.zip"
-	    $solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.b/$solr_cfg_file"
-
       exec { "retrieve-solr-war":
-		    command => "wget ${solr_war_dl} -O solr4.war",
+		    command => "wget ${urls::solr_war_dl} -O solr4.war",
     		cwd => "${tomcat_home}/webapps",
 		    path => "/usr/bin",
     		creates => "${tomcat_home}/webapps/solr4.war",
@@ -77,7 +71,7 @@ class alfresco::install::solr inherits alfresco {
       }
 
       exec { "retrieve-solr-cfg":
-        command => "wget ${solr_cfg_dl} -O solrconfig.zip",
+        command => "wget ${urls::solr_cfg_dl} -O solrconfig.zip",
     		cwd => $download_path,
 		    path => '/usr/bin',
     		creates => "${download_path}/solrconfig.zip",
