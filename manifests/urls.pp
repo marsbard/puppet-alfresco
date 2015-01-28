@@ -6,13 +6,7 @@ class urls {
 
   # v4 wars
 	$alfresco_ce_filename = 'alfresco-community-4.2.f.zip'
-  # these selective overrides are just for my dev to get the biggest files a lot
-  # a lot closer and so speed things up
-  if $alf_42f_url != '' { 
-    $alfresco_ce_url = $alf_42f_url
-  } else {
-	  $alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
-  }
+	$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
 
 
   # v5 wars
@@ -29,14 +23,7 @@ class urls {
 
 
 	$loffice_name_deb = 'LibreOffice_4.2.7.2_Linux_x86-64_deb'
-  # these selective overrides are just for my dev to get the biggest files a lot
-  # a lot closer and so speed things up
-  if $lo_deb_url != '' {
-    $loffice_dl_deb = $lo_deb_url
-  } else {
-	  $loffice_dl_deb = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name_deb}.tar.gz"
-  }
-
+  $loffice_dl_deb = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/${loffice_name_deb}.tar.gz"
 
 	$loffice_name_red = 'LibreOffice_4.2.7.2_Linux_x86-64_rpm'
 	$loffice_dl_red = "http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/rpm/x86_64/${loffice_name_red}.tar.gz"
