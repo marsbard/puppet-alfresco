@@ -1,6 +1,6 @@
 ## How to set up apt-cacher-ng to speed up repeated testing
 
-On some Debian or Ubuntu host, install the 'apt-cacher-ng' package.
+On some Debian or Ubuntu host, install the '__apt-cacher-ng__' package.
 
 In your go.pp file, or in your puppetmaster configuration depending on how you are using the module, add the parameter
   
