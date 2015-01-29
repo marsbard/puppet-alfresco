@@ -10,8 +10,13 @@ class urls {
 
 
   # v5 wars
-  $alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
-  $share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
+  #$alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
+  #$share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
+
+
+  $alfresco_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/5.0.c/alfresco-5.0.c.war'
+  $share_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/5.0.c/share-5.0.c.war'
+
 
 	$solr_war_file = "alfresco-solr4-5.0.c-ssl.war"
 	$solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_war_file"
