@@ -12,7 +12,6 @@ class alfresco::install::mysql inherits alfresco {
 		  password => "${alfresco_db_pass}",
 		  host     => "${alfresco_db_host}",
 		  grant    => ['ALL'],
-      require => Exec["Set MySQL server root password"],
 	  }
   }
 
