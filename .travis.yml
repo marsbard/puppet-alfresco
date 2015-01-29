@@ -21,7 +21,6 @@ install:
   - sudo wget http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip -O /opt/downloads/alfresco-community-4.2.f.zip
   - sudo wget http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz -O /opt/downloads/apache-tomcat-7.0.55.tar.gz
 
-
 before_script:
   - mkdir -p modules/alfresco
   - mv files lib manifests templates modules/alfresco
