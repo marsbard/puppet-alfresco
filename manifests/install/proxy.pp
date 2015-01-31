@@ -90,11 +90,8 @@ class alfresco::install::proxy inherits alfresco {
     ssl_cert => "/etc/ssl/${domain_name}.cert",
     ssl_key => "/etc/ssl/${domain_name}.key",
     proxy_pass => [
-      #{ 'path' => '/share', 'url' => "ajp://${domain_name}:8009/share" },
-      #{ 'path' => '/solr', 'url' => "ajp://${domain_name}:8009/solr" },
-      #{ 'path' => '/alfresco', 'url' => "ajp://${domain_name}:8009/alfresco" },
       { 'path' => '/share', 'url' => "ajp://127.0.0.1:8009/share" },
-      { 'path' => '/solr', 'url' => "ajp://127.0.0.1:8009/solr" },
+      { 'path' => '/solr4', 'url' => "ajp://127.0.0.1:8009/solr4" },
       { 'path' => '/alfresco', 'url' => "ajp://127.0.0.1:8009/alfresco" },
     ]
   }
