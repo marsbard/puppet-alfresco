@@ -1,7 +1,7 @@
 class alfresco::packages inherits alfresco {
 
   	case $::osfamily {
-    		'RedHat': {
+    	'RedHat': {
 
 			exec { "get-repoforge":
 				command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
@@ -28,7 +28,9 @@ class alfresco::packages inherits alfresco {
 			]
 		}
 		'Debian': {
-		    	$packages = [ 
+		  $packages = [ 
+        "dos2unix",
+        "sudo",
 				"gdebi-core",
 				"git", 
 				"openjdk-7-jdk",
