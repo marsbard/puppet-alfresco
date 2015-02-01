@@ -30,7 +30,6 @@ class alfresco::packages inherits alfresco {
 		'Debian': {
 		  $packages = [ 
         "dos2unix",
-        "sudo",
 				"gdebi-core",
 				"git", 
 				"openjdk-7-jdk",
