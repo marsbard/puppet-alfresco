@@ -11,9 +11,7 @@ Use it:
 
 Current limitations:
 
-* Mysql root password does not get set correctly
-* CentOS build does not work right now but support is planned. Only tested on Ubuntu, Debian may work if you're lucky
-
+* CentOS build has only been tested on 4.2.f where it works apart from thumbnails and previews
 
 #### <a name='puppetmodule'></a>Use it as a puppet module
 It can be used as a puppet module, for example on your puppet master node 
