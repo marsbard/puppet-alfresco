@@ -10,7 +10,7 @@ source install/params.sh
 RES_COL=30
 MOVE_TO_COL="echo -en \\033[${RES_COL}G"
 NUMPARAMS="${#params[@]}"
-
+RESET="\x1B[0m"
 
 read_answers
 while [ true ]
@@ -19,3 +19,5 @@ do
 	paramloop
 	read_entry
 done
+
+echo -e $RESET
