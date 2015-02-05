@@ -8,13 +8,13 @@ set -e
 
 ANS_FILE="_answers.sh"
 
-YELLOW='\e[0;33m'
-PURPLE='\e[0;35m' # Purple
-WHITE='\e[0;37m'
-GREEN='\e[0;32m' # Green
-BLUE='\e[0;34m'
-CYAN='\e[0;36m' # Cyan
-RED='\e[0;31m' # Red
+YELLOW='\x1B[0;33m'
+PURPLE='\x1B[0;35m' # Purple
+WHITE='\x1B[0;37m'
+GREEN='\x1B[0;32m' # Green
+BLUE='\x1B[0;34m'
+CYAN='\x1B[0;36m' # Cyan
+RED='\x1B[0;31m' # Red
 
 
 
