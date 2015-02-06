@@ -50,7 +50,7 @@ class alfresco::install::solr inherits alfresco {
     }
 
 
-    '5.0.c', '5.0.x': {
+    '5.0.c', '5.0.x', 'NIGHTLY': {
 
       exec { "retrieve-solr-war":
 		    command => "wget ${urls::solr_war_dl} -O solr4.war",
