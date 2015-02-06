@@ -1,6 +1,7 @@
 class urls {
 
-
+  $nightly = 'http://dev.alfresco.com/downloads/nightly/dist/alfresco-community-5.1-SNAPSHOT.zip'
+  $nightly_name = 'alfresco-community-5.1-SNAPSHOT.zip'
 
 
 
