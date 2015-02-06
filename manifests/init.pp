@@ -19,7 +19,7 @@
 # Default mail address to use in the 'From' field of sent mails
 #
 # [*alfresco_version*]
-# Either '4.2.f' or '5.0.x'
+# '4.2.f', '5.0.x', or 'NIGHTLY'
 #
 # [*download_path*]
 # Where to store downloaded files. Defaults to '/opt/downloads'
@@ -116,7 +116,7 @@ class alfresco (
       $indexer = 'solr'
       $cmis_url = '/alfresco/s/cmis'
 		}
-    '5.0.x': {
+    '5.0.x', 'NIGHTLY': {
       $indexer = 'solr4'
       $cmis_url = '/alfresco/cmisatom'
     }

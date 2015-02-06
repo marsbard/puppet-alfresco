@@ -101,12 +101,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.module_path = ["modules"]
   end
 
-  config.vm.provision :puppet do |puptest|
-    puptest.manifests_path = "modules/alfresco"
-    puptest.manifest_file  = "test.pp"
-    puptest.module_path = ["modules"]
-    #puptest.options = "--verbose --debug"
-  end
+#  config.vm.provision :puppet do |puptest|
+#    puptest.manifests_path = "modules/alfresco"
+#    puptest.manifest_file  = "test.pp"
+#    puptest.module_path = ["modules"]
+#    #puptest.options = "--verbose --debug"
+#  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
