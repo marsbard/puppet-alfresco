@@ -15,9 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # http://www.miniwebtool.com/mac-address-generator/
   config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
-  config.vbguest.auto_update = true
-  #config.vbguest.auto_update = false
-
   config.vm.provider "virtualbox" do |v|
     v.memory = 1900 
     v.cpus = 2
@@ -25,6 +22,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "hashicorp/precise64"
 
+#  if Vagrant.has_plugin?("vagrant-vbguest")
+#    config.vbguest.auto_update = true
+#  end
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -101,12 +101,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.module_path = ["modules"]
   end
 
-  config.vm.provision :puppet do |puptest|
-    puptest.manifests_path = "modules/alfresco"
-    puptest.manifest_file  = "test.pp"
-    puptest.module_path = ["modules"]
-    #puptest.options = "--verbose --debug"
-  end
+#  config.vm.provision :puppet do |puptest|
+#    puptest.manifests_path = "modules/alfresco"
+#    puptest.manifest_file  = "test.pp"
+#    puptest.module_path = ["modules"]
+#    #puptest.options = "--verbose --debug"
+#  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
