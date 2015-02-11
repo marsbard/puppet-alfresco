@@ -158,7 +158,7 @@ function edit_param {
 	value=`get_answer $IDX`
 	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
 	echo -en $YELLOW
-	echo "${descr[IDX]}"
+	echo -e "${descr[IDX]}"
 	echo -en $BLUE
 	echo -n "[$value]"
 	echo -en $CYAN
