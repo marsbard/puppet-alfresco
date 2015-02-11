@@ -125,6 +125,7 @@ class alfresco::install inherits alfresco {
 		creates => "${download_path}/${urls::filename_tomcat}",
 		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
 		path => "/usr/bin",
+    timeout => 0,
 	}
 
 	exec { "unpack-tomcat7":
@@ -362,6 +363,7 @@ class alfresco::install inherits alfresco {
 
 			exec { "retrieve-swftools":
 				command => "wget ${urls::swftools_src_url}",
+		    timeout => 0,
 				cwd => $download_path,
 				path => "/usr/bin",		
 				creates => "${download_path}/${urls::swftools_src_name}.tar.gz",

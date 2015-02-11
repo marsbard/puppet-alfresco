@@ -4,6 +4,7 @@ class alfresco::install::solr inherits alfresco {
     '4.2.f': {
 
 	    exec { "retrieve-solr":
+		    timeout => 0,
 		    command => "wget ${urls::solr_dl} -O solr.zip",
 		    cwd => $download_path,
 		    path => "/usr/bin",
@@ -57,6 +58,7 @@ class alfresco::install::solr inherits alfresco {
     		cwd => "${tomcat_home}/webapps",
 		    path => "/usr/bin",
     		creates => "${tomcat_home}/webapps/solr4.war",
+		    timeout => 0,
       }
 
       file { "${alfresco_base_dir}/solr4":
@@ -71,6 +73,7 @@ class alfresco::install::solr inherits alfresco {
       }
 
       exec { "retrieve-solr-cfg":
+		    timeout => 0,
         command => "wget ${urls::solr_cfg_dl} -O solrconfig.zip",
     		cwd => $download_path,
 		    path => '/usr/bin',

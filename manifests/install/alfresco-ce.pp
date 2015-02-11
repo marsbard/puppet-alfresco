@@ -80,6 +80,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
       }
       'NIGHTLY': {
         exec { "retrieve-nightly":
+		      timeout => 0,
           command => "wget ${urls::nightly}",
           cwd => $download_path,
           require => [
