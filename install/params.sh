@@ -7,7 +7,7 @@ required[$IDX]=1
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="ssl_cert_path"
-descr[$IDX]="Path to SSL certificates. If left blank self-signed certificates will be generated. If a value is passed in it may be a path on the filesystem (e.g. /vagrant/certs for a Vagrant build) or if the path starts 'http' then a download attempt will be made. In both cases you must provide files <domain_name>.key and <domain_name>.cert"
+descr[$IDX]="Path to SSL certificates. If left blank self-signed certificates will be generated. If a value is passed in it may be a path on the filesystem (e.g. /vagrant/certs for a Vagrant build) or if the path starts 'http' then a download attempt will be made. In both cases you must provide files <domain_name>.key and <domain_name>.cert. See https://github.com/marsbard/puppet-alfresco/blob/master/docs/ssl.md for details"
 default[$IDX]=""
 
 IDX=$(( $IDX + 1 ))
