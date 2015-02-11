@@ -92,7 +92,8 @@ class alfresco (
 	$mem_xxmaxpermsize		= "256m",
   $delay_before_tests = 180,
   $apt_cache_host = '',
-  $apt_cache_port = 3142
+  $apt_cache_port = 3142,
+  $ssl_cert_path = ''
 ) inherits alfresco::params {
 
 	include urls

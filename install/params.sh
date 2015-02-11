@@ -5,6 +5,10 @@ descr[$IDX]="Domain name at which the installation will be resolved, e.g. test.o
 default[$IDX]=""
 required[$IDX]=1
 
+IDX=$(( $IDX + 1 ))
+params[$IDX]="ssl_cert_path"
+descr[$IDX]="Path to SSL certificates. If left blank self-signed certificates will be generated. If a value is passed in it may be a path on the filesystem (e.g. /vagrant/certs for a Vagrant build) or if the path starts 'http' then a download attempt will be made. In both cases you must provide files <domain_name>.key and <domain_name>.cert"
+default[$IDX]=""
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="initial_admin_pass"
