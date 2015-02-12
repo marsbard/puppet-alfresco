@@ -158,7 +158,7 @@ function edit_param {
 	value=`get_answer $IDX`
 	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
 	echo -en $YELLOW
-	echo "${descr[IDX]}"
+	echo -e "${descr[IDX]}"
 	echo -en $BLUE
 	echo -n "[$value]"
 	echo -en $CYAN
@@ -216,6 +216,7 @@ function write_go_pp {
 	db_port=`get_param db_port`
 	mem_xmx=`get_param mem_xmx`
 	mem_xxmaxpermsize=`get_param mem_xxmaxpermsize`
+  ssl_cert_path=`get_param ssl_cert_path`
 
 	echo -e "${GREEN}Writing puppet file ${BLUE}go.pp${WHITE}"
 	cat > go.pp <<EOF
@@ -235,6 +236,7 @@ class { 'alfresco':
 	db_port => '${db_port}',	
 	mem_xmx => '${mem_xmx}',
 	mem_xxmaxpermsize => '${mem_xxmaxpermsize}',
+  ssl_cert_path => '${ssl_cert_path}',
 }
 EOF
 	echo -e "${GREEN}Writing puppet file ${BLUE}test.pp${WHITE}"

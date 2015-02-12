@@ -5,6 +5,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
 
 
   exec { "retrieve-jsconsole":
+		timeout => 0,
     creates => "${downloads_path}/${filename_jsconsole}",
     command => "wget ${url_jsconsole} -O ${downloads_path}/${filename_jsconsole}",
     path => "/usr/bin",

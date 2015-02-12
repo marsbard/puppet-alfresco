@@ -4,6 +4,7 @@ class alfresco::nightly inherits alfresco{
     'NIGHTLY': {
 
         exec { "retrieve-nightly":
+		      timeout => 0,
           command => "wget ${urls::nightly}",
           cwd => $download_path,
           require => [

@@ -5,6 +5,10 @@ descr[$IDX]="Domain name at which the installation will be resolved, e.g. test.o
 default[$IDX]=""
 required[$IDX]=1
 
+IDX=$(( $IDX + 1 ))
+params[$IDX]="ssl_cert_path"
+descr[$IDX]="Path to SSL certificates. If left blank self-signed certificates will be generated.\nIf a value is passed in it may be a path on the filesystem (e.g. /vagrant/certs for a \nVagrant build) or if the path starts 'http' then a download attempt will be made. In \nboth cases you must provide files <domain_name>.key and n<domain_name>.cert. \nSee https://github.com/marsbard/puppet-alfresco/blob/master/docs/ssl.md for details"
+default[$IDX]=""
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="initial_admin_pass"
