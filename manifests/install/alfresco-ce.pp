@@ -60,7 +60,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         exec { 'unpack-spp':
           command => "/usr/bin/unzip ${download_path}/${urls::spp_v4_zipname}",
           cwd => "${alfresco_base_dir}/amps",
-          creates => "${download_path}/${urls::spp_v4_name}",
+          creates => "${alfresco_base_dir}/amps/${urls::spp_v4_name}",
           require => [ File[$download_path], Exec['retrieve-spp'], ], 
         }
 

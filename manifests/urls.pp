@@ -28,8 +28,9 @@ class urls {
 
   $spp_v4 = "http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-spp-4.2.f.zip"
   $spp_v4_zipname = "alfresco-community-spp-4.2.f.zip"
-  $spp_v4_name = "alfresco-community-spp-4.2.f"
-  
+  $spp_v4_name = "alfresco-community-spp-4.2.f.amp"
+
+
   $spp_amp_v5 = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-spp/5.0.c/alfresco-spp-5.0.c.amp"
   $spp_amp_v5_name = "alfresco-spp-5.0.c.amp"
 
