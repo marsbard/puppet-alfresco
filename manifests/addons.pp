@@ -10,7 +10,6 @@ class alfresco::addons inherits alfresco {
     ],
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
-    #notify => Exec["fix-war-permissions"],
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
   }
 

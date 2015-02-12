@@ -40,12 +40,29 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 	      }
 	      exec { "${tomcat_home}/webapps/share.war":
 		      command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
-		      require => Exec["unpack-alfresco-ce"],
           creates => "${tomcat_home}/webapps/share.war",
           path => '/bin:/usr/bin',
-          notify => Service['tomcat7']
+          notify => Service['tomcat7'],
+          require => [
+            File["${alfresco_base_dir}/amps"],
+		        Exec["unpack-alfresco-ce"],
+          ]
 	      }
 
+
+        exec { 'retrieve-spp':
+          command => "/usr/bin/wget ${urls::spp_v4}",
+          cwd => $download_path,
+          require => File[$download_path],
+          creates => "${download_path}/${urls::spp_v4_zipname}",
+        }
+
+        exec { 'unpack-spp':
+          command => "/usr/bin/unzip ${download_path}/${urls::spp_v4_zipname}",
+          cwd => "${alfresco_base_dir}/amps",
+          creates => "${download_path}/${urls::spp_v4_name}",
+          require => [ File[$download_path], Exec['retrieve-spp'], ], 
+        }
 
 
       }
@@ -73,10 +90,13 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           require => File["${tomcat_home}"],
         }
         
+        exec { 'retrieve-spp-amp':
+          command => "wget ${urls::spp_amp_v5}",
+          path => '/usr/bin',
+          cwd => "${alfresco_base_dir}/amps",
+          creates => "${alfresco_base_dir}/amps/${urls::spp_amp_v5_name}",
+        }
 
-        #exec { "unpack-alfresco-ce":
-        #  command => '/bin/true',
-        #}
       }
       'NIGHTLY': {
         exec { "retrieve-nightly":

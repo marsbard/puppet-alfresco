@@ -27,6 +27,12 @@ class urls {
 	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_cfg_file"
 
 
+  $spp_v4 = "http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-spp-4.2.f.zip"
+  $spp_v4_zipname = "alfresco-community-spp-4.2.f.zip"
+  $spp_v4_name = "alfresco-community-spp-4.2.f"
+  
+  $spp_amp_v5 = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-spp/5.0.c/alfresco-spp-5.0.c.amp"
+  $spp_amp_v5_name = "alfresco-spp-5.0.c.amp"
 
 
 	$loffice_name_deb = 'LibreOffice_4.2.7.2_Linux_x86-64_deb'
