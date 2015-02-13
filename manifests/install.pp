@@ -10,6 +10,7 @@ class alfresco::install inherits alfresco {
 	file { $download_path:
 		ensure => "directory",
 		before => Exec["retrieve-tomcat7"],
+    owner => 'tomcat7',
 	}
 
 	# By default the logs go where alfresco starts from, and in this case
