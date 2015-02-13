@@ -89,7 +89,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-digcat-tests":
-          user => 'tomcat7',
+    user => 'tomcat7',
     command => "git clone https://github.com/${testsrc}/alfresco-tests.git",
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
@@ -110,13 +110,13 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "delay-${delay_before}-before-tests":
-          user => 'tomcat7',
+    user => 'tomcat7',
     command => "/bin/sleep ${delay_before}",
     require => Service['alfresco-start'],
   }
 
   exec { "runtests-cmis":
-          user => 'tomcat7',
+    user => 'tomcat7',
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "${xvfb} python test_cmis.py",
     path => '/bin:/usr/bin',
