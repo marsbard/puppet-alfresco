@@ -216,6 +216,15 @@ class alfresco::install inherits alfresco {
 
 
 
+  file { '/etc/sysctl.conf':
+    source => 'puppet:///modules/alfresco/sysctl.conf',
+    ensure => present,
+  }
+
+  file { '/etc/security/limits.conf':
+    source => 'puppet:///modules/alfresco/limits.conf',
+    ensure => present,
+  }
 
 
 	

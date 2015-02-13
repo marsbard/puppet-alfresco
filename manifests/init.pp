@@ -102,7 +102,7 @@ class alfresco (
 
 
 	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS
-	$java_opts = "-Xmx${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize}"
+	$java_opts = "-Xmx${mem_xmx} -Xms${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize} -server"
 
 	# at some point I'll use these for a non-allinone version. For now pre-empting
 	# the change where I can but do not try editing these, please.

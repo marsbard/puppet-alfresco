@@ -5,6 +5,16 @@ class alfresco::install::mysql inherits alfresco {
 		  root_password    => $db_root_password,
       remove_default_accounts=> true,
       service_enabled => true,
+      override_options => {
+        'mysqld' => {
+          'max_connections' => 300,
+          'innodb_buffer_pool_size' => '4GB',
+          'innodb_log_buffer_size' => 50331648,
+          'innodb_log_file_size' => 31457280,
+          'innodb_flush_neighbors' => 0,
+        
+        }
+      }
 	  } 
 
 	  mysql::db { "$alfresco_db_name":

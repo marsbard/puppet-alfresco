@@ -27,6 +27,7 @@ class alfresco::install::solr inherits alfresco {
 		    force => true,
 		    require => Exec["unpack-alfresco-ce"],
 		    before => Service["tomcat7"],
+        owner => 'tomcat7',
 	    }
 
 
@@ -34,6 +35,7 @@ class alfresco::install::solr inherits alfresco {
 		    require => Exec['unpack-solr'],
 		    content => template('alfresco/solrcore-workspace.properties.erb'),
 		    ensure => present,
+        owner => 'tomcat7',
 	    }
 
 
@@ -41,12 +43,33 @@ class alfresco::install::solr inherits alfresco {
 		    require => Exec['unpack-solr'],
 		    content => template('alfresco/solrcore-archive.properties.erb'),
 		    ensure => present,
+        owner => 'tomcat7',
 	    }
 
 	    file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
         content => template('alfresco/solr.xml.erb'),
 		    ensure => present,
+        owner => 'tomcat7',
 	    }
+
+
+
+      file { "${alfresco_base_dir}/solr/archive-SpacesStore/conf/solrconfig.xml":
+        require => Exec['unpack-solr'],
+        source => 'puppet:///modules/alfresco/solrconfig.xml',
+        ensure => 'present',
+        owner => 'tomcat7',
+      }
+
+      file { "${alfresco_base_dir}/solr/workspace-SpacesStore/conf/solrconfig.xml":
+        require => Exec['unpack-solr'],
+        source => 'puppet:///modules/alfresco/solrconfig.xml',
+        ensure => 'present',
+        owner => 'tomcat7',
+      }
+
+
+
 
     }
 
@@ -91,6 +114,19 @@ class alfresco::install::solr inherits alfresco {
         user => 'tomcat7',
       }
 
+      file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrconfig.xml":
+        require => Exec['unpack-solr-cfg'],
+        source => 'puppet:///modules/alfresco/solr4config.xml',
+        ensure => 'present',
+        owner => 'tomcat7',
+      }
+
+      file { "${alfresco_base_dir}/solr4/workspace-SpacesStore/conf/solrconfig.xml":
+        require => Exec['unpack-solr-cfg'],
+        source => 'puppet:///modules/alfresco/solr4config.xml',
+        ensure => 'present',
+        owner => 'tomcat7',
+      }
 
       file { "${tomcat_home}/conf/Catalina/localhost/solr4.xml":
         content => template('alfresco/solr4.xml.erb'),
