@@ -21,7 +21,6 @@ class alfresco::install::solr inherits alfresco {
 		    require => [
 		  	  Exec["retrieve-solr"],
 		    ],
-        user => 'tomcat7',
 	    }
 
 	    file { "${alfresco_base_dir}/solr/alf_data":
