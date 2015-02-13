@@ -28,7 +28,7 @@ class alfresco::install::solr inherits alfresco {
 		    ensure => absent,
 		    force => true,
 		    require => Exec["unpack-alfresco-ce"],
-		    before => Service["tomcat7"],
+		    before => Service["alfresco-start"],
         owner => 'tomcat7',
 	    }
 
@@ -115,7 +115,7 @@ class alfresco::install::solr inherits alfresco {
 		    path => '/usr/bin',
     		creates => "${alfresco_base_dir}/solr4/context.xml",
         require => Exec['retrieve-solr-cfg'],
-        notify => Service['tomcat7'],
+        notify => Service['alfresco-start'],
       }
 
       file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrconfig.xml":

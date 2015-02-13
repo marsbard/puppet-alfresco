@@ -112,7 +112,7 @@ class alfresco::tests inherits alfresco {
   exec { "delay-${delay_before}-before-tests":
           user => 'tomcat7',
     command => "/bin/sleep ${delay_before}",
-    require => Service['tomcat7'],
+    require => Service['alfresco-start'],
   }
 
   exec { "runtests-cmis":

@@ -40,14 +40,14 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 		      require => Exec["unpack-alfresco-ce"],
           creates => "${tomcat_home}/webapps/alfresco.war",
           path => '/bin:/usr/bin',
-          notify => Service['tomcat7']
+          notify => Service['alfresco-start']
 	      }
 	      exec { "${tomcat_home}/webapps/share.war":
           user => 'tomcat7',
 		      command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
           creates => "${tomcat_home}/webapps/share.war",
           path => '/bin:/usr/bin',
-          notify => Service['tomcat7'],
+          notify => Service['alfresco-start'],
           require => [
             File["${alfresco_base_dir}/amps"],
 		        Exec["unpack-alfresco-ce"],
