@@ -93,9 +93,12 @@ class alfresco::install::proxy inherits alfresco {
       { 'path' => '/share', 'url' => "ajp://127.0.0.1:8009/share" },
       { 'path' => '/solr4', 'url' => "ajp://127.0.0.1:8009/solr4" },
       { 'path' => '/alfresco', 'url' => "ajp://127.0.0.1:8009/alfresco" },
+      { 'path' => '/spp', 'url' => 'http://127.0.0.1:7070/alfresco' },
     ]
   }
 
   class { 'apache::mod::proxy_ajp': }
+
+  apache::mod { 'rewrite': }
 
 }

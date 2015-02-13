@@ -103,7 +103,12 @@ solr.backup.archive.cronExpression=0 0 4 * * ? 2099
 # sharepoint vti
 # ------------------
 vti.server.port = 7070
-vti.server.external.port = 7070
+vti.server.protocol=http
+vti.server.url.path.prefix=/alfresco
+vti.server.external.host=<%= @domain_name %>
+vti.server.external.port=443
+vti.server.external.protocol=https
+vti.server.external.contextPath=/spp
 
 
 #
