@@ -18,6 +18,7 @@ class alfresco::addons inherits alfresco {
     mode => "0755",
     content => template("alfresco/apply_amps.sh.erb"),
     require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat7',
   }
 
 	file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
@@ -43,6 +44,7 @@ class alfresco::addons inherits alfresco {
 		#source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
     source => 'puppet:///modules/alfresco/alfresco-mmt.jar',
     require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat7',
 	}
 
   #exec { "fix-war-permissions":

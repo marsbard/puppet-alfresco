@@ -63,26 +63,31 @@ class alfresco::install inherits alfresco {
 
 	file{"${tomcat_home}/shared/lib":
 		ensure => directory,
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/shared":
 		ensure => directory,
 		require => Exec["copy tomcat to ${tomcat_home}"],
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/shared/classes":
 		ensure => directory,
 		require => File["${tomcat_home}/shared"],
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/shared/classes/alfresco":
 		ensure => directory,
 		require => File["${tomcat_home}/shared/classes"],
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/shared/classes/alfresco/web-extension":
 		require => File["${tomcat_home}/shared/classes"],
 		ensure => directory,
+    owner => 'tomcat7',
 	}
 
 
@@ -115,9 +120,11 @@ class alfresco::install inherits alfresco {
 
 	file { "${alfresco_base_dir}/amps":
 		ensure => directory,
+    owner => 'tomcat7',
 	}
 	file { "${alfresco_base_dir}/amps_share":
 		ensure => directory,
+    owner => 'tomcat7',
 	}
 
 
@@ -148,6 +155,7 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/conf":
 		ensure => directory,
 		require => Exec['unpack-tomcat7'],
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/conf/Catalina":
@@ -155,6 +163,7 @@ class alfresco::install inherits alfresco {
 		require => [
 			File["${tomcat_home}/conf"],
 		],
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/conf/Catalina/localhost":
@@ -162,6 +171,7 @@ class alfresco::install inherits alfresco {
 		require => [
 			File["${tomcat_home}/conf/Catalina"],
 		],
+    owner => 'tomcat7',
 	}
 
 	#file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
@@ -196,6 +206,7 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/endorsed":
 		ensure => directory,
 		require => Exec['unpack-tomcat7'],
+    owner => 'tomcat7',
 	}
 
 	exec { 'retrieve-xalan-xalan-jar':
@@ -248,10 +259,12 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/common":
 		ensure => directory,
 		require => File[$tomcat_home],
+    owner => 'tomcat7',
 	}
 
 	file { "$tomcat_home":
 		ensure => directory,
+    owner => 'tomcat7',
 	}
 
 

@@ -15,6 +15,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
         file { "${download_path}/alfresco":
           ensure => directory,
+          owner => 'tomcat7',
         }
 
         exec { "unpack-alfresco-ce":
@@ -88,6 +89,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         file { "${tomcat_home}/webapps":
           ensure => directory,
           require => File["${tomcat_home}"],
+          owner => 'tomcat7',
         }
         
         exec { 'retrieve-spp-amp':

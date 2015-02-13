@@ -24,11 +24,13 @@ class alfresco::config inherits alfresco {
 		require => File["${tomcat_home}/shared/classes"],
 		content => template("alfresco/alfresco-global.properties.erb"),
 		ensure => present,
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/shared/classes/alfresco/web-extension/share-config-custom.xml":
 		require => File["${tomcat_home}/shared/classes/alfresco/web-extension"],
 		ensure => present,
+    owner => 'tomcat7',
 		content => template('alfresco/share-config-custom.xml.erb'),
 	}
 
@@ -36,6 +38,7 @@ class alfresco::config inherits alfresco {
 		ensure => present,
 		content => template($init_template),
 		mode => "0755",
+    owner => 'tomcat7',
 	}
 
 	file { "${tomcat_home}/conf/server.xml":

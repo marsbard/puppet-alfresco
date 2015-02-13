@@ -98,12 +98,14 @@ class alfresco::tests inherits alfresco {
 
   file { "${alfresco_base_dir}/tests":
     ensure => directory,
+    owner => 'tomcat7',
   }
 
   file { "${alfresco_base_dir}/tests/alfresco-tests/config.yml":
     content => template('alfresco/tests-config.yml.erb'),
     ensure => present,
     require => Exec['clone-digcat-tests'],
+    owner => 'tomcat7',
   }
 
   exec { "delay-${delay_before}-before-tests":
