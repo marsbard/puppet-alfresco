@@ -129,6 +129,7 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-tomcat7":
+    user => 'tomcat7',
 		creates => "${download_path}/${urls::filename_tomcat}",
 		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
 		path => "/usr/bin",
@@ -136,6 +137,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { "unpack-tomcat7":
+    user => 'tomcat7',
 		cwd => "${download_path}",
 		path => "/bin:/usr/bin",
 		command => "tar xzf ${download_path}/${urls::filename_tomcat}",
@@ -144,6 +146,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { "copy tomcat to ${tomcat_home}":
+    user => 'tomcat7',
 		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat7 ${tomcat_home}",
 		path => "/bin:/usr/bin",
 		provider => shell,		
@@ -210,6 +213,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { 'retrieve-xalan-xalan-jar':
+    user => 'tomcat7',
 		command => "wget ${xalan}/xalan.jar",
 		path => '/usr/bin',
 		cwd => "${tomcat_home}/endorsed",
@@ -218,6 +222,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { 'retrieve-xalan-serializer-jar':
+    user => 'tomcat7',
 		command => "wget ${xalan}/serializer.jar",
 		path => '/usr/bin',
 		cwd => "${tomcat_home}/endorsed",
@@ -311,6 +316,7 @@ class alfresco::install inherits alfresco {
 
 
 	exec { "retrieve-loffice":
+    user => 'tomcat7',
 		cwd => $download_path,
 		command => "wget ${loffice_dl}",
 		creates => "${download_path}/${loffice_name}.tar.gz",
@@ -320,6 +326,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { "unpack-loffice":
+    user => 'tomcat7',
 		cwd => $download_path,
 		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
 		path => "/bin:/usr/bin",
@@ -385,6 +392,7 @@ class alfresco::install inherits alfresco {
 			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
 
 			exec { "retrieve-swftools":
+        user => 'tomcat7',
 				command => "wget ${urls::swftools_src_url}",
 		    timeout => 0,
 				cwd => $download_path,
@@ -394,6 +402,7 @@ class alfresco::install inherits alfresco {
 
 		
 			exec { "unpack-swftools":
+        user => 'tomcat7',
 				command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
 				cwd => $download_path,
 				path => "/bin:/usr/bin",

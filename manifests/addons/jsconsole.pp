@@ -5,6 +5,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
 
 
   exec { "retrieve-jsconsole":
+    user => 'tomcat7',
 		timeout => 0,
     creates => "${downloads_path}/${filename_jsconsole}",
     command => "wget ${url_jsconsole} -O ${downloads_path}/${filename_jsconsole}",
@@ -13,6 +14,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
   }
 
   exec { "unpack-jsconsole":
+    user => 'tomcat7',
     creates => "${download_path}/jsconsole/README.txt",
     cwd => "${download_path}/jsconsole",
     command => "unzip -o ${downloads_path}/${filename_jsconsole}",

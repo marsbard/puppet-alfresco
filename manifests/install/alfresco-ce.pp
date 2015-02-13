@@ -6,6 +6,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
     
 
         exec { "retrieve-alfresco-ce":
+          user => 'tomcat7',
           command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
           path => "/usr/bin",
           creates => "${download_path}/${urls::alfresco_ce_filename}",
@@ -19,6 +20,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { "unpack-alfresco-ce":
+          user => 'tomcat7',
           command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
@@ -33,6 +35,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 	      # the war files
 	      exec { "${tomcat_home}/webapps/alfresco.war":
+          user => 'tomcat7',
 		      command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
 		      require => Exec["unpack-alfresco-ce"],
           creates => "${tomcat_home}/webapps/alfresco.war",
@@ -40,6 +43,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           notify => Service['tomcat7']
 	      }
 	      exec { "${tomcat_home}/webapps/share.war":
+          user => 'tomcat7',
 		      command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
           creates => "${tomcat_home}/webapps/share.war",
           path => '/bin:/usr/bin',
@@ -52,6 +56,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 
         exec { 'retrieve-spp':
+          user => 'tomcat7',
           command => "/usr/bin/wget ${urls::spp_v4}",
           cwd => $download_path,
           require => File[$download_path],
@@ -59,6 +64,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { 'unpack-spp':
+          user => 'tomcat7',
           command => "/usr/bin/unzip ${download_path}/${urls::spp_v4_zipname}",
           cwd => "${alfresco_base_dir}/amps",
           creates => "${alfresco_base_dir}/amps/${urls::spp_v4_name}",
@@ -69,6 +75,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
       }
       '5.0.c', '5.0.x': {
 	      exec { "${tomcat_home}/webapps/alfresco.war":
+          user => 'tomcat7',
           command => "wget ${urls::alfresco_war_50x} -O alfresco.war",
           cwd => "${tomcat_home}/webapps/",
           path => "/usr/bin",
@@ -78,6 +85,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
 	      exec { "${tomcat_home}/webapps/share.war":
+          user => 'tomcat7',
           command => "wget ${urls::share_war_50x} -O share.war",
           cwd => "${tomcat_home}/webapps/",
           path => "/usr/bin",
@@ -93,6 +101,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
         
         exec { 'retrieve-spp-amp':
+          user => 'tomcat7',
           command => "wget ${urls::spp_amp_v5}",
           path => '/usr/bin',
           cwd => "${alfresco_base_dir}/amps",
@@ -102,6 +111,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
       }
       'NIGHTLY': {
         exec { "retrieve-nightly":
+          user => 'tomcat7',
 		      timeout => 0,
           command => "wget ${urls::nightly}",
           cwd => $download_path,
@@ -113,6 +123,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { 'unpack-nightly':
+          user => 'tomcat7',
           require => [ Exec['retrieve-nightly'], ],
           command => "unzip ${download_path}/${urls::nightly_name} -d ${alfresco_base_dir}",
           path => '/usr/bin',
@@ -120,6 +131,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { 'rename-web-server-folder':
+          user => 'tomcat7',
           require =>  Exec['unpack-nightly'], 
           # "mv -n" to ensure that this isn't getting applied out of order
           command => "mv -n ${alfresco_base_dir}/web-server ${alfresco_base_dir}/tomcat",
@@ -129,11 +141,13 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { "${tomcat_home}/webapps/alfresco.war":
+          user => 'tomcat7',
           command => "/usr/bin/touch /tmp/fake.get.alfresco.war",
           creates => "/tmp/fake.get.alfresco.war",
         }
 
         exec { "${tomcat_home}/webapps/share.war":
+          user => 'tomcat7',
           command => "/usr/bin/touch /tmp/fake.get.share.war",
           creates => "/tmp/fake.get.share.war",
         }
@@ -146,6 +160,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 
 	exec { "unpack-alfresco-war": 
+    user => 'tomcat7',
 		require => [
 			Exec["${tomcat_home}/webapps/alfresco.war"],
       Exec['apply-addons'],
@@ -157,6 +172,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 	}
 
 	exec { "unpack-share-war": 
+    user => 'tomcat7',
 		require => [
 			Exec["${tomcat_home}/webapps/share.war"],
       Exec['apply-addons'],

@@ -11,6 +11,7 @@ class alfresco::addons inherits alfresco {
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
+    user => 'tomcat7',
   }
 
   file { "${alfresco_base_dir}/bin/apply_amps.sh":

@@ -4,6 +4,7 @@ class alfresco::install::solr inherits alfresco {
     '4.2.f': {
 
 	    exec { "retrieve-solr":
+        user => 'tomcat7',
 		    timeout => 0,
 		    command => "wget ${urls::solr_dl} -O solr.zip",
 		    cwd => $download_path,
@@ -12,6 +13,7 @@ class alfresco::install::solr inherits alfresco {
 	    }
 
 	    exec { "unpack-solr":
+        user => 'tomcat7',
 		    command => "unzip ${download_path}/solr.zip -d solr/",
 		    cwd => $alfresco_base_dir,
 		    path => '/usr/bin',
@@ -77,6 +79,7 @@ class alfresco::install::solr inherits alfresco {
     '5.0.c', '5.0.x', 'NIGHTLY': {
 
       exec { "retrieve-solr-war":
+        user => 'tomcat7',
 		    command => "wget ${urls::solr_war_dl} -O solr4.war",
     		cwd => "${tomcat_home}/webapps",
 		    path => "/usr/bin",
@@ -96,6 +99,7 @@ class alfresco::install::solr inherits alfresco {
       }
 
       exec { "retrieve-solr-cfg":
+        user => 'tomcat7',
 		    timeout => 0,
         command => "wget ${urls::solr_cfg_dl} -O solrconfig.zip",
     		cwd => $download_path,
@@ -105,13 +109,13 @@ class alfresco::install::solr inherits alfresco {
       }
 
       exec { "unpack-solr-cfg":
+        user => 'tomcat7',
         command => "unzip -o ${download_path}/solrconfig.zip",
     		cwd => "${alfresco_base_dir}/solr4",
 		    path => '/usr/bin',
     		creates => "${alfresco_base_dir}/solr4/context.xml",
         require => Exec['retrieve-solr-cfg'],
         notify => Service['tomcat7'],
-        user => 'tomcat7',
       }
 
       file { "${alfresco_base_dir}/solr4/archive-SpacesStore/conf/solrconfig.xml":

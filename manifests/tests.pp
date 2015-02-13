@@ -89,6 +89,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "clone-digcat-tests":
+          user => 'tomcat7',
     command => "git clone https://github.com/${testsrc}/alfresco-tests.git",
     path => "/usr/bin",
     cwd => "${alfresco_base_dir}/tests",
@@ -109,11 +110,13 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "delay-${delay_before}-before-tests":
+          user => 'tomcat7',
     command => "/bin/sleep ${delay_before}",
     require => Service['tomcat7'],
   }
 
   exec { "runtests-cmis":
+          user => 'tomcat7',
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "${xvfb} python test_cmis.py",
     path => '/bin:/usr/bin',
@@ -126,6 +129,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "runtests-ftp":
+          user => 'tomcat7',
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "${xvfb} python test_ftp.py",
     path => '/bin:/usr/bin',
@@ -137,6 +141,7 @@ class alfresco::tests inherits alfresco {
   }
 
   exec { "runtests-swsdp":
+          user => 'tomcat7',
     cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
     command => "${xvfb} python ${testfile}",
     path => '/bin:/usr/bin',

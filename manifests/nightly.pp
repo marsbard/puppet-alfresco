@@ -4,6 +4,7 @@ class alfresco::nightly inherits alfresco{
     'NIGHTLY': {
 
         exec { "retrieve-nightly":
+          user => 'tomcat7',
 		      timeout => 0,
           command => "wget ${urls::nightly}",
           cwd => $download_path,
@@ -15,6 +16,7 @@ class alfresco::nightly inherits alfresco{
         }
 
         exec { 'unpack-nightly':
+          user => 'tomcat7',
           require => [
             Exec['retrieve-nightly'], 
             #File[$alfresco_base_dir],
@@ -26,6 +28,7 @@ class alfresco::nightly inherits alfresco{
         }
 
         exec { 'copy-nightly':
+          user => 'tomcat7',
           require => [
             File[$alfresco_base_dir],
             Exec['unpack-nightly'],
@@ -35,6 +38,7 @@ class alfresco::nightly inherits alfresco{
         }
 
         exec { 'rename-web-server-folder':
+          user => 'tomcat7',
           require =>  Exec['copy-nightly'], 
           # "mv -n" to ensure that this isn't getting applied out of order
           command => "mv -n ${alfresco_base_dir}/web-server ${alfresco_base_dir}/tomcat",
@@ -44,11 +48,13 @@ class alfresco::nightly inherits alfresco{
         }
 
         exec { "${tomcat_home}/webapps/alfresco.war":
+          user => 'tomcat7',
           command => "/usr/bin/touch /tmp/fake.get.alfresco.war",
           creates => "/tmp/fake.get.alfresco.war",
         }
 
         exec { "${tomcat_home}/webapps/share.war":
+          user => 'tomcat7',
           command => "/usr/bin/touch /tmp/fake.get.share.war",
           creates => "/tmp/fake.get.share.war",
         }
