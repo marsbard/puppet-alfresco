@@ -272,6 +272,7 @@ class alfresco::install inherits alfresco {
 			creates => "${cwd}/${name}",                                                              
 			require => $require,
 			user => $user,                                                                                                          
+      timeout => 0,
 		}
 
 	}
