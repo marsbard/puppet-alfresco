@@ -1,4 +1,6 @@
 class alfresco::backup (
+  $backup_at_hour = 2,
+  $backup_at_min = fqdn_rand(59),
   $duplicity_password = '',
   $fulldays = '30D',
   $backup_policies_enabled = 'true',
@@ -10,7 +12,7 @@ class alfresco::backup (
   $local_backup_folder = '/mnt/backup',
   $aws_access_key_id = '',
   $aws_secret_access_key = '',
-  $s3filesyslocation = 'http://your-bucket-name',
+  $s3filesyslocation = 's3+http://your-bucket-name',
   $ftp_server = '',
   $ftp_user = '',
   $ftp_password = '',
@@ -22,32 +24,35 @@ class alfresco::backup (
   $scp_folder = '',
 ) inherits alfresco {
   
-  $pkgs = [ 'duplicity', 'gzip' ]
 
   # TODO is there a safer way to make a password without using generate()
 # yes - pass it in from above - but leave the example here for now
   #$duplicity_password = generate("tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1")
 
-  if $alfresco_version =~ /^v4/ {
-    $indextype = 'solr',
-  } else {
-    $indextype = 'solr4'
-  }
 
+  $pkgs = [ 'duplicity', 'gzip' ]
   package { $pkgs:
     ensure => present,
   }
 
-  vcsrepo { "${alfresco_base_dir}/bart":
-    ensure   => present,
-    provider => git,
-    source   => "http://github.com/toniblyx/alfresco-backup-and-recovery-tool.git",
-    require => File["${alfresco_base_dir}/bart"],
-  }
-
-  file { "${alfresco_base_dir}/bart":
+  file { "${alfresco_base_dir}/scripts":
     ensure => directory,
     require => File[$alfresco_base_dir],
+  } ->
+  file { "${alfresco_base_dir}/scripts/alfresco-bart.sh":
+    ensure => present,
+    content => template('alfresco/alfresco-bart.sh.erb'),
+    mode => '0755',
+  } ->
+  file { "${alfresco_base_dir}/scripts/alfresco-bart.properties":
+    ensure => present,
+    content => template('alfresco/alfresco-bart.properties.erb'),
   }
-
+  
+  cron { alfresco-bart:
+    command => "${alfresco_base_dir}/scripts/alfresco-bart.sh backup",
+    user => tomcat7,
+    hour => $backup_at_hour,
+    minute => $backup_at_min,
+  }
 }
