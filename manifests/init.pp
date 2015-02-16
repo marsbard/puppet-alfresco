@@ -183,6 +183,11 @@ class alfresco (
   class { 'alfresco::aptcache':
     stage => 'aptcache',
   }
+  stage { 'nightly':
+    before => Stage['main'],
+  }
+  class { 'alfresco::nightly':
+  }
 
 	anchor { 'alfresco::begin': } ->
 	class { 'alfresco::install': } ->

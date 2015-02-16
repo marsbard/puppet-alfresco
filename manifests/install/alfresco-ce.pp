@@ -152,7 +152,6 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           creates => "/tmp/fake.get.share.war",
         }
 
-
       }
   }
 
