@@ -30,7 +30,7 @@ class alfresco::backup (
   #$duplicity_password = generate("tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1")
 
 
-  $pkgs = [ 'duplicity', 'gzip' ]
+  $pkgs = [ 'duplicity', 'gzip', 'lftp' ]
   package { $pkgs:
     ensure => present,
   }
