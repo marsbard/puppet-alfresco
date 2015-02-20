@@ -1,5 +1,12 @@
 class alfresco::tests inherits alfresco {
 
+  # this list of tests should match what is checked out of github:
+  $tests = [
+    'test_imap.py', 'test_cmis.py', 'test_search.py',
+    'test_ftp.py', 'test_spp.py', 'test_swsdp.py'
+  ]
+
+
   $delay_before = $delay_before_tests 
 
 
@@ -85,36 +92,21 @@ class alfresco::tests inherits alfresco {
     require => Package['python-pip'],
   }
 
-  define runtest { 
-	if $title =~ /^test_*py$/ {
+  define runtests (
+    $base_dir = ''
+  ){ 
 		exec { $title:
-			command =>  "${alfresco_base_dir}/tests/${title}",
+			command =>  "python ${title}",
+      cwd => "${base_dir}/tests",
 			path => '/bin:/usr/bin',
 		}
-	}
   }
-
-  define runalltests (
-  ) {
-
-	$tests = generate('/bin/cat /tmp/testlist')
-
-	$arrTests = split($tests, ' ')
-
-	runtest { $tests: }
-
-  }
-
 
   vcsrepo { "${alfresco_base_dir}/tests":
 	ensure => latest,
 	provider => git,
 	source => 'git://github.com/digcat/alfresco-tests.git',
 	revision => 'master',
-  } ->
-  exec { "ugly-find-tests":
-    command => "ls ${alfresco_base_dir}/tests/test_*.py > /tmp/testlist",
-    path => '/bin',
   } ->
   file { "${alfresco_base_dir}/tests/config.yml":
     content => template('alfresco/tests-config.yml.erb'),
@@ -124,43 +116,9 @@ class alfresco::tests inherits alfresco {
   exec { "delay-${delay_before}-before-tests":
     command => "/bin/sleep ${delay_before}",
   } ->
-  runalltests { 'do-tests': 
-    require => Exec['ugly-find-tests'],
+  runtests {  $tests: 
+    base_dir => $alfresco_base_dir,
   }
-
-#  exec { "runtests-cmis":
-#    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-#    command => "${xvfb} python test_cmis.py",
-#    path => '/bin:/usr/bin',
-#    require => [
-#      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-#      Exec["install-cmislib"],
-#      Service['alfresco-start'],
-#      Exec["delay-${delay_before}-before-tests"],
-#    ]
-#  }
-#
-#  exec { "runtests-ftp":
-#    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-#    command => "${xvfb} python test_ftp.py",
-#    path => '/bin:/usr/bin',
-#    require => [
-#      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-#      Service['alfresco-start'],
-#      Exec["delay-${delay_before}-before-tests"],
-#    ]
-#  }
-#
-#  exec { "runtests-swsdp":
-#    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-#    command => "${xvfb} python ${testfile}",
-#    path => '/bin:/usr/bin',
-#    require => [
-#      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-#      Service['alfresco-start'],
-#      Exec["delay-${delay_before}-before-tests"],
-#    ]
-#  }
 
 
 
