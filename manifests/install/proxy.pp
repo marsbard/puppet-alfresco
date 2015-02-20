@@ -1,5 +1,9 @@
 class alfresco::install::proxy inherits alfresco {
 
+  # TODO fix indentation
+
+  if $enable_proxy {
+
   class { 'apache': 
     default_mods => false,
     default_confd_files => false,
@@ -101,4 +105,5 @@ class alfresco::install::proxy inherits alfresco {
 
   apache::mod { 'rewrite': }
 
+  }
 }

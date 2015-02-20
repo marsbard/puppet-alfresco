@@ -13,7 +13,7 @@ class alfresco::packages inherits alfresco {
       class { 'epel':
       }
 
-			Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
+	Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
 
 
 		  $packages = [ 
@@ -29,7 +29,6 @@ class alfresco::packages inherits alfresco {
 		}
 		'Debian': {
 		  $packages = [ 
-        "dos2unix",
 				"gdebi-core",
 				"git", 
 				"openjdk-7-jdk",
@@ -42,7 +41,7 @@ class alfresco::packages inherits alfresco {
 				"libjpeg62", 
 				"libpng3",
 				"haveged",
-        "sudo",
+        			"sudo",
 		 	] 
 			$rmpackages = [ 
 				"openjdk-6-jdk",
@@ -63,13 +62,19 @@ class alfresco::packages inherits alfresco {
 		range  => "2 - 4",
 	}
 
+	define ensure_packages ($ensure = "present") {
+       		if defined(Package[$title]) {} 
+		else { 
+			package { $title : ensure => $ensure, }
+		}
+     	}
 
 
-  package { $packages:
-    ensure => "installed", 
-  }
+  	ensure_packages{ $packages:
+    		ensure => "installed", 
+  	}
 
-	package { $rmpackages:
+	ensure_packages { $rmpackages:
 		ensure => "absent",
 	}
 }

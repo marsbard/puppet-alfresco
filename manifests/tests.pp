@@ -1,10 +1,14 @@
 class alfresco::tests inherits alfresco {
 
+  # this list of tests should match what is checked out of github:
+  $tests = [
+    'test_imap.py', 'test_cmis.py', 'test_search.py',
+    'test_ftp.py', 'test_spp.py', 'test_swsdp.py'
+  ]
+
+
   $delay_before = $delay_before_tests 
 
-  $testsrc = 'digcat' 
-  #$testsrc = 'marsbard' 
-  $testfile = 'test_ex_swsdp.py'
 
   # default wait is 3s, we may need a bit more
   $xvfb = "xvfb-run -a -e /dev/stdout --wait=9"
@@ -88,65 +92,35 @@ class alfresco::tests inherits alfresco {
     require => Package['python-pip'],
   }
 
-  exec { "clone-digcat-tests":
-    user => 'tomcat7',
-    command => "git clone https://github.com/${testsrc}/alfresco-tests.git",
-    path => "/usr/bin",
-    cwd => "${alfresco_base_dir}/tests",
-    require => File["${alfresco_base_dir}/tests"],
-    creates => "${alfresco_base_dir}/tests/alfresco-tests",
+  define runtests (
+    $base_dir = ''
+  ){ 
+		exec { $title:
+			command =>  "python ${title}",
+      cwd => "${base_dir}/tests",
+			path => '/bin:/usr/bin',
+		}
   }
 
-  file { "${alfresco_base_dir}/tests":
-    ensure => directory,
-    owner => 'tomcat7',
-  }
-
-  file { "${alfresco_base_dir}/tests/alfresco-tests/config.yml":
+  vcsrepo { "${alfresco_base_dir}/tests":
+	ensure => latest,
+	provider => git,
+	source => 'git://github.com/digcat/alfresco-tests.git',
+	revision => 'master',
+  } ->
+  file { "${alfresco_base_dir}/tests/config.yml":
     content => template('alfresco/tests-config.yml.erb'),
     ensure => present,
-    require => Exec['clone-digcat-tests'],
-    owner => 'tomcat7',
-  }
-
+    require => Vcsrepo["${alfresco_base_dir}/tests"],
+  } -> 
   exec { "delay-${delay_before}-before-tests":
     user => 'tomcat7',
     command => "/bin/sleep ${delay_before}",
-    require => Service['alfresco-start'],
+  } ->
+  runtests {  $tests: 
+    base_dir => $alfresco_base_dir,
   }
 
-  exec { "runtests-cmis":
-    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_cmis.py",
-    path => '/bin:/usr/bin',
-    require => [
-      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      Exec["install-cmislib"],
-      Service['alfresco-start'],
-      Exec["delay-${delay_before}-before-tests"],
-    ]
-  }
 
-  exec { "runtests-ftp":
-    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python test_ftp.py",
-    path => '/bin:/usr/bin',
-    require => [
-      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      Service['alfresco-start'],
-      Exec["delay-${delay_before}-before-tests"],
-    ]
-  }
-
-  exec { "runtests-swsdp":
-    cwd => "${alfresco_base_dir}/tests/alfresco-tests/",
-    command => "${xvfb} python ${testfile}",
-    path => '/bin:/usr/bin',
-    require => [
-      File["${alfresco_base_dir}/tests/alfresco-tests/config.yml"],
-      Service['alfresco-start'],
-      Exec["delay-${delay_before}-before-tests"],
-    ]
-  }
 
 }

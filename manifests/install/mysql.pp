@@ -3,7 +3,7 @@ class alfresco::install::mysql inherits alfresco {
   if $db_host == 'localhost'  {
 	  class { '::mysql::server':
 		  root_password    => $db_root_password,
-      remove_default_accounts=> true,
+ #     remove_default_accounts=> true,
       service_enabled => true,
       override_options => {
         'mysqld' => {
