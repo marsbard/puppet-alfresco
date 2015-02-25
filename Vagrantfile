@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 4000 
+    v.memory = 1900 
     v.cpus = 2
   end
 
