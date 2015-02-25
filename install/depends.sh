@@ -21,7 +21,7 @@ function install_puppet {
 		apt-get install apt-utils -y
 
     		export DEBIAN_FRONTEND=noninteractive
-		wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+		wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
 		apt-get install puppet -y
 
 	fi
