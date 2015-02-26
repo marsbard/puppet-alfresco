@@ -1,0 +1,17 @@
+before_install:
+  - sudo apt-get -yqq update
+  - sudo apt-get -fyq install
+
+install:
+  - wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+  - sudo dpkg -i pupetlabs-release-trusty.deb
+  - sudo apt-get update
+  - sudo apt-get install puppet -y
+
+before_script:
+  - mkdir -p modules/alfresco
+  - mv files lib manifests templates modules/alfresco
+  - ./installmodules-for-vagrant.sh
+
+script:
+  - sudo puppet apply --debug --verbose --modulepath=modules go.pp
