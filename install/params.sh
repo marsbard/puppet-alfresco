@@ -94,7 +94,7 @@ default[$IDX]="3306"
 IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xmx"
 descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS"
-default[$IDX]="32G"
+default[$IDX]="1G"
 
 
 IDX=$(( $IDX + 1 ))
