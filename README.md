@@ -54,8 +54,8 @@ If you choose something other than 'localhost' for "db_host" then no mysql serve
 
 #### <a name='standalone'></a>Standalone installer
 It is also possible to install directly to a machine using a simple bash
-installer script. Run the following four commands:
- 
+installer script. First make sure that `git` is installed on your machine. Now run the following commands:
+
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
 	ln -s modules/alfresco/install
 	ln -s modules/alfresco/install.sh
