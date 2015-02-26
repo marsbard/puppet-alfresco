@@ -1,4 +1,4 @@
-cache: apt
+#cache: apt
 env: WAIT=12
 
 
@@ -24,9 +24,7 @@ install:
 before_script:
   - mkdir -p modules/alfresco
   - mv files lib manifests templates modules/alfresco
-  - puppet module install puppetlabs-stdlib --target-dir modules
-  - puppet module install puppetlabs-mysql --target-dir modules
-  - puppet module install stankevich-python --target-dir modules
+  - ./install/modules-for-vagrant.sh
 
 script:
   - sudo puppet apply --debug --verbose --modulepath=modules go.pp
@@ -37,10 +35,10 @@ script:
 #  - sudo puppet apply --debug --verbose --modulepath=modules test.pp
 # and now run the tests: (BUT NOW THEY ARE RUN FROM test.pp) - ACTUALLY you need 
 # them to run here too so they can trigger a failure to travis if necessary
-  - cd /opt/alfresco/tests/alfresco-tests
-  - xvfb-run python test_swsdp.py
-  - xvfb-run python test_cmis.py
-  - xvfb-run python test_ftp.py
+#  - cd /opt/alfresco/tests/alfresco-tests
+#  - xvfb-run python test_swsdp.py
+#  - xvfb-run python test_cmis.py
+#  - xvfb-run python test_ftp.py
 
 notifications:
    email:
