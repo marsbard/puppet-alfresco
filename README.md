@@ -70,6 +70,8 @@ If you choose something other than 'localhost' for "db_host" then no mysql serve
 
 #### <a name='puppetmodule'></a>Use it as a puppet module
 
+If you do not have a puppetmaster server, please ignore this section and check out [the standalone installer](#standalone)
+
 It can also be used as a puppet module, for example if you have a puppet master 
 you can do:
 
