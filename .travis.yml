@@ -16,10 +16,10 @@ before_script:
 script:
   - sudo puppet apply --debug --verbose --modulepath=modules go.pp
 
-notifications:
-  - irc:
-    - channels:
-      - "irc.freenode.org#orderofthebee"
-    - on_success: change
-    - on_failure: change
-    - use_notice: true
+#notifications:
+#  - irc:
+#    - channels:
+#      - "irc.freenode.org#orderofthebee"
+#    - on_success: change
+#    - on_failure: change
+#   - use_notice: true
