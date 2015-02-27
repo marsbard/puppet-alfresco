@@ -11,7 +11,7 @@ install:
 before_script:
   - mkdir -p modules/alfresco
   - mv files lib manifests templates modules/alfresco
-  - ./installmodules-for-vagrant.sh
+  - ./install/modules-for-vagrant.sh
 
 script:
   - sudo puppet apply --debug --verbose --modulepath=modules go.pp
