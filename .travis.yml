@@ -17,8 +17,5 @@ script:
   - sudo puppet apply --debug --verbose --modulepath=modules go.pp
 
 notifications:
-  irc: "chat.freenode.net#orderofthebee"
-    on_success: change
-    on_failure: change
-    use_notice: true
-    skip_join: true
+  irc: 
+    - "chat.freenode.net#orderofthebee"
