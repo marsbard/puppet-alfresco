@@ -1,7 +1,7 @@
 class alfresco::addons::rm inherits alfresco::addons {
 
 	$filename_rm = "alfresco-rm-2.3.c.zip"
-	$url_rm = "https://process.alfresco.com/ccdl/?file=release/community/5.0.c-build-00145/${filename_rm}"
+	$url_rm = "http://dl.alfresco.com/release/community/5.0.c-build-00145/${filename_rm}"
 
 
   exec { "retrieve-rm":
