@@ -1,5 +1,6 @@
 class alfresco::addons inherits alfresco {
 
+	include alfresco::addons::rm
 	include alfresco::addons::jsconsole
 
 
