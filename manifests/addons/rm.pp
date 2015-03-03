@@ -8,7 +8,7 @@ class alfresco::addons::rm inherits alfresco::addons {
     user => 'tomcat7',
 		timeout => 0,
     creates => "${download_path}/${filename_rm}",
-    command => "wget ${url_jsconsole} -O ${download_path}/${filename_rm}",
+    command => "wget ${url_rm} -O ${download_path}/${filename_rm}",
     path => "/usr/bin",
     require => File["${download_path}/rm"],
   }
