@@ -1,7 +1,26 @@
 class alfresco::addons::rm inherits alfresco::addons {
 
-	$filename_rm = "alfresco-rm-2.3.c.zip"
-	$url_rm = "http://dl.alfresco.com/release/community/5.0.c-build-00145/${filename_rm}"
+  case($alfresco_version){
+	'4.2.f': {
+		$recmanpath = 'http://download2.polytechnic.edu.na/pub4/sourceforge/a/al/alfresco/Alfresco%204.2.f%20Community'
+      		$recmanfile = 'alfresco-rm-2.1.a-621.zip'
+      		$recmanrepo = 'alfresco-rm-2.1.0-621.amp'
+      		$recmanshare = 'alfresco-rm-share-2.1.0-621.amp'
+	}
+	'5.0.x','NIGHTLY':{
+		 $recmanpath = 'http://dl.alfresco.com/release/community/5.0.c-build-00145'
+      		$recmanfile = 'alfresco-rm-2.3.c.zip'
+      		$recmanrepo = 'alfresco-rm-server-2.3.c.amp'
+      		$recmanshare = 'alfresco-rm-share-2.3.c.amp'
+	}
+	default: {
+		fail("Unsupported version ${alfresco_version}")	
+	}	
+  }
+	$filename_rm = $recmanfile
+	$url_rm = "${recmanpath}/${filename_rm}"
+	$rm_repo = $repofilename 
+	$rn_share = $sharefilename
 
 
   exec { "retrieve-rm":
@@ -33,8 +52,8 @@ class alfresco::addons::rm inherits alfresco::addons {
     owner => 'tomcat7',
   }
 
-  file { "${alfresco_base_dir}/amps/alfresco-rm-server-2.3.c.amp":
-    source => "${download_path}/rm/alfresco-rm-server-2.3.c.amp",
+  file { "${alfresco_base_dir}/amps/${recmanrepo}":
+    source => "${download_path}/rm/${recmanrepo}",
     ensure => present,
     require => [
       Exec["unpack-rm"],
@@ -43,8 +62,8 @@ class alfresco::addons::rm inherits alfresco::addons {
     owner => 'tomcat7',
   }
 
-  file { "${alfresco_base_dir}/amps_share/alfresco-rm-share-2.3.c.amp":
-    source => "${download_path}/rm/alfresco-rm-share-2.3.c.amp",
+  file { "${alfresco_base_dir}/amps_share/${recmanshare}":
+    source => "${download_path}/rm/${recmanshare}",
     ensure => present,
     require => [
       Exec["unpack-rm"],
