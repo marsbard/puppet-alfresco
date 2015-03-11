@@ -6,8 +6,8 @@
 	"license": "unlicensed",
 	"source": "http://github.com/marsbard/puppet-alfresco",
 	"dependencies": [
-		{ "name": "puppetlabs-stdlib" },
-		{ "name": "puppetlabs-mysql" }
+		{ "name": "puppetlabs/stdlib" },
+		{ "name": "puppetlabs/mysql" }
 	]
 		
 
