@@ -2,7 +2,8 @@ before_install:
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
     - cat /etc/hosts | grep -v localhost > /tmp/hosts
-    - cat /tmp/hosts `127.0.0.1 localhost docs.digcat.com` > /etc/hosts
+    - cat /tmp/hosts > /etc/hosts
+    - echo "127.0.0.1 localhost docs.digcat.com" >> /etc/hosts
     - cat /etc/hosts
 
 install:
