@@ -1,6 +1,9 @@
 before_install:
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
+    - cat /etc/hosts | grep -v localhost > /tmp/hosts
+    - cat /tmp/hosts `127.0.0.1 localhost docs.digcat.com` > /etc/hosts
+    - cat /etc/hosts
 
 install:
     - wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
