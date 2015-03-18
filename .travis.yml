@@ -21,7 +21,7 @@ after_script:
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
     - export DEBIAN_FRONTEND=noninteractive
-    - ./install.sh -e
+    - ./install.sh 
     - ./runtests.sh
 
 notifications:
