@@ -24,7 +24,7 @@ script:
 
 after_script:
     - cd
-    - git clone https://github.com/digcat/alfresco-tests.git
+    - git clone https://github.com/marsbard/alfresco-tests.git
     - cd alfresco-tests
     - export DEBIAN_FRONTEND=noninteractive
     - sudo ./install.sh 
