@@ -1,4 +1,5 @@
 before_install:
+    - for sig in INT TERM EXIT; do trap "[[ $sig == EXIT ]] || kill -$sig $$" $sig; done
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
 #    - cat /etc/hosts | grep -v localhost > /tmp/hosts
