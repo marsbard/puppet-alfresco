@@ -1,11 +1,7 @@
 before_install:
-    - for sig in INT TERM EXIT; do trap "[[ $sig == EXIT ]] || kill -$sig $$" $sig; done
+  #    - for sig in INT TERM EXIT; do trap "[[ $sig == EXIT ]] || kill -$sig $$" $sig; done
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
-#    - cat /etc/hosts | grep -v localhost > /tmp/hosts
-#   - sudo bash -c "cat /tmp/hosts > /etc/hosts"
-#    - sudo bash -c 'echo "127.0.0.1 localhost docs.digcat.com" >> /etc/hosts'
-#    - cat /etc/hosts
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
 
@@ -25,7 +21,7 @@ script:
 
 after_script:
     - cd
-    - git clone https://github.com/marsbard/alfresco-tests.git
+    - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
     - export DEBIAN_FRONTEND=noninteractive
     - sudo ./install.sh 
