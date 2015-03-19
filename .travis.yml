@@ -28,7 +28,7 @@ after_script:
     - cd alfresco-tests
     - export DEBIAN_FRONTEND=noninteractive
     - sudo ./install.sh 
-    - sudo ./runtests.sh
+    - sudo bash ./runtests.sh
 
 notifications:
     irc: 
