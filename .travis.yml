@@ -24,6 +24,9 @@ script:
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
+after_script:
+  - if [ -f /home/travis/alfresco-tests/npm-debug.log ]; then cat /home/travis/alfresco-tests/npm-debug.log; fi
+
 notifications:
     irc: 
           - "chat.freenode.net#orderofthebee"
