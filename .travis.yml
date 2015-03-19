@@ -18,8 +18,6 @@ before_script:
 
 script:
     - sudo puppet apply --debug --verbose --modulepath=modules go.pp
-
-after_script:
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
