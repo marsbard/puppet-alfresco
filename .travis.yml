@@ -21,6 +21,7 @@ script:
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
     - export DEBIAN_FRONTEND=noninteractive
+    - sudo apt -y upgrade
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
