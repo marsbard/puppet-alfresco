@@ -1,8 +1,5 @@
 # helper functions for installer
 
-PYMODS="puppetlabs-stdlib puppetlabs-mysql stankevich-python"
-
-
 set -e
 
 
@@ -275,11 +272,12 @@ function run_install {
 	then
 		install_puppet
 	fi
-	for MOD in $PYMODS
-	do
-		puppet module install --force $MOD --target-dir modules
-	done
+
+  ./install/modules-for-vagrant.sh
+
 	puppet apply --modulepath=modules go.pp
+
+  if [ $? != 0 ]; then exit 99; fi
 
 	echo
 	echo Completed, please allow some time for alfresco to start
