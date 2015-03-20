@@ -5,57 +5,20 @@
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 Use it:
-* [As a puppet module](#puppetmodule)
 * [As a standalone installer](#standalone)
+* [As a puppet module](#puppetmodule)
 * [Run it under Vagrant](#vagrant)
 
 Current limitations:
 
 * CentOS build has only been tested on 4.2.f where it works apart from thumbnails and previews
 
-#### <a name='puppetmodule'></a>Use it as a puppet module
-It can be used as a puppet module, for example on your puppet master node 
-you can do:
-
-	cd /etc/puppet/modules
-	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
-
-to make the module available for use in your puppet scripts.
-
-Here is an example of a minimal puppet script to install alfresco:
-
-	class { 'alfresco':
-		domain_name => 'marsbard.com',
-	}
-
-The domain_name value should be resolvable to the machine we're working on.
-
-Here's a more complete example, showing the default values (domain_name has no default). See the output of install.sh (go.pp) for the latest configuration:
-
-	class { 'alfresco':
-		domain_name => 'marsbard.com',	
-		mail_from_default => 'admin@localhost',	
-		alfresco_base_dir => '/opt/alfresco',	
-		tomcat_home => '/opt/alfresco/tomcat',	
-		alfresco_version => '4.2.f',	
-		download_path => '/opt/downloads',	
-		db_root_password => 'alfresco',
-		db_user => 'alfresco',	
-		db_pass => 'alfresco',	
-		db_name => 'alfresco',	
-		db_host => 'localhost',	
-		db_port => '3306',	
-	}
-
-
-Note that currently the only supported values for "alfresco_version" are "4.2.f",  "5.0.x", and "NIGHTLY".
-
-If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
 
 #### <a name='standalone'></a>Standalone installer
-It is also possible to install directly to a machine using a simple bash
-installer script:
- 
+
+It is possible to install directly to a machine using a simple bash
+installer script. First make sure that `git` is installed on your machine. Now run the following commands:
+
 	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
 	ln -s modules/alfresco/install
 	ln -s modules/alfresco/install.sh
@@ -102,6 +65,48 @@ If you choose a parameter you will see a short help message, and the current def
 	[admin@localhost]: 
 
 Edit any parameters you would like to change. If you select "Q" then any parameters you have changed will be saved before quitting, likewise changes are saved before doing the install. Actually selecting the install option will download puppet if necessary and then proceed to apply the puppet configuration to bring the system up to a running alfresco instance.
+
+If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
+
+#### <a name='puppetmodule'></a>Use it as a puppet module
+
+If you do not have a puppetmaster server, please ignore this section and check out [the standalone installer](#standalone)
+
+It can also be used as a puppet module, for example if you have a puppet master 
+you can do:
+
+	cd /etc/puppet/modules
+	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
+
+to make the module available for use in your puppet scripts.
+
+Here is an example of a minimal puppet script to install alfresco:
+
+	class { 'alfresco':
+		domain_name => 'marsbard.com',
+	}
+
+The domain_name value should be resolvable to the machine we're working on.
+
+Here's a more complete example, showing the default values (domain_name has no default). See the output of install.sh (go.pp) for the latest configuration:
+
+	class { 'alfresco':
+		domain_name => 'marsbard.com',	
+		mail_from_default => 'admin@localhost',	
+		alfresco_base_dir => '/opt/alfresco',	
+		tomcat_home => '/opt/alfresco/tomcat',	
+		alfresco_version => '4.2.f',	
+		download_path => '/opt/downloads',	
+		db_root_password => 'alfresco',
+		db_user => 'alfresco',	
+		db_pass => 'alfresco',	
+		db_name => 'alfresco',	
+		db_host => 'localhost',	
+		db_port => '3306',	
+	}
+
+
+Note that currently the only supported values for "alfresco_version" are "4.2.f",  "5.0.x", and "NIGHTLY".
 
 If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
 

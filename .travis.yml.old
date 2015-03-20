@@ -1,0 +1,51 @@
+#cache: apt
+env: WAIT=12
+
+
+before_install:
+  - sudo apt-get -yqq update    #< Suggested by the Travis CI doc
+  - sudo apt-get -fyq install   #< Fixes inconsistency of packages installed previously
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
+install:
+#  - sudo apt-get -yq install puppet #< Build Dependencies
+  - wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+  - sudo dpkg -i puppetlabs-release-precise.deb
+  - sudo apt-get update 
+  - sudo apt-get install puppet -y
+# downloading libre office in the puppet build sometimes times travis out
+# due to lack of output, so preload it here
+  - sudo mkdir -p /opt/downloads
+  - sudo wget http://downloadarchive.documentfoundation.org/libreoffice/old/4.2.7.2/deb/x86_64/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz -O /opt/downloads/LibreOffice_4.2.7.2_Linux_x86-64_deb.tar.gz
+  - sudo wget http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip -O /opt/downloads/alfresco-community-4.2.f.zip
+  - sudo wget http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz -O /opt/downloads/apache-tomcat-7.0.55.tar.gz
+
+before_script:
+  - mkdir -p modules/alfresco
+  - mv files lib manifests templates modules/alfresco
+  - ./install/modules-for-vagrant.sh
+
+script:
+  - sudo puppet apply --debug --verbose --modulepath=modules go.pp
+  - echo Waiting for $(( $WAIT * 10 )) seconds before running tests
+  #- sleep 100 # will that be long enough? - actually do it the funky way below:
+  - COUNTER=$(( $WAIT + 1)); for i in `seq 1 $WAIT`; do echo -n "$(( $COUNTER - $i))... "; sleep 10; done; echo
+# this will install the testing dependencies
+#  - sudo puppet apply --debug --verbose --modulepath=modules test.pp
+# and now run the tests: (BUT NOW THEY ARE RUN FROM test.pp) - ACTUALLY you need 
+# them to run here too so they can trigger a failure to travis if necessary
+#  - cd /opt/alfresco/tests/alfresco-tests
+#  - xvfb-run python test_swsdp.py
+#  - xvfb-run python test_cmis.py
+#  - xvfb-run python test_ftp.py
+
+notifications:
+   email:
+     - marsbard.alfresco.puppet@gmail.com
+  irc:
+    channels:
+      - "irc.freenode.org#orderofthebee"
+    on_success: change
+    on_failure: change
+    use_notice: true
