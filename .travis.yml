@@ -1,3 +1,9 @@
+env:
+  # all vars go on one line, multiple lines here triggers multiple builds, e.g.
+  # - DEBIAN_FRONTEND=noninteractive ALFVER=4.2.f
+  # - DEBIAN_FRONTEND=noninteractive ALFVER=5.0.x
+  - DEBIAN_FRONTEND=noninteractive
+
 before_install:
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
@@ -20,8 +26,7 @@ script:
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
-    - export DEBIAN_FRONTEND=noninteractive
-    - sudo apt -y upgrade
+    - sudo apt-get -y upgrade
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
