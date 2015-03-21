@@ -1,8 +1,5 @@
 env:
   # all vars go on one line, multiple lines here triggers multiple builds, e.g.
-  #  apparently DEBIAN_FRONTEND already set: http://docs.travis-ci.com/user/ci-environment/#Environment-variables
-  # - DEBIAN_FRONTEND=noninteractive ALFVER=4.2.f
-  # - DEBIAN_FRONTEND=noninteractive ALFVER=5.0.x
   - ALFVER=4.2.f
   - ALFVER=5.0.x
 
@@ -25,12 +22,14 @@ before_script:
 #   - echo 'class { ''alfresco'': domain_name => ''localhost'', alfresco_version => ''${ALFVER}'', }' > go.pp
 
 script:
-    - cat go.pp
-    - FACTER_alfresco_version=$ALFVER sudo puppet apply --debug --verbose --modulepath=modules go.pp
+    - echo alfresco_version=$ALFVER
+    - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
+    - sleep 5
+    - sudo FACTER_alfresco_version=$ALFVER puppet apply --debug --verbose --modulepath=modules go.pp
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
-    - sudo apt-get -y upgrade
+    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
