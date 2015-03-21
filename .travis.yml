@@ -30,13 +30,11 @@ script:
     - cd
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
-      #- sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
 notifications:
     irc: 
       - "chat.freenode.net#orderofthebee"
-    #skip_join: true
 
 

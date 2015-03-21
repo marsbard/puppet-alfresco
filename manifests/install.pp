@@ -4,7 +4,7 @@ class alfresco::install inherits alfresco {
   class { 'alfresco::install::postfix': }
   class { 'alfresco::install::mysql': }
   class { 'alfresco::install::proxy': }
-
+  class { 'alfresco::install::iptables': }
 
 
 	file { $download_path:

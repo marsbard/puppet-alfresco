@@ -32,14 +32,6 @@ class alfresco::addons inherits alfresco {
     owner => 'tomcat7',
   }
  
-  file { "${alfresco_base_dir}/bin/iptables.sh":
-    source => 'puppet:///modules/alfresco/iptables.sh',
-    ensure => present,
-    require => File["${alfresco_base_dir}/bin"],
-    mode => '0755',
-    owner => 'tomcat7',
-  }
-
 	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
 		ensure => present,
 		mode => '0755',

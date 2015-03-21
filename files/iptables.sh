@@ -21,14 +21,28 @@ export IPADDRESS=`hostname -I`
 	    iptables -t nat -A PREROUTING -p $3 --dport $1 -j REDIRECT --to-ports $2
 	    iptables -t nat -A OUTPUT -d localhost -p $3 --dport $1 -j REDIRECT --to-ports $2
 	    # Add all your local ip adresses here that you need port forwarding for
-	    iptables -t nat -A OUTPUT -d $IPADRESS -p $3 --dport $1 -j REDIRECT --to-ports $2
+      for ip in $IPADDRESS
+      do
+	      iptables -t nat -A OUTPUT -d $ip -p $3 --dport $1 -j REDIRECT --to-ports $2
+      done
     }
+
+    block() {
+      echo "Blocking port $1"
+      for ip in $IPADDRESS localhost
+      do
+        iptables -A INPUT -p tcp --dport $1 -d $ip -j ACCEPT
+      done
+      iptables -A INPUT -p tcp --dport $1 -j DROP
+    }
+
     #
     # setup_iptables
     # setup iptables for redirection of CIFS and FTP
     setup_iptables () {
 
 	    echo "1" >/proc/sys/net/ipv4/ip_forward
+
 	    # Clear NATing tables
 	    iptables -t nat -F
 	    iptables -P INPUT ACCEPT
@@ -49,7 +63,10 @@ export IPADDRESS=`hostname -I`
 	    redirect 143 8143 udp
 		    
 	    # Forward http
-	    redirect 80 8080 tcp
+	    #redirect 80 8080 tcp
+    
+      # Block 8080
+      block 8080
     }
     remove_iptables () {
 

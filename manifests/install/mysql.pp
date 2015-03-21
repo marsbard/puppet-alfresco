@@ -10,7 +10,7 @@ class alfresco::install::mysql inherits alfresco {
           'max_connections' => 300,
           'innodb_buffer_pool_size' => '4GB',
           'innodb_log_buffer_size' => 50331648,
-          'innodb_log_file_size' => 31457280,
+          'innodb_log_file_size' => '1GB',
           'innodb_flush_neighbors' => 0,
         
         }
