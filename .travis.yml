@@ -21,14 +21,13 @@ before_script:
     - ./install/modules-for-vagrant.sh
 
 script:
-    - echo alfresco_version=$ALFVER
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sleep 5
     - sudo FACTER_alfresco_version=$ALFVER puppet apply --modulepath=modules go.pp
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
-    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+      #- sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
     - sudo ./install.sh 
     - sudo bash ./runtests.sh
 
