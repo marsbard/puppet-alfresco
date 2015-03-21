@@ -1,7 +1,9 @@
 env:
-  # all vars go on one line, multiple lines here triggers multiple builds, e.g.
-  - ALFVER=4.2.f
-  - ALFVER=5.0.x
+    global:
+      - TESTSRC=marsbard
+    matrix:
+      - ALFVER=4.2.f
+      - ALFVER=5.0.x
 
 before_install:
     - sudo apt-get -yqq update
@@ -25,7 +27,7 @@ script:
     - sleep 5
     - sudo FACTER_alfresco_version=$ALFVER puppet apply --modulepath=modules go.pp
     - cd
-    - git clone https://github.com/digcat/alfresco-tests.git
+    - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
       #- sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
     - sudo ./install.sh 
