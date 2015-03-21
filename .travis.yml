@@ -1,9 +1,10 @@
 env:
     global:
-      - TESTSRC=marsbard
+      - TESTSRC=digcat
     matrix:
       - ALFVER=4.2.f
       - ALFVER=5.0.x
+      - ALFVER=NIGHTLY
 
 before_install:
     - sudo apt-get -yqq update
@@ -25,7 +26,7 @@ before_script:
 script:
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sleep 5
-    - sudo FACTER_alfresco_version=$ALFVER puppet apply --modulepath=modules go.pp
+    - sudo puppet apply --modulepath=modules go.pp
     - cd
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
@@ -35,8 +36,7 @@ script:
 
 notifications:
     irc: 
-      channels:
-        - "chat.freenode.net#orderofthebee"
-      skip_join: true
+      - "chat.freenode.net#orderofthebee"
+    #skip_join: true
 
 
