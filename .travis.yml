@@ -37,7 +37,6 @@ notifications:
     irc: 
       channels:
         - "chat.freenode.net#orderofthebee"
-      use_notice: true
       skip_join: true
 
 
