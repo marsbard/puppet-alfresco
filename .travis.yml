@@ -22,11 +22,11 @@ before_script:
     - mkdir -p modules/alfresco
     - mv files lib manifests templates modules/alfresco
     - ./install/modules-for-vagrant.sh
-    - echo 'class { ''alfresco'': domain_name => ''localhost'', alfresco_version => ''${ALFVER}'', }' > go.pp
+#   - echo 'class { ''alfresco'': domain_name => ''localhost'', alfresco_version => ''${ALFVER}'', }' > go.pp
 
 script:
     - cat go.pp
-    - sudo puppet apply --debug --verbose --modulepath=modules go.pp
+    - FACTER_alfresco_version=$ALFVER sudo puppet apply --debug --verbose --modulepath=modules go.pp
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
     - cd alfresco-tests
