@@ -101,6 +101,7 @@ class alfresco (
 
 	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
+  notice("alfresco_version = ${alfresco_version}")
 
 	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS
 	$java_opts = "-Xmx${mem_xmx} -Xms${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize} -server"
