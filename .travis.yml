@@ -2,7 +2,8 @@ env:
   # all vars go on one line, multiple lines here triggers multiple builds, e.g.
   # - DEBIAN_FRONTEND=noninteractive ALFVER=4.2.f
   # - DEBIAN_FRONTEND=noninteractive ALFVER=5.0.x
-  - DEBIAN_FRONTEND=noninteractive
+  - DEBIAN_FRONTEND=noninteractive ALFVER=4.2.f
+  - DEBIAN_FRONTEND=noninteractive ALFVER=5.0.x
 
 before_install:
     - sudo apt-get -yqq update
@@ -20,8 +21,10 @@ before_script:
     - mkdir -p modules/alfresco
     - mv files lib manifests templates modules/alfresco
     - ./install/modules-for-vagrant.sh
+    - echo "class { 'alfresco': domain_name => 'localhost', alfresco_version => '${ALFVER}', }" > go.pp
 
 script:
+    - cat go.pp
     - sudo puppet apply --debug --verbose --modulepath=modules go.pp
     - cd
     - git clone https://github.com/digcat/alfresco-tests.git
