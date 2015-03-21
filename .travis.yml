@@ -36,8 +36,7 @@ script:
 
 notifications:
     irc: 
-      channels:
-        - "chat.freenode.net#orderofthebee"
-      skip_join: true
+      - "chat.freenode.net#orderofthebee"
+    #skip_join: true
 
 
