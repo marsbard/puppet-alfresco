@@ -10,12 +10,20 @@ class alfresco::install::mysql inherits alfresco {
           'max_connections' => 300,
           'innodb_buffer_pool_size' => '4GB',
           'innodb_log_buffer_size' => 50331648,
-          'innodb_log_file_size' => '1GB',
-          'innodb_flush_neighbors' => 0,
-        
+          'innodb_log_file_size' => 31457280,
+          #'innodb_flush_neighbors' => 0,
         }
       }
-	  } 
+	  } ->
+    exec { 'remove-initial-logfiles':
+      # have to remove old logfiles so that mysql regenerates them
+      # otherwise it fails on reboot
+      command => '/bin/rm /var/lib/mysql/ib_logfile*',
+      notify => Service['mysqld'],
+    }
+
+    
+    
 
 	  mysql::db { "$alfresco_db_name":
 		  user     => "${alfresco_db_user}",
