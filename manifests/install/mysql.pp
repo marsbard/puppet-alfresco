@@ -10,14 +10,14 @@ class alfresco::install::mysql inherits alfresco {
           'max_connections' => 300,
           'innodb_buffer_pool_size' => '4GB',
           'innodb_log_buffer_size' => 50331648,
-          'innodb_log_file_size' => 31457280,
+          'innodb_log_file_size' => '1GB',
         }
       }
 	  } ->
     exec { 'remove-initial-logfiles':
       # have to remove old logfiles so that mysql regenerates them
       # otherwise it fails on reboot
-      command => '/bin/rm /var/lib/mysql/ib_logfile* && /etc/init.d/mysql restart && /usr/bin/touch /var/lib/mysql/reset_logs.ootb.flag',
+      command => '/etc/init.d/mysql stop && /bin/rm /var/lib/mysql/ib_logfile* && /etc/init.d/mysql start && /usr/bin/touch /var/lib/mysql/reset_logs.ootb.flag',
       creates => '/var/lib/mysql/reset_logs.ootb.flag',
     }
 
