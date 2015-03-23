@@ -28,6 +28,7 @@ script:
     - sleep 5
     - sudo puppet apply --modulepath=modules go.pp
     - cd
+    - echo Using $TESTSRC tests
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
