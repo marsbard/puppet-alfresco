@@ -11,6 +11,11 @@ class alfresco::install::iptables inherits alfresco {
   file { "/etc/rc2.d/S10_iptables":
     ensure => 'link',
     target => '/etc/init.d/iptables',
+    require => File['/etc/init.d/iptables'],
+  }
+
+  exec { '/etc/init.d/iptables start':
+    require => File['/etc/init.d/iptables'], 
   }
 
 }

@@ -3,13 +3,6 @@
 # Script to set up iptables for Alfresco use
 # 
 # Copyright 2013 Loftux AB, Peter Löen
-#!/bin/bash
-# -------
-# Script to set up iptables for Alfresco use
-# 
-# Copyright 2013 Loftux AB, Peter Löen
-# Distributed under the Creative Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA 3.0)
-# -------
 
 # Change to public ip-adress on alfresco server
 export IPADDRESS=`hostname -I`
@@ -29,15 +22,10 @@ export IPADDRESS=`hostname -I`
 
     block() {
       echo "Blocking port $1"
-      for ip in $IPADDRESS localhost
-      do
-        iptables -A INPUT -p tcp --dport $1 -d $ip -j ACCEPT
-      done
+      iptables -A INPUT -p tcp --dport $1 -s localhost -j ACCEPT
       iptables -A INPUT -p tcp --dport $1 -j DROP
     }
 
-    #
-    # setup_iptables
     # setup iptables for redirection of CIFS and FTP
     setup_iptables () {
 
