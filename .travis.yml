@@ -1,6 +1,6 @@
 env:
     global:
-      - TESTSRC=digcat
+      - TESTSRC=marsbard
     matrix:
       #- ALFVER=4.2.f
       - ALFVER=5.0.x
