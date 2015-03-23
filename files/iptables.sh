@@ -23,6 +23,10 @@ export IPADDRESS=`hostname -I`
     block() {
       echo "Blocking port $1"
       iptables -A INPUT -p tcp --dport $1 -s localhost -j ACCEPT
+      for ip in $IPADDRESS
+      do
+        iptables -A INPUT -p tcp --dport $1 -s $ip -j ACCEPT
+      done
       iptables -A INPUT -p tcp --dport $1 -j REJECT
     }
 
@@ -32,10 +36,7 @@ export IPADDRESS=`hostname -I`
 	    echo "1" >/proc/sys/net/ipv4/ip_forward
 
 	    # Clear NATing tables
-	    iptables -t nat -F
-	    iptables -P INPUT ACCEPT
-	    iptables -P FORWARD ACCEPT
-	    iptables -P OUTPUT ACCEPT
+      clear_iptables
 
 	    # FTP NATing
 	    redirect 21 2021 tcp
@@ -56,14 +57,24 @@ export IPADDRESS=`hostname -I`
       # Block 8080
       block 8080
     }
+
+    clear_iptables() {
+      iptables -F
+      iptables -X
+      iptables -t nat -F
+      iptables -t nat -X
+      iptables -t mangle -F
+      iptables -t mangle -X
+      iptables -P INPUT ACCEPT
+      iptables -P FORWARD ACCEPT
+      iptables -P OUTPUT ACCEPT
+    }
+
     remove_iptables () {
 
 	    echo "0" >/proc/sys/net/ipv4/ip_forward
 	    # Clear NATing tables
-	    iptables -t nat -F
-	    iptables -P INPUT ACCEPT
-	    iptables -P FORWARD ACCEPT
-	    iptables -P OUTPUT ACCEPT
+      clear_iptables
 
     }
     # start, debug, stop, and status functions
