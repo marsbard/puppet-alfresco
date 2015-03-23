@@ -23,7 +23,7 @@ export IPADDRESS=`hostname -I`
     block() {
       echo "Blocking port $1"
       iptables -A INPUT -p tcp --dport $1 -s localhost -j ACCEPT
-      iptables -A INPUT -p tcp --dport $1 -j DROP
+      iptables -A INPUT -p tcp --dport $1 -j REJECT
     }
 
     # setup iptables for redirection of CIFS and FTP
