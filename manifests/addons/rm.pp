@@ -3,15 +3,15 @@ class alfresco::addons::rm inherits alfresco::addons {
   case($alfresco_version){
 	'4.2.f': {
 		$recmanpath = 'http://download2.polytechnic.edu.na/pub4/sourceforge/a/al/alfresco/Alfresco%204.2.f%20Community'
-      		$recmanfile = 'alfresco-rm-2.1.a-621.zip'
-      		$recmanrepo = 'alfresco-rm-2.1.0-621.amp'
-      		$recmanshare = 'alfresco-rm-share-2.1.0-621.amp'
+    $recmanfile = 'alfresco-rm-2.1.a-621.zip'
+    $recmanrepo = 'alfresco-rm-2.1.0-621.amp'
+    $recmanshare = 'alfresco-rm-share-2.1.0-621.amp'
 	}
 	'5.0.x','NIGHTLY':{
-		 $recmanpath = 'http://dl.alfresco.com/release/community/5.0.c-build-00145'
-      		$recmanfile = 'alfresco-rm-2.3.c.zip'
-      		$recmanrepo = 'alfresco-rm-server-2.3.c.amp'
-      		$recmanshare = 'alfresco-rm-share-2.3.c.amp'
+		$recmanpath = 'http://dl.alfresco.com/release/community/5.0.d-build-00002'
+    $recmanfile = 'alfresco-rm-2.3.c.zip'
+    $recmanrepo = 'alfresco-rm-server-2.3.c.amp'
+    $recmanshare = 'alfresco-rm-share-2.3.c.amp'
 	}
 	default: {
 		fail("Unsupported version ${alfresco_version}")	
