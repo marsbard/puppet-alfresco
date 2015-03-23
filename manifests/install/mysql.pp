@@ -19,6 +19,7 @@ class alfresco::install::mysql inherits alfresco {
       # have to remove old logfiles so that mysql regenerates them
       # otherwise it fails on reboot
       command => '/bin/rm /var/lib/mysql/ib_logfile*',
+      notify => Service['mysqld'],
     }
 
     
