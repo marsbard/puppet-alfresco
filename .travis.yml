@@ -2,7 +2,7 @@ env:
     global:
       - TESTSRC=marsbard
       - TIMEWAIT=60
-      - MAXWAITS=50
+      - MAXWAITS=25
     matrix:
       - ALFVER=4.2.f
       - ALFVER=5.0.x
