@@ -35,8 +35,8 @@ script:
     - sleep 90
     - sudo bash ./runtests.sh
 
-notifications:
-    irc: 
-      - "chat.freenode.net#orderofthebee"
+#notifications:
+#    irc: 
+#      - "chat.freenode.net#orderofthebee"
 
 
