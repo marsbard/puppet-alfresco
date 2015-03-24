@@ -3,6 +3,7 @@
 URL=$1
 TIMEWAIT=$2
 MAXWAITS=$3
+LOGTOTAIL=$4
 
 READY=false
 COUNT=0
@@ -12,6 +13,7 @@ do
   if [ $COUNT -gt $MAXWAITS ] 
   then
     echo Exceeded $MAXWAITS loops, exiting
+    tail -n 30 $LOGTOTAIL
     exit 99
   fi
   RES=`wget --no-check-certificate --server-response $URL 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1`
