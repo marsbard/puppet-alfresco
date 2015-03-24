@@ -1,12 +1,12 @@
 env:
     global:
       - TESTSRC=marsbard
-      - TIMEWAIT=30
+      - TIMEWAIT=60
       - MAXWAITS=25
     matrix:
       - ALFVER=4.2.f
       - ALFVER=5.0.x
-      - ALFVER=NIGHTLY
+        #      - ALFVER=NIGHTLY
 
 before_install:
     - sudo apt-get -yqq update
