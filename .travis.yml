@@ -25,7 +25,6 @@ before_script:
 
 script:
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
-    - sleep 5
     - sudo puppet apply --modulepath=modules go.pp
     - cd
     - echo Using $TESTSRC tests
