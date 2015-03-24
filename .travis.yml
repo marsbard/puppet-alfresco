@@ -10,7 +10,7 @@ before_install:
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
     - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
+      #   - "sh -e /etc/init.d/xvfb start"
 
 install:
     - wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
