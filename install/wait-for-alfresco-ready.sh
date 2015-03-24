@@ -13,9 +13,9 @@ do
   if [ $COUNT -gt $MAXWAITS ] 
   then
     echo Exceeded $MAXWAITS loops, exiting
-    echo ---8<---
+    echo "---8<---"
     tail -n 30 $LOGTOTAIL
-    echo ---8<---
+    echo "---8<---"
     exit 99
   fi
   RES=`wget --no-check-certificate --server-response $URL 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1`
@@ -26,9 +26,9 @@ do
     READY=true
   else 
     echo "Response was $RES, waiting $TIMEWAIT secs" 
-    echo ---8<---
+    echo "---8<---"
     tail $LOGTOTAIL
-    echo ---8<---
+    echo "---8<---"
     sleep $TIMEWAIT
   fi
 done
