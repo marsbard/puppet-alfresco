@@ -32,6 +32,7 @@ script:
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
+    - sleep 90
     - sudo bash ./runtests.sh
 
 notifications:
