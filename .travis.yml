@@ -2,9 +2,9 @@ env:
     global:
       - TESTSRC=marsbard
     matrix:
-      #- ALFVER=4.2.f
+      - ALFVER=4.2.f
       - ALFVER=5.0.x
-        #- ALFVER=NIGHTLY
+      - ALFVER=NIGHTLY
 
 before_install:
     - sudo apt-get -yqq update
