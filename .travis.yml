@@ -31,10 +31,7 @@ script:
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
-    - READY=false
-    - CHECK="wget --no-check-certificate --server-response https://localhost/share 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1"
-    - COUNT=0
-    - while [ ! $READY -a $COUNT -lt 10 ]; do COUNT=$(( $COUNT + 1)); RES=`$CHECK`; echo "$COUNT - $RES"; if [ $RES -le 299 ]; then READY=true; else echo "RES=$RES, waiting"; sleep 30; fi; done
+    - install/wait-for-alfresco-ready.sh https://localhost/share
     - sudo bash ./runtests.sh
 
 #notifications:
