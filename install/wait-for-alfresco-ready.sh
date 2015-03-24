@@ -1,14 +1,17 @@
 #!/bin/bash
 
 URL=$1
+TIMEWAIT=$2
+MAXWAITS=$3
 
 READY=false
 COUNT=0
 while [ $READY == false ]
 do 
   COUNT=$(( $COUNT + 1)) 
-  if [ $COUNT -ge 10 ] 
+  if [ $COUNT -gt $MAXWAITS ] 
   then
+    echo Exceeded $MAXWAITS loops, exiting
     exit 99
   fi
   RES=`wget --no-check-certificate --server-response $URL 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1`
@@ -18,8 +21,8 @@ do
   then 
     READY=true
   else 
-    echo "Response was $RES, waiting" 
-    sleep 30
+    echo "Response was $RES, waiting $TIMEWAIT secs" 
+    sleep $TIMEWAIT
   fi
 done
 

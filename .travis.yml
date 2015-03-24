@@ -1,6 +1,8 @@
 env:
     global:
       - TESTSRC=marsbard
+      - TIMEWAIT=30
+      - MAXWAITS=25
     matrix:
       - ALFVER=4.2.f
       - ALFVER=5.0.x
@@ -26,7 +28,7 @@ before_script:
 script:
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sudo puppet apply --modulepath=modules go.pp
-    - install/wait-for-alfresco-ready.sh https://localhost/share
+    - install/wait-for-alfresco-ready.sh https://localhost/share $TIMEWAIT $MAXWAITS
     - cd
     - echo Using $TESTSRC tests
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
