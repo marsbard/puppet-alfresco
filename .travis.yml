@@ -1,6 +1,6 @@
 env:
     global:
-      - TESTSRC=marsbard
+      - TESTSRC=digcat
       - TIMEWAIT=60
       - MAXWAITS=25
     matrix:
