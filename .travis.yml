@@ -26,12 +26,12 @@ before_script:
 script:
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sudo puppet apply --modulepath=modules go.pp
+    - install/wait-for-alfresco-ready.sh https://localhost/share
     - cd
     - echo Using $TESTSRC tests
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
-    - install/wait-for-alfresco-ready.sh https://localhost/share
     - sudo bash ./runtests.sh
 
 #notifications:
