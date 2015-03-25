@@ -7,6 +7,11 @@ class alfresco::addons inherits alfresco {
     notify => Exec['apply-addons'],
   }
 
+  class { 'alfresco::addons::reset-password':
+    # it's a jar so just notify alfresco, not apply addons
+    notify => Service['alfresco-start'],
+  }
+
 	exec { "apply-addons":
     require => [
       File["${alfresco_base_dir}/bin/apply_amps.sh"],
@@ -16,7 +21,7 @@ class alfresco::addons inherits alfresco {
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
     user => 'tomcat7',
-    notify => Service['tomcat7'],
+    notify => Service['alfresco-start'],
   }
 
   file { "${alfresco_base_dir}/bin/apply_amps.sh":
