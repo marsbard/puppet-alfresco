@@ -6,12 +6,16 @@ class alfresco::addons::rm inherits alfresco::addons {
     $recmanfile = 'alfresco-rm-2.1.a-621.zip'
     $recmanrepo = 'alfresco-rm-2.1.0-621.amp'
     $recmanshare = 'alfresco-rm-share-2.1.0-621.amp'
+
+    # MC assuming that this is the correct creates for 4.2.f, certainly isn't for 5.0.x
+    $recmancreates = "${download_path}/rm/README.txt"
 	}
 	'5.0.x','NIGHTLY':{
 		$recmanpath = 'http://dl.alfresco.com/release/community/5.0.d-build-00002'
     $recmanfile = 'alfresco-rm-2.3.c.zip'
     $recmanrepo = 'alfresco-rm-server-2.3.c.amp'
     $recmanshare = 'alfresco-rm-share-2.3.c.amp'
+    $recmancreates = "${download_path}/rm/${recmanrepo}"
 	}
 	default: {
 		fail("Unsupported version ${alfresco_version}")	
@@ -34,7 +38,7 @@ class alfresco::addons::rm inherits alfresco::addons {
 
   exec { "unpack-rm":
     user => 'tomcat7',
-    creates => "${download_path}/rm/README.txt",
+    creates => "${recmancreates}",
     cwd => "${download_path}/rm",
     command => "unzip -o ${download_path}/${filename_rm}",
     require => [
