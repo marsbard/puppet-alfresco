@@ -9,6 +9,7 @@ env:
       - ALFVER=NIGHTLY
 
 before_install:
+    - install/tophead.sh
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
     - "export DISPLAY=:99.0"
@@ -26,6 +27,7 @@ before_script:
     - ./install/modules-for-vagrant.sh
 
 script:
+    - install/tophead.sh
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sudo puppet apply --modulepath=modules go.pp
     - install/wait-for-alfresco-ready.sh https://localhost/share $TIMEWAIT $MAXWAITS /opt/alfresco/tomcat/logs/catalina.out

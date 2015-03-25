@@ -25,8 +25,9 @@ do
   then 
     READY=true
   else 
-    echo "Response was $RES, waiting $TIMEWAIT secs" 
+    echo "Response was $RES, waiting $TIMEWAIT secs, showing current top status and last alfresco log tail" 
     echo "---8<---"
+    `dirname "$0"`/tophead.sh
     tail $LOGTOTAIL
     echo "---8<---"
     sleep $TIMEWAIT
