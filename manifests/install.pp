@@ -319,7 +319,7 @@ class alfresco::install inherits alfresco {
 	exec { "retrieve-loffice":
     user => 'tomcat7',
 		cwd => $download_path,
-		command => "wget ${loffice_dl}",
+		command => "wget -v ${loffice_dl}",
 		creates => "${download_path}/${loffice_name}.tar.gz",
 		path => "/usr/bin",
 		timeout => 0,
