@@ -3,6 +3,9 @@ class alfresco::addons inherits alfresco {
 	include alfresco::addons::rm
 	include alfresco::addons::jsconsole
 
+  class { 'alfresco::addons::uploader-plus':
+    notify => Exec['apply-addons'],
+  }
 
 	exec { "apply-addons":
     require => [
@@ -13,6 +16,7 @@ class alfresco::addons inherits alfresco {
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
     user => 'tomcat7',
+    notify => Service['tomcat7'],
   }
 
   file { "${alfresco_base_dir}/bin/apply_amps.sh":
