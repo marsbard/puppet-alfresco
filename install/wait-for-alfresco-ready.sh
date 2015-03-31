@@ -58,8 +58,10 @@ do
       #TOMCATPID=`service tomcat7 status 2>&1 | awk 'NF>1{print $NF}'`
       #echo TOMCATPID=$TOMCATPID
       #sudo kill -9 $TOMCATPID
-      sudo service mysql restart
-      sudo /etc/init.d/tomcat7 restart
+      killall -9 mysqld
+      sudo service mysql start
+      killall -9 java
+      sudo /etc/init.d/tomcat7 start
       sleep 30
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
