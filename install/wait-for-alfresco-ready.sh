@@ -13,6 +13,7 @@ banner () {
   echo ----
 }
 
+LASTLOGLINE=""
 
 READY=false
 COUNT=0
@@ -45,6 +46,13 @@ do
     sudo cat /proc/user_beancounters
     banner Tail of $LOGTOTAIL
     tail $LOGTOTAIL
+    NEWLASTLOGLINE=`tail -n1 $LOGTOTAIL`
+    if [ "$NEWLASTLOGLINE" -eq "$LASTLOGLINE" ]
+    then
+      banner Job looks stuck, restarting tomcat
+      sudo /etc/init.d/tomcat7 restart
+    fi
+    LASTLOGLINE=$NEWLASTLOGLINE
     echo "---8<---"
     sleep $TIMEWAIT
   fi
