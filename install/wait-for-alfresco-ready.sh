@@ -47,12 +47,14 @@ do
     banner Tail of $LOGTOTAIL
     tail $LOGTOTAIL
     NEWLASTLOGLINE=`tail -n1 $LOGTOTAIL`
-    if [ "$NEWLASTLOGLINE" -eq "$LASTLOGLINE" ]
+    if [ "$NEWLASTLOGLINE" == "$LASTLOGLINE" ]
     then
       banner Job looks stuck, restarting tomcat
       sudo /etc/init.d/tomcat7 restart
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
+    banner Tail of syslog
+    tail /var/log/syslog
     echo "---8<---"
     sleep $TIMEWAIT
   fi
