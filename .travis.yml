@@ -9,6 +9,7 @@ env:
       - ALFVER=NIGHTLY
 
 before_install:
+    - hostname
     - install/tophead.sh
     - sudo apt-get -yqq update
     - sudo apt-get -fyq install
