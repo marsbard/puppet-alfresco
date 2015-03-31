@@ -1,8 +1,8 @@
 env:
     global:
       - TESTSRC=digcat
-      - TIMEWAIT=60
-      - MAXWAITS=25
+      - TIMEWAIT=240
+      - MAXWAITS=10
     matrix:
       - ALFVER=4.2.f
       - ALFVER=5.0.x
