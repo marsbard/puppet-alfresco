@@ -7,6 +7,13 @@ LOGTOTAIL=$4
 
 sudo apt-get -y install sysstat
 
+banner () {
+  echo ==============
+  echo $*
+  echo ----
+}
+
+
 READY=false
 COUNT=0
 while [ $READY == false ]
@@ -29,9 +36,14 @@ do
   else 
     echo "Response was $RES, waiting $TIMEWAIT secs, showing current top status and last alfresco log tail" 
     echo "---8<---"
+    banner "top | head"
     `dirname "$0"`/tophead.sh
-    iostat
+    #iostat No iostat inside openvz container
+    banner mpstat
     mpstat
+    banner beancounters
+    cat /proc/beancounters
+    banner Tail of $LOGTOTAIL
     tail $LOGTOTAIL
     echo "---8<---"
     sleep $TIMEWAIT
