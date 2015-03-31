@@ -36,7 +36,7 @@ script:
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
-    - sudo bash ./runtests.sh
+      #   - sudo bash ./runtests.sh
 
 notifications:
     irc: 
