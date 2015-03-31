@@ -36,7 +36,7 @@ script:
     - install/tophead.sh
     - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
     - sudo puppet apply --modulepath=modules go.pp
-    - install/wait-for-alfresco-ready.sh https://localhost/share $TIMEWAIT $MAXWAITS /opt/alfresco/tomcat/logs/catalina.out
+    - sudo install/wait-for-alfresco-ready.sh https://localhost/share $TIMEWAIT $MAXWAITS /opt/alfresco/tomcat/logs/catalina.out
     - cd
     - echo Using $TESTSRC tests
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
