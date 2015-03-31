@@ -5,6 +5,8 @@ TIMEWAIT=$2
 MAXWAITS=$3
 LOGTOTAIL=$4
 
+apt-get -y install sysstat
+
 READY=false
 COUNT=0
 while [ $READY == false ]
@@ -28,6 +30,8 @@ do
     echo "Response was $RES, waiting $TIMEWAIT secs, showing current top status and last alfresco log tail" 
     echo "---8<---"
     `dirname "$0"`/tophead.sh
+    iostat
+    mpstat
     tail $LOGTOTAIL
     echo "---8<---"
     sleep $TIMEWAIT
