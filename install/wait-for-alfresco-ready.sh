@@ -64,6 +64,7 @@ do
     banner Tail of syslog
     sudo tail /var/log/syslog
     echo "---8<---"
+    banner "[ `date` ] Sleeping for $TIMEWAIT seconds"
     sleep $TIMEWAIT
   fi
 done
