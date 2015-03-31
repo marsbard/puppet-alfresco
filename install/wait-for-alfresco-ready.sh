@@ -53,10 +53,12 @@ do
     then
       banner Job looks stuck, restarting tomcat and mysql
       sudo rm -rf $LOGTOTAIL
-      TOMCATPID=`service tomcat7 status 2>&1 | awk 'NF>1{print $NF}'`
-      echo TOMCATPID=$TOMCATPID
-      sudo kill -9 $TOMCATPID
-      sudo /etc/init.d/mysql restart
+      echo service tomcat7 status: 
+      service tomcat7 status
+      #TOMCATPID=`service tomcat7 status 2>&1 | awk 'NF>1{print $NF}'`
+      #echo TOMCATPID=$TOMCATPID
+      #sudo kill -9 $TOMCATPID
+      sudo service mysql restart
       sudo /etc/init.d/tomcat7 restart
       sleep 30
     fi
