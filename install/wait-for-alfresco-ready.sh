@@ -63,7 +63,13 @@ do
       #killall -9 java
       #sudo /etc/init.d/tomcat7 start
       #sleep 30
-      sudo reboot
+      #sudo reboot
+      banner telinit 1
+      sudo telinit 1
+      banner Wait 30 secs for services to end
+      sleep 30
+      banner telinit 3
+      sudo telinit 3
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
     banner Examining killed processes
