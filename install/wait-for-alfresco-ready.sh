@@ -5,7 +5,7 @@ TIMEWAIT=$2
 MAXWAITS=$3
 LOGTOTAIL=$4
 
-apt-get -y install sysstat
+sudo apt-get -y install sysstat
 
 READY=false
 COUNT=0
