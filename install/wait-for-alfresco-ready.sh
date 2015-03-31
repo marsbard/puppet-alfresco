@@ -37,6 +37,8 @@ do
   else 
     echo "Response was $RES, waiting $TIMEWAIT secs, showing current top status and last alfresco log tail" 
     echo "---8<---"
+    banner "ps ax | grep alf"
+    ps ax | grep alf
     banner "top | head"
     `dirname "$0"`/tophead.sh
     #iostat No iostat inside openvz container
@@ -50,6 +52,8 @@ do
     if [ "$NEWLASTLOGLINE" == "$LASTLOGLINE" ]
     then
       banner Job looks stuck, restarting tomcat
+      sudo rm -rf $LOGTOTAIL
+      sudo killall -9 tomcat7
       sudo /etc/init.d/tomcat7 restart
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
