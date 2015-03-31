@@ -54,7 +54,7 @@ do
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
     banner Tail of syslog
-    tail /var/log/syslog
+    sudo tail /var/log/syslog
     echo "---8<---"
     sleep $TIMEWAIT
   fi
