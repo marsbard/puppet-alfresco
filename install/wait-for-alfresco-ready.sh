@@ -61,8 +61,8 @@ do
       sleep 30
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
-    banner Tail of syslog
-    sudo tail /var/log/syslog
+    banner Examining killed processes
+    sudo dmesg | egrep -i 'killed process'
     echo "---8<---"
     banner "[ `date` ] Sleeping for $TIMEWAIT seconds"
     sleep $TIMEWAIT
