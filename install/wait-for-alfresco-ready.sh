@@ -51,10 +51,12 @@ do
     NEWLASTLOGLINE=`tail -n1 $LOGTOTAIL`
     if [ "$NEWLASTLOGLINE" == "$LASTLOGLINE" ]
     then
-      banner Job looks stuck, restarting tomcat
+      banner Job looks stuck, restarting tomcat and mysql
       sudo rm -rf $LOGTOTAIL
       sudo killall -9 tomcat7
+      sudo /etc/init.d/mysql restart
       sudo /etc/init.d/tomcat7 restart
+      sleep 30
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
     banner Tail of syslog
