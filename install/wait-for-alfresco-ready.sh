@@ -42,7 +42,7 @@ do
     banner mpstat
     mpstat
     banner beancounters
-    cat /proc/user_beancounters
+    sudo cat /proc/user_beancounters
     banner Tail of $LOGTOTAIL
     tail $LOGTOTAIL
     echo "---8<---"
