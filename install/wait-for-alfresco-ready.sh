@@ -71,16 +71,19 @@ do
       #sudo /etc/init.d/tomcat7 start
       #sleep 30
       #sudo reboot
-      banner telinit 1
-      sudo telinit 1
-      banner Wait 30 secs for services to end
+      banner reboot
+      sudo reboot
       sleep 30
-      banner telinit 3
-      sudo telinit 3
     fi
     LASTLOGLINE=$NEWLASTLOGLINE
     banner Examining killed processes
     sudo dmesg | egrep -i 'killed process'
+    if [ "`dmesg | egrep -i 'killed process'`" != "" ]
+    then 
+      banner "OOM Killer got me, restarting"
+      sudo reboot
+      sleep 30
+    fi
     echo "---8<---"
     banner "[ `date` ] Sleeping for $TIMEWAIT seconds"
     sleep $TIMEWAIT
