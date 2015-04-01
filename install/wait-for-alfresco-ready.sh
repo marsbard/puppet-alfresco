@@ -1,5 +1,32 @@
 #!/bin/bash
 
+# # # # # # # # # # 
+#
+# This script is intended for use in the Travis CI environment, it
+# tries to wait for a 2xx response from the alfresco server before
+# moving on to the integration test phase. We found however that
+# Travis gets stuck quite often and so this script ended up getting
+# more and more debugging inside it, as well as attempts to 
+# remedy the situation.
+#
+# Eventually we found a good balance, with TIMEWAIT at 240 seconds
+# to allow legitimately long-lived processes a chance to finish
+# (e.g. deploying share.war), if the last line of the logfile
+# LOGTOTAIL is the same after TIMEWAIT interval, it is assumed
+# to be stuck and the VM is rebooted, this causes Travis to re-
+# queue the job.
+#
+# With further diagnosis we found that when the Travis build gets
+# stuck, there is info in `dmesg` about the processes that have
+# been killed. To optimise the process now we look at the dmesg
+# output to see if anything has been killed and if so we reboot.
+# This saves 4-8 mins of waiting.
+#
+# All of which is a long way to say that this script turned into
+# a bit of a mess
+#
+# # # # # # # # # # 
+
 URL=$1
 TIMEWAIT=$2
 MAXWAITS=$3
