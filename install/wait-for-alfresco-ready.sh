@@ -33,8 +33,8 @@ do
   if [ "`dmesg | egrep -i 'killed process'`" != "" ]
   then 
     banner "OOM Killer got me, restarting"
-    telinit 1
-    exit
+    sudo reboot
+    sleep 30
   fi
 
   RES=`wget --no-check-certificate --server-response $URL 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1`
