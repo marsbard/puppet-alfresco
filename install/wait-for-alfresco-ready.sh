@@ -28,6 +28,15 @@ do
     echo "---8<---"
     exit 99
   fi
+
+  # short circuit the check if we know the OOM killer has been active
+  if [ "`dmesg | egrep -i 'killed process'`" != "" ]
+  then 
+    banner "OOM Killer got me, restarting"
+    telinit 1
+    exit
+  fi
+
   RES=`wget --no-check-certificate --server-response $URL 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1`
   echo "$COUNT - $RES" 
   if [ "$RES" == "" ]; then RES=999; fi
@@ -51,10 +60,7 @@ do
     NEWLASTLOGLINE=`tail -n1 $LOGTOTAIL`
     if [ "$NEWLASTLOGLINE" == "$LASTLOGLINE" ]
     then
-      banner Job looks stuck, restarting tomcat and mysql
-      sudo rm -rf $LOGTOTAIL
-      echo service tomcat7 status: 
-      service tomcat7 status
+      banner Job looks stuck, restarting 
       #TOMCATPID=`service tomcat7 status 2>&1 | awk 'NF>1{print $NF}'`
       #echo TOMCATPID=$TOMCATPID
       #sudo kill -9 $TOMCATPID
