@@ -33,6 +33,7 @@ do
   if [ "`dmesg | egrep -i 'killed process'`" != "" ]
   then 
     banner "OOM Killer got me, restarting"
+    dmesg | egrep -i 'killed process'
     sudo reboot
     sleep 30
   fi
