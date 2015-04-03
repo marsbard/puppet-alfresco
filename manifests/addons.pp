@@ -7,6 +7,10 @@ class alfresco::addons inherits alfresco {
     notify => Exec['apply-addons'],
   }
 
+  class { 'alfresco::addons::googledocs':
+    notify => Exec['apply-addons'],
+  }
+
   class { 'alfresco::addons::reset-password':
     # it's a jar so just notify alfresco, not apply addons
     notify => Service['alfresco-start'],
