@@ -1,6 +1,8 @@
 
 cd "`dirname $0`"/..
 
+DIRS="lib files manifests templates"
+
 if [ -f .IS_STANDALONE ]
 then
   echo Sorry, this has been set up for standalone
@@ -22,11 +24,21 @@ then
   if [ ! -d modules -a ! -d modules/alfresco ]
   then
     mkdir modules/alfresco -p
-    for d in lib files manifests templates
+    for d in $DIRS
     do
-      ln ${PWD}/${d} ${PWD}/modules/alfresco/${d}
+      cp -r ${PWD}/${d} ${PWD}/modules/alfresco/${d}
     done
   fi
+
+  # set up a hook to make sure the copied folders are kept up to 
+  # date
+  echo > .git/hooks/pre-commit <<EOF
+for d in $DIRS
+do
+  rsync -vrz ${PWD}/modules/alfresco/${d} ${PWD}/${d}
+done
+EOF
+  chmod +x .git/hooks/pre-commit
 
   install/modules-for-vagrant.sh
 
