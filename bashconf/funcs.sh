@@ -1,4 +1,46 @@
 
+# Return the number of effective parameters taking into 
+# account the 'onlyif' setting
+function count_effective_params {
+  COUNT=0
+	for i in `seq 0 $(( ${#params[@]} -1 )) `
+	do
+    OI=`get_onlyif $i`
+    if [ $OI = true ]
+    then
+      COUNT=$(( $COUNT + 1))
+    fi
+  done
+  echo $COUNT
+}
+
+# Given an index number, return the actual
+# index number taking into account the onlyif setting
+function get_effective_idx {
+  IDX=$1
+  EFFIDX=0
+	for i in `seq 0 $(( ${#params[@]} -1 )) `
+	do
+    OI=`get_onlyif $i`
+    if [ $OI = true ]
+    then
+      if [ $((EFFIDX++)) -eq $IDX ]
+      then
+        echo $i
+        return
+      fi
+    fi
+  done
+}
+
+# Given an index number, return the answer
+# taking into account the onlyif setting
+function get_effective_answer {
+  IDX=$1
+  EFFIDX=`get_effective_idx $IDX`
+  echo `get_answer $EFFIDX`
+}
+
 function get_answer {
 	IDX=$1
 	if [ "${answers[$IDX]}" != "" ]
