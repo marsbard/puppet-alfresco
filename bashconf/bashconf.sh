@@ -20,7 +20,10 @@ MOVE_TO_COL="echo -en \\033[${RES_COL}G"
 # ANSI Reset code
 RESET="\x1B[0m"
 
-# Override these envar in ${CONF}_pre.sh if you like
+#######
+# Envars for "pre" stage
+#######
+# Override these envars in ${CONF}_pre.sh if you like
 BANNER="${YELLOW}======================================================\n\
 ${WHITE}Bash Configurator https://github.com/marsbard/bashconf\n\
 ${YELLOW}======================================================${RESET}"
@@ -28,6 +31,7 @@ ${YELLOW}======================================================${RESET}"
 INSTALL_LETTER="I"
 QUIT_LETTER="Q"
 PROMPT="${WHITE}Please choose an index number to edit, I to install, or Q to quit${RESET}"
+#######
 
 
 
@@ -48,6 +52,16 @@ then
   exit 101
 fi
 
+# If we have defined an install letter, warn if we have not provided install script
+if [ "${INSTALL_LETTER}" != "" ]
+then
+  if [ ! -f "${CONF}_install.sh" ]
+  then
+    echo -e "${RED}WARN${YELLOW} Install letter is defined but ${BLUE}${CONF}_install.sh${YELLOW} not found.\n     You can override \$INSTALL_LETTER in ${BLUE}${CONF}_pre.sh${YELLOW}.${RESET}"
+    sleep 3
+  fi
+fi
+
 # if we have a ${CONF}_pre.sh file, read it
 if [ -f "${CONF}_pre.sh" ]
 then
@@ -58,6 +72,8 @@ fi
 ANS_FILE="${CONF}_answers.sh"
 
 
+source "`dirname $0`"/funcs.sh
+
 function paramloop() {
 	echo -en "Idx\tParam"
 	$MOVE_TO_COL
@@ -66,15 +82,22 @@ function paramloop() {
 
 
 
+  DISPLAY_IDX=1
 	for i in `seq 1 ${NUMPARAMS}`
 	do
-		IDX=$(( $i -1 ))
-		VAL=`get_answer $IDX`
-		echo -en "[${GREEN}$i${WHITE}]\t${PURPLE}${params[$IDX]}${WHITE}"
-		$MOVE_TO_COL
-		echo -en $CYAN
-		echo $VAL
-		echo -en $WHITE
+		PARAM_IDX=$(( $i -1 ))
+    ONLYIF=`get_onlyif $PARAM_IDX`
+    if [ "$ONLYIF" != "false" ]
+    then
+		  VAL=`get_answer $PARAM_IDX`
+		  echo -en "[${GREEN}${DISPLAY_IDX}${WHITE}]\t${PURPLE}${params[$PARAM_IDX]}${WHITE}"
+		  $MOVE_TO_COL
+		  echo -en $CYAN
+		  echo $VAL
+		  echo -en $WHITE
+      DISPLAY_IDX=$(( $DISPLAY_IDX + 1 ))
+    fi
+
 	done
 	echo
 
