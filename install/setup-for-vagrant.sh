@@ -32,7 +32,7 @@ then
 
   # set up a hook to make sure the copied folders are kept up to 
   # date
-  echo > .git/hooks/pre-commit <<EOF
+  cat > .git/hooks/pre-commit <<EOF
 for d in $DIRS
 do
   rsync -vrz ${PWD}/modules/alfresco/${d} ${PWD}/${d}
