@@ -26,6 +26,13 @@ default[$IDX]=""
 required[$IDX]=0
 
 IDX=$(( $IDX + 1 ))
+params[$IDX]="local_backup_folder"
+descr[$IDX]="Local backup folder. If you are using this you have probably mounted a remote backup folder locally."
+default[$IDX]="/mnt/backup"
+required[$IDX]=1
+onlyif[$IDX]="backuptype=local"
+
+IDX=$(( $IDX + 1 ))
 params[$IDX]="fulldays"
 descr[$IDX]="Number of days between full backups. (If no backup is found then a full backup is done)."
 default[$IDX]="30D"
