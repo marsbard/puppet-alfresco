@@ -127,16 +127,21 @@ function read_entry {
 
   if [ "${ENTRY,,}" = "${INSTALL_LETTER,,}" ]
 	then
+
+    set +e 
+    check_required 
+    NUMERRS=$?
+    set -e
+		# non zero exit might mean that a required field is not filled
+		if [ "$NUMERRS" != "0" ] 
+    then
+      sleep 3
+      return
+		fi
+
     echo Installing...
 		write_answers
     source "${CONF}_output.sh"
-		set +e
-    check_required 
-		# non zero exit might mean that a required field is not filled
-		if [ $? = 0 ] 
-		then
-			exit
-		fi
     if [ -f "${CONF}_install.sh" ]
     then
       source "${CONF}_install.sh" 
@@ -144,7 +149,6 @@ function read_entry {
       echo -e "${RED}Error: ${CONF}_install.sh does not exist${YELLOW} but we are installing now${RESET}"
       exit 99
     fi
-		set -e
 		sleep 2
 		echo
 	elif [ "${ENTRY,,}" = "${QUIT_LETTER,,}" ]
@@ -214,6 +218,10 @@ function edit_param {
 	param="${params[IDX]}"
 	value=`get_answer $IDX`
 	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
+  if [ "${choices[IDX]}" != "" ] 
+  then
+    echo -e "${GREEN}Allowed values: ${PURPLE}${choices[IDX]}"
+  fi
 	echo -en $YELLOW
 	echo -e "${descr[IDX]}"
 	echo -en $BLUE
@@ -221,7 +229,18 @@ function edit_param {
 	echo -en $CYAN
 	read -ep": " ANSWER
 	echo -en $WHITE
-	answers[$IDX]=$ANSWER
+  if [ "${choices[IDX]}" != "" ] 
+  then
+    if [ "`allowed_choice $IDX $ANSWER`" = "true" ]
+    then
+	    answers[$IDX]=$ANSWER
+    else
+      echo -e "${RED}Error: ${YELLOW}'$ANSWER'${RED} is not a member of ${PURPLE}${choices[IDX]}${RESET}"
+      sleep 2
+    fi
+  else
+	    answers[$IDX]=$ANSWER
+  fi
 }
 
 function check_required {
@@ -231,13 +250,16 @@ function check_required {
   do
 		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
 		then
-			echo -ne $RED
-			echo "Error: ${params[i]} is required"
-			echo -en $WHITE
-			ERRS=1
+      if [ "`get_onlyif $i`" = "true" ]
+      then
+			  echo -ne $RED
+			  echo "Error: ${params[i]} is required"
+			  echo -en $WHITE
+        ERRS=$(( $ERRS + 1 ))
+      fi
 		fi		
 	done
-	echo
+	echo $ERRS errors
 	return $ERRS
 }
 

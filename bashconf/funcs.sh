@@ -1,4 +1,34 @@
 
+# Return true if the supplied answer is among the allowed choices
+function allowed_choice {
+
+  IDX=$1
+  ANSWER=$2
+  CHOICES="${choices[IDX]}"
+
+  if [ "$CHOICES" = "" ]
+  then
+    # nothing to check
+    return
+  fi
+
+  # http://stackoverflow.com/a/10586169
+  IFS="|" read -a ALLOWED <<< "$CHOICES"
+
+  for i in `seq 0 ${#CHOICES[@]}`
+  do
+    CHOICE=${CHOICES[$i]}
+    if [ "$ANSWER" = "$CHOICE" ]
+    then
+      echo "true"
+      return
+    fi
+  done
+  echo "false"
+  return
+
+}
+
 # Return the number of effective parameters taking into 
 # account the 'onlyif' setting
 function count_effective_params {
