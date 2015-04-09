@@ -12,6 +12,7 @@ function write_output {
   maxfull=`get_param maxfull`
   volume_size=`get_param volume_size`
   duplicity_log_verbosity=`get_param duplicity_log_verbosity`
+  local_backup_folder=`get_param local_backup_folder`
   backuptype=`get_param backuptype`
   local_backup_folder=`get_param local_backup_folder`
   aws_access_key_id=`get_param aws_access_key_id`
