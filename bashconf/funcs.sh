@@ -15,7 +15,7 @@ function allowed_choice {
   # http://stackoverflow.com/a/10586169
   IFS="|" read -a ALLOWED <<< "$CHOICES"
 
-  for i in `seq 0 $(( ${#CHOICES[@]} + 1 ))`
+  for i in `seq 0 $(( ${#ALLOWED[@]} + 1 ))`
   do
     CHOICE=${ALLOWED[$i]}
     [ ! -z $DEBUG ] && echo CHOICE=$CHOICE ANSWER=$ANSWER
