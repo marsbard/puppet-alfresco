@@ -63,6 +63,6 @@ EOF
 	sleep 1
 }
 
-
+write_output
 
 
