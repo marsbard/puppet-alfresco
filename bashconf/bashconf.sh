@@ -203,7 +203,7 @@ function read_answers {
 }
 
 function edit_param {
-	IDX=$(( $1 -1 ))
+	IDX=`get_effective_idx $(( $1 -1 ))`
 	param="${params[IDX]}"
 	value=`get_answer $IDX`
 	echo -e "${GREEN}Parameter: ${PURPLE}${param}${WHITE}"
