@@ -58,6 +58,13 @@ tomcat_GROUP=tomcat
 # this function sets the variable OPENJDKS
 find_openjdks()
 {
+        for jvmdir in /usr/lib/jvm/java-8-openjdk-*
+        do
+                if [ -d "${jvmdir}" -a "${jvmdir}" != "/usr/lib/jvm/java-8-openjdk-common" ]
+                then
+                        OPENJDKS=$jvmdir
+                fi
+        done
         for jvmdir in /usr/lib/jvm/java-7-openjdk-*
         do
                 if [ -d "${jvmdir}" -a "${jvmdir}" != "/usr/lib/jvm/java-7-openjdk-common" ]
@@ -78,7 +85,7 @@ OPENJDKS=""
 find_openjdks
 # The first existing directory is used for JAVA_HOME (if JAVA_HOME is not
 # defined in $DEFAULT)
-JDK_DIRS="/usr/lib/jvm/default-java ${OPENJDKS} /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-7-oracle"
+JDK_DIRS="/usr/lib/jvm/default-java ${OPENJDKS} /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-7-oracle /usr/lib/jvm/java-8-oracle"
 
 # Look for the right JVM to use
 for jdir in $JDK_DIRS; do
