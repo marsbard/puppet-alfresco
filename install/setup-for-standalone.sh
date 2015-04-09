@@ -22,7 +22,6 @@ then
   if [ ! -d modules -a ! -d modules/alfresco ]
   then
     mkdir modules/alfresco -p
-    mv lib files manifests templates modules/alfresco
     for d in lib files manifests templates
     do
       ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
