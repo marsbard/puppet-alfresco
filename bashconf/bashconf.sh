@@ -51,6 +51,16 @@ then
   exit 101
 fi
 
+# if we have a ${CONF}_pre.sh file, read it, here we can override
+# $INSTALL_LETTER, $PROMPT, $QUIT_LETTER, $BANNER
+if [ -f "${CONF}_pre.sh" ]
+then
+  echo loading ${CONF}_pre.sh
+  source "${CONF}_pre.sh"
+fi
+
+
+
 # If we have defined an install letter, warn if we have not provided install script
 if [ "${INSTALL_LETTER}" != "" ]
 then
@@ -59,12 +69,6 @@ then
     echo -e "${RED}WARN${YELLOW} Install letter is defined but ${BLUE}${CONF}_install.sh${YELLOW} not found.\n     You can override \$INSTALL_LETTER in ${BLUE}${CONF}_pre.sh${YELLOW}.${RESET}"
     sleep 2
   fi
-fi
-
-# if we have a ${CONF}_pre.sh file, read it
-if [ -f "${CONF}_pre.sh" ]
-then
-  source "${CONF}_pre.sh"
 fi
 
 # We'll store the answers here
@@ -136,6 +140,9 @@ function read_entry {
     if [ -f "${CONF}_install.sh" ]
     then
       source "${CONF}_install.sh" 
+    else
+      echo -e "${RED}Error: ${CONF}_install.sh does not exist${YELLOW} but we are installing now${RESET}"
+      exit 99
     fi
 		set -e
 		sleep 2
@@ -221,7 +228,7 @@ function check_required {
 	ERRS=0
 	echo
 	for i in `seq 0 $(( ${#params[@]} -1 ))`
-        do
+  do
 		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
 		then
 			echo -ne $RED
