@@ -5,3 +5,4 @@ go.pp
 do_backup.pp
 .*.swp
 */.*.swp
+.IS*

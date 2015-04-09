@@ -23,6 +23,10 @@ then
   then
     mkdir modules/alfresco -p
     mv lib files manifests templates modules/alfresco
+    for d in lib files manifests templates
+    do
+      ln -s ${CWD}/${d} ${CWD}/modules/alfresco/${d}
+    done
   fi
 
 

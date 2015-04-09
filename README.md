@@ -74,6 +74,8 @@ you can do:
 
 	cd /etc/puppet/modules
 	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
+  cd alfresco
+  install/setup-for-puppetmaster.sh
 
 to make the module available for use in your puppet scripts.
 
