@@ -44,7 +44,6 @@ class alfresco::packages inherits alfresco {
 				"libpng3",
 				"haveged",
         "sudo",
-        "oracle-java8-set-default",
 		 	] 
 			$rmpackages = [ 
 				"openjdk-6-jdk",
@@ -58,6 +57,11 @@ class alfresco::packages inherits alfresco {
 			}
 
       include java8
+
+      
+      package{ 'oracle-java8-set-default':
+        require => Class['java8'],
+      }
 
 		}
 		default:{
