@@ -13,5 +13,19 @@ fi
 mkdir -p modules
 for mod in $MODULES
 do
-	puppet module install --force $mod --target-dir=modules
+  TRY=0
+  while [ $TRY -lt 3 ]
+  do
+	  puppet module install --force $mod --target-dir=modules
+    if [ $? = 0 ]; then TRY=3; else 
+      if [ $TRY -lt 3 ]
+      then 
+        echo Transient failure, retrying
+      else
+        echo Failed to install $mod
+        exit 99
+      fi
+    fi
+    TRY=$(( TRY++ ))
+  done
 done
