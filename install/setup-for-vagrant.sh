@@ -24,7 +24,7 @@ then
     mkdir modules/alfresco -p
     for d in lib files manifests templates
     do
-      ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
+      ln ${PWD}/${d} ${PWD}/modules/alfresco/${d}
     done
   fi
 
