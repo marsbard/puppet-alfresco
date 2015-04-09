@@ -58,7 +58,7 @@ then
   if [ ! -f "${CONF}_install.sh" ]
   then
     echo -e "${RED}WARN${YELLOW} Install letter is defined but ${BLUE}${CONF}_install.sh${YELLOW} not found.\n     You can override \$INSTALL_LETTER in ${BLUE}${CONF}_pre.sh${YELLOW}.${RESET}"
-    sleep 3
+    sleep 2
   fi
 fi
 
@@ -86,6 +86,7 @@ function paramloop() {
 	for i in `seq 1 ${NUMPARAMS}`
 	do
 		PARAM_IDX=$(( $i -1 ))
+    #DEBUG=x
     ONLYIF=`get_onlyif $PARAM_IDX`
     if [ "$ONLYIF" != "false" ]
     then
@@ -111,15 +112,6 @@ function banner {
 }
 
 
-function get_answer {
-	IDX=$1
-	if [ "${answers[$IDX]}" != "" ]
-	then 
-		echo ${answers[$IDX]}
-		return
-	fi
-	echo ${default[$IDX]}
-}
 
 
 NUMERIC='^[0-9]+$'
@@ -222,20 +214,6 @@ function edit_param {
 	read -ep": " ANSWER
 	echo -en $WHITE
 	answers[$IDX]=$ANSWER
-}
-
-# given a parameter name find it by index
-# and return the value
-function get_param {
-	param=$1
-	for i in `seq 0 $(( $NUMPARAMS -1 )) `
-	do
-		if [ "${params[i]}" = "$param" ]
-		then
-			echo `get_answer $i`
-			break
-		fi
-	done
 }
 
 function check_required {

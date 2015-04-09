@@ -30,6 +30,7 @@ params[$IDX]="local_backup_folder"
 descr[$IDX]="Local backup folder. If you are using this you have probably mounted a remote backup folder locally."
 default[$IDX]="/mnt/backup"
 required[$IDX]=1
+onlyif[$IDX]="backuptype=local"
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="fulldays"
