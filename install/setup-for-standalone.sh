@@ -25,7 +25,7 @@ then
     mv lib files manifests templates modules/alfresco
     for d in lib files manifests templates
     do
-      ln -s ${CWD}/${d} ${CWD}/modules/alfresco/${d}
+      ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
     done
   fi
 
