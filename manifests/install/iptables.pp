@@ -5,7 +5,7 @@ class alfresco::install::iptables inherits alfresco {
     source => 'puppet:///modules/alfresco/iptables.sh',
     ensure => present,
     mode => '0755',
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
   file { "/etc/rc2.d/S10_iptables":

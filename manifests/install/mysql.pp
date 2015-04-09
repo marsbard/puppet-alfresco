@@ -34,7 +34,7 @@ class alfresco::install::mysql inherits alfresco {
 	}
 
 	exec { "retrieve-mysql-connector":
-    user => 'tomcat7',
+    user => 'tomcat',
 		command => "wget ${urls::mysql_connector_url}",
 		cwd => "${download_path}",
 		path => "/usr/bin",
@@ -42,7 +42,7 @@ class alfresco::install::mysql inherits alfresco {
 	}
 
 	exec { "unpack-mysql-connector":
-    user => 'tomcat7',
+    user => 'tomcat',
 		command => "tar xzvf ${urls::mysql_connector_file}",
 		cwd => $download_path,
 		path => "/bin",
@@ -51,7 +51,7 @@ class alfresco::install::mysql inherits alfresco {
 	}
 
 	exec { "copy-mysql-connector":
-    user => 'tomcat7',
+    user => 'tomcat',
 		command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
 		path => "/bin:/usr/bin",
 		require => [

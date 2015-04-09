@@ -6,7 +6,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
     
 
         exec { "retrieve-alfresco-ce":
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
           path => "/usr/bin",
           creates => "${download_path}/${urls::alfresco_ce_filename}",
@@ -16,11 +16,11 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
         file { "${download_path}/alfresco":
           ensure => directory,
-          owner => 'tomcat7',
+          owner => 'tomcat',
         }
 
         exec { "unpack-alfresco-ce":
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
@@ -35,7 +35,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 	      # the war files
 	      exec { "${tomcat_home}/webapps/alfresco.war":
-          user => 'tomcat7',
+          user => 'tomcat',
 		      command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
 		      require => Exec["unpack-alfresco-ce"],
           creates => "${tomcat_home}/webapps/alfresco.war",
@@ -43,7 +43,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           notify => Service['alfresco-start']
 	      }
 	      exec { "${tomcat_home}/webapps/share.war":
-          user => 'tomcat7',
+          user => 'tomcat',
 		      command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
           creates => "${tomcat_home}/webapps/share.war",
           path => '/bin:/usr/bin',
@@ -56,7 +56,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 
         exec { 'retrieve-spp':
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "/usr/bin/wget ${urls::spp_v4}",
           cwd => $download_path,
           require => File[$download_path],
@@ -64,7 +64,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
         exec { 'unpack-spp':
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "/usr/bin/unzip ${download_path}/${urls::spp_v4_zipname}",
           cwd => "${alfresco_base_dir}/amps",
           creates => "${alfresco_base_dir}/amps/${urls::spp_v4_name}",
@@ -75,7 +75,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
       }
       '5.0.c', '5.0.x': {
 	      exec { "${tomcat_home}/webapps/alfresco.war":
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "wget ${urls::alfresco_war_50x} -O alfresco.war",
           cwd => "${tomcat_home}/webapps/",
           path => "/usr/bin",
@@ -85,7 +85,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         }
 
 	      exec { "${tomcat_home}/webapps/share.war":
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "wget ${urls::share_war_50x} -O share.war",
           cwd => "${tomcat_home}/webapps/",
           path => "/usr/bin",
@@ -97,11 +97,11 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         file { "${tomcat_home}/webapps":
           ensure => directory,
           require => File["${tomcat_home}"],
-          owner => 'tomcat7',
+          owner => 'tomcat',
         }
         
         exec { 'retrieve-spp-amp':
-          user => 'tomcat7',
+          user => 'tomcat',
           command => "wget ${urls::spp_amp_v5}",
           path => '/usr/bin',
           cwd => "${alfresco_base_dir}/amps",
@@ -120,26 +120,26 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 
 
 	exec { "unpack-alfresco-war": 
-    user => 'tomcat7',
+    user => 'tomcat',
 		require => [
 			Exec["${tomcat_home}/webapps/alfresco.war"],
       Exec['apply-addons'],
 		],
     before => Service['alfresco-start'],
 		path => "/bin:/usr/bin",
-		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
+		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco", 
 		creates => "${tomcat_home}/webapps/alfresco/",
 	}
 
 	exec { "unpack-share-war": 
-    user => 'tomcat7',
+    user => 'tomcat',
 		require => [
 			Exec["${tomcat_home}/webapps/share.war"],
       Exec['apply-addons'],
 		],
     before => Service['alfresco-start'],
 		path => "/bin:/usr/bin",
-		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
+		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share", 
 		creates => "${tomcat_home}/webapps/share/",
 	}
 

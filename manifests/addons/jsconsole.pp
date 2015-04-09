@@ -5,7 +5,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
 
 
   exec { "retrieve-jsconsole":
-    user => 'tomcat7',
+    user => 'tomcat',
 		timeout => 0,
     creates => "${download_path}/${filename_jsconsole}",
     command => "wget ${url_jsconsole} -O ${download_path}/${filename_jsconsole}",
@@ -14,7 +14,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
   }
 
   exec { "unpack-jsconsole":
-    user => 'tomcat7',
+    user => 'tomcat',
     creates => "${download_path}/jsconsole/README.txt",
     cwd => "${download_path}/jsconsole",
     command => "unzip -o ${download_path}/${filename_jsconsole}",
@@ -30,7 +30,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
   file { "${download_path}/jsconsole":
     ensure => directory,
     before => Exec["unpack-jsconsole"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
   file { "${alfresco_base_dir}/amps/javascript-console-repo-0.5.1.amp":
@@ -40,7 +40,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
       Exec["unpack-jsconsole"],
     ],
 		notify => Exec["apply-addons"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
   file { "${alfresco_base_dir}/amps_share/javascript-console-share-0.5.1.amp":
@@ -50,7 +50,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
       Exec["unpack-jsconsole"],
     ],
 		notify => Exec["apply-addons"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
 

@@ -24,7 +24,7 @@ class alfresco::addons inherits alfresco {
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
-    user => 'tomcat7',
+    user => 'tomcat',
     notify => Service['alfresco-start'],
   }
 
@@ -33,7 +33,7 @@ class alfresco::addons inherits alfresco {
     mode => "0755",
     content => template("alfresco/apply_amps.sh.erb"),
     require => File["${alfresco_base_dir}/bin"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
 	file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
@@ -42,7 +42,7 @@ class alfresco::addons inherits alfresco {
 		#source => "${download_path}/alfresco/bin/clean_tomcat.sh",
     source => 'puppet:///modules/alfresco/clean_tomcat.sh',
     require => File["${alfresco_base_dir}/bin"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
  
 	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
@@ -51,15 +51,15 @@ class alfresco::addons inherits alfresco {
 		#source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
     source => 'puppet:///modules/alfresco/alfresco-mmt.jar',
     require => File["${alfresco_base_dir}/bin"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
 	}
 
   #exec { "fix-war-permissions":
   #  path => "/bin:/usr/bin",
-  #  command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
+  #  command => "chown tomcat ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
   #  onlyif => [
-  #    "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
-  #    "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat7",
+  #    "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat",
+  #    "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat",
   #    "test -r ${tomcat_home}/webapps/alfresco.war",
   #    "test -r ${tomcat_home}/webapps/share.war",
   #  ]
@@ -71,9 +71,9 @@ class alfresco::addons inherits alfresco {
 #      Exec['apply-addons'],
 #		],
 #		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
+#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco", 
 #		creates => "${tomcat_home}/webapps/alfresco/",
-#    notify => Service['tomcat7'],
+#    notify => Service['tomcat'],
 #	}
 #
 #	exec { "unpack-share-war": 
@@ -82,9 +82,9 @@ class alfresco::addons inherits alfresco {
 #      Exec['apply-addons'],
 #		],
 #		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
+#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share", 
 #		creates => "${tomcat_home}/webapps/share/",
-#    notify => Service['tomcat7'],
+#    notify => Service['tomcat'],
 #	}
 
 }

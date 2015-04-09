@@ -51,7 +51,7 @@ class alfresco::backup (
   
   cron { alfresco-bart:
     command => "${alfresco_base_dir}/scripts/alfresco-bart.sh backup",
-    user => tomcat7,
+    user => tomcat,
     hour => $backup_at_hour,
     minute => $backup_at_min,
   }

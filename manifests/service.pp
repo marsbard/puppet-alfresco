@@ -2,7 +2,7 @@ class alfresco::service inherits alfresco {
 
 
 	service { 'alfresco-start':
-		name => 'tomcat7',
+		name => 'tomcat',
 		ensure => running,
 		enable => true,
 		subscribe => [

@@ -114,7 +114,7 @@ class alfresco::tests inherits alfresco {
     require => Vcsrepo["${alfresco_base_dir}/tests"],
   } -> 
   exec { "delay-${delay_before}-before-tests":
-    user => 'tomcat7',
+    user => 'tomcat',
     command => "/bin/sleep ${delay_before}",
   } ->
   runtests {  $tests: 

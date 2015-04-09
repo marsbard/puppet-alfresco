@@ -28,7 +28,7 @@ class alfresco::addons::rm inherits alfresco::addons {
 
 
   exec { "retrieve-rm":
-    user => 'tomcat7',
+    user => 'tomcat',
 		timeout => 0,
     creates => "${download_path}/${filename_rm}",
     command => "wget ${url_rm} -O ${download_path}/${filename_rm}",
@@ -37,7 +37,7 @@ class alfresco::addons::rm inherits alfresco::addons {
   }
 
   exec { "unpack-rm":
-    user => 'tomcat7',
+    user => 'tomcat',
     creates => "${recmancreates}",
     cwd => "${download_path}/rm",
     command => "unzip -o ${download_path}/${filename_rm}",
@@ -53,7 +53,7 @@ class alfresco::addons::rm inherits alfresco::addons {
   file { "${download_path}/rm":
     ensure => directory,
     before => Exec["unpack-rm"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
   file { "${alfresco_base_dir}/amps/${recmanrepo}":
@@ -63,7 +63,7 @@ class alfresco::addons::rm inherits alfresco::addons {
       Exec["unpack-rm"],
     ],
 		notify => Exec["apply-addons"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
   file { "${alfresco_base_dir}/amps_share/${recmanshare}":
@@ -73,7 +73,7 @@ class alfresco::addons::rm inherits alfresco::addons {
       Exec["unpack-rm"],
     ],
 		notify => Exec["apply-addons"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
 
 
