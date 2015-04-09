@@ -43,7 +43,6 @@ then
   exit 100
 else
   source "${CONF}_params.sh"
-  NUMPARAMS="${#params[@]}"
 fi
 
 if [ ! -f "${CONF}_output.sh" ]
@@ -72,7 +71,7 @@ fi
 ANS_FILE="${CONF}_answers.sh"
 
 
-source "`dirname $0`"/funcs.sh
+source bashconf/funcs.sh
 
 function paramloop() {
 	echo -en "Idx\tParam"
@@ -80,16 +79,18 @@ function paramloop() {
 	echo Value
 	echo
 
-
+  NUM_SHOWN_PARAMS=0
 
   DISPLAY_IDX=1
-	for i in `seq 1 ${NUMPARAMS}`
+	for i in `seq 1 ${#params[@]}`
 	do
 		PARAM_IDX=$(( $i -1 ))
-    #DEBUG=x
+
+
     ONLYIF=`get_onlyif $PARAM_IDX`
     if [ "$ONLYIF" != "false" ]
     then
+      NUM_SHOWN_PARAMS=$(( $NUM_SHOWN_PARAMS + 1 ))
 		  VAL=`get_answer $PARAM_IDX`
 		  echo -en "[${GREEN}${DISPLAY_IDX}${WHITE}]\t${PURPLE}${params[$PARAM_IDX]}${WHITE}"
 		  $MOVE_TO_COL
@@ -147,10 +148,10 @@ function read_entry {
 	else
 		if [[ $ENTRY =~ $NUMERIC ]]
 		then
-			if [ $ENTRY -gt $NUMPARAMS ]
+			if [ $ENTRY -gt $NUM_SHOWN_PARAMS ]
 			then	
 				echo
-				echo -e ${RED}Error: that number is too high${WHITE}
+				echo -e ${RED}Error: that number is too high${WHITE} 
 				echo 
 				sleep 2
 			else	
@@ -170,7 +171,7 @@ function write_answers {
 	echo -e ${GREEN}Writing answer file ${BLUE}$ANS_FILE${WHITE}
 	#if [ -f $ANS_FILE ]; then mv $ANS_FILE $ANS_FILE.1; fi
   echo > $ANS_FILE
-	for i in `seq 0 $(( $NUMPARAMS -1))`
+	for i in `seq 0 $(( ${#params[@]} -1))`
 	do
 		if [ "${answers[$i]}" != "" ]
 		then
@@ -189,7 +190,7 @@ function read_answers {
 			param=`echo $line | cut -f1 -d= `
 			value=`echo $line | cut -f2 -d= `
 
-			for i in `seq 0 $(( $NUMPARAMS -1 ))`
+			for i in `seq 0 $(( ${#params[@]} -1 ))`
 			do
 				if [ "${params[i]}" = "$param" ]
 				then
@@ -219,7 +220,7 @@ function edit_param {
 function check_required {
 	ERRS=0
 	echo
-	for i in `seq 0 $(( $NUMPARAMS -1 ))`
+	for i in `seq 0 $(( ${#params[@]} -1 ))`
         do
 		if [ "${required[i]}" = "1" -a "`get_answer $i`" = "" ]
 		then
