@@ -1,4 +1,18 @@
 class { 'alfresco::tests':
   delay_before => 10,
-
+	domain_name => '',	
+	initial_admin_pass => 'tequilapassword',
+	mail_from_default => 'admin@localhost',	
+	alfresco_base_dir => '/opt/alfresco',	
+	tomcat_home => '/opt/alfresco/tomcat',	
+	alfresco_version => '5.0.x',	
+	download_path => '/opt/downloads',	
+	db_root_password => 'alfresco',
+	db_user => 'alfresco',	
+	db_pass => 'alfresco',	
+	db_name => 'alfresco',	
+	db_host => 'localhost',	
+	db_port => '3306',	
+	mem_xmx => '4G',
+	mem_xxmaxpermsize => '256m',
 }
