@@ -19,11 +19,8 @@ Current limitations:
 It is possible to install directly to a machine using a simple bash
 installer script. First make sure that `git` is installed on your machine. Now run the following commands:
 
-	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
-	ln -s modules/alfresco/install
-	ln -s modules/alfresco/install.sh
-	./install.sh
-
+	git clone https://github.com/marsbard/puppet-alfresco.git 
+  install/setup-for-standalone.sh
 
 You will see an installer like this:
 
@@ -116,11 +113,8 @@ It's useful to run the script under Vagrant sometimes for testing purposes.
 
 To set up a Vagrant environment:
 
-	git clone https://github.com/marsbard/puppet-alfresco.git modules/alfresco
-	ln -s modules/alfresco/install
-	ln -s modules/alfresco/install.sh
-	ln -s modules/alfresco/Vagrantfile
-	./install/modules-for-vagrant.sh
+	git clone https://github.com/marsbard/puppet-alfresco.git 
+  install/setup-for-vagrant.sh
 
 You need to run './install.sh' once and quit out of it in order to save the 'go.pp' initial puppet script. 
 While in the installer you must set the domain_name parameter and that domain name should be resolvable on the network to the machine you are installing upon. 

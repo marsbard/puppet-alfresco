@@ -1,20 +1,20 @@
 
 cd "`dirname $0`"/..
 
-if [ -f .IS_STANDALONE ]
+if [ -f .IS_VAGRANT ]
 then
-  echo Sorry, this has been set up for standalone
+  echo Sorry, this has been set up for vagrant
 fi
 
 if [ -f .IS_PUPPETMASTER ]
 then
-  echo Sorry, this has bene set up for puppetmaster
+  echo Sorry, this has been set up for puppetmaster
 fi
 
-if [ ! -f .IS_VAGRANT ]
+if [ ! -f .IS_STANDALONE ]
 then
 
-  touch .IS_VAGRANT
+  touch .IS_STANDALONE
 
   git submodule init
   git submodule update
@@ -25,7 +25,6 @@ then
     mv lib files manifests templates modules/alfresco
   fi
 
-  install/modules-for-vagrant.sh
 
   ./install.sh
 fi
