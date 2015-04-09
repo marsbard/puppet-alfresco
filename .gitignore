@@ -6,3 +6,4 @@ do_backup.pp
 .*.swp
 */.*.swp
 .IS*
+modules/
