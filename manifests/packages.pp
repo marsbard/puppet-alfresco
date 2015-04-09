@@ -18,7 +18,8 @@ class alfresco::packages inherits alfresco {
 
 		  $packages = [ 
 				"git", 
-				"java-1.8.0-openjdk",
+				#"java-1.8.0-openjdk",
+				"java-1.7.0-openjdk",
 		 		"unzip",
 				"curl",
 				"ghostscript", 
@@ -31,7 +32,8 @@ class alfresco::packages inherits alfresco {
 		  $packages = [ 
 				"gdebi-core",
 				"git", 
-				"openjdk-8-jdk",
+				"openjdk-7-jdk",
+				#"openjdk-8-jdk",
 		 		"unzip",
 				"curl",
 				"fonts-liberation", 
@@ -46,8 +48,8 @@ class alfresco::packages inherits alfresco {
 			$rmpackages = [ 
 				"openjdk-6-jdk",
 		 		"openjdk-6-jre-lib",
-        "openjdk-7-jdk",
-        "openjdk-7-jre-lib",
+        #"openjdk-7-jdk",
+        #"openjdk-7-jre-lib",
 			]
 			exec { "apt-update":
 			  command => "/usr/bin/apt-get update",
