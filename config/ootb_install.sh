@@ -1,5 +1,5 @@
 
-source ../install/inc-puppet.sh
+source install/inc-puppet.sh
 
 ERR=$?
 if [ $ERR != 0 ]
