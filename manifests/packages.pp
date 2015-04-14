@@ -1,5 +1,7 @@
 class alfresco::packages inherits alfresco {
 
+  $java_version=8
+
   	case $::osfamily {
     	'RedHat': {
 
@@ -16,23 +18,44 @@ class alfresco::packages inherits alfresco {
 	Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
 
 
+      if $java_version == 8 {
+        $jpackage="java-1.8.0-openjdk"
+      } else {
+        $jpackage="java-1.7.0-openjdk"
+      }
+
 		  $packages = [ 
 				"git", 
 				"java-1.8.0-openjdk",
 				#"java-1.7.0-openjdk",
+        $jpackage,
 		 		"unzip",
 				"curl",
 				"ghostscript", 
 				"haveged",
 		 	] 
+
 			$rmpackages = [ 
 			]
 		}
 		'Debian': {
+      
+      if $java_version == 8 {
+        $jpackage=""
+        include java8
+        package{ 'oracle-java8-set-default':
+          require => Class['java8'],
+        }
+
+      } else {
+        $jpackage="openjdk-7-jdk"
+      }
+
+
 		  $packages = [ 
 				"gdebi-core",
 				"git", 
-				#"openjdk-7-jdk",
+				"openjdk-7-jdk",
 				#"openjdk-8-jdk",
 		 		"unzip",
 				"curl",
@@ -48,20 +71,13 @@ class alfresco::packages inherits alfresco {
 			$rmpackages = [ 
 				"openjdk-6-jdk",
 		 		"openjdk-6-jre-lib",
-        "openjdk-7-jdk",
-        "openjdk-7-jre-lib",
+        #"openjdk-7-jdk",
+        #"openjdk-7-jre-lib",
 			]
 			exec { "apt-update":
 			  command => "/usr/bin/apt-get update",
 				schedule => "nightly",
 			}
-
-      include java8
-
-      
-      package{ 'oracle-java8-set-default':
-        require => Class['java8'],
-      }
 
 		}
 		default:{
