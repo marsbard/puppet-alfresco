@@ -19,8 +19,10 @@ Current limitations:
 It is possible to install directly to a machine using a simple bash
 installer script. First make sure that `git` is installed on your machine. Now run the following commands:
 
-	git clone https://github.com/marsbard/puppet-alfresco.git 
+```
+  git clone https://github.com/marsbard/puppet-alfresco.git 
   install/setup-for-standalone.sh
+```
 
 You will see an installer like this:
 
@@ -53,6 +55,12 @@ You will see an installer like this:
 	Please choose an index number to edit, I to install, or Q to quit
 	 ->
 
+(this is actually run from `setup-for-standalone.sh` for you but if you need to run it again yourself, 
+just do `./install.sh` from the base folder).
+
+(Please note that currently due to https://github.com/marsbard/puppet-alfresco/issues/50 the installer
+will be shown again at the end of installation. Just choose 'Q' to quit).
+
 If you choose a parameter you will see a short help message, and the current default value will be shown prior to your entry prompt, pressing enter without typing anything will accept the previous value, whether it is a default or a previous answer, as your current answer:
 
 	Please choose an index number to edit, I to install, or Q to quit
@@ -72,10 +80,12 @@ If you do not have a puppetmaster server, please ignore this section and check o
 It can also be used as a puppet module, for example if you have a puppet master 
 you can do:
 
+```
 	cd /etc/puppet/modules
 	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
-  cd alfresco
-  install/setup-for-puppetmaster.sh
+	cd alfresco
+	install/setup-for-puppetmaster.sh
+```
 
 to make the module available for use in your puppet scripts.
 
@@ -115,8 +125,10 @@ It's useful to run the script under Vagrant sometimes for testing purposes.
 
 To set up a Vagrant environment:
 
+```
 	git clone https://github.com/marsbard/puppet-alfresco.git 
-  install/setup-for-vagrant.sh
+	install/setup-for-vagrant.sh
+```
 
 You need to run './install.sh' once and quit out of it in order to save the 'go.pp' initial puppet script. 
 While in the installer you must set the domain_name parameter and that domain name should be resolvable on the network to the machine you are installing upon. 
