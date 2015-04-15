@@ -1,6 +1,6 @@
 class alfresco::packages inherits alfresco {
 
-  $java_version=8
+  $java_version=7
 
   	case $::osfamily {
     	'RedHat': {
