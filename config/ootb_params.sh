@@ -47,6 +47,7 @@ IDX=$(( $IDX + 1 ))
 params[$IDX]="alfresco_version"
 descr[$IDX]="Alfresco version to install. Choices '4.2.f', '5.0.x' and 'NIGHTLY' are supported"
 default[$IDX]="5.0.x"
+choices[$IDX]="4.2.f|5.0.x|NIGHTLY"
 
 
 IDX=$(( $IDX + 1 ))
