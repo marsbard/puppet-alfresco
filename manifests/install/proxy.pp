@@ -90,7 +90,7 @@ class alfresco::install::proxy inherits alfresco {
   apache::vhost { $domain_name :
     ssl => true,
     port => 443,
-    docroot => "/var/www/${domain_name}", # probably don't need a docroot?
+    docroot => "/var/www/${domain_name}", # must have a docroot for puppetlabs apache
     ssl_cert => "/etc/ssl/${domain_name}.cert",
     ssl_key => "/etc/ssl/${domain_name}.key",
     proxy_pass => [
@@ -98,8 +98,21 @@ class alfresco::install::proxy inherits alfresco {
       { 'path' => '/solr4', 'url' => "ajp://127.0.0.1:8009/solr4" },
       { 'path' => '/alfresco', 'url' => "ajp://127.0.0.1:8009/alfresco" },
       { 'path' => '/spp', 'url' => 'http://127.0.0.1:7070/alfresco' },
-    ]
+    ],
+		redirect_source => [ '/', ],
+		redirect_dest => [ '/share', ],
   }
+
+
+	apache::vhost { "any":
+		default_vhost => true,
+		ssl => false,
+		port => 80,
+		docroot => '/var/www/dummy',
+		redirect_source => '/', 
+		redirect_dest => "https://${domain_name}/share", 
+		redirect_status => permanent,
+	}
 
   class { 'apache::mod::proxy_ajp': }
 
