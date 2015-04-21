@@ -126,7 +126,8 @@ It's useful to run the script under Vagrant sometimes for testing purposes.
 To set up a Vagrant environment:
 
 ```
-	git clone https://github.com/marsbard/puppet-alfresco.git 
+	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
+	cd alfresco
 	install/setup-for-vagrant.sh
 ```
 
