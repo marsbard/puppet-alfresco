@@ -167,9 +167,15 @@ class alfresco (
 			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
 			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
 		}
-
-
 	}
+
+	# on centos - no suitable provider for cron
+	if($osfamily == 'RedHat'){
+		package { 'cronie':
+			ensure => installed,
+			before => Class['alfresco::install'],
+		}
+	}	
 
 
 	# for some reason packages are being applied out of order, so bind them to a run stage:

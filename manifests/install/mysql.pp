@@ -11,7 +11,10 @@ class alfresco::install::mysql inherits alfresco {
 #          'innodb_buffer_pool_size' => '4GB',
 #          'innodb_log_buffer_size' => 50331648,
 #          'innodb_log_file_size' => '1GB',
-          'innodb_file_format' => 'Barracuda',
+
+#	Barracuda file system is not available in CentOS 6 mysql and we weren't
+# using it for anything yet anyway
+#						'innodb_file_format' => 'Barracuda',
         }
       }
 #	  } ->
