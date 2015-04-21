@@ -25,6 +25,7 @@ class alfresco::packages inherits alfresco {
       }
 
 		  $packages = [ 
+				"wget",
 				"git", 
         $jpackage,
 		 		"unzip",

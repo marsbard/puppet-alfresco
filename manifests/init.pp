@@ -89,7 +89,7 @@ class alfresco (
   $mail_host    = 'localhost',
   $mail_port    = 25,
 	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "256m",
+	$mem_xxmaxpermsize		= "512m",
   $delay_before_tests = 1,
   $apt_cache_host = '',
   $apt_cache_port = 3142,
