@@ -20,7 +20,8 @@ It is possible to install directly to a machine using a simple bash
 installer script. First make sure that `git` is installed on your machine. Now run the following commands:
 
 ```
-  git clone https://github.com/marsbard/puppet-alfresco.git 
+  git clone https://github.com/marsbard/puppet-alfresco.git alfresco
+  cd alfresco
   install/setup-for-standalone.sh
 ```
 
@@ -126,7 +127,8 @@ It's useful to run the script under Vagrant sometimes for testing purposes.
 To set up a Vagrant environment:
 
 ```
-	git clone https://github.com/marsbard/puppet-alfresco.git 
+	git clone https://github.com/marsbard/puppet-alfresco.git alfresco
+	cd alfresco
 	install/setup-for-vagrant.sh
 ```
 
