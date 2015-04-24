@@ -19,6 +19,7 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/alfresco.log":
 		ensure => present,
 		owner => "tomcat",
+		group => "tomcat",
 		require => [
 			Exec["copy tomcat to ${tomcat_home}"],
 			User["tomcat"],
@@ -27,6 +28,7 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/share.log":
 		ensure => present,
 		owner => "tomcat",
+		group => "tomcat",
 		require => [
 			Exec["copy tomcat to ${tomcat_home}"],
 			User["tomcat"],

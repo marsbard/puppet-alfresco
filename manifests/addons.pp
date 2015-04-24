@@ -3,6 +3,10 @@ class alfresco::addons inherits alfresco {
 	include alfresco::addons::rm
 	include alfresco::addons::jsconsole
 
+	# TODO work out the wrapping up of jar into amp correctly
+	#class { 'alfresco::addons::webscripts':
+	#}
+
   class { 'alfresco::addons::uploader-plus':
     notify => Exec['apply-addons'],
   }

@@ -1,0 +1,7 @@
+<webscript>
+  <shortname>Create Site</shortname>
+	<description>Utility script to create a site</description>
+  <url>/modules/create-site</url>
+	<family>OrderOfTheBee</family>
+	<authentication>admin</authentication>
+</webscript>
