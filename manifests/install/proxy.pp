@@ -7,6 +7,7 @@ class alfresco::install::proxy inherits alfresco {
   class { 'apache': 
     default_mods => false,
     default_confd_files => false,
+		mpm_module => 'prefork',
   }
 
   file { '/etc/ssl':
@@ -99,18 +100,21 @@ class alfresco::install::proxy inherits alfresco {
       { 'path' => '/alfresco', 'url' => "ajp://127.0.0.1:8009/alfresco" },
       { 'path' => '/spp', 'url' => 'http://127.0.0.1:7070/alfresco' },
     ],
-		redirect_source => [ '/', ],
-		redirect_dest => [ '/share', ],
+		#redirect_source => [ '/', ],
+		#edirect_dest => [ '/share', ],
+		#redirectmatch_regexp => '^/((?!fileserver).)*$', 
+		#redirectmatch_dest => "/share/$1", 
+		
   }
 
 
-	apache::vhost { "any":
+	apache::vhost { "${domain_name}_80":
 		default_vhost => true,
 		ssl => false,
 		port => 80,
-		docroot => '/var/www/dummy',
+		docroot => "/var/www/${domain_name}",
 		redirect_source => '/', 
-		redirect_dest => "https://${domain_name}/share", 
+		redirect_dest => "https://${domain_name}/", 
 		redirect_status => permanent,
 	}
 
