@@ -7,6 +7,9 @@ class alfresco::addons inherits alfresco {
 	#class { 'alfresco::addons::webscripts':
 	#}
 
+	class { 'alfresco::addons::filebrowser':
+	}
+
   class { 'alfresco::addons::uploader-plus':
     notify => Exec['apply-addons'],
   }
