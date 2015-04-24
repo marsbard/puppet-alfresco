@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MODULES="puppetlabs-mysql puppetlabs-stdlib stankevich-python puppetlabs-apache puppetlabs-apt\
-  puppetlabs-concat spantree/java8"
+  puppetlabs-concat spantree/java8 puppetlabs-vcsrepo"
 
 OS=`head -n1 /etc/issue | cut -f1 -d\ `
 
