@@ -42,8 +42,8 @@ script:
     - git clone https://github.com/${TESTSRC}/alfresco-tests.git
     - cd alfresco-tests
     - sudo ./install.sh 
-    - echo -e "=================\n100 lines of log\n==================="
-    - tail -n100 /opt/alfresco/tomcat/logs/catalina.out
+    - echo -e "=================\noutput all catalina log\n==================="
+    - cat /opt/alfresco/tomcat/logs/catalina.out
 
 notifications:
     irc: 
