@@ -43,7 +43,7 @@ script:
     - cd alfresco-tests
     - sudo ./install.sh 
     - echo -e "=================\noutput all catalina log\n==================="
-    - cat /opt/alfresco/tomcat/logs/catalina.out
+    - tail -n100 /opt/alfresco/tomcat/logs/catalina.out
 
 notifications:
     irc: 
