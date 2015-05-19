@@ -16,6 +16,7 @@ fi
 if [ ! -f .IS_VAGRANT ]
 then
 
+  hash puppet 2>/dev/null || { echo >&2 "I require puppet but it's not installed.  Aborting."; exit 1; }
 
   git submodule init
   git submodule update
