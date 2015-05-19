@@ -40,7 +40,7 @@ db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}?useUnicode=yes&characterEnc
 #db.port=5432
 #db.url=jdbc:postgresql://${db.host}:${db.port}/${db.name}
 db.pool.initial=10
-db.pool.max=90
+db.pool.max=275
 #mysql only
 db.pool.validate.query=select 1
 
@@ -103,7 +103,12 @@ solr.backup.archive.cronExpression=0 0 4 * * ? 2099
 # sharepoint vti
 # ------------------
 vti.server.port = 7070
-vti.server.external.port = 7070
+vti.server.protocol=http
+vti.server.url.path.prefix=/alfresco
+vti.server.external.host=<%= @domain_name %>
+vti.server.external.port=443
+vti.server.external.protocol=https
+vti.server.external.contextPath=/spp
 
 
 #

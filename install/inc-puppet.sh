@@ -1,12 +1,6 @@
 
-# install dependencies here
-# remember to take into account which OS we are on
-
-OS=`head -n1 /etc/issue | cut -f1 -d\ `
-
-
-
 function install_puppet {
+  OS=`head -n1 /etc/issue | cut -f1 -d\ `
 	echo Installing puppet
 	if [ "$OS" == "CentOS" -o "$OS" == "RedHat" ]
 	then
@@ -20,8 +14,8 @@ function install_puppet {
 		apt-get update
 		apt-get install apt-utils -y
 
-    		export DEBIAN_FRONTEND=noninteractive
-		wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+    export DEBIAN_FRONTEND=noninteractive
+		wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
 		apt-get install puppet -y
 
 	fi

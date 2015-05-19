@@ -1,7 +1,27 @@
 class alfresco::addons inherits alfresco {
 
+	include alfresco::addons::rm
 	include alfresco::addons::jsconsole
 
+	# TODO work out the wrapping up of jar into amp correctly
+	#class { 'alfresco::addons::webscripts':
+	#}
+
+	class { 'alfresco::addons::filebrowser':
+	}
+
+  class { 'alfresco::addons::uploader-plus':
+    notify => Exec['apply-addons'],
+  }
+
+  class { 'alfresco::addons::googledocs':
+    notify => Exec['apply-addons'],
+  }
+
+  class { 'alfresco::addons::reset-password':
+    # it's a jar so just notify alfresco, not apply addons
+    notify => Service['alfresco-start'],
+  }
 
 	exec { "apply-addons":
     require => [
@@ -11,6 +31,8 @@ class alfresco::addons inherits alfresco {
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
     onlyif => "test ! -f ${tomcat_home}/webapps/alfresco*.bak",
+    user => 'tomcat',
+    notify => Service['alfresco-start'],
   }
 
   file { "${alfresco_base_dir}/bin/apply_amps.sh":
@@ -18,6 +40,7 @@ class alfresco::addons inherits alfresco {
     mode => "0755",
     content => template("alfresco/apply_amps.sh.erb"),
     require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat',
   }
 
 	file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
@@ -26,31 +49,24 @@ class alfresco::addons inherits alfresco {
 		#source => "${download_path}/alfresco/bin/clean_tomcat.sh",
     source => 'puppet:///modules/alfresco/clean_tomcat.sh',
     require => File["${alfresco_base_dir}/bin"],
-    owner => 'tomcat7',
+    owner => 'tomcat',
   }
  
-  file { "${alfresco_base_dir}/bin/iptables.sh":
-    source => 'puppet:///modules/alfresco/iptables.sh',
-    ensure => present,
-    require => File["${alfresco_base_dir}/bin"],
-    mode => '0755',
-    owner => 'tomcat7',
-  }
-
 	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
 		ensure => present,
 		mode => '0755',
 		#source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
     source => 'puppet:///modules/alfresco/alfresco-mmt.jar',
     require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat',
 	}
 
   #exec { "fix-war-permissions":
   #  path => "/bin:/usr/bin",
-  #  command => "chown tomcat7 ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
+  #  command => "chown tomcat ${tomcat_home}/webapps/*.war; chmod a+r ${tomcat_home}/webapps/*.war",
   #  onlyif => [
-  #    "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat7",
-  #    "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat7",
+  #    "test -f ${tomcat_home}/webapps/alfresco.war  && ls -l ${tomcat_home}/webapps/alfresco.war | xargs | cut -f3 -d\  | grep tomcat",
+  #    "test -f ${tomcat_home}/webapps/share.war  && ls -l ${tomcat_home}/webapps/share.war | xargs | cut -f3 -d\  | grep tomcat",
   #    "test -r ${tomcat_home}/webapps/alfresco.war",
   #    "test -r ${tomcat_home}/webapps/share.war",
   #  ]
@@ -62,9 +78,9 @@ class alfresco::addons inherits alfresco {
 #      Exec['apply-addons'],
 #		],
 #		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat7 ${tomcat_home}/webapps/alfresco", 
+#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco", 
 #		creates => "${tomcat_home}/webapps/alfresco/",
-#    notify => Service['tomcat7'],
+#    notify => Service['tomcat'],
 #	}
 #
 #	exec { "unpack-share-war": 
@@ -73,9 +89,9 @@ class alfresco::addons inherits alfresco {
 #      Exec['apply-addons'],
 #		],
 #		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat7 ${tomcat_home}/webapps/share", 
+#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share", 
 #		creates => "${tomcat_home}/webapps/share/",
-#    notify => Service['tomcat7'],
+#    notify => Service['tomcat'],
 #	}
 
 }

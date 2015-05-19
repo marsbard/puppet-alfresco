@@ -3,13 +3,6 @@
 # Script to set up iptables for Alfresco use
 # 
 # Copyright 2013 Loftux AB, Peter Löen
-#!/bin/bash
-# -------
-# Script to set up iptables for Alfresco use
-# 
-# Copyright 2013 Loftux AB, Peter Löen
-# Distributed under the Creative Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA 3.0)
-# -------
 
 # Change to public ip-adress on alfresco server
 export IPADDRESS=`hostname -I`
@@ -21,19 +14,29 @@ export IPADDRESS=`hostname -I`
 	    iptables -t nat -A PREROUTING -p $3 --dport $1 -j REDIRECT --to-ports $2
 	    iptables -t nat -A OUTPUT -d localhost -p $3 --dport $1 -j REDIRECT --to-ports $2
 	    # Add all your local ip adresses here that you need port forwarding for
-	    iptables -t nat -A OUTPUT -d $IPADRESS -p $3 --dport $1 -j REDIRECT --to-ports $2
+      for ip in $IPADDRESS
+      do
+	      iptables -t nat -A OUTPUT -d $ip -p $3 --dport $1 -j REDIRECT --to-ports $2
+      done
     }
-    #
-    # setup_iptables
+
+    block() {
+      echo "Blocking port $1"
+      iptables -A INPUT -p tcp --dport $1 -s localhost -j ACCEPT
+      for ip in $IPADDRESS
+      do
+        iptables -A INPUT -p tcp --dport $1 -s $ip -j ACCEPT
+      done
+      iptables -A INPUT -p tcp --dport $1 -j REJECT
+    }
+
     # setup iptables for redirection of CIFS and FTP
     setup_iptables () {
 
 	    echo "1" >/proc/sys/net/ipv4/ip_forward
+
 	    # Clear NATing tables
-	    iptables -t nat -F
-	    iptables -P INPUT ACCEPT
-	    iptables -P FORWARD ACCEPT
-	    iptables -P OUTPUT ACCEPT
+      clear_iptables
 
 	    # FTP NATing
 	    redirect 21 2021 tcp
@@ -49,16 +52,29 @@ export IPADDRESS=`hostname -I`
 	    redirect 143 8143 udp
 		    
 	    # Forward http
-	    redirect 80 8080 tcp
+	    #redirect 80 8080 tcp
+    
+      # Block 8080
+      block 8080
     }
+
+    clear_iptables() {
+      iptables -F
+      iptables -X
+      iptables -t nat -F
+      iptables -t nat -X
+      iptables -t mangle -F
+      iptables -t mangle -X
+      iptables -P INPUT ACCEPT
+      iptables -P FORWARD ACCEPT
+      iptables -P OUTPUT ACCEPT
+    }
+
     remove_iptables () {
 
 	    echo "0" >/proc/sys/net/ipv4/ip_forward
 	    # Clear NATing tables
-	    iptables -t nat -F
-	    iptables -P INPUT ACCEPT
-	    iptables -P FORWARD ACCEPT
-	    iptables -P OUTPUT ACCEPT
+      clear_iptables
 
     }
     # start, debug, stop, and status functions

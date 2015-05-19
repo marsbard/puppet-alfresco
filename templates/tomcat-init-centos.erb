@@ -9,6 +9,11 @@ export PATH
 CATALINA_HOME="<%= @tomcat_home %>"
 
 JAVA_OPTS="<%= @java_opts %>"
+export JAVA_OPTS
+
+function kill_tomcat {
+	kill -9 `ps ax | grep tomcat | grep java | cut -c1-5`
+}
 
 case $1 in
 start)
@@ -19,14 +24,16 @@ rm -rf $CATALINA_HOME/work/Catalina/localhost/share
 rm -rf $CATALINA_HOME/work/Catalina/localhost/awe
 rm -rf $CATALINA_HOME/work/Catalina/localhost/wcmqs
 
-su tomcat7 -c "sh $CATALINA_HOME/bin/startup.sh"
+su tomcat -c "sh $CATALINA_HOME/bin/startup.sh"
 ;; 
 stop)   
-su tomcat7 -c "sh $CATALINA_HOME/bin/shutdown.sh"
+su tomcat -c "sh $CATALINA_HOME/bin/shutdown.sh"
+kill_tomcat
 ;; 
 restart)
-su tomcat7 -c "sh $CATALINA_HOME/bin/shutdown.sh"
-su tomcat7 -c "sh $CATALINA_HOME/bin/startup.sh"
+su tomcat -c "sh $CATALINA_HOME/bin/shutdown.sh"
+kill_tomcat
+su tomcat -c "sh $CATALINA_HOME/bin/startup.sh"
 ;; 
 esac    
 exit 0

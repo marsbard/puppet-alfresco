@@ -1,5 +1,7 @@
 class urls {
 
+  $v50x = '5.0.d'
+
   $nightly = 'http://dev.alfresco.com/downloads/nightly/dist/alfresco-community-5.1-SNAPSHOT.zip'
   $nightly_name = 'alfresco-community-5.1-SNAPSHOT'
   $nightly_filename = 'alfresco-community-5.1-SNAPSHOT.zip'
@@ -10,21 +12,15 @@ class urls {
 	$alfresco_ce_filename = 'alfresco-community-4.2.f.zip'
 	$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
 
-
-  # v5 wars
-  #$alfresco_war_50x = 'http://tinyserver/alf5/alfresco-5.0.c.war'
-  #$share_war_50x = 'http://tinyserver/alf5/share-5.0.c.war'
+  $alfresco_war_50x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/${v50x}/alfresco-${v50x}.war"
+  $share_war_50x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/${v50x}/share-${v50x}.war"
 
 
-  $alfresco_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/5.0.c/alfresco-5.0.c.war'
-  $share_war_50x = 'https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/5.0.c/share-5.0.c.war'
-
-
-	$solr_war_file = "alfresco-solr4-5.0.c-ssl.war"
-	$solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_war_file"
+	$solr_war_file = "alfresco-solr4-${v50x}-ssl.war"
+	$solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/${v50x}/$solr_war_file"
 	
-	$solr_cfg_file = "alfresco-solr4-5.0.c-config-ssl.zip"
-	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/5.0.c/$solr_cfg_file"
+	$solr_cfg_file = "alfresco-solr4-${v50x}-config-ssl.zip"
+	$solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/${v50x}/$solr_cfg_file"
 
 
   $spp_v4 = "http://dl.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-spp-4.2.f.zip"
@@ -32,8 +28,8 @@ class urls {
   $spp_v4_name = "alfresco-community-spp-4.2.f.amp"
 
 
-  $spp_amp_v5 = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-spp/5.0.c/alfresco-spp-5.0.c.amp"
-  $spp_amp_v5_name = "alfresco-spp-5.0.c.amp"
+  $spp_amp_v5 = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-spp/${v50x}/alfresco-spp-${v50x}.amp"
+  $spp_amp_v5_name = "alfresco-spp-${v50x}.amp"
 
 
 	$loffice_name_deb = 'LibreOffice_4.2.7.2_Linux_x86-64_deb'

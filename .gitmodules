@@ -1,0 +1,3 @@
+[submodule "bashconf"]
+	path = bashconf
+	url = https://github.com/marsbard/bashconf.git

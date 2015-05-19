@@ -9,7 +9,7 @@ set -e
 # OOTB modified - moved to an erb template to pick up parameterised base directory, and hardcoded
 # CATALINA_HOME, also removed the interactive parts
 # -------
-pushd $(dirname $0)>/dev/null
+cd $(dirname $0)
 export SCRIPTPATH=$(pwd)
 #OOTB
 #export ALF_HOME=${SCRIPTPATH%/*}
@@ -34,5 +34,5 @@ java -jar $ALF_HOME/bin/alfresco-mmt.jar list $CATALINA_HOME/webapps/share.war
 rm -rf $CATALINA_HOME/webapps/alfresco
 rm -rf $CATALINA_HOME/webapps/share
 . $ALF_HOME/bin/clean_tomcat.sh
-popd>/dev/null
+
 

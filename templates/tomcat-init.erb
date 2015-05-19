@@ -1,16 +1,16 @@
 #!/bin/sh
 #
-# /etc/init.d/tomcat7 -- startup script for the Tomcat 6 servlet engine
+# /etc/init.d/tomcat -- startup script for the Tomcat 6 servlet engine
 #
 # Written by Miquel van Smoorenburg <miquels@cistron.nl>.
 # Modified for Debian GNU/Linux	by Ian Murdock <imurdock@gnu.ai.mit.edu>.
 # Modified for Tomcat by Stefan Gybas <sgybas@debian.org>.
 # Modified for Tomcat6 by Thierry Carrez <thierry.carrez@ubuntu.com>.
-# Modified for Tomcat7 by Ernesto Hernandez-Novich <emhn@itverx.com.ve>.
+# Modified for tomcat by Ernesto Hernandez-Novich <emhn@itverx.com.ve>.
 # Additional improvements by Jason Brittain <jason.brittain@mulesoft.com>.
 #
 ### BEGIN INIT INFO
-# Provides:          tomcat7
+# Provides:          tomcat
 # Required-Start:    $local_fs $remote_fs $network
 # Required-Stop:     $local_fs $remote_fs $network
 # Should-Start:      $named
@@ -24,10 +24,10 @@
 set -e
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-NAME=tomcat7
+NAME=tomcat
 DESC="Tomcat servlet engine"
 DEFAULT=/etc/default/$NAME
-JVM_TMP=/tmp/tomcat7-$NAME-tmp
+JVM_TMP=/tmp/tomcat-$NAME-tmp
 
 if [ `id -u` -ne 0 ]; then
 	echo "You need root privileges to run this script"
@@ -50,14 +50,21 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Tomcat 7 as this user ID and group ID
-TOMCAT7_USER=tomcat7
-TOMCAT7_GROUP=tomcat7
+tomcat_USER=tomcat
+tomcat_GROUP=tomcat
 
 # this is a work-around until there is a suitable runtime replacement 
 # for dpkg-architecture for arch:all packages
 # this function sets the variable OPENJDKS
 find_openjdks()
 {
+        for jvmdir in /usr/lib/jvm/java-8-openjdk-*
+        do
+                if [ -d "${jvmdir}" -a "${jvmdir}" != "/usr/lib/jvm/java-8-openjdk-common" ]
+                then
+                        OPENJDKS=$jvmdir
+                fi
+        done
         for jvmdir in /usr/lib/jvm/java-7-openjdk-*
         do
                 if [ -d "${jvmdir}" -a "${jvmdir}" != "/usr/lib/jvm/java-7-openjdk-common" ]
@@ -78,7 +85,7 @@ OPENJDKS=""
 find_openjdks
 # The first existing directory is used for JAVA_HOME (if JAVA_HOME is not
 # defined in $DEFAULT)
-JDK_DIRS="/usr/lib/jvm/default-java ${OPENJDKS} /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-7-oracle"
+JDK_DIRS="/usr/lib/jvm/default-java ${OPENJDKS} /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-7-oracle /usr/lib/jvm/java-8-oracle"
 
 # Look for the right JVM to use
 for jdir in $JDK_DIRS; do
@@ -97,7 +104,7 @@ CATALINA_HOME=<%= @tomcat_home %>
 CATALINA_BASE=$CATALINA_HOME
 
 # Use the Java security manager? (yes/no)
-TOMCAT7_SECURITY=no
+tomcat_SECURITY=no
 
 # Default Java options
 # Set java.awt.headless=true if JAVA_OPTS is not set so the
@@ -126,13 +133,13 @@ if [ -z "$CATALINA_TMPDIR" ]; then
 	CATALINA_TMPDIR="$JVM_TMP"
 fi
 
-# Set the JSP compiler if set in the tomcat7.default file
+# Set the JSP compiler if set in the tomcat.default file
 if [ -n "$JSP_COMPILER" ]; then
 	JAVA_OPTS="$JAVA_OPTS -Dbuild.compiler=\"$JSP_COMPILER\""
 fi
 
 SECURITY=""
-if [ "$TOMCAT7_SECURITY" = "yes" ]; then
+if [ "$tomcat_SECURITY" = "yes" ]; then
 	SECURITY="-security"
 fi
 
@@ -173,9 +180,9 @@ catalina_sh() {
 	# Run the catalina.sh script as a daemon
 	set +e
 	touch "$CATALINA_PID" "$CATALINA_BASE"/logs/catalina.out
-	chown $TOMCAT7_USER "$CATALINA_PID" "$CATALINA_BASE"/logs/catalina.out
-	start-stop-daemon --start -b -u "$TOMCAT7_USER" -g "$TOMCAT7_GROUP" \
-		-c "$TOMCAT7_USER" -d "$CATALINA_TMPDIR" -p "$CATALINA_PID" \
+	chown $tomcat_USER "$CATALINA_PID" "$CATALINA_BASE"/logs/catalina.out
+	start-stop-daemon --start -b -u "$tomcat_USER" -g "$tomcat_GROUP" \
+		-c "$tomcat_USER" -d "$CATALINA_TMPDIR" -p "$CATALINA_PID" \
 		-x /bin/bash -- -c "$AUTHBIND_COMMAND $TOMCAT_SH"
 	status="$?"
 	set +a -e
@@ -196,7 +203,7 @@ case "$1" in
 
 	log_daemon_msg "Starting $DESC" "$NAME"
 	if start-stop-daemon --test --start --pidfile "$CATALINA_PID" \
-		--user $TOMCAT7_USER --exec "$JAVA_HOME/bin/java" \
+		--user $tomcat_USER --exec "$JAVA_HOME/bin/java" \
 		>/dev/null; then
 
 
@@ -204,7 +211,7 @@ case "$1" in
 # unless I find a need for it
 #		# Regenerate POLICY_CACHE file
 #		umask 022
-#		echo "// AUTO-GENERATED FILE from /etc/tomcat7/policy.d/" \
+#		echo "// AUTO-GENERATED FILE from /etc/tomcat/policy.d/" \
 #			> "$POLICY_CACHE"
 #		echo ""  >> "$POLICY_CACHE"
 #		cat $CATALINA_BASE/conf/policy.d/*.policy \
@@ -224,12 +231,12 @@ case "$1" in
 			log_failure_msg "could not create JVM temporary directory"
 			exit 1
 		}
-		chown $TOMCAT7_USER "$JVM_TMP"
+		chown $tomcat_USER "$JVM_TMP"
 
 		catalina_sh start $SECURITY
 		sleep 5
         	if start-stop-daemon --test --start --pidfile "$CATALINA_PID" \
-			--user $TOMCAT7_USER --exec "$JAVA_HOME/bin/java" \
+			--user $tomcat_USER --exec "$JAVA_HOME/bin/java" \
 			>/dev/null; then
 			if [ -f "$CATALINA_PID" ]; then
 				rm -f "$CATALINA_PID"
@@ -249,7 +256,7 @@ case "$1" in
 	set +e
 	if [ -f "$CATALINA_PID" ]; then 
 		start-stop-daemon --stop --pidfile "$CATALINA_PID" \
-			--user "$TOMCAT7_USER" \
+			--user "$tomcat_USER" \
 			--retry=TERM/20/KILL/5 >/dev/null
 		if [ $? -eq 1 ]; then
 			log_progress_msg "$DESC is not running but pid file exists, cleaning up"
@@ -269,7 +276,7 @@ case "$1" in
    status)
 	set +e
 	start-stop-daemon --test --start --pidfile "$CATALINA_PID" \
-		--user $TOMCAT7_USER --exec "$JAVA_HOME/bin/java" \
+		--user $tomcat_USER --exec "$JAVA_HOME/bin/java" \
 		>/dev/null 2>&1
 	if [ "$?" = "0" ]; then
 
@@ -294,7 +301,7 @@ case "$1" in
 	;;
   try-restart)
         if start-stop-daemon --test --start --pidfile "$CATALINA_PID" \
-		--user $TOMCAT7_USER --exec "$JAVA_HOME/bin/java" \
+		--user $tomcat_USER --exec "$JAVA_HOME/bin/java" \
 		>/dev/null; then
 		$0 start
 	fi

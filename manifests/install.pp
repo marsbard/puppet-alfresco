@@ -4,34 +4,37 @@ class alfresco::install inherits alfresco {
   class { 'alfresco::install::postfix': }
   class { 'alfresco::install::mysql': }
   class { 'alfresco::install::proxy': }
-
+  class { 'alfresco::install::iptables': }
 
 
 	file { $download_path:
 		ensure => "directory",
-		before => Exec["retrieve-tomcat7"],
+		before => Exec["retrieve-tomcat"],
+    owner => 'tomcat',
 	}
 
 	# By default the logs go where alfresco starts from, and in this case
 	# that is ${tomcat_home}, so we need to create the files and give
-	# them write access for the tomcat7 user
+	# them write access for the tomcat user
 	file { "${tomcat_home}/alfresco.log":
 		ensure => present,
-		owner => "tomcat7",
+		owner => "tomcat",
+		group => "tomcat",
 		require => [
 			Exec["copy tomcat to ${tomcat_home}"],
-			User["tomcat7"],
+			User["tomcat"],
 		],
 	}
 	file { "${tomcat_home}/share.log":
 		ensure => present,
-		owner => "tomcat7",
+		owner => "tomcat",
+		group => "tomcat",
 		require => [
 			Exec["copy tomcat to ${tomcat_home}"],
-			User["tomcat7"],
+			User["tomcat"],
 		],
 	}
-	user { "tomcat7":
+	user { "tomcat":
 		ensure => present,
 		before => [ 
 			Exec["unpack-alfresco-war"],
@@ -63,26 +66,31 @@ class alfresco::install inherits alfresco {
 
 	file{"${tomcat_home}/shared/lib":
 		ensure => directory,
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/shared":
 		ensure => directory,
 		require => Exec["copy tomcat to ${tomcat_home}"],
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/shared/classes":
 		ensure => directory,
 		require => File["${tomcat_home}/shared"],
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/shared/classes/alfresco":
 		ensure => directory,
 		require => File["${tomcat_home}/shared/classes"],
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/shared/classes/alfresco/web-extension":
 		require => File["${tomcat_home}/shared/classes"],
 		ensure => directory,
+    owner => 'tomcat',
 	}
 
 
@@ -115,39 +123,45 @@ class alfresco::install inherits alfresco {
 
 	file { "${alfresco_base_dir}/amps":
 		ensure => directory,
+    owner => 'tomcat',
 	}
 	file { "${alfresco_base_dir}/amps_share":
 		ensure => directory,
+    owner => 'tomcat',
 	}
 
 
-	exec { "retrieve-tomcat7":
+	exec { "retrieve-tomcat":
+    user => 'tomcat',
 		creates => "${download_path}/${urls::filename_tomcat}",
 		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
 		path => "/usr/bin",
     timeout => 0,
 	}
 
-	exec { "unpack-tomcat7":
+	exec { "unpack-tomcat":
+    user => 'tomcat',
 		cwd => "${download_path}",
 		path => "/bin:/usr/bin",
 		command => "tar xzf ${download_path}/${urls::filename_tomcat}",
-		require => Exec["retrieve-tomcat7"],
+		require => Exec["retrieve-tomcat"],
 		creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
 	}
 
 	exec { "copy tomcat to ${tomcat_home}":
-		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat7 ${tomcat_home}",
+    user => 'tomcat',
+		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat ${tomcat_home}",
 		path => "/bin:/usr/bin",
 		provider => shell,		
-		require => [ Exec["unpack-tomcat7"], User["tomcat7"], ],
+		require => [ Exec["unpack-tomcat"], User["tomcat"], ],
 		creates => "${tomcat_home}/RUNNING.txt",
 	}
 
 
 	file { "${tomcat_home}/conf":
 		ensure => directory,
-		require => Exec['unpack-tomcat7'],
+		require => Exec['unpack-tomcat'],
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/conf/Catalina":
@@ -155,6 +169,7 @@ class alfresco::install inherits alfresco {
 		require => [
 			File["${tomcat_home}/conf"],
 		],
+    owner => 'tomcat',
 	}
 
 	file { "${tomcat_home}/conf/Catalina/localhost":
@@ -162,6 +177,7 @@ class alfresco::install inherits alfresco {
 		require => [
 			File["${tomcat_home}/conf/Catalina"],
 		],
+    owner => 'tomcat',
 	}
 
 	#file { "${tomcat_home}/conf/Catalina/localhost/solr.xml":
@@ -170,22 +186,22 @@ class alfresco::install inherits alfresco {
 
 	file { "${alfresco_base_dir}":
 		ensure => directory,
-		owner => "tomcat7",
+		owner => "tomcat",
 		require => [ 
-			User["tomcat7"], 
+			User["tomcat"], 
 		],
 	}
 
 	file { "${alfresco_base_dir}/bin":
 		ensure => directory,
 		require => File["${alfresco_base_dir}"],
-		owner => "tomcat7",
+		owner => "tomcat",
 	}
 
 	file { "${alfresco_base_dir}/bin/limitconvert.sh":
 		ensure => present,
 		mode => '0755',
-		owner => 'tomcat7',
+		owner => 'tomcat',
 		source => 'puppet:///modules/alfresco/limitconvert.sh',
 	}
 
@@ -195,10 +211,12 @@ class alfresco::install inherits alfresco {
 
 	file { "${tomcat_home}/endorsed":
 		ensure => directory,
-		require => Exec['unpack-tomcat7'],
+		require => Exec['unpack-tomcat'],
+    owner => 'tomcat',
 	}
 
 	exec { 'retrieve-xalan-xalan-jar':
+    user => 'tomcat',
 		command => "wget ${xalan}/xalan.jar",
 		path => '/usr/bin',
 		cwd => "${tomcat_home}/endorsed",
@@ -207,6 +225,7 @@ class alfresco::install inherits alfresco {
 	}
 
 	exec { 'retrieve-xalan-serializer-jar':
+    user => 'tomcat',
 		command => "wget ${xalan}/serializer.jar",
 		path => '/usr/bin',
 		cwd => "${tomcat_home}/endorsed",
@@ -216,6 +235,15 @@ class alfresco::install inherits alfresco {
 
 
 
+  file { '/etc/sysctl.conf':
+    source => 'puppet:///modules/alfresco/sysctl.conf',
+    ensure => present,
+  }
+
+  file { '/etc/security/limits.conf':
+    source => 'puppet:///modules/alfresco/limits.conf',
+    ensure => present,
+  }
 
 
 	
@@ -223,12 +251,12 @@ class alfresco::install inherits alfresco {
 	file { "${alfresco_base_dir}/alf_data/keystore":
 		ensure => directory,
 		require => File["${alfresco_base_dir}/alf_data"],
-		owner => "tomcat7",
+		owner => "tomcat",
 	}
 	file { "${alfresco_base_dir}/alf_data":
 		ensure => directory,
 		require => File["${alfresco_base_dir}"],
-		owner => "tomcat7",
+		owner => "tomcat",
 	}
 
 
@@ -239,10 +267,12 @@ class alfresco::install inherits alfresco {
 	file { "${tomcat_home}/common":
 		ensure => directory,
 		require => File[$tomcat_home],
+    owner => 'tomcat',
 	}
 
 	file { "$tomcat_home":
 		ensure => directory,
+    owner => 'tomcat',
 	}
 
 
@@ -263,6 +293,7 @@ class alfresco::install inherits alfresco {
 			creates => "${cwd}/${name}",                                                              
 			require => $require,
 			user => $user,                                                                                                          
+      timeout => 0,
 		}
 
 	}
@@ -281,22 +312,24 @@ class alfresco::install inherits alfresco {
 		cwd => "${alfresco_base_dir}/alf_data/keystore",
 		creates => "${alfresco_base_dir}/alf_data/keystore/${name}",
 		require => [ 
-			User["tomcat7"], 
+			User["tomcat"], 
 		],
-		user => "tomcat7",
+		user => "tomcat",
 	}	
 
 
 	exec { "retrieve-loffice":
+    user => 'tomcat',
 		cwd => $download_path,
-		command => "wget ${loffice_dl}",
+		command => "wget -v ${loffice_dl}",
 		creates => "${download_path}/${loffice_name}.tar.gz",
 		path => "/usr/bin",
 		timeout => 0,
-    #logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
+    logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
 	}
 
 	exec { "unpack-loffice":
+    user => 'tomcat',
 		cwd => $download_path,
 		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
 		path => "/bin:/usr/bin",
@@ -362,6 +395,7 @@ class alfresco::install inherits alfresco {
 			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
 
 			exec { "retrieve-swftools":
+        user => 'tomcat',
 				command => "wget ${urls::swftools_src_url}",
 		    timeout => 0,
 				cwd => $download_path,
@@ -371,6 +405,7 @@ class alfresco::install inherits alfresco {
 
 		
 			exec { "unpack-swftools":
+        user => 'tomcat',
 				command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
 				cwd => $download_path,
 				path => "/bin:/usr/bin",

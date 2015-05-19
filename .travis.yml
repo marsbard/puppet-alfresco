@@ -1,21 +1,52 @@
+env:
+    global:
+      - TESTSRC=digcat
+      - TIMEWAIT=240
+      - MAXWAITS=10
+    matrix:
+      - ALFVER=4.2.f
+      - ALFVER=5.0.x
+      - ALFVER=NIGHTLY
+
 before_install:
-  - sudo apt-get -yqq update
-  - sudo apt-get -fyq install
+    - hostname
+    - install/tophead.sh
+    - sudo apt-get -yqq update
+    - sudo apt-get -fyq install
+    - "export DISPLAY=:99.0"
+      #   - "sh -e /etc/init.d/xvfb start"
+      #   - sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+      #- #sudo chmod 600 /swapfile
+      # - sudo mkswap /swapfile
+      # - sudo swapon /swapfile
+
 
 install:
-  - wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
-  - sudo dpkg -i puppetlabs-release-trusty.deb
-  - sudo apt-get update
-  - sudo apt-get install puppet -y
+    - wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+    - sudo dpkg -i puppetlabs-release-trusty.deb
+    - sudo apt-get update
+    - sudo apt-get install git puppet -y
 
 before_script:
-  - mkdir -p modules/alfresco
-  - mv files lib manifests templates modules/alfresco
-  - ./install/modules-for-vagrant.sh
+    - mkdir -p modules/alfresco
+    - mv files lib manifests templates modules/alfresco
+    - ./install/modules-for-vagrant.sh
 
 script:
-  - sudo puppet apply --debug --verbose --modulepath=modules go.pp
+    - install/tophead.sh
+    - install/customise-go.sh alfresco_version=$ALFVER domain_name=localhost
+    - sudo puppet apply --modulepath=modules go.pp
+    - sudo install/wait-for-alfresco-ready.sh https://localhost/share $TIMEWAIT $MAXWAITS /opt/alfresco/tomcat/logs/catalina.out
+    - cd
+    - echo Using $TESTSRC tests
+    - git clone https://github.com/${TESTSRC}/alfresco-tests.git
+    - cd alfresco-tests
+    - sudo ./install.sh 
+    - echo -e "=================\noutput all catalina log\n==================="
+    - cat /opt/alfresco/tomcat/logs/catalina.out
 
 notifications:
-  irc: 
-    - "chat.freenode.net#orderofthebee"
+    irc: 
+      - "chat.freenode.net#orderofthebee"
+
+

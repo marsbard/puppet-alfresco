@@ -89,7 +89,7 @@ class alfresco (
   $mail_host    = 'localhost',
   $mail_port    = 25,
 	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "256m",
+	$mem_xxmaxpermsize		= "512m",
   $delay_before_tests = 1,
   $apt_cache_host = '',
   $apt_cache_port = 3142,
@@ -101,9 +101,10 @@ class alfresco (
 
 	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
+  notice("alfresco_version = ${alfresco_version}")
 
 	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS
-	$java_opts = "-Xmx${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize}"
+	$java_opts = "-Xmx${mem_xmx} -Xms${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize} -server"
 
 	# at some point I'll use these for a non-allinone version. For now pre-empting
 	# the change where I can but do not try editing these, please.
@@ -166,9 +167,15 @@ class alfresco (
 			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
 			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
 		}
-
-
 	}
+
+	# on centos - no suitable provider for cron
+	if($osfamily == 'RedHat'){
+		package { 'cronie':
+			ensure => installed,
+			before => Class['alfresco::install'],
+		}
+	}	
 
 
 	# for some reason packages are being applied out of order, so bind them to a run stage:

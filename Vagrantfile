@@ -16,11 +16,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network", :mac => 'B8B2253CFD00'
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 1900 
+    v.memory = 2500 
     v.cpus = 2
   end
 
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "ubuntu/trusty64"
 
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vbguest.auto_update = true
