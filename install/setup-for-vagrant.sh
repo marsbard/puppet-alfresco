@@ -5,18 +5,17 @@ DIRS="lib files manifests templates"
 
 if [ -f .IS_STANDALONE ]
 then
-  echo Sorry, this has been set up for standalone
+  echo Sorry, this has been set up for standalone. "(.IS_STANDALONE)"
 fi
 
 if [ -f .IS_PUPPETMASTER ]
 then
-  echo Sorry, this has bene set up for puppetmaster
+  echo Sorry, this has bene set up for puppetmaster "(.IS_PUPPETMASTER)"
 fi
 
 if [ ! -f .IS_VAGRANT ]
 then
 
-  touch .IS_VAGRANT
 
   git submodule init
   git submodule update
@@ -40,7 +39,15 @@ done
 EOF
   chmod +x .git/hooks/pre-commit
 
-  install/modules-for-vagrant.sh
+  install/modules-for-vagrant.sh 
+	if [ $? != 0 ] 
+	then
+		echo Error in modules-for-vagrant
+		exit 1
+	fi
 
   ./install.sh
+  touch .IS_VAGRANT
+else
+	echo Already set up as vagrant "(.IS_VAGRANT)"
 fi
