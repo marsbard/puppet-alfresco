@@ -10,6 +10,12 @@ class alfresco::addons inherits alfresco {
 	class { 'alfresco::addons::filebrowser':
 	}
 
+  
+  # TODO this should be optional based on a parameter
+  class { 'alfresco::addons::aaar':
+    notify => Exec['apply-addons'],
+  }
+
   class { 'alfresco::addons::uploader-plus':
     notify => Exec['apply-addons'],
   }
