@@ -102,3 +102,10 @@ IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xxmaxpermsize"
 descr[$IDX]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
 default[$IDX]="256m"
+
+
+IDX=$(( $IDX + 1 ))
+params[$IDX]="solr_host"
+descr[$IDX]="Location to install solr. If this is other than localhost we will try to ssh to the <solr_user>@<solr_host> to install solr there"
+default[$IDX]="localhost"
+
