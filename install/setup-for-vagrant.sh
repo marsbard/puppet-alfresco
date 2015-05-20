@@ -26,19 +26,19 @@ then
     mkdir modules/alfresco -p
     for d in $DIRS
     do
-      cp -r ${PWD}/${d} ${PWD}/modules/alfresco/${d}
+      ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
     done
   fi
 
-  # set up a hook to make sure the copied folders are kept up to 
-  # date
-  cat > .git/hooks/pre-commit <<EOF
-for d in $DIRS
-do
-  rsync -vrz ${PWD}/modules/alfresco/${d} ${PWD}/${d}
-done
-EOF
-  chmod +x .git/hooks/pre-commit
+  ## set up a hook to make sure the copied folders are kept up to 
+  ## date
+#  cat > .git/hooks/pre-commit <<EOF
+#for d in $DIRS
+#do
+#  rsync -vrz ${PWD}/modules/alfresco/${d} ${PWD}/${d}
+#done
+#EOF
+#  chmod +x .git/hooks/pre-commit
 
   install/modules-for-vagrant.sh 
 	if [ $? != 0 ] 
