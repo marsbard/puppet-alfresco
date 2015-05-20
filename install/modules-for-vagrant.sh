@@ -10,13 +10,21 @@ then
   MODULES="$MODULES stahnma-epel"
 fi
 
+if [ ! -x `which puppet` ]
+then
+	echo Puppet executable not found
+	exit 99
+fi
+
+
+
 mkdir -p modules
 for mod in $MODULES
 do
   TRY=0
   while [ $TRY -lt 3 ]
   do
-	  puppet module install --force $mod --target-dir=modules
+	puppet module install --force $mod --target-dir=modules
     if [ $? = 0 ]; then TRY=3; else 
       if [ $TRY -lt 3 ]
       then 

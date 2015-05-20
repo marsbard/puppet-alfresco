@@ -3,12 +3,12 @@ cd "`dirname $0`"/..
 
 if [ -f .IS_VAGRANT ]
 then
-  echo Sorry, this has been set up for vagrant
+  echo Sorry, this has been set up for vagrant "(.IS_VAGRANT)"
 fi
 
 if [ -f .IS_PUPPETMASTER ]
 then
-  echo Sorry, this has been set up for puppetmaster
+  echo Sorry, this has been set up for puppetmaster "(.IS_PUPPETMASTER)"
 fi
 
 if [ ! -f .IS_STANDALONE ]
@@ -30,4 +30,6 @@ then
 
 
   ./install.sh
+else
+	echo Already set up as standalone "(.IS_STANDALONE)"
 fi
