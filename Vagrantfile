@@ -20,7 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 2
   end
 
-  config.vm.box = "ubuntu/trusty64"
+ # config.vm.box = "ubuntu/trusty64"
+config.vm.box = "puppetlabs/centos-6.6-64-puppet"
 
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vbguest.auto_update = true
@@ -91,8 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
 
   config.vm.provision :shell do |shell|
-    #shell.inline = "apt-get update; apt-get -y upgrade"
-    shell.inline = "apt-get update"
+    shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi"
   end
 
   config.vm.provision :puppet do |puppet|
