@@ -54,13 +54,13 @@ class alfresco::packages inherits alfresco {
 		}
 		'Debian': {
  
-			exec { 'guard-against-prev-broken-deb':
-				#command => 'dpkg-configure -a; apt-get -f install',
-				command => 'apt-get update; apt-get -f install --fix-missing',
-				path => '/bin:/usr/bin',
-			}
-
-			Exec['guard-against-prev-broken-deb'] -> Package <| |>
+#			exec { 'guard-against-prev-broken-deb':
+#				#command => 'dpkg-configure -a; apt-get -f install',
+#				command => 'apt-get update; apt-get -f install --fix-missing',
+#				path => '/bin:/usr/bin',
+#			}
+#
+#			Exec['guard-against-prev-broken-deb'] -> Package <| |>
      
 			if $java_version == 8 {
 				$jpackage=""
