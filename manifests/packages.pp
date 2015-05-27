@@ -56,7 +56,7 @@ class alfresco::packages inherits alfresco {
  
 			exec { 'guard-against-prev-broken-deb':
 				#command => 'dpkg-configure -a; apt-get -f install',
-				command => 'apt-get -f install --fix-missing',
+				command => 'apt-get update; apt-get -f install --fix-missing',
 				path => '/bin:/usr/bin',
 			}
 
@@ -70,7 +70,7 @@ class alfresco::packages inherits alfresco {
 				}
 			} else {
         $jpackage="openjdk-7-jdk"
-				ensure_packages $jpackage
+				ensure_packages { "$jpackage": }
 			}
 
 
