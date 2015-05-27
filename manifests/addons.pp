@@ -7,8 +7,8 @@ class alfresco::addons inherits alfresco {
 	#class { 'alfresco::addons::webscripts':
 	#}
 
-	class { 'alfresco::addons::filebrowser':
-	}
+	#class { 'alfresco::addons::filebrowser':
+	#}
 
   
   # TODO this should be optional based on a parameter
