@@ -40,12 +40,12 @@ then
 #EOF
 #  chmod +x .git/hooks/pre-commit
 
-  install/modules-for-vagrant.sh 
-	if [ $? != 0 ] 
-	then
-		echo Error in modules-for-vagrant
-		exit 1
-	fi
+  #install/modules-for-vagrant.sh 
+#	if [ $? != 0 ] 
+#	then
+#		echo Error in modules-for-vagrant
+#		exit 1
+#	fi
 
   echo Now run: sudo ./install.sh
   touch .IS_VAGRANT
