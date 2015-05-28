@@ -1,7 +1,5 @@
 ## marsbard's puppet-alfresco 
 
-![Build status on travis-ci.org](https://api.travis-ci.org/marsbard/puppet-alfresco.svg)
-
 This script is mostly a reimplementation in puppet of Peter Lofgren's work to be found here: https://github.com/loftuxab/alfresco-ubuntu-install
 
 Use it:
