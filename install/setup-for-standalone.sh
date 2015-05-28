@@ -29,7 +29,8 @@ then
   fi
 
 
-  ./install.sh
+  echo Now run:  sudo ./install.sh
+
 else
 	echo Already set up as standalone "(.IS_STANDALONE)"
 fi

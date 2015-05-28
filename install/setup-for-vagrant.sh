@@ -47,7 +47,7 @@ then
 		exit 1
 	fi
 
-  ./install.sh
+  echo Now run: sudo ./install.sh
   touch .IS_VAGRANT
 else
 	echo Already set up as vagrant "(.IS_VAGRANT)"
