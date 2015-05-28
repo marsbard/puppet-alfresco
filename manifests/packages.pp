@@ -5,17 +5,22 @@ class alfresco::packages inherits alfresco {
   	case $::osfamily {
     	'RedHat': {
 
-			exec { "get-repoforge":
-				command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
-				path => "/bin:/usr/bin",
-				creates => "/etc/yum.repos.d/rpmforge.repo",
-				
-			}
+		exec { "get-repoforge":
+			command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
+			path => "/bin:/usr/bin",
+			creates => "/etc/yum.repos.d/rpmforge.repo",
+		}
 
-      class { 'epel':
-      }
+		# TODO no idea if this is actually effective
+		exec { "guard-against-prev-broken":
+			command => "yum clean all; yum clean headers; yum-complete-transaction",
+			path => "/bin:/usr/bin",
+		}
 
-	Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
+      		class { 'epel':
+      		}
+
+		Exec['guard-against-prev-broken'] -> Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
 
 
       if $java_version == 8 {
@@ -39,17 +44,24 @@ class alfresco::packages inherits alfresco {
 			]
 		}
 		'Debian': {
-      
-      if $java_version == 8 {
-        $jpackage=""
-        include java8
-        package{ 'oracle-java8-set-default':
-          require => Class['java8'],
-        }
-      } else {
-        $jpackage="openjdk-7-jdk"
+ 
+			exec { 'guard-against-prev-broken-deb':
+				command => 'dpkg-configure -a; apt-get -f install',
+				path => '/bin:/usr/bin',
+			}
+
+			Exec['guard-against-prev-broken-deb'] -> Package <| |>
+     
+      			if $java_version == 8 {
+        			$jpackage=""
+        			include java8
+        			package{ 'oracle-java8-set-default':
+          				require => Class['java8'],
+        			}
+      			} else {
+        			$jpackage="openjdk-7-jdk"
 				ensure_packages $jpackage
-      }
+      			}
 
 
 		  $packages = [ 
