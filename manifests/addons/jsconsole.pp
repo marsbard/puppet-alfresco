@@ -3,15 +3,11 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
 	$filename_jsconsole = "javascript-console-0.5.1.zip"
 	$url_jsconsole = "https://share-extras.googlecode.com/files/${filename_jsconsole}"
 
-
-  exec { "retrieve-jsconsole":
-    user => 'tomcat',
-		timeout => 0,
-    creates => "${download_path}/${filename_jsconsole}",
-    command => "wget ${url_jsconsole} -O ${download_path}/${filename_jsconsole}",
-    path => "/usr/bin",
-    require => File["${download_path}/jsconsole"],
-  }
+	safe-download {'jsconsole':
+		url => $url_jsconsole,
+		filename => $filename_jsconsole,
+		download_path => $download_path,
+	}
 
   exec { "unpack-jsconsole":
     user => 'tomcat',
@@ -20,7 +16,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
     command => "unzip -o ${download_path}/${filename_jsconsole}",
     require => [
       File["${download_path}/jsconsole"],
-      Exec["retrieve-jsconsole"],
+      Safe-download["jsconsole"],
 			Package["unzip"],
     ],
     path => "/usr/bin",

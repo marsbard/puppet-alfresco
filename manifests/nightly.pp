@@ -3,22 +3,16 @@ class alfresco::nightly inherits alfresco{
   case $alfresco_version {
     'NIGHTLY': {
 
-        exec { "retrieve-nightly":
-          user => 'tomcat',
-		      timeout => 0,
-          command => "wget ${urls::nightly}",
-          cwd => $download_path,
-          require => [
-            File[$download_path],
-          ],
-          path => '/usr/bin',
-          creates => "${download_path}/${urls::nightly_filename}",
-        }
+				safe-download { 'nightly':
+					url => "${urls::nightly}",
+					filename => "${urls::nightly_filename}",
+					download_path => $download_path,
+				}
 
         exec { 'unpack-nightly':
           user => 'tomcat',
           require => [
-            Exec['retrieve-nightly'], 
+            Safe-download['nightly'], 
             #File[$alfresco_base_dir],
           ],
           command => "unzip ${download_path}/${urls::nightly_filename}",

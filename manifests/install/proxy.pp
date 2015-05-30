@@ -31,28 +31,24 @@ class alfresco::install::proxy inherits alfresco {
     # do it in two stages as the vhost will require a File resource
     # rather than an exec
 
-    exec { "retrieve-key":
-      command => "wget ${ssl_cert_path}/${domain_name}.key",
-      creates => "${download_path}/${domain_name}.key",
-      cwd => $download_path,
-      path => '/usr/bin',
-      require => File[$download_path],
-    } 
+		safe-download { 'proxy::key':
+			url => "${ssl_cert_path}/${domain_name}.key",
+			filename => "${domain_name}.key",
+			download_path => $download_path,
+		}
 
-    exec { "retrieve-cert":
-      command => "wget ${ssl_cert_path}/${domain_name}.cert",
-      creates => "${download_path}/${domain_name}.cert",
-      cwd => $download_path,
-      path => '/usr/bin',
-      require => File[$download_path],
-    }
+		safe-download { 'proxy::cert':
+			url => "${ssl_cert_path}/${domain_name}.cert",
+			filename => "${domain_name}.cert",
+			download_path => $download_path,
+		}
 
     file { "downloaded: /etc/ssl/${domain_name}.cert":
       path => "/etc/ssl/${domain_name}.cert",
       source => "${download_path}/${domain_name}.cert",
       ensure => present,
       require => [
-        Exec["retrieve-cert"],
+        Safe-download["proxy::cert"],
         File['/etc/ssl'],
       ],
     }
@@ -62,7 +58,7 @@ class alfresco::install::proxy inherits alfresco {
       source => "${download_path}/${domain_name}.key",
       ensure => present,
       require => [
-        Exec["retrieve-key"],
+        Safe-download["proxy::key"],
         File['/etc/ssl'],
       ],
     }
