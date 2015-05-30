@@ -377,7 +377,7 @@ class alfresco::install inherits alfresco {
 
 	case $::osfamily {
     		'RedHat': {
-			$swfpkgs = ["swftools"]
+			$swfpkgs = ["swftools","ImageMagick"]
 		}
 		'Debian': {
 			$swfpkgs = [
@@ -419,7 +419,7 @@ class alfresco::install inherits alfresco {
 				cwd => "${download_path}/${urls::swftools_src_name}",
 				path => "/bin:/usr/bin",
 				require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-				creates => "/usr/local/bin/pdf2swf",
+				creates => "/usr/bin/pdf2swf",
 			}
 
 
