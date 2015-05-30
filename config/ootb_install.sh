@@ -23,7 +23,7 @@ echo Completed, please allow some time for alfresco to start
 echo You may tail the logs at ${tomcat_home}/logs/catalina.out
 echo
 echo Note that you can reapply the puppet configuration from this directory with:
-echo "	puppet apply --modulepath=modules go.pp"
+echo "	sudo puppet apply --modulepath=modules go.pp"
 echo
 #echo You can also run the tests with:
 #echo "  puppet apply --modulepath=modules test.pp"
