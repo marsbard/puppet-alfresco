@@ -2,6 +2,12 @@
 
 cd "`dirname $0`"
 
+if [ $UID != 0 -a $EUID != 0 ]
+then
+	echo You must be root to run the installer
+	exit
+fi
+
 # Whatever the contents of $CONF we expect to see at least a
 # ${CONF}_params.sh and a ${CONF}_output.sh
 #

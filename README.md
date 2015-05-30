@@ -54,11 +54,6 @@ You will see an installer like this:
 	Please choose an index number to edit, I to install, or Q to quit
 	 ->
 
-(this is actually run from `setup-for-standalone.sh` for you but if you need to run it again yourself, 
-just do `./install.sh` from the base folder).
-
-(Please note that currently due to https://github.com/marsbard/puppet-alfresco/issues/50 the installer
-will be shown again at the end of installation. Just choose 'Q' to quit).
 
 If you choose a parameter you will see a short help message, and the current default value will be shown prior to your entry prompt, pressing enter without typing anything will accept the previous value, whether it is a default or a previous answer, as your current answer:
 

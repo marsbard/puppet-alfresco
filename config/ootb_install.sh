@@ -25,7 +25,9 @@ echo
 echo Note that you can reapply the puppet configuration from this directory with:
 echo "	puppet apply --modulepath=modules go.pp"
 echo
-echo You can also run the tests with:
-echo "  puppet apply --modulepath=modules test.pp"
-echo
+#echo You can also run the tests with:
+#echo "  puppet apply --modulepath=modules test.pp"
+#echo
 
+# TODO this should be fixed in bashconf but here for now to expedite
+exit

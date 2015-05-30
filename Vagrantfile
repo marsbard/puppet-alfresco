@@ -92,7 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :shell do |shell|
     #shell.inline = "apt-get update; apt-get -y upgrade"
-    shell.inline = "apt-get update"
+    shell.inline = "apt-get update; cd /vagrant; install/modules-for-vagrant.sh"
   end
 
   config.vm.provision :puppet do |puppet|
