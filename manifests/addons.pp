@@ -7,7 +7,10 @@ class alfresco::addons inherits alfresco {
 	#class { 'alfresco::addons::webscripts':
 	#}
 
-	class { 'alfresco::addons::filebrowser':
+	#class { 'alfresco::addons::filebrowser':
+	#}
+	
+        class { 'alfresco::addons::ootbfrontpage':
 	}
 
   
