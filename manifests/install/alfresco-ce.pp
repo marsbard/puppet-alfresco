@@ -104,7 +104,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 	exec { "unpack-alfresco-war": 
     user => 'tomcat',
 		require => [
-			Exec["${tomcat_home}/webapps/alfresco.war"],
+			Safe-download["alfresco.war"],
       Exec['apply-addons'],
 		],
     before => Service['alfresco-start'],
@@ -116,7 +116,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 	exec { "unpack-share-war": 
     user => 'tomcat',
 		require => [
-			Exec["${tomcat_home}/webapps/share.war"],
+			Safe-download["share.war"],
       Exec['apply-addons'],
 		],
     before => Service['alfresco-start'],

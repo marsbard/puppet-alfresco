@@ -162,8 +162,8 @@ class alfresco (
 		$url,								# complete url to download the file from
 		$filename,					# the filename of the download package
 		$download_path,			# where to put the file
-		$user => 'tomcat',
-		$timeout => 0,
+		$user = 'tomcat',
+		$timeout = 0,
 		) { 
 		exec { "safe-clean-any-old-${title}":
 			command => "/bin/rm -f ${download_path}/tmp__${filename}",
