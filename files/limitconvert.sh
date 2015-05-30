@@ -10,4 +10,4 @@
 # Distributed under the Creative Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA 3.0)
 # -------
 
-/usr/bin/taskset -c 0 /usr/bin/convert $@
+taskset -c 0 /usr/bin/convert $@

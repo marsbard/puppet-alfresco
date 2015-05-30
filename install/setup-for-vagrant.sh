@@ -5,18 +5,18 @@ DIRS="lib files manifests templates"
 
 if [ -f .IS_STANDALONE ]
 then
-  echo Sorry, this has been set up for standalone. "(.IS_STANDALONE)"
+  echo Sorry, this has been set up for standalone
 fi
 
 if [ -f .IS_PUPPETMASTER ]
 then
-  echo Sorry, this has bene set up for puppetmaster "(.IS_PUPPETMASTER)"
+  echo Sorry, this has bene set up for puppetmaster
 fi
 
 if [ ! -f .IS_VAGRANT ]
 then
 
-  hash puppet 2>/dev/null || { echo >&2 "I require puppet but it's not installed.  Aborting."; exit 1; }
+  touch .IS_VAGRANT
 
   git submodule init
   git submodule update
@@ -26,7 +26,7 @@ then
     mkdir modules/alfresco -p
     for d in $DIRS
     do
-      ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
+      cp -r ${PWD}/${d} ${PWD}/modules/alfresco/${d}
     done
   fi
 
