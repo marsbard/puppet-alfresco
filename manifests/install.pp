@@ -377,7 +377,46 @@ class alfresco::install inherits alfresco {
 
 	case $::osfamily {
     		'RedHat': {
-			$swfpkgs = ["swftools","ImageMagick"]
+			$swfpkgs = [
+				"ImageMagick",
+				"zlib-devel",
+				"libjpeg-turbo-devel",
+				"giflib-devel",
+			        "freetype-devel",
+				"gcc",
+			        "gcc-c++"
+			]
+			
+			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
+
+                        exec { "retrieve-swftools":
+        user => 'tomcat',
+                                command => "wget ${urls::swftools_src_url}",
+                    timeout => 0,
+                                cwd => $download_path,
+                                path => "/usr/bin",
+                                creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
+                        }
+
+
+                        exec { "unpack-swftools":
+        user => 'tomcat',
+                                command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
+                                cwd => $download_path,
+                                path => "/bin:/usr/bin",
+                                creates => "${download_path}/${urls::swftools_src_name}",
+                                require => Exec["retrieve-swftools"],
+                        }
+
+
+                        exec { "build-swftools":
+                                command => "bash ./configure && make && make install",
+                                cwd => "${download_path}/${urls::swftools_src_name}",
+                                path => "/bin:/usr/bin",
+                                require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+                                creates => "/usr/local/bin/pdf2swf",
+                        }
+
 		}
 		'Debian': {
 			$swfpkgs = [
@@ -419,7 +458,7 @@ class alfresco::install inherits alfresco {
 				cwd => "${download_path}/${urls::swftools_src_name}",
 				path => "/bin:/usr/bin",
 				require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-				creates => "/usr/bin/pdf2swf",
+				creates => "/usr/local/bin/pdf2swf",
 			}
 
 
