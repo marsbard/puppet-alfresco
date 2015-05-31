@@ -1,0 +1,13 @@
+class alfresco::addons::ootbfrontpage inherits alfresco::addons {
+
+	class { '::apache::mod::php':
+	}
+
+
+	vcsrepo { "/var/www/${domain_name}":
+		ensure   => present,
+		provider => git,
+		source   => 'https://github.com/digcat/honeycomb-frontpage.git',
+	}
+
+}
