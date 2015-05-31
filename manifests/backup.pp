@@ -36,10 +36,6 @@ class alfresco::backup (
     ensure => present,
   }
 
-  file { "${alfresco_base_dir}/scripts":
-    ensure => directory,
-    require => File[$alfresco_base_dir],
-  } ->
   file { "${alfresco_base_dir}/scripts/alfresco-bart.sh":
     ensure => present,
     content => template('alfresco/alfresco-bart.sh.erb'),
