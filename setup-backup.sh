@@ -8,4 +8,7 @@ then
 	exit
 fi
 
+# hmm this is going to a bit convoluted
+
+
 CONF=config/backup bashconf/bashconf.sh

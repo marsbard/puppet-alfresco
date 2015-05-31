@@ -13,6 +13,7 @@
 # Latest code available at:
 # http://blyx.com/alfresco-bart
 #
+#
 #########################################################################################
 # alfresco-bart: ALFRESCO BACKUP AND RECOVERY TOOL 
 # Version 0.2       
@@ -22,6 +23,7 @@
 # for root (chmod 400 alfresco-bart.properties)
 # Copy this file in you ALFRESCO_INSTALLATION_PATH/scripts.
 #########################################################################################
+
 
 ## Logging
 # Log configuration
@@ -54,7 +56,7 @@ MAXFULL=<%= @maxfull %>
 VOLUME_SIZE=<%= @volume_size %>
 
 # Alfresco root installation path. It has to be a real directory not a symlink
-ALF_INSTALLATION_DIR=<%= @alfresco_base_dir %>
+ALF_INSTALLATION_DIR=$ALF_BASE_DIR
 
 # Alfresco alf_data path
 ALF_DIRROOT=${ALF_INSTALLATION_DIR}/alf_data
@@ -71,7 +73,7 @@ BACKUP_INDEX_ENABLED=true
 # Alfresco index type, use solr or lucene
 INDEXTYPE=solr
 # If Solr is selected, all Solr installation and config files will be included in your backup
-INDEXES_DIR=${ALF_DIRROOT}/<%= @indexer %>
+INDEXES_DIR=${ALF_DIRROOT}/${INDEXER}
 # If Lucene change to ${ALF_DIRROOT}/lucene
 # SOLR or Lucene backup location
 INDEXES_BACKUP_DIR=${ALF_DIRROOT}/solrBackup
@@ -93,10 +95,10 @@ LOCAL_DB_DIR=${ALF_DIRROOT}/postgresql
 DATE_FILE=`date +%Y-%m-%d_%H%M%S`
 
 # Global DB parameters
-DBNAME=<%= @db_name %>
-DBUSER=<%= @db_user %>
-DBPASS=<%= @db_pass %>
-DBHOST=<%= @db_host %>
+DBNAME=$DB_NAME
+DBUSER=$DB_USER
+DBPASS=$DB_PASS
+DBHOST=$DB_HOST
 
 # MySQL - Alfresco DB Configuration
 MYSQL_BINDIR=/usr/bin
@@ -178,9 +180,9 @@ REC_DBTYPE=mysql
 
 
 # MySQL - Recovery DB Configuration ##
-REC_MYDBNAME=<%= @db_name %>_rec
-REC_MYUSER=<%= @db_user %>
-REC_MYPASS=<%= @db_pass %>
+REC_MYDBNAME=${DB_NAME}_rec
+REC_MYUSER=${DB_USER}
+REC_MYPASS=${DB_PASS}
 REC_MYHOST=localhost
 REC_MYSQL_BIN=/usr/bin/mysql
 REC_MYSQLDUMP_BIN=/usr/bin/mysqldump
