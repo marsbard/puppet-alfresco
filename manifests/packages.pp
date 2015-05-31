@@ -3,25 +3,6 @@ class alfresco::packages inherits alfresco {
   $java_version=7
 
 
-  define safe-download (
-		$url,								# complete url to download the file from
-		$filename,					# the filename of the download package
-		$download_path,			# where to put the file
-		) { 
-		exec { "safe-clean-any-old-${title}":
-			command => "/bin/rm -f ${download_path}/tmp__${filename}",
-			creates => "${download_path}/${filename}",
-		} ->  
-		exec { "safe-retrieve-${title}":
-			command => "/usr/bin/wget ${url} -O ${download_path}/tmp__${filename}",
-			creates => "${download_path}/${filename}",
-		} ->
-		exec { "safe-move-${title}":
-			command => "/bin/mv ${download_path}/tmp__${filename} ${download_path}/${filename}",
-			creates => "${download_path}/${filename}",
-		}   
-	}
-
 	define ensure_packages ($ensure = "present") {
 		if defined(Package[$title]) {} 
 		else { 
@@ -74,8 +55,8 @@ class alfresco::packages inherits alfresco {
 		'Debian': {
  
 #			exec { 'guard-against-prev-broken-deb':
-#				command => 'apt-get -f install',
-#				path => '/bin:/usr/bin:/sbin:/usr/sbin',
+#				command => 'apt-get update; apt-get -f install --fix-missing',
+#				path => '/bin:/usr/bin',
 #			}
 #
 #			Exec['guard-against-prev-broken-deb'] -> Package <| |>
@@ -88,7 +69,7 @@ class alfresco::packages inherits alfresco {
 				}
 			} else {
         $jpackage="openjdk-7-jdk"
-				ensure_packages $jpackage
+				ensure_packages { "$jpackage": }
 			}
 
 

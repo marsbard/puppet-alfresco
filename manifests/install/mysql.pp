@@ -1,8 +1,8 @@
 class alfresco::install::mysql inherits alfresco {
 
   if $db_host == 'localhost'  {
-	  class { '::mysql::server':
-		  root_password    => $db_root_password,
+		class { '::mysql::server':
+			root_password    => $db_root_password,
  #     remove_default_accounts=> true,
       service_enabled => true,
       override_options => {
@@ -17,7 +17,7 @@ class alfresco::install::mysql inherits alfresco {
 #						'innodb_file_format' => 'Barracuda',
         }
       }
-#	  } ->
+#		} ->
 #    exec { 'remove-initial-logfiles':
 #      # have to remove old logfiles so that mysql regenerates them
 #      # otherwise it fails on reboot
@@ -25,24 +25,22 @@ class alfresco::install::mysql inherits alfresco {
 #      creates => '/var/lib/mysql/reset_logs.ootb.flag',
     }
 
-	  mysql::db { "$alfresco_db_name":
-		  user     => "${alfresco_db_user}",
-		  password => "${alfresco_db_pass}",
-		  host     => "${alfresco_db_host}",
-		  grant    => ['ALL'],
-	  }
+		mysql::db { "$alfresco_db_name":
+			user     => "${alfresco_db_user}",
+			password => "${alfresco_db_pass}",
+			host     => "${alfresco_db_host}",
+			grant    => ['ALL'],
+		}
   }
 
 	class { '::mysql::bindings':
 		java_enable => 1,
 	}
 
-	exec { "retrieve-mysql-connector":
-    user => 'tomcat',
-		command => "wget ${urls::mysql_connector_url}",
-		cwd => "${download_path}",
-		path => "/usr/bin",
-		creates => "${download_path}/${urls::mysql_connector_file}",
+	safe-download { 'mysql-connector':
+		url => "${urls::mysql_connector_url}",
+		filename => "${urls::mysql_connector_file}",
+		download_path => $download_path,
 	}
 
 	exec { "unpack-mysql-connector":
@@ -50,7 +48,7 @@ class alfresco::install::mysql inherits alfresco {
 		command => "tar xzvf ${urls::mysql_connector_file}",
 		cwd => $download_path,
 		path => "/bin",
-		require => Exec["retrieve-mysql-connector"],
+		require => Safe-download["mysql-connector"],
 		creates => "${download_path}/${urls::mysql_connector_name}",
 	}
 

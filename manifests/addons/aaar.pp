@@ -9,21 +9,16 @@ class alfresco::addons::aaar inherits alfresco::addons {
   $aaarrepourl = "${aaarbase}/${aaarrepofile}"
 
 
+	safe-download { 'aaar-repo':
+		url => $aaarrepourl,
+		filename => $aaarrepofile,
+		download_path => "${alfresco_base_dir}/amps",
+	}
 
-
-  exec { 'retrieve-aaar-repo':
-    command => "wget $aaarrepourl -O $aaarrepofile",
-    cwd => "${alfresco_base_dir}/amps",
-    creates => "${alfresco_base_dir}/amps/${aaarrepofile}",
-    path => '/usr/bin',
-  }
-
-
-  exec { 'retrieve-aaar-share':
-    command => "wget $aaarshareurl -O $aaarsharefile",
-    cwd => "${alfresco_base_dir}/amps_share",
-    creates => "${alfresco_base_dir}/amps_share/${aaarsharefile}",
-    path => '/usr/bin',
-  }
+	safe-download { 'aaar-share':
+		url => $aaarshareurl,
+		filename => $aaarsharefile,
+		download_path => "${alfresco_base_dir}/amps_share",
+	}
 
 }
