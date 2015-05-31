@@ -1,7 +1,7 @@
 class alfresco::config inherits alfresco {
 
- 	case $::osfamily {
-    		'RedHat': {
+	case $::osfamily {
+				'RedHat': {
 			$init_template = "alfresco/tomcat-init-centos.erb"
 		}
 		'Debian': {
