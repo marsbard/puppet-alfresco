@@ -76,7 +76,7 @@ class alfresco::packages inherits alfresco {
 			exec { 'guard-against-prev-broken-deb':
 				command => 'apt-get -f install',
 				#command => 'dpkg-configure -a; apt-get -f install',
-				path => '/bin:/usr/bin',
+				path => '/bin:/usr/bin:/sbin:/usr/sbin',
 			}
 
 			Exec['guard-against-prev-broken-deb'] -> Package <| |>
