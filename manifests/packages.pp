@@ -41,7 +41,8 @@ class alfresco::packages inherits alfresco {
 
 		# TODO no idea if this is actually effective
 		exec { "guard-against-prev-broken":
-			command => "yum clean all; yum clean headers; yum-complete-transaction",
+			#command => "yum clean all; yum clean headers; yum complete-transaction",
+			command => "yum clean all; yum clean headers",
 			path => "/bin:/usr/bin",
 		}
 
