@@ -11,6 +11,10 @@ class alfresco::addons inherits alfresco {
 	#}
 	
   class { 'alfresco::addons::ootbfrontpage':}
+   
+	class { 'alfresco::addons::ootbbeetheme':
+    notify => Exec['apply-addons'],
+	}
 
   
   # TODO this should be optional based on a parameter
