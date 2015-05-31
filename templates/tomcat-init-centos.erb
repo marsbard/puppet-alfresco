@@ -24,6 +24,8 @@ rm -rf $CATALINA_HOME/work/Catalina/localhost/share
 rm -rf $CATALINA_HOME/work/Catalina/localhost/awe
 rm -rf $CATALINA_HOME/work/Catalina/localhost/wcmqs
 
+cd $CATALINA_HOME
+
 su tomcat -c "sh $CATALINA_HOME/bin/startup.sh"
 ;; 
 stop)   
