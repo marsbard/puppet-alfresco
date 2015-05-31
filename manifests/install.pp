@@ -9,7 +9,7 @@ class alfresco::install inherits alfresco {
 
 	file { $download_path:
 		ensure => "directory",
-		before => Exec["retrieve-tomcat"],
+		before => Safe-download["tomcat"],
     owner => 'tomcat',
 	}
 
@@ -94,33 +94,6 @@ class alfresco::install inherits alfresco {
 	}
 
 
-#	exec { "retrieve-alfresco-ce":
-#		command => "wget -q ${urls::alfresco_ce_url} -O ${download_path}/${urls::alfresco_ce_filename}	",
-#		path => "/usr/bin",
-#		creates => "${download_path}/${urls::alfresco_ce_filename}",
-#        	timeout => 0,
-#		require => File[$download_path],
-#	}
-#
-#	file { "${download_path}/alfresco":
-#		ensure => directory,
-#	}
-#
-#	exec { "unpack-alfresco-ce":
-#		command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
-#		path => "/usr/bin",
-#		require => [ 
-#			Exec["retrieve-alfresco-ce"],
-#			Exec["copy tomcat to ${tomcat_home}"], 
-#			Package["unzip"], 
-#			File["${download_path}/alfresco"],
-#		],
-#		creates => "${download_path}/alfresco/README.txt",
-#	}
-
-
-
-
 	file { "${alfresco_base_dir}/amps":
 		ensure => directory,
     owner => 'tomcat',
@@ -131,12 +104,10 @@ class alfresco::install inherits alfresco {
 	}
 
 
-	exec { "retrieve-tomcat":
-    user => 'tomcat',
-		creates => "${download_path}/${urls::filename_tomcat}",
-		command => "wget ${urls::url_tomcat} -O ${download_path}/${urls::filename_tomcat}",
-		path => "/usr/bin",
-    timeout => 0,
+	safe-download { 'tomcat':
+		url => "${urls::url_tomcat}",
+		filename => "${urls::filename_tomcat}",
+		download_path => $download_path,
 	}
 
 	exec { "unpack-tomcat":
@@ -144,7 +115,7 @@ class alfresco::install inherits alfresco {
 		cwd => "${download_path}",
 		path => "/bin:/usr/bin",
 		command => "tar xzf ${download_path}/${urls::filename_tomcat}",
-		require => Exec["retrieve-tomcat"],
+		require => Safe-download["tomcat"],
 		creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
 	}
 
@@ -215,25 +186,17 @@ class alfresco::install inherits alfresco {
     owner => 'tomcat',
 	}
 
-	exec { 'retrieve-xalan-xalan-jar':
-    user => 'tomcat',
-		command => "wget ${xalan}/xalan.jar",
-		path => '/usr/bin',
-		cwd => "${tomcat_home}/endorsed",
-		creates => "${tomcat_home}/endorsed/xalan.jar",
-		require => File["${tomcat_home}/endorsed"],
+	safe-download { 'xalan-xalan-jar':
+		url => "${xalan}/xalan.jar",
+		filename => 'xalan.jar',
+		download_path => "${tomcat_home}/endorsed",
 	}
 
-	exec { 'retrieve-xalan-serializer-jar':
-    user => 'tomcat',
-		command => "wget ${xalan}/serializer.jar",
-		path => '/usr/bin',
-		cwd => "${tomcat_home}/endorsed",
-		creates => "${tomcat_home}/endorsed/serializer.jar",
-		require => File["${tomcat_home}/endorsed"],
+	safe-download { 'xalan-serializer-jar':
+		url => "${xalan}/serializer.jar",
+		filename => 'serializer.jar',
+		download_path => "${tomcat_home}/endorsed",
 	}
-
-
 
   file { '/etc/sysctl.conf':
     source => 'puppet:///modules/alfresco/sysctl.conf',
@@ -286,14 +249,21 @@ class alfresco::install inherits alfresco {
 		$require="",
 		$user="") {                                                                                         
 
-		exec { $name:                                                                                                                     
-			command => "wget ${site}/${name}",    
-			path => "/usr/bin",                                                     
-			cwd => $cwd,
-			creates => "${cwd}/${name}",                                                              
-			require => $require,
-			user => $user,                                                                                                          
-      timeout => 0,
+#		exec { $name:                                                                                                                     
+#			command => "wget ${site}/${name}",    
+#			path => "/usr/bin",                                                     
+#			cwd => $cwd,
+#			creates => "${cwd}/${name}",                                                              
+#			require => $require,
+#			user => $user,                                                                                                          
+#      timeout => 0,
+#		}
+
+		safe-download { $name:
+			url => "${site}/${name}",
+			filename => $name,
+			user => $user,
+			download_path => $cwd,
 		}
 
 	}
@@ -318,14 +288,20 @@ class alfresco::install inherits alfresco {
 	}	
 
 
-	exec { "retrieve-loffice":
-    user => 'tomcat',
-		cwd => $download_path,
-		command => "wget -v ${loffice_dl}",
-		creates => "${download_path}/${loffice_name}.tar.gz",
-		path => "/usr/bin",
-		timeout => 0,
-    logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
+#	exec { "retrieve-loffice":
+#   user => 'tomcat',
+#		cwd => $download_path,
+#		command => "wget -v ${loffice_dl}",
+#		creates => "${download_path}/${loffice_name}.tar.gz",
+#		path => "/usr/bin",
+#		timeout => 0,
+#    logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
+#	}
+
+	safe-download { 'loffice':
+		url => $loffice_dl,
+		filename => "${loffice_name}.tar.gz",
+		download_path => $download_path,
 	}
 
 	exec { "unpack-loffice":
@@ -334,12 +310,12 @@ class alfresco::install inherits alfresco {
 		command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
 		path => "/bin:/usr/bin",
 		creates => "${download_path}/${loffice_name}",
-		require => Exec["retrieve-loffice"],
+		require => Safe-download["loffice"],
     timeout => 0,
 	}
 
 	case $::osfamily {
-    		'RedHat': {
+				'RedHat': {
 
 			exec { "install-loffice":
 				command => "yum -y localinstall *.rpm",
@@ -376,46 +352,39 @@ class alfresco::install inherits alfresco {
 ###################################################
 
 	case $::osfamily {
-    		'RedHat': {
+    'RedHat': {
 			$swfpkgs = [
 				"ImageMagick",
 				"zlib-devel",
 				"libjpeg-turbo-devel",
 				"giflib-devel",
-			        "freetype-devel",
+			  "freetype-devel",
 				"gcc",
-			        "gcc-c++"
+			  "gcc-c++"
 			]
 			
-			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
+			safe-download { 'swftools':
+				url => $urls::swftools_src_url,
+				filename => "${urls::swftools_src_name}.tar.gz",
+				download_path => $download_path,
+			}
 
-                        exec { "retrieve-swftools":
+      exec { "unpack-swftools":
         user => 'tomcat',
-                                command => "wget ${urls::swftools_src_url}",
-                    timeout => 0,
-                                cwd => $download_path,
-                                path => "/usr/bin",
-                                creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
-                        }
+        command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
+        cwd => $download_path,
+        path => "/bin:/usr/bin",
+        creates => "${download_path}/${urls::swftools_src_name}",
+        require => Safe-download["swftools"],
+      }
 
-
-                        exec { "unpack-swftools":
-        user => 'tomcat',
-                                command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
-                                cwd => $download_path,
-                                path => "/bin:/usr/bin",
-                                creates => "${download_path}/${urls::swftools_src_name}",
-                                require => Exec["retrieve-swftools"],
-                        }
-
-
-                        exec { "build-swftools":
-                                command => "bash ./configure && make && make install",
-                                cwd => "${download_path}/${urls::swftools_src_name}",
-                                path => "/bin:/usr/bin",
-                                require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-                                creates => "/usr/local/bin/pdf2swf",
-                        }
+      exec { "build-swftools":
+        command => "bash ./configure && make && make install",
+        cwd => "${download_path}/${urls::swftools_src_name}",
+        path => "/bin:/usr/bin",
+        require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+        creates => "/usr/local/bin/pdf2swf",
+      }
 
 		}
 		'Debian': {
@@ -431,17 +400,11 @@ class alfresco::install inherits alfresco {
 			]
 
 
-			# TODO use this https://github.com/example42/puppi/blob/master/manifests/netinstall.pp
-
-			exec { "retrieve-swftools":
-        user => 'tomcat',
-				command => "wget ${urls::swftools_src_url}",
-		    timeout => 0,
-				cwd => $download_path,
-				path => "/usr/bin",		
-				creates => "${download_path}/${urls::swftools_src_name}.tar.gz",
+			safe-download { 'swftools':
+				url => "${urls::swftools_src_url}",
+				filename => "${urls::swftools_src_name}.tar.gz",
+				download_path => $download_path,
 			}
-
 		
 			exec { "unpack-swftools":
         user => 'tomcat',
@@ -449,7 +412,7 @@ class alfresco::install inherits alfresco {
 				cwd => $download_path,
 				path => "/bin:/usr/bin",
 				creates => "${download_path}/${urls::swftools_src_name}",
-				require => Exec["retrieve-swftools"],
+				require => Safe-download["swftools"],
 			}
 
 
@@ -468,9 +431,9 @@ class alfresco::install inherits alfresco {
 		} 
 	}
 
-    	package { $swfpkgs:
-        	ensure => "installed",
-    	}
+			package { $swfpkgs:
+					ensure => "installed",
+			}
 	
 }
 
