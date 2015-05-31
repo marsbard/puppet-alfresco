@@ -9,12 +9,8 @@ class alfresco::addons inherits alfresco {
 
 	#class { 'alfresco::addons::filebrowser':
 	#}
-<<<<<<< HEAD
-=======
 	
-        class { 'alfresco::addons::ootbfrontpage':
-	}
->>>>>>> develop
+  class { 'alfresco::addons::ootbfrontpage':}
 
   
   # TODO this should be optional based on a parameter
