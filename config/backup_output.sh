@@ -2,7 +2,7 @@ OUTFILE='do_backup.pp'
 
 
 function write_output {
-
+	alfresco_base_dir=`get_param alfresco_base_dir`
   backup_at_hour=`get_param backup_at_hour`
   backup_at_min=`get_param backup_at_min`
   duplicity_password=`get_param duplicity_password`
@@ -31,6 +31,7 @@ function write_output {
 	echo -e "${GREEN}Writing puppet file ${BLUE}${OUTFILE}${WHITE}"
 	cat > ${OUTFILE} <<EOF
 class { 'alfresco::backup':
+	alfresco_base_dir => '${alfresco_base_dir}',
   backup_at_hour => '${backup_at_hour}',
   backup_at_min => '${backup_at_min}',
   duplicity_password => '${duplicity_password}',

@@ -1,5 +1,11 @@
 
 IDX=0
+params[$IDX]="alfresco_base_dir"
+descr[$IDX]="Where is alfresco installed. This should already have been set by the initial setup"
+required[$IDX]=1
+
+
+IDX=$(( $IDX + 1 ))
 params[$IDX]="backuptype"
 descr[$IDX]="Type of backup. Choose one of the options and then configure the appropriate settings." 
 default[$IDX]="local"

@@ -187,6 +187,16 @@ class alfresco (
 	}
 
 
+	# write a config file for BART, will also make the templated files refer to these:
+  file { "${alfresco_base_dir}/scripts":
+	  ensure => directory,
+		require => File[$alfresco_base_dir],
+	} -> 
+	file { "${alfresco_base_dir}/scripts/bart.conf":
+		ensure => present,
+		content => "ALF_BASE_DIR=${alfresco_base_dir}\nINDEXER=${indexer}\nDB_NAME=${db_name}\nDB_PASS=${db_pass}\nDB_HOST=${db_host}\nDB_USER=${db_user}\n"
+	}
+
 
 	#http://askubuntu.com/a/519783/33804
 	if($osfamily == 'Debian'){

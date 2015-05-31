@@ -32,7 +32,9 @@
 #########################################################################################
 
 # Load properties
-ALFBRT_PATH=<%= @alfresco_base_dir %>/scripts
+ALFBRT_PATH="`dirname $0`"
+
+source $ALFBRT_PATH/bart.conf
 
 if [ -f ${ALFBRT_PATH}/alfresco-bart.properties ]; then
 	. ${ALFBRT_PATH}/alfresco-bart.properties 

@@ -1,4 +1,5 @@
 class alfresco::backup (
+  $alfresco_base_dir,
   $backup_at_hour = 2,
   $backup_at_min = fqdn_rand(59),
   $duplicity_password = '',
@@ -22,7 +23,7 @@ class alfresco::backup (
   $scp_server = '',
   $scp_user = '',
   $scp_folder = '',
-) inherits alfresco {
+) {
   
 
   # TODO is there a safer way to make a password without using generate()
@@ -35,10 +36,6 @@ class alfresco::backup (
     ensure => present,
   }
 
-  file { "${alfresco_base_dir}/scripts":
-    ensure => directory,
-    require => File[$alfresco_base_dir],
-  } ->
   file { "${alfresco_base_dir}/scripts/alfresco-bart.sh":
     ensure => present,
     content => template('alfresco/alfresco-bart.sh.erb'),

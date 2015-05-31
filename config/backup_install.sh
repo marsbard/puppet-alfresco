@@ -8,3 +8,6 @@ then
 else
   puppet apply --modulepath=modules do_backup.pp
 fi
+
+# TODO this really needs to be done by bashconf
+exit
