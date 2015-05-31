@@ -358,9 +358,9 @@ class alfresco::install inherits alfresco {
 				"zlib-devel",
 				"libjpeg-turbo-devel",
 				"giflib-devel",
-			  "freetype-devel",
+				"freetype-devel",
 				"gcc",
-			  "gcc-c++"
+				"gcc-c++"
 			]
 			
 			safe-download { 'swftools':

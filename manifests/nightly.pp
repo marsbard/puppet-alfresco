@@ -44,14 +44,14 @@ class alfresco::nightly inherits alfresco{
         exec { "${tomcat_home}/webapps/alfresco.war":
           user => 'tomcat',
           command => "touch /tmp/fake.get.alfresco.war",
-	        path => '/bin:/usr/bin',
+					path => '/bin:/usr/bin',
           creates => "/tmp/fake.get.alfresco.war",
         }
 
         exec { "${tomcat_home}/webapps/share.war":
           user => 'tomcat',
           command => "touch /tmp/fake.get.share.war",
-	        path => '/bin:/usr/bin',
+					path => '/bin:/usr/bin',
           creates => "/tmp/fake.get.share.war",
         }
     }

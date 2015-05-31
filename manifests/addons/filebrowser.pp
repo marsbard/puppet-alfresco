@@ -1,9 +1,5 @@
 class alfresco::addons::filebrowser inherits alfresco::addons {
 
-	class { '::apache::mod::php':
-	}
-
-
 	vcsrepo { "/var/www/${domain_name}":
 		ensure   => present,
 		provider => git,
