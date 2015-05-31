@@ -352,16 +352,15 @@ class alfresco::install inherits alfresco {
 ###################################################
 
 	case $::osfamily {
-<<<<<<< HEAD
-    		'RedHat': {
+    'RedHat': {
 			$swfpkgs = [
 				"ImageMagick",
 				"zlib-devel",
 				"libjpeg-turbo-devel",
 				"giflib-devel",
-			        "freetype-devel",
+			  "freetype-devel",
 				"gcc",
-			        "gcc-c++"
+			  "gcc-c++"
 			]
 			
 			safe-download { 'swftools':
@@ -387,10 +386,6 @@ class alfresco::install inherits alfresco {
         creates => "/usr/local/bin/pdf2swf",
       }
 
-=======
-				'RedHat': {
-			$swfpkgs = ["swftools","ImageMagick"]
->>>>>>> issue-61
 		}
 		'Debian': {
 			$swfpkgs = [
