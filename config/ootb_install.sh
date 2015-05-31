@@ -12,11 +12,11 @@ then
 	install_puppet
 fi
 
- ./install/modules-for-vagrant.sh
+./install/modules-for-vagrant.sh
 
 puppet apply --modulepath=modules go.pp
 
- if [ $? != 0 ]; then exit 99; fi
+if [ $? != 0 ]; then exit 99; fi
 
 echo
 echo Completed, please allow some time for alfresco to start
