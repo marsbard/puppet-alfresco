@@ -24,6 +24,7 @@ do
   TRY=0
   while [ $TRY -lt 3 ]
   do
+		# https://github.com/marsbard/puppet-alfresco/issues/63
 		if [ "$mod" = "puppetlabs-concat" ]
 		then
 			puppet module install --version 1.2.2 --force $mod --target-dir=modules
