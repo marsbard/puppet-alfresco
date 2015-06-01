@@ -24,7 +24,13 @@ do
   TRY=0
   while [ $TRY -lt 3 ]
   do
-	puppet module install --force $mod --target-dir=modules
+		# https://github.com/marsbard/puppet-alfresco/issues/63
+		if [ "$mod" = "puppetlabs-concat" ]
+		then
+			puppet module install --version 1.2.2 --force $mod --target-dir=modules
+		else
+			puppet module install --force $mod --target-dir=modules
+		fi
     if [ $? = 0 ]; then TRY=3; else 
       if [ $TRY -lt 3 ]
       then 
