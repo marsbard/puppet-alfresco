@@ -1,14 +1,17 @@
 class alfresco::install::proxy inherits alfresco {
 
 
-
+	# apparently the issue is caused by concat 2.0.0 - testing with earlier concat
+	# to see if it fixes
 
 	# couldn't see how to fix this: https://github.com/marsbard/puppet-alfresco/issues/63
   # so instead detect if apache has been installed before re-running the config
 	# neat hack from https://ask.puppetlabs.com/question/5849/check-if-file-exists-on-client/?answer=14571#post-id-14571
-	$apache_installed = inline_template("<% if File.exist?('/etc/apache2/sites-enabled/10-honeycomb_80.conf') -%>true<% end -%>")
+	#$apache_installed = inline_template("<% if File.exist?('/etc/apache2/sites-enabled/10-honeycomb_80.conf') -%>true<% end -%>")
 	
-  if ( $enable_proxy ) and  ( ! $apache_installed ) {
+  #if ( $enable_proxy ) and  ( ! $apache_installed ) {
+
+	if $enable_proxy {
 
 		class { 'apache': 
 			default_mods => false,
