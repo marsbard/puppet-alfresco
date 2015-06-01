@@ -14,7 +14,7 @@ fi
 
 ./install/modules-for-vagrant.sh
 
-puppet apply --modulepath=modules go.pp
+puppet apply --modulepath=modules go.pp --hiera_config=install/hiera.yaml
 
 if [ $? != 0 ]; then exit 99; fi
 
