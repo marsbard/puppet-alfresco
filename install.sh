@@ -14,5 +14,10 @@ fi
 # We may also optionally find ${CONF}_pre.sh and ${CONF}_install.sh
 # and if we find them we run them before and after 
 
+# bootstrap bashconf
+git submodule init
+git submodule update
+
+
 export CONF=config/ootb
 source bashconf/bashconf.sh

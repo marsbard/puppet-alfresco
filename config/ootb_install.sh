@@ -12,7 +12,20 @@ then
 	install_puppet
 fi
 
- ./install/modules-for-vagrant.sh
+# install external modules
+./install/modules-for-vagrant.sh
+
+# ensure that our module is in the right place
+if [ ! -d modules/alfresco ]
+then
+	mkdir modules/alfresco -p
+	for d in lib files manifests templates
+	do  
+		ln -s ${PWD}/${d} ${PWD}/modules/alfresco/${d}
+	done
+fi  
+
+
 
 puppet apply --modulepath=modules go.pp
 
