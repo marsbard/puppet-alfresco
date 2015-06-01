@@ -180,7 +180,8 @@ class alfresco::install inherits alfresco {
 		ensure => present,
 		mode => '0755',
 		owner => 'tomcat',
-		source => 'puppet:///modules/alfresco/scripts/replacefiles.py',
+		#source => 'puppet:///modules/alfresco/scripts/replacefiles.py',
+		content => template('alfresco/scripts/replacefiles.py.erb'),
 	}
 
 	# XALAN
