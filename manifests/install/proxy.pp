@@ -112,6 +112,7 @@ class alfresco::install::proxy inherits alfresco {
 		  error_documents => [
 			  { 'error_code' => '503', 'document' => '/errdocs/503.html' },
 				{ 'error_code' => '407', 'document' => '/errdocs/503.html' },
+				{ 'error_code' => '500', 'document' => '/errdocs/503.html' },
 			],
 			#redirect_source => [ '/', ],
 			#edirect_dest => [ '/share', ],
