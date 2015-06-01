@@ -13,6 +13,15 @@ Features:
 * Supports using your own SSL certificates and if not supplied will generate a self signed certificate, NOT MAKE EVERYONE USE THE SAME SSL LIKE ALFRESCO DOES!! :facepalm:
 * Custom Order of the Bee theme
 
+#### <a name='included-addons'></a>Included addons
+A small list for now but soon to be growing
+* Google docs integration
+* [Javascript console](https://addons.alfresco.com/addons/javascript-console)
+* [Reset password](https://addons.alfresco.com/addons/reset-password-dialog)
+* [Alfresco Records Management](https://www.alfresco.com/products/records-management)
+* [Uploader Plus](https://addons.alfresco.com/addons/uploader-plus)
+
+
 #### <a name='getting-started'></a>Getting started
 
 First make sure that `git` is installed on your machine. Now run the following commands:
