@@ -7,7 +7,7 @@ Features:
 * Puppet based, so makes idempotent changes and if interrupted can pick up where it left off
 * Simple bash based configuration
 * Built in BART backup - run `./setup_backup.sh` after install to configure.
-* Reverse proxy and firewall preconfigured, offloading SSL to apache and forwarding real ports to unprivileged ones managed by repo
+* Reverse proxy and firewall preconfigured, offloading SSL to apache and forwarding real ports (for ftp, for example) to unprivileged ones managed by repo
 * Can specify tomcat home and alfresco base, useful for putting `alf_data/` on shared storage
 * Built in postfix mail server set up to deliver alfresco mails to the internet
 * Supports using your own SSL certificates and if not supplied will generate a self signed certificate, NOT MAKE EVERYONE USE THE SAME SSL LIKE ALFRESCO DOES!! :facepalm:
