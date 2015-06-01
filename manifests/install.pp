@@ -176,11 +176,11 @@ class alfresco::install inherits alfresco {
 		source => 'puppet:///modules/alfresco/limitconvert.sh',
 	}
 	
-	file { "${alfresco_base_dir}/scripts/replacefilesinalfresco.py":
+	file { "${alfresco_base_dir}/scripts/replacefiles.py":
 		ensure => present,
 		mode => '0755',
 		owner => 'tomcat',
-		source => 'puppet:///modules/alfresco/scripts/replacegraphics.py',
+		source => 'puppet:///modules/alfresco/scripts/replacefiles.py',
 	}
 
 	# XALAN
