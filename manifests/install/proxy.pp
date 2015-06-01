@@ -109,6 +109,10 @@ class alfresco::install::proxy inherits alfresco {
 				{ 'path' => '/alfresco', 'url' => "ajp://127.0.0.1:8009/alfresco" },
 				{ 'path' => '/spp', 'url' => 'http://127.0.0.1:7070/alfresco' },
 			],
+		  error_documents => [
+			  { 'error_code' => '503', 'document' => '/errdocs/503.html' },
+				{ 'error_code' => '407', 'document' => '/errdocs/503.html' },
+			],
 			#redirect_source => [ '/', ],
 			#edirect_dest => [ '/share', ],
 			#redirectmatch_regexp => '^/((?!fileserver).)*$', 
