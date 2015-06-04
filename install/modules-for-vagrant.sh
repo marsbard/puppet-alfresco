@@ -5,7 +5,7 @@ MODULES="puppetlabs-mysql puppetlabs-stdlib stankevich-python puppetlabs-apache 
 
 OS=`head -n1 /etc/issue | cut -f1 -d\ `
 
-if [ "$OS" == "RedHat" -o "$OS" == "CentOS" ]
+if [ -e "/etc/redhat-release" ]
 then
   MODULES="$MODULES stahnma-epel"
 fi
