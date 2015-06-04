@@ -15,7 +15,7 @@ class alfresco::packages inherits alfresco {
 		'RedHat': {
 
 		exec { "get-repoforge":
-			command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm",
+			command => "yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el${operatingsystemmajrelease}.rf.x86_64.rpm",
 			path => "/bin:/usr/bin",
 			creates => "/etc/yum.repos.d/rpmforge.repo",
 		}
@@ -31,7 +31,6 @@ class alfresco::packages inherits alfresco {
     }
 
 		Exec['guard-against-prev-broken'] -> Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
-
 
     if $java_version == 8 {
       $jpackage="java-1.8.0-openjdk"
