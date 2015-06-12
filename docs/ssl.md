@@ -1,8 +1,12 @@
 ## SSL Configuration ##
 
 The `alfresco::install::proxy` module takes an argument `ssl_cert_path` _(which 
-is passed to it by `alfresco::init` and can be passed in there)_ and it expects
-to find there a `.cert` file and a `.key` file named for your domain, so for 
+is passed to it by `alfresco::init` and can be passed in there)_ 
+
+By default this is expected to be a path on a mounted filesystem, but see below for
+information about retrieving the files from an http server.
+
+It expects to find a `.cert` file and a `.key` file named for your domain, so for 
 example if your domain is 'demosite.orderofthebee.org' you would arrange for 
 your key+cert files to be in the `ssl_cert_path` location and then puppet would try 
 to retrieve:
