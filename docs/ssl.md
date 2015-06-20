@@ -6,6 +6,8 @@ is passed to it by `alfresco::init` and can be passed in there)_
 By default this is expected to be a path on a mounted filesystem, but see below for
 information about retrieving the files from an http server.
 
+**If you leave this field blank, the installer will generate a self-signed certificate for you.**
+
 It expects to find a `.cert` file and a `.key` file named for your domain, so for 
 example if your domain is 'demosite.orderofthebee.org' you would arrange for 
 your key+cert files to be in the `ssl_cert_path` location and then puppet would try 
