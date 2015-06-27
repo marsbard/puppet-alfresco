@@ -117,7 +117,7 @@ class alfresco::install::proxy inherits alfresco {
 				{ 'error_code' => '407', 'document' => '/errdocs/503.html' },
 				{ 'error_code' => '500', 'document' => '/errdocs/503.html' },
 			],
-			ssl_cipher => 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS',
+			ssl_cipher => 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS',
 			ssl_protocol => 'all -SSLv2 -SSLv3',
 			ssl_honorcipherorder    => 'On',
 			#redirect_source => [ '/', ],
