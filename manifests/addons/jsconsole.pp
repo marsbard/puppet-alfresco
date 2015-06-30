@@ -1,7 +1,7 @@
 class alfresco::addons::jsconsole inherits alfresco::addons {
 
-	$filename_jsconsole = "v0.6.0-rc1.zip"
-	$url_jsconsole = "https://github.com/share-extras/js-console/archive/${filename_jsconsole}"
+	$filename_jsconsole = "javascript-console-0.5.1.zip"
+	$url_jsconsole = "https://share-extras.googlecode.com/files/${filename_jsconsole}"
 
 	safe-download {'jsconsole':
 		url => $url_jsconsole,
