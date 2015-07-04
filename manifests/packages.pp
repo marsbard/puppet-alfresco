@@ -1,6 +1,6 @@
 class alfresco::packages inherits alfresco {
 
-  $java_version=7
+  $java_version=8
 
 
 	define ensure_packages ($ensure = "present") {
