@@ -48,6 +48,16 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 						Exec["unpack-alfresco-ce"],
           ]
 				}
+				safe-download { 'alfresco.war':
+					url => "${urls::alfresco_war_42x}",
+					filename => "alfresco.war",
+					download_path => "${tomcat_home}/webapps/",
+				}
+				safe-download { 'share.war':
+					url => "${urls::share_war_42x}",
+					filename => "share.war",
+					download_path => "${tomcat_home}/webapps/",
+				}
 
 				safe-download { 'spp':
 					url => "${urls::spp_v4}",
@@ -71,7 +81,6 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 					filename => "alfresco.war",
 					download_path => "${tomcat_home}/webapps/",
 				}
-
 				safe-download { 'share.war':
 					url => "${urls::share_war_50x}",
 					filename => "share.war",

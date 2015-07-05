@@ -1,6 +1,7 @@
 class urls {
 
   $v50x = '5.0.d'
+  $v42x = '4.2.f'
 
   $nightly = 'http://dev.alfresco.com/downloads/nightly/dist/alfresco-community-5.1-SNAPSHOT.zip'
   $nightly_name = 'alfresco-community-5.1-SNAPSHOT'
@@ -11,6 +12,8 @@ class urls {
   # v4 wars
 	$alfresco_ce_filename = 'alfresco-community-4.2.f.zip'
 	$alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
+  $alfresco_war_42x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/${v42x}/alfresco-${v42x}.war"
+  $share_war_42x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/${v42x}/share-${v42x}.war"
 
   $alfresco_war_50x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco/${v50x}/alfresco-${v50x}.war"
   $share_war_50x = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/share/${v50x}/share-${v50x}.war"
