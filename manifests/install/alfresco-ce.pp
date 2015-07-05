@@ -58,6 +58,11 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
 					filename => "share.war",
 					download_path => "${tomcat_home}/webapps/",
 				}
+        file { "${tomcat_home}/webapps":
+          ensure => directory,
+          require => File["${tomcat_home}"],
+          owner => 'tomcat',
+        }
 
 				safe-download { 'spp':
 					url => "${urls::spp_v4}",
