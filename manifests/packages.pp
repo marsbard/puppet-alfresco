@@ -1,7 +1,16 @@
 class alfresco::packages inherits alfresco {
-
-  $java_version=8
-
+ 
+  case($alfresco_version){
+				'4.2.f': {
+								$java_version = 7 
+				}
+				'5.0.x', 'NIGHTLY': {
+								$java_version = 8 
+				}
+				default: {
+								fail("Unsupported version ${alfresco_version}")
+				}	
+	}																																		}
 
 	define ensure_packages ($ensure = "present") {
 		if defined(Package[$title]) {} 
