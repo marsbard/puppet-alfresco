@@ -94,7 +94,7 @@ default[$IDX]="3306"
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xmx"
-descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS"
+descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS. You cannot use decimal fractions, e.g. if you want 7.5G use 7500M instead"
 default[$IDX]="4G"
 
 
