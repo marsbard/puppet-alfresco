@@ -56,13 +56,13 @@ export IPADDRESS=`hostname -I`
     
       
       # mysql
-      block 3306
+      #block 3306
       # soffice
-      block 8100
+      #block 8100
       # tomcat
-      block 7070
-      block 2021
-      block 8089
+      #block 7070
+      #block 2021
+      #block 8089
       block 8080
     }
 
