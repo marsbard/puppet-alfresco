@@ -33,28 +33,36 @@ export IPADDRESS=`hostname -I`
     # setup iptables for redirection of CIFS and FTP
     setup_iptables () {
 
-	    echo "1" >/proc/sys/net/ipv4/ip_forward
+      echo "1" >/proc/sys/net/ipv4/ip_forward
 
-	    # Clear NATing tables
+      # Clear NATing tables
       clear_iptables
 
-	    # FTP NATing
-	    redirect 21 2021 tcp
+      # FTP NATing
+      redirect 21 2021 tcp
 
-	    # CIFS NATing
-	    redirect 445 1445 tcp
-	    redirect 139 1139 tcp
-	    redirect 137 1137 udp
-	    redirect 138 1138 udp
+      # CIFS NATing
+      redirect 445 1445 tcp
+      redirect 139 1139 tcp
+      redirect 137 1137 udp
+      redirect 138 1138 udp
 	   
-	    # IMAP NATing
-	    redirect 143 8143 tcp
-	    redirect 143 8143 udp
+      # IMAP NATing
+      redirect 143 8143 tcp
+      redirect 143 8143 udp
 		    
-	    # Forward http
-	    #redirect 80 8080 tcp
+      # Forward http
+      #redirect 80 8080 tcp
     
-      # Block 8080
+      
+      # mysql
+      block 3306
+      # soffice
+      block 8100
+      # tomcat
+      block 7070
+      block 2021
+      block 8089
       block 8080
     }
 
