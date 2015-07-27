@@ -86,6 +86,7 @@ class alfresco::packages inherits alfresco {
 				"libpng3",
 				"haveged",
         "sudo",
+				"libxinerama1",
 			] 
 			$rmpackages = [ 
 				"openjdk-6-jdk",
