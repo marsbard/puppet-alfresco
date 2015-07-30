@@ -1,0 +1,15 @@
+
+# the region you want to run in, try running 'vagrant digitalocean-list regions $DIGITAL_OCEAN_TOKEN' (same token as below) 
+region = 'nyc2'
+
+# needs access to your private key:
+# "You must specify the override.ssh.private_key_path to enable authentication with the droplet. 
+# The provider will create a new Digital Ocean SSH key using your public key which is assumed 
+# to be the private_key_path with a .pub extension."
+private_key_path = '~/.ssh/id_rsa'
+
+# DO lets you associate a name with the token and never lets you see the token twice, so
+# could be a good idea to add a comment here with the DO name too, like, e.g.:
+# digital ocean name = 'honeycomb-ci'
+digital_ocean_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
