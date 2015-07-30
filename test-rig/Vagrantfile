@@ -13,43 +13,43 @@ config        = YAML.load_file("#{current_dir}/config.yaml")
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.define "centos42f"
+  config.vm.define "centos42f"
 
-      centos42f.vm.provider :digital_ocean do |provider, override|
+    centos42f.vm.provider :digital_ocean do |provider, override|
 
-	override.ssh.private_key_path = config['private_key_path']
-	provider.region = config['digital_ocean_region']
-	provider.token = config['digital_ocean_token']
+    	override.ssh.private_key_path = config['private_key_path']
+    	provider.region = config['digital_ocean_region']
+    	provider.token = config['digital_ocean_token']
 
 
-    	override.vm.box = 'digital_ocean'
-   	override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-        provider.size = 4096mb
+      provider.size = 4096mb
 
-	provider.image = "centos-7-0-x64"
- 	# provider.image = "ubuntu-15-04-x64"
+    	provider.image = "centos-7-0-x64"
+     	# provider.image = "ubuntu-15-04-x64"
 
-      end
-
-      centos42f.vm.box = "puppetlabs/centos-7.0-64-nocm"
-
-      if Vagrant.has_plugin?("vagrant-vbguest")
-        centos42f.vbguest.auto_update = true
-      end
-
-      centos42f.vm.network :forwarded_port, guest: 8443, host: 8443
-
-      centos42f.vm.provision :shell do |shell|
-        shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
-      end
-
-      centos42f.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "."
-        puppet.manifest_file  = "go.pp"
-        puppet.module_path = ["modules"]
-      end
     end
+
+    centos42f.vm.box = "puppetlabs/centos-7.0-64-nocm"
+
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      centos42f.vbguest.auto_update = true
+    end
+
+    centos42f.vm.network :forwarded_port, guest: 8443, host: 8443
+
+    centos42f.vm.provision :shell do |shell|
+      shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+    end
+
+    centos42f.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "."
+      puppet.manifest_file  = "go.pp"
+      puppet.module_path = ["modules"]
+    end
+  end
 
 
 
