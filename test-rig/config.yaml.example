@@ -10,6 +10,6 @@ private_key_path = '~/.ssh/id_rsa'
 
 # DO lets you associate a name with the token and never lets you see the token twice, so
 # could be a good idea to add a comment here with the DO name too, like, e.g.:
-# digital ocean name = 'honeycomb-ci'
+# DOname = 'honeycomb-ci'
 digital_ocean_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
