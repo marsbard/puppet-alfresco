@@ -17,10 +17,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     centos42f.vm.provider :digital_ocean do |provider, override|
 
-    	provider.region = config['digital_ocean_region']
-    	provider.token = config['digital_ocean_token']
+
+      provider.client_id = config['digital_ocean_client_id']
+      provider.region = config['digital_ocean_region']
+      provider.token = config['digital_ocean_token']
       #provider.size = 4096mb
-    	provider.image = "centos-7-0-x64"
+      provider.image = "centos-7-0-x64"
 
 
       override.vm.box = 'digital_ocean'
@@ -52,6 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     centos50x.vm.provider :digital_ocean do |provider, override|
 
+        provider.client_id = config['digital_ocean_client_id']
     	override.ssh.private_key_path = config['private_key_path']
     	provider.region = config['digital_ocean_region']
     	provider.token = config['digital_ocean_token']
@@ -75,7 +78,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     centos50x.vm.provision :shell do |shell|
       shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
-        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=5.0.x domain_name=localhost }' > centos50x.pp"
     end
 
     centos50x.vm.provision :puppet do |puppet|
@@ -92,6 +94,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     ubuntu42f.vm.provider :digital_ocean do |provider, override|
 
+      provider.client_id = config['digital_ocean_client_id']
       override.ssh.private_key_path = config['private_key_path']
   	  provider.region = config['digital_ocean_region']
   	  provider.token = config['digital_ocean_token']
@@ -105,6 +108,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     end
 
+    #ubuntu42f.vm.box = "ubuntu/vivid64"
     ubuntu42f.vm.box = "digital_ocean"
 
     if Vagrant.has_plugin?("vagrant-vbguest")
@@ -132,6 +136,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     ubuntu50x.vm.provider :digital_ocean do |provider, override|
 
+      provider.client_id = config['digital_ocean_client_id']
   	  override.ssh.private_key_path = config['private_key_path']
   	  provider.region = config['digital_ocean_region']
   	  provider.token = config['digital_ocean_token']
@@ -148,7 +153,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ubuntu50x.vm.box = "digital_ocean"
-
 
     if Vagrant.has_plugin?("vagrant-vbguest")
       ubuntu50x.vbguest.auto_update = true
