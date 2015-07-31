@@ -54,11 +54,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     centos50x.vm.provider :digital_ocean do |provider, override|
 
-        provider.client_id = config['digital_ocean_client_id']
-    	override.ssh.private_key_path = config['private_key_path']
-    	provider.region = config['digital_ocean_region']
-    	provider.token = config['digital_ocean_token']
-
+      provider.client_id = config['digital_ocean_client_id']
+      provider.region = config['digital_ocean_region']
+      provider.token = config['digital_ocean_token']
+      
       override.vm.box = 'digital_ocean'
       override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
       #provider.size = 4096mb
