@@ -22,10 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     	provider.token = config['digital_ocean_token']
 
 
-      override.vm.box = 'digital_ocean'
-      override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+        override.vm.box = 'digital_ocean'
+        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-      provider.size = 4096mb
+        provider.size = 4096mb
 
     	provider.image = "centos-7-0-x64"
      	# provider.image = "ubuntu-15-04-x64"
@@ -42,12 +42,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     centos42f.vm.provision :shell do |shell|
       shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+      #shell.inline = "echo 'class { \'alfresco\': alfresco_version=4.2.f domain_name=localhost }' > centos42f.pp"
     end
 
+    
+
     centos42f.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "."
-      puppet.manifest_file  = "go.pp"
-      puppet.module_path = ["modules"]
+      puppet.manifests_path = ".."
+      puppet.manifest_file  = "centos42f.pp"
+      puppet.module_path = ["../modules"]
     end
   end
 
@@ -55,9 +58,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.define "centos50x"
 
-      centos50x.vm.provider "virtualbox" do |v|
-        v.memory = 4096
-        v.cpus = 2
+
+      centos42f.vm.provider :digital_ocean do |provider, override|
+
+    	override.ssh.private_key_path = config['private_key_path']
+    	provider.region = config['digital_ocean_region']
+    	provider.token = config['digital_ocean_token']
+
+
+        override.vm.box = 'digital_ocean'
+        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+        provider.size = 4096mb
+
+    	provider.image = "centos-7-0-x64"
+     	# provider.image = "ubuntu-15-04-x64"
+
       end
 
       centos50x.vm.box = "puppetlabs/centos-7.0-64-nocm"
@@ -70,12 +86,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       centos50x.vm.provision :shell do |shell|
         shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=5.0.x domain_name=localhost }' > centos50x.pp"
       end
 
       centos50x.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "."
-        puppet.manifest_file  = "go.pp"
-        puppet.module_path = ["modules"]
+        puppet.manifests_path = ".."
+        puppet.manifest_file  = "centos50x.pp"
+        puppet.module_path = ["../modules"]
       end
     end
 
@@ -83,9 +100,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.define "ubuntu42f"
 
-      ubuntu42f.vm.provider "virtualbox" do |v|
-        v.memory = 4096
-        v.cpus = 2
+
+      centos42f.vm.provider :digital_ocean do |provider, override|
+
+    	override.ssh.private_key_path = config['private_key_path']
+    	provider.region = config['digital_ocean_region']
+    	provider.token = config['digital_ocean_token']
+
+
+        override.vm.box = 'digital_ocean'
+        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+        provider.size = 4096mb
+
+     	provider.image = "ubuntu-15-04-x64"
+
       end
 
       ubuntu42f.vm.box = "ubuntu/vivid64"
@@ -98,12 +127,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       ubuntu42f.vm.provision :shell do |shell|
         shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=4.2.f domain_name=localhost }' > ubuntu42f.pp"
       end
 
       ubuntu42f.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "."
-        puppet.manifest_file  = "go.pp"
-        puppet.module_path = ["modules"]
+        puppet.manifests_path = ".."
+        puppet.manifest_file  = "ubuntu42f.pp"
+        puppet.module_path = ["../modules"]
       end
     end
 
@@ -111,12 +141,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.define "ubuntu50x"
 
-      ubuntu50x.vm.provider "virtualbox" do |v|
-        v.memory = 4096
-        v.cpus = 2
+
+      centos42f.vm.provider :digital_ocean do |provider, override|
+
+    	override.ssh.private_key_path = config['private_key_path']
+    	provider.region = config['digital_ocean_region']
+    	provider.token = config['digital_ocean_token']
+
+
+        override.vm.box = 'digital_ocean'
+        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+        provider.size = 4096mb
+
+    	#provider.image = "centos-7-0-x64"
+     	provider.image = "ubuntu-15-04-x64"
+
       end
 
-      ubuntu50x.vm.box = "ubuntu/vivid64"
 
       if Vagrant.has_plugin?("vagrant-vbguest")
         ubuntu50x.vbguest.auto_update = true
@@ -126,12 +168,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       ubuntu50x.vm.provision :shell do |shell|
         shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=5.0.x domain_name=localhost }' > ubuntu50x.pp"
       end
 
       ubuntu50x.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "."
-        puppet.manifest_file  = "go.pp"
-        puppet.module_path = ["modules"]
+        puppet.manifests_path = ".."
+        puppet.manifest_file  = "ubuntu50x.pp"
+        puppet.module_path = ["../modules"]
       end
     end
 
