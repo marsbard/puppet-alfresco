@@ -26,8 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box = 'digital_ocean'
       override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
       override.ssh.private_key_path = config['private_key_path']
-
-
     end
 
     centos42f.vm.box = "puppetlabs/centos-7.0-64-nocm"
@@ -42,8 +40,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
       #shell.inline = "echo 'class { \'alfresco\': alfresco_version=4.2.f domain_name=localhost }' > centos42f.pp"
     end
-
-
 
     centos42f.vm.provision :puppet do |puppet|
       puppet.manifests_path = ".."
@@ -60,11 +56,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     	provider.region = config['digital_ocean_region']
     	provider.token = config['digital_ocean_token']
 
-
       override.vm.box = 'digital_ocean'
       override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-
-
       #provider.size = 4096mb
 
     	provider.image = "centos-7-0-x64"
@@ -94,84 +87,83 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
 
-    config.vm.define "ubuntu42f"
+  config.vm.define "ubuntu42f"
 
 
-      ubuntu42f.vm.provider :digital_ocean do |provider, override|
+    ubuntu42f.vm.provider :digital_ocean do |provider, override|
 
-        override.ssh.private_key_path = config['private_key_path']
-    	  provider.region = config['digital_ocean_region']
-    	  provider.token = config['digital_ocean_token']
+      override.ssh.private_key_path = config['private_key_path']
+  	  provider.region = config['digital_ocean_region']
+  	  provider.token = config['digital_ocean_token']
+
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+      provider.size = 4096mb
+
+   	  provider.image = "ubuntu-15-04-x64"
+
+    end
+
+    #ubuntu42f.vm.box = "ubuntu/vivid64"
+
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      ubuntu42f.vbguest.auto_update = true
+    end
+
+    ubuntu42f.vm.network :forwarded_port, guest: 8443, host: 8443
+
+    ubuntu42f.vm.provision :shell do |shell|
+      shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+      #shell.inline = "echo 'class { \'alfresco\': alfresco_version=4.2.f domain_name=localhost }' > ubuntu42f.pp"
+    end
+
+    ubuntu42f.vm.provision :puppet do |puppet|
+      puppet.manifests_path = ".."
+      puppet.manifest_file  = "ubuntu42f.pp"
+      puppet.module_path = ["../modules"]
+    end
+  end
 
 
-        override.vm.box = 'digital_ocean'
-        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-        provider.size = 4096mb
+  config.vm.define "ubuntu50x"
 
-     	  provider.image = "ubuntu-15-04-x64"
 
-      end
+    ubuntu50x.vm.provider :digital_ocean do |provider, override|
 
-      ubuntu42f.vm.box = "ubuntu/vivid64"
+  	  override.ssh.private_key_path = config['private_key_path']
+  	  provider.region = config['digital_ocean_region']
+  	  provider.token = config['digital_ocean_token']
 
-      if Vagrant.has_plugin?("vagrant-vbguest")
-        ubuntu42f.vbguest.auto_update = true
-      end
 
-      ubuntu42f.vm.network :forwarded_port, guest: 8443, host: 8443
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-      ubuntu42f.vm.provision :shell do |shell|
-        shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
-        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=4.2.f domain_name=localhost }' > ubuntu42f.pp"
-      end
+      provider.size = 4096mb
 
-      ubuntu42f.vm.provision :puppet do |puppet|
-        puppet.manifests_path = ".."
-        puppet.manifest_file  = "ubuntu42f.pp"
-        puppet.module_path = ["../modules"]
-      end
+  	  #provider.image = "centos-7-0-x64"
+   	  provider.image = "ubuntu-15-04-x64"
+
     end
 
 
-
-    config.vm.define "ubuntu50x"
-
-
-      ubuntu50x.vm.provider :digital_ocean do |provider, override|
-
-    	  override.ssh.private_key_path = config['private_key_path']
-    	  provider.region = config['digital_ocean_region']
-    	  provider.token = config['digital_ocean_token']
-
-
-        override.vm.box = 'digital_ocean'
-        override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-
-        provider.size = 4096mb
-
-    	  #provider.image = "centos-7-0-x64"
-     	  provider.image = "ubuntu-15-04-x64"
-
-      end
-
-
-      if Vagrant.has_plugin?("vagrant-vbguest")
-        ubuntu50x.vbguest.auto_update = true
-      end
-
-      ubuntu50x.vm.network :forwarded_port, guest: 8443, host: 8443
-
-      ubuntu50x.vm.provision :shell do |shell|
-        shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
-        #shell.inline = "echo 'class { \'alfresco\': alfresco_version=5.0.x domain_name=localhost }' > ubuntu50x.pp"
-      end
-
-      ubuntu50x.vm.provision :puppet do |puppet|
-        puppet.manifests_path = ".."
-        puppet.manifest_file  = "ubuntu50x.pp"
-        puppet.module_path = ["../modules"]
-      end
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      ubuntu50x.vbguest.auto_update = true
     end
+
+    ubuntu50x.vm.network :forwarded_port, guest: 8443, host: 8443
+
+    ubuntu50x.vm.provision :shell do |shell|
+      shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+      #shell.inline = "echo 'class { \'alfresco\': alfresco_version=5.0.x domain_name=localhost }' > ubuntu50x.pp"
+    end
+
+    ubuntu50x.vm.provision :puppet do |puppet|
+      puppet.manifests_path = ".."
+      puppet.manifest_file  = "ubuntu50x.pp"
+      puppet.module_path = ["../modules"]
+    end
+  end
 
 end
