@@ -13,7 +13,7 @@ config        = YAML.load_file("#{current_dir}/config.yaml")
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.define "centos42f"
+  config.vm.define "centos42f" do |centos42f|
 
     centos42f.vm.provider :digital_ocean do |provider, override|
 
@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "centos50x"
+  config.vm.define "centos50x" do |centos50x|
 
     centos50x.vm.provider :digital_ocean do |provider, override|
 
@@ -87,7 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
 
-  config.vm.define "ubuntu42f"
+  config.vm.define "ubuntu42f" do |ubuntu42f|
 
 
     ubuntu42f.vm.provider :digital_ocean do |provider, override|
@@ -99,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box = 'digital_ocean'
       override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-      provider.size = 4096mb
+      #provider.size = 4096mb
 
    	  provider.image = "ubuntu-15-04-x64"
 
@@ -127,7 +127,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
 
-  config.vm.define "ubuntu50x"
+  config.vm.define "ubuntu50x" do |ubuntu50x|
 
 
     ubuntu50x.vm.provider :digital_ocean do |provider, override|
@@ -140,7 +140,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box = 'digital_ocean'
       override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
-      provider.size = 4096mb
+      #provider.size = 4096mb
 
   	  #provider.image = "centos-7-0-x64"
    	  provider.image = "ubuntu-15-04-x64"
