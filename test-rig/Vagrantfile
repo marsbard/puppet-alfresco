@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.ssh.private_key_path = config['private_key_path']
     end
 
-    centos42f.vm.box = "puppetlabs/centos-7.0-64-nocm"
+    centos42f.vm.box = "digital_ocean"
 
     if Vagrant.has_plugin?("vagrant-vbguest")
       centos42f.vbguest.auto_update = true
@@ -65,7 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     end
 
-    centos50x.vm.box = "puppetlabs/centos-7.0-64-nocm"
+    centos50x.vm.box = "digital_ocean"
 
     if Vagrant.has_plugin?("vagrant-vbguest")
       centos50x.vbguest.auto_update = true
@@ -105,7 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     end
 
-    #ubuntu42f.vm.box = "ubuntu/vivid64"
+    ubuntu42f.vm.box = "digital_ocean"
 
     if Vagrant.has_plugin?("vagrant-vbguest")
       ubuntu42f.vbguest.auto_update = true
@@ -146,6 +146,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    	  provider.image = "ubuntu-15-04-x64"
 
     end
+
+    ubuntu50x.vm.box = "digital_ocean"
 
 
     if Vagrant.has_plugin?("vagrant-vbguest")
