@@ -56,9 +56,9 @@ class alfresco::packages inherits alfresco {
 
       if $java_version == 8 {
         $jpackage=""
-        include java8
-        package{ 'oracle-java8-set-default':
-          require => Class['java8'],
+	apt::ppa { 'ppa:webupd8team/java': }
+	package { 'oracle-java8-installer': 
+          ensure => installed,
         }
       } else {
         $jpackage="openjdk-7-jdk"
