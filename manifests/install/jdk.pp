@@ -18,7 +18,7 @@ class alfresco::install::jdk inherits alfresco {
           filename => "openjdk-8-jre-headless_${java_release}.deb",
           download_path => $download_path,
         } -> exec {'gdebi-jre-headless':
-          command = '/usr/bin/gdebi -n ${download_path}/openjdk-8-jre-headless_${java_release}.deb',
+          command => '/usr/bin/gdebi -n ${download_path}/openjdk-8-jre-headless_${java_release}.deb',
         }
 
         safe-download { 'openjdk-8-jre':
@@ -26,7 +26,7 @@ class alfresco::install::jdk inherits alfresco {
           filename => "openjdk-8-jre_${java_release}.deb",
           download_path => $download_path,
         } -> exec {'gdebi-jre':
-          command = '/usr/bin/gdebi -n ${download_path}/openjdk-8-jre_${java_release}.deb',
+          command => '/usr/bin/gdebi -n ${download_path}/openjdk-8-jre_${java_release}.deb',
         }
 
         safe-download { 'openjdk-8-jdk':
@@ -34,7 +34,7 @@ class alfresco::install::jdk inherits alfresco {
           filename => "openjdk-8-jdk_${java_release}.deb",
           download_path => $download_path,
         } -> exec {'gdebi-jdk':
-          command = '/usr/bin/gdebi -n ${download_path}/openjdk-8-jdk_${java_release}.deb',
+          command => '/usr/bin/gdebi -n ${download_path}/openjdk-8-jdk_${java_release}.deb',
         }
 
 
