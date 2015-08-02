@@ -1,6 +1,5 @@
 class alfresco::packages inherits alfresco {
 
-  class { 'alfresco::install::jdk': }
 
   define ensure_packages ($ensure = "present") {
     if defined(Package[$title]) {}
