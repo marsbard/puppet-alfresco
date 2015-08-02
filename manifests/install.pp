@@ -5,7 +5,7 @@ class alfresco::install inherits alfresco {
   class { 'alfresco::install::mysql': }
   class { 'alfresco::install::proxy': }
   class { 'alfresco::install::iptables': }
-
+  class { 'alfresco::install::jdk': }
 
 	file { $download_path:
 		ensure => "directory",
@@ -36,7 +36,7 @@ class alfresco::install inherits alfresco {
 	}
 	user { "tomcat":
 		ensure => present,
-		before => [ 
+		before => [
 			Exec["unpack-alfresco-war"],
 			Exec["unpack-share-war"],
 		],
@@ -123,7 +123,7 @@ class alfresco::install inherits alfresco {
     user => 'tomcat',
 		command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat ${tomcat_home}",
 		path => "/bin:/usr/bin",
-		provider => shell,		
+		provider => shell,
 		require => [ Exec["unpack-tomcat"], User["tomcat"], ],
 		creates => "${tomcat_home}/RUNNING.txt",
 	}
@@ -158,8 +158,8 @@ class alfresco::install inherits alfresco {
 	file { "${alfresco_base_dir}":
 		ensure => directory,
 		owner => "tomcat",
-		require => [ 
-			User["tomcat"], 
+		require => [
+			User["tomcat"],
 		],
 	}
 
@@ -175,7 +175,7 @@ class alfresco::install inherits alfresco {
 		owner => 'tomcat',
 		source => 'puppet:///modules/alfresco/limitconvert.sh',
 	}
-	
+
 	file { "${alfresco_base_dir}/scripts/replacefiles.py":
 		ensure => present,
 		mode => '0755',
@@ -217,7 +217,7 @@ class alfresco::install inherits alfresco {
   }
 
 
-	
+
 
 	file { "${alfresco_base_dir}/alf_data/keystore":
 		ensure => directory,
@@ -255,15 +255,15 @@ class alfresco::install inherits alfresco {
 		$cwd="",
 		$creates="",
 		$require="",
-		$user="") {                                                                                         
+		$user="") {
 
-#		exec { $name:                                                                                                                     
-#			command => "wget ${site}/${name}",    
-#			path => "/usr/bin",                                                     
+#		exec { $name:
+#			command => "wget ${site}/${name}",
+#			path => "/usr/bin",
 #			cwd => $cwd,
-#			creates => "${cwd}/${name}",                                                              
+#			creates => "${cwd}/${name}",
 #			require => $require,
-#			user => $user,                                                                                                          
+#			user => $user,
 #      timeout => 0,
 #		}
 
@@ -289,11 +289,11 @@ class alfresco::install inherits alfresco {
 		site => "$keystorebase",
 		cwd => "${alfresco_base_dir}/alf_data/keystore",
 		creates => "${alfresco_base_dir}/alf_data/keystore/${name}",
-		require => [ 
-			User["tomcat"], 
+		require => [
+			User["tomcat"],
 		],
 		user => "tomcat",
-	}	
+	}
 
 
 #	exec { "retrieve-loffice":
@@ -331,7 +331,7 @@ class alfresco::install inherits alfresco {
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",
-		
+
 			}
 
 		}
@@ -344,15 +344,15 @@ class alfresco::install inherits alfresco {
 				path => "/bin:/usr/bin:/sbin:/usr/sbin",
 				require => Exec["unpack-loffice"],
 				creates => "${lo_install_loc}",
-		
+
 			}
 
 		}
 		default:{
 			fail("Unsupported osfamily $osfamily")
-		} 
+		}
 	}
-	
+
 
 
 ##################################################
@@ -370,7 +370,7 @@ class alfresco::install inherits alfresco {
 				"gcc",
 				"gcc-c++"
 			]
-			
+
 			safe-download { 'swftools':
 				url => $urls::swftools_src_url,
 				filename => "${urls::swftools_src_name}.tar.gz",
@@ -398,12 +398,12 @@ class alfresco::install inherits alfresco {
 		'Debian': {
 			$swfpkgs = [
 				"build-essential",
-				"ccache", 
-				"g++", 
-				"libgif-dev", 
-				"libjpeg62-dev", 
-				"libfreetype6-dev", 
-				"libpng12-dev", 
+				"ccache",
+				"g++",
+				"libgif-dev",
+				"libjpeg62-dev",
+				"libfreetype6-dev",
+				"libpng12-dev",
 				"libt1-dev",
 			]
 
@@ -413,7 +413,7 @@ class alfresco::install inherits alfresco {
 				filename => "${urls::swftools_src_name}.tar.gz",
 				download_path => $download_path,
 			}
-		
+
 			exec { "unpack-swftools":
         user => 'tomcat',
 				command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
@@ -436,12 +436,11 @@ class alfresco::install inherits alfresco {
 		}
 		default:{
 			fail("Unsupported osfamily $osfamily")
-		} 
+		}
 	}
 
 			package { $swfpkgs:
 					ensure => "installed",
 			}
-	
-}
 
+}
