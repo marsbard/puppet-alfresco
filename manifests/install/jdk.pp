@@ -42,15 +42,16 @@ class alfresco::install::jdk inherits alfresco {
         $jpackage="openjdk-7-jdk"
         ensure_packages { "$jpackage": }
       }
-  }
-  'RedHat': {
-    if $java_version == 8 {
-      $jpackage="java-1.8.0-openjdk"
-    } else {
-      $jpackage="java-1.7.0-openjdk"
     }
-    package { $jpackage:
-      ensure => installed,
+    'RedHat': {
+      if $java_version == 8 {
+        $jpackage="java-1.8.0-openjdk"
+      } else {
+        $jpackage="java-1.7.0-openjdk"
+      }
+      package { $jpackage:
+        ensure => installed,
+      }
     }
   }
 }
