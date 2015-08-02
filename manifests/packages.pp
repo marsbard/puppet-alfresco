@@ -1,6 +1,6 @@
 class alfresco::packages inherits alfresco {
 
-  $java_version = 8
+  class { 'alfresco::install::jdk': }
 
   define ensure_packages ($ensure = "present") {
     if defined(Package[$title]) {}
@@ -31,16 +31,10 @@ class alfresco::packages inherits alfresco {
 
     Exec['guard-against-prev-broken'] -> Class['epel'] -> Exec["get-repoforge"] -> Package <| |>
 
-    if $java_version == 8 {
-      $jpackage="java-1.8.0-openjdk"
-    } else {
-      $jpackage="java-1.7.0-openjdk"
-    }
 
     $packages = [
       "wget",
       "git",
-      $jpackage,
       "zip",
       "unzip",
       "curl",
@@ -56,9 +50,11 @@ class alfresco::packages inherits alfresco {
 
       if $java_version == 8 {
         $jpackage=""
+        # auto accept oracle license: http://askubuntu.com/a/190674/33804
+
 	      class { 'apt': } ->
         apt::ppa { 'ppa:webupd8team/java': } ->
-	      package { 'oracle-java8-installer': 
+	      package { 'oracle-java8-installer':
           ensure => installed,
         }
       } else {
