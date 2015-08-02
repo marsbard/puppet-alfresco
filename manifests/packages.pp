@@ -51,13 +51,14 @@ class alfresco::packages inherits alfresco {
     $rmpackages = [
       ]
     }
-    
+
     'Debian': {
 
       if $java_version == 8 {
         $jpackage=""
-	::apt::ppa { 'ppa:webupd8team/java': }
-	package { 'oracle-java8-installer': 
+	      class { 'apt': } ->
+        apt::ppa { 'ppa:webupd8team/java': } ->
+	      package { 'oracle-java8-installer': 
           ensure => installed,
         }
       } else {
