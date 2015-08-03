@@ -1,22 +1,22 @@
 class alfresco::addons inherits alfresco {
 
-	include alfresco::addons::rm
-	include alfresco::addons::jsconsole
+  include alfresco::addons::rm
+  include alfresco::addons::jsconsole
 
-	# TODO work out the wrapping up of jar into amp correctly
-	#class { 'alfresco::addons::webscripts':
-	#}
+  # TODO work out the wrapping up of jar into amp correctly
+  #class { 'alfresco::addons::webscripts':
+  #}
 
-	#class { 'alfresco::addons::filebrowser':
-	#}
-	
+  #class { 'alfresco::addons::filebrowser':
+  #}
+
   class { 'alfresco::addons::ootbfrontpage':}
-   
-	class { 'alfresco::addons::ootbbeetheme':
-    notify => Exec['apply-addons'],
-	}
 
-  
+  class { 'alfresco::addons::ootbbeetheme':
+    notify => Exec['apply-addons'],
+  }
+
+
   # TODO this should be optional based on a parameter
   #class { 'alfresco::addons::aaar':
   #  notify => Exec['apply-addons'],
@@ -35,10 +35,10 @@ class alfresco::addons inherits alfresco {
     notify => Service['alfresco-start'],
   }
 
-	exec { "apply-addons":
+  exec { "apply-addons":
     require => [
       File["${alfresco_base_dir}/bin/apply_amps.sh"],
-			File["${alfresco_base_dir}/bin/alfresco-mmt.jar"],
+      File["${alfresco_base_dir}/bin/alfresco-mmt.jar"],
     ],
     path => "/bin:/usr/bin",
     command => "${alfresco_base_dir}/bin/apply_amps.sh",
@@ -55,23 +55,23 @@ class alfresco::addons inherits alfresco {
     owner => 'tomcat',
   }
 
-	file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
-		ensure => present,
-		mode => '0755',
-		#source => "${download_path}/alfresco/bin/clean_tomcat.sh",
+  file { "${alfresco_base_dir}/bin/clean_tomcat.sh":
+    ensure => present,
+    mode => '0755',
+    #source => "${download_path}/alfresco/bin/clean_tomcat.sh",
     source => 'puppet:///modules/alfresco/clean_tomcat.sh',
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
   }
- 
-	file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
-		ensure => present,
-		mode => '0755',
-		#source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
+
+  file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
+    ensure => present,
+    mode => '0755',
+    #source => "${download_path}/alfresco/bin/alfresco-mmt.jar",
     source => 'puppet:///modules/alfresco/alfresco-mmt.jar',
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
-	}
+  }
 
   #exec { "fix-war-permissions":
   #  path => "/bin:/usr/bin",
@@ -84,26 +84,26 @@ class alfresco::addons inherits alfresco {
   #  ]
   #}
 
-#	exec { "unpack-alfresco-war": 
-#		require => [
-#			Exec["${tomcat_home}/webapps/alfresco.war"],
+#  exec { "unpack-alfresco-war":
+#    require => [
+#      Exec["${tomcat_home}/webapps/alfresco.war"],
 #      Exec['apply-addons'],
-#		],
-#		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco", 
-#		creates => "${tomcat_home}/webapps/alfresco/",
+#    ],
+#    path => "/bin:/usr/bin",
+#    command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco",
+#    creates => "${tomcat_home}/webapps/alfresco/",
 #    notify => Service['tomcat'],
-#	}
+#  }
 #
-#	exec { "unpack-share-war": 
-#		require => [
-#			Exec["${tomcat_home}/webapps/share.war"],
+#  exec { "unpack-share-war":
+#    require => [
+#      Exec["${tomcat_home}/webapps/share.war"],
 #      Exec['apply-addons'],
-#		],
-#		path => "/bin:/usr/bin",
-#		command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share", 
-#		creates => "${tomcat_home}/webapps/share/",
+#    ],
+#    path => "/bin:/usr/bin",
+#    command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share",
+#    creates => "${tomcat_home}/webapps/share/",
 #    notify => Service['tomcat'],
-#	}
+#  }
 
 }
