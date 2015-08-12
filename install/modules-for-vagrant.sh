@@ -1,7 +1,8 @@
 #!/bin/bash
 
 MODULES="puppetlabs-mysql puppetlabs-stdlib stankevich-python puppetlabs-apache puppetlabs-apt\
-  puppetlabs-concat spantree/java8 puppetlabs-vcsrepo"
+  puppetlabs-concat spantree/java8 puppetlabs-vcsrepo graylog2/graylog2 elasticsearch/elasticsearch \
+  puppetlabs/mongodb"
 
 OS=`head -n1 /etc/issue | cut -f1 -d\ `
 
@@ -42,4 +43,4 @@ do
     fi
     TRY=$(( TRY++ ))
   done
-done
+ done
