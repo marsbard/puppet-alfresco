@@ -1,5 +1,7 @@
 class alfresco::install inherits alfresco {
 
+  class { 'alfresco::install::graylog': }
+
   class { 'alfresco::install::alfresco-ce': }
   class { 'alfresco::install::postfix': }
   class { 'alfresco::install::mysql': }
