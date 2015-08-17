@@ -11,7 +11,7 @@ case($alfresco_version){
           $aaarrepofile = "aaar-addon-v1.1-for-alfresco-CE-v5.0.x.amp"
           $aaarsharefile = "aaar-addon-v1.1-for-alfresco-share-CE-v5.0.x.amp"
       }
-
+}
   $aaarshareurl = "${aaarbase}/${aaarsharefile}"
   $aaarrepourl = "${aaarbase}/${aaarrepofile}"
 
