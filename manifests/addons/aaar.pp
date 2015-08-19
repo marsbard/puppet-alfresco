@@ -8,8 +8,8 @@ case($alfresco_version){
           $aaarsharefile = "aaar-addon-v1.1-for-alfresco-share-CE-v4.2.x.amp"
       }
   		'5.0.x','NIGHTLY': {
-          $aaarrepofile = "aaar-addon-v1.1-for-alfresco-CE-v5.0.x.amp"
-          $aaarsharefile = "aaar-addon-v1.1-for-alfresco-share-CE-v5.0.x.amp"
+				  $aaarrepofile = "aaar-repo-v1.1-Alfresco-CE-v5.0.d.amp"
+					$aaarsharefile = "aaar-share-v1.1-Alfresco-CE-v5.0.d.amp"
       }
 }
   $aaarshareurl = "${aaarbase}/${aaarsharefile}"
