@@ -126,5 +126,5 @@ A note about [sharepoint support](docs/sharepoint.md) - tl;dr? use `https://<dom
 
 #### <a name='installation-methods'></a>Other installation methods
 
-There were a couple of other installtion methods. For historical reasons [they are recorded here](docs/other-install.md)
+There were a couple of other installation methods. For historical reasons [they are recorded here](docs/other-install.md)
 
