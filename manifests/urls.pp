@@ -3,9 +3,9 @@ class urls {
   $v50x = '5.0.d'
   $v42x = '4.2.f'
 
-  $nightly = 'http://dev.alfresco.com/downloads/nightly/dist/alfresco-community-SNAPSHOT-LATEST-manual-install.zip'
+  $nightly = 'http://dev.alfresco.com/downloads/nightly/dist/alfresco-community-distribution-SNAPSHOT-LATEST.zip'
   $nightly_name = 'alfresco-community-distribution'
-  $nightly_filename = 'alfresco-community-SNAPSHOT-LATEST-manual-install.zip'
+  $nightly_filename = 'alfresco-community-distribution-SNAPSHOT-LATEST.zip'
 
 
 
