@@ -73,23 +73,23 @@
 #
 
 class alfresco (
-	$domain_name			= $alfresco::params::domain_name,
-	$initial_admin_pass		= $alfresco::params::initial_admin_pass,
-	$mail_from_default		= $alfresco::params::mail_from_default,	
-	$alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
-	$tomcat_home			= $alfresco::params::tomcat_home,
-	$alfresco_version		= $alfresco::params::alfresco_version,
-	$download_path			= $alfresco::params::download_path,
-	$db_root_password		= $alfresco::params::db_root_password	,
-	$db_user			= $alfresco::params::db_user,
-	$db_pass			= $alfresco::params::db_pass,
-	$db_name			= $alfresco::params::db_name,
-	$db_host			= $alfresco::params::db_host,
-	$db_port			= 3306,
+  $domain_name			= $alfresco::params::domain_name,
+  $initial_admin_pass		= $alfresco::params::initial_admin_pass,
+  $mail_from_default		= $alfresco::params::mail_from_default,	
+  $alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
+  $tomcat_home			= $alfresco::params::tomcat_home,
+  $alfresco_version		= $alfresco::params::alfresco_version,
+  $download_path			= $alfresco::params::download_path,
+  $db_root_password		= $alfresco::params::db_root_password	,
+  $db_user			= $alfresco::params::db_user,
+  $db_pass			= $alfresco::params::db_pass,
+  $db_name			= $alfresco::params::db_name,
+  $db_host			= $alfresco::params::db_host,
+  $db_port			= 3306,
   $mail_host    = 'localhost',
   $mail_port    = 25,
-	$mem_xmx			= "32G",
-	$mem_xxmaxpermsize		= "512m",
+  $mem_xmx			= "32G",
+  $mem_xxmaxpermsize		= "512m",
   $delay_before_tests = 1,
   $apt_cache_host = '',
   $apt_cache_port = 3142,
@@ -97,134 +97,134 @@ class alfresco (
   $enable_proxy = true
 ) inherits alfresco::params {
 
-	include urls
+  include urls
 
-	$admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
+  $admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
   notice("alfresco_version = ${alfresco_version}")
 
-	# add JAVA_OPTS with memory settings - TODO this won't work for CentOS
-	$java_opts = "-Xmx${mem_xmx} -Xms${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize} -server"
+  # add JAVA_OPTS with memory settings - TODO this won't work for CentOS
+  $java_opts = "-Xmx${mem_xmx} -Xms${mem_xmx} -XX:MaxPermSize=${mem_xxmaxpermsize} -server"
 
-	# at some point I'll use these for a non-allinone version. For now pre-empting
-	# the change where I can but do not try editing these, please.
-	$repo_host = $domain_name
-	$share_host = $domain_name
-	$solr_host = $domain_name
-	
+  # at some point I'll use these for a non-allinone version. For now pre-empting
+  # the change where I can but do not try editing these, please.
+  $repo_host = $domain_name
+  $share_host = $domain_name
+  $solr_host = $domain_name
 
-	case($alfresco_version){
-		'4.2.f': {
-			$alfresco_ce_url = $urls::alfresco_ce
+
+  case($alfresco_version){
+    '4.2.f': {
+      $alfresco_ce_url = $urls::alfresco_ce
       $indexer = 'solr'
       $cmis_url = '/alfresco/s/cmis'
-		}
+    }
     '5.0.x', 'NIGHTLY': {
       $indexer = 'solr4'
       $cmis_url = '/alfresco/cmisatom'
     }
-		default: {
-			fail("Unsupported version ${alfresco_version}")
-		}	
-	}
+    default: {
+      fail("Unsupported version ${alfresco_version}")
+    }	
+  }
 
 
-	
+
  case $::osfamily {
   'RedHat': {
-		$loffice_dl="${urls::loffice_dl_red}"
-		$loffice_name="${urls::loffice_name_red}"
-	}
-	'Debian': {
-		$loffice_dl="${urls::loffice_dl_deb}"
-		$loffice_name="${urls::loffice_name_deb}"
+    $loffice_dl="${urls::loffice_dl_red}"
+    $loffice_name="${urls::loffice_name_red}"
   }
-		default:{
-			fail("Unsupported osfamily $osfamily")
-		} 
-	}
-	$lo_install_loc = "/opt/libreoffice4.2"
+  'Debian': {
+    $loffice_dl="${urls::loffice_dl_deb}"
+    $loffice_name="${urls::loffice_name_deb}"
+  }
+  default:{
+    fail("Unsupported osfamily $osfamily")
+  } 
+ }
+  $lo_install_loc = "/opt/libreoffice4.2"
 
-	$keystorebase = "http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/HEAD/root/projects/repository/config/alfresco/keystore"
+  $keystorebase = "http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/HEAD/root/projects/repository/config/alfresco/keystore"
 
-	$alfresco_db_name = $db_name
-	$alfresco_db_user = $db_user
-	$alfresco_db_pass = $db_pass
-	$alfresco_db_host = $db_host
-	$alfresco_db_port = $db_port
-	
+  $alfresco_db_name = $db_name
+  $alfresco_db_user = $db_user
+  $alfresco_db_pass = $db_pass
+  $alfresco_db_host = $db_host
+  $alfresco_db_port = $db_port
 
-	$alfresco_unpacked = "${download_path}/alfresco"
-	$alfresco_war_loc = "${alfresco_unpacked}/web-server/webapps"
+
+  $alfresco_unpacked = "${download_path}/alfresco"
+  $alfresco_war_loc = "${alfresco_unpacked}/web-server/webapps"
 
 
   define safe-download (
-		$url,								# complete url to download the file from
-		$filename,					# the filename of the download package
-		$download_path,			# where to put the file
-		$user = 'tomcat',
-		$timeout = 0,
-		) { 
-		exec { "safe-clean-any-old-${title}":
-			command => "/bin/rm -f ${download_path}/tmp__${filename}",
+    $url,								# complete url to download the file from
+    $filename,					# the filename of the download package
+    $download_path,			# where to put the file
+    $user = 'tomcat',
+    $timeout = 0,
+  ) { 
+      exec { "safe-clean-any-old-${title}":
+      command => "/bin/rm -f ${download_path}/tmp__${filename}",
+      creates => "${download_path}/${filename}",
+      require => File[$download_path],
+      user => $user,
+      timeout => $timeout,
+      } ->  
+      exec { "safe-retrieve-${title}":
+      command => "/usr/bin/wget ${url} -O ${download_path}/tmp__${filename}",
 			creates => "${download_path}/${filename}",
-			require => File[$download_path],
-			user => $user,
-			timeout => $timeout,
-		} ->  
-		exec { "safe-retrieve-${title}":
-			command => "/usr/bin/wget ${url} -O ${download_path}/tmp__${filename}",
-			creates => "${download_path}/${filename}",
-			user => $user,
-			timeout => $timeout,
-		} ->
-		exec { "safe-move-${title}":
-			command => "/bin/mv ${download_path}/tmp__${filename} ${download_path}/${filename}",
-			creates => "${download_path}/${filename}",
-			user => $user,
-			timeout => $timeout,
-		}   
-	}
+      user => $user,
+      timeout => $timeout,
+      } ->
+      exec { "safe-move-${title}":
+      command => "/bin/mv ${download_path}/tmp__${filename} ${download_path}/${filename}",
+      creates => "${download_path}/${filename}",
+      user => $user,
+      timeout => $timeout,
+      }   
+    }
 
 
-	# write a config file for BART, will also make the templated files refer to these:
+  # write a config file for BART, will also make the templated files refer to these:
   file { "${alfresco_base_dir}/scripts":
-	  ensure => directory,
-		require => File[$alfresco_base_dir],
-	} -> 
-	file { "${alfresco_base_dir}/scripts/bart.conf":
-		ensure => present,
-		content => "ALF_BASE_DIR=${alfresco_base_dir}\nINDEXER=${indexer}\nDB_NAME=${db_name}\nDB_PASS=${db_pass}\nDB_HOST=${db_host}\nDB_USER=${db_user}\n"
-	}
+    ensure => directory,
+    require => File[$alfresco_base_dir],
+  } -> 
+  file { "${alfresco_base_dir}/scripts/bart.conf":
+    ensure => present,
+    content => "ALF_BASE_DIR=${alfresco_base_dir}\nINDEXER=${indexer}\nDB_NAME=${db_name}\nDB_PASS=${db_pass}\nDB_HOST=${db_host}\nDB_USER=${db_user}\n"
+  }
 
 
-	#http://askubuntu.com/a/519783/33804
-	if($osfamily == 'Debian'){
-		exec{ "reinstall-bsdutils":
-			command => "apt-get -y --reinstall install bsdutils",
-			path => "/bin:/usr/bin:/sbin:/usr/sbin",	
-			creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
-		}
-	}
+  #http://askubuntu.com/a/519783/33804
+  if($osfamily == 'Debian'){
+    exec{ "reinstall-bsdutils":
+    command => "apt-get -y --reinstall install bsdutils",
+    path => "/bin:/usr/bin:/sbin:/usr/sbin",	
+    creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
+    }
+  }
 
-	# on centos - no suitable provider for cron
-	if($osfamily == 'RedHat'){
-		package { 'cronie':
-			ensure => installed,
-			before => Class['alfresco::install'],
-		}
-	}	
+  # on centos - no suitable provider for cron
+  if($osfamily == 'RedHat'){
+    package { 'cronie':
+      ensure => installed,
+      before => Class['alfresco::install'],
+    }
+  }	
 
 
-	# for some reason packages are being applied out of order, so bind them to a run stage:
-	stage { 'deps':
-		before => Stage['main'],	
-	}
-	class { 'alfresco::packages':
-		stage => 'deps',
-	}
-	stage { 'aptcache':
-    before => Stage['deps'],
+  # for some reason packages are being applied out of order, so bind them to a run stage:
+  stage { 'deps':
+   before => Stage['main'],	
+  }
+  class { 'alfresco::packages':
+   stage => 'deps',
+  }
+  stage { 'aptcache':
+   before => Stage['deps'],
   }
   class { 'alfresco::aptcache':
     stage => 'aptcache',
@@ -235,14 +235,14 @@ class alfresco (
   class { 'alfresco::nightly':
   }
 
-	anchor { 'alfresco::begin': } ->
-	class { 'alfresco::install': } ->
-	class { 'alfresco::install::solr': } ->
-	class { 'alfresco::addons': } ->
-	class { 'alfresco::config': 
-		notify => Class['alfresco::service'],
-	} ->
-	class { 'alfresco::service': } ->
-	anchor { 'alfresco::end': }
+  anchor { 'alfresco::begin': } ->
+  class { 'alfresco::install': } ->
+  class { 'alfresco::install::solr': } ->
+  class { 'alfresco::addons': } ->
+  class { 'alfresco::config': 
+     notify => Class['alfresco::service'],
+  } ->
+  class { 'alfresco::service': } ->
+  anchor { 'alfresco::end': }
 	
 }
