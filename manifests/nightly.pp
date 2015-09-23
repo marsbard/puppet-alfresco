@@ -15,7 +15,7 @@ class alfresco::nightly inherits alfresco{
             Safe-download['nightly'], 
             #File[$alfresco_base_dir],
           ],
-          command => "unzip ${download_path}/${urls::nightly_filename}",
+          command => "unzip ${download_path}/${urls::nightly_filename} ${download_path}/${urls::nightly_name}",
           path => '/usr/bin',
           creates => "${download_path}/${urls::nightly_name}/README.txt",
           cwd => $download_path,
