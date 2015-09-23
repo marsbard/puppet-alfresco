@@ -3,7 +3,8 @@ function install_puppet {
 	echo Installing puppet
 	if [ -f /etc/redhat-release ]
 	then
-		EL_MAJ_VER=`head -n1 /etc/redhat-release | cut -f4 -d\ | cut -f1 -d.`
+		#EL_MAJ_VER=`head -n1 /etc/redhat-release | cut -f4 -d\ | cut -f1 -d.`
+		EL_MAJ_VER=`uname -rv | cut -f2 -d.`
 		rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-${EL_MAJ_VER}.noarch.rpm
 		yum install -y puppet
 	fi
