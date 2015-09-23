@@ -3,11 +3,11 @@ class alfresco::nightly inherits alfresco{
   case $alfresco_version {
     'NIGHTLY': {
 
-				safe-download { 'nightly':
-					url => "${urls::nightly}",
-					filename => "${urls::nightly_filename}",
-					download_path => $download_path,
-				}
+        safe-download { 'nightly':
+          url => "${urls::nightly}",
+          filename => "${urls::nightly_filename}",
+          download_path => $download_path,
+        }
 
         exec { 'unpack-nightly':
           user => 'tomcat',
@@ -44,14 +44,14 @@ class alfresco::nightly inherits alfresco{
         exec { "${tomcat_home}/webapps/alfresco.war":
           user => 'tomcat',
           command => "touch /tmp/fake.get.alfresco.war",
-					path => '/bin:/usr/bin',
+          path => '/bin:/usr/bin',
           creates => "/tmp/fake.get.alfresco.war",
         }
 
         exec { "${tomcat_home}/webapps/share.war":
           user => 'tomcat',
           command => "touch /tmp/fake.get.share.war",
-					path => '/bin:/usr/bin',
+          path => '/bin:/usr/bin',
           creates => "/tmp/fake.get.share.war",
         }
     }
