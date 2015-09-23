@@ -159,9 +159,9 @@ class alfresco (
 
 
   define safe-download (
-    $url,								# complete url to download the file from
-    $filename,					# the filename of the download package
-    $download_path,			# where to put the file
+    $url,               # complete url to download the file from
+    $filename,          # the filename of the download package
+    $download_path,     # where to put the file
     $user = 'tomcat',
     $timeout = 0,
   ) { 
