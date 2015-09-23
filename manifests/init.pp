@@ -174,7 +174,7 @@ class alfresco (
       } ->  
       exec { "safe-retrieve-${title}":
       command => "/usr/bin/wget ${url} -O ${download_path}/tmp__${filename}",
-			creates => "${download_path}/${filename}",
+      creates => "${download_path}/${filename}",
       user => $user,
       timeout => $timeout,
       } ->
@@ -244,5 +244,5 @@ class alfresco (
   } ->
   class { 'alfresco::service': } ->
   anchor { 'alfresco::end': }
-	
+
 }
