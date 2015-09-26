@@ -4,8 +4,8 @@ class alfresco::addons::aaar inherits alfresco::addons {
 
 case($alfresco_version){
       '4.2.f': {
-          $aaarrepofile = "aaar-repo-v1.1-for-alfresco-CE-v4.2.x.amp"
-          $aaarsharefile = "aaar-share-v1.1-for-alfresco-CE-v4.2.x.amp"
+          $aaarrepofile = "aaar-repo-v1.1-Alfresco-CE-v4.2.x.amp"
+          $aaarsharefile = "aaar-share-v1.1-Alfresco-CE-v4.2.x.amp"
       }
   		'5.0.x','NIGHTLY': {
 				  $aaarrepofile = "aaar-repo-v1.1-Alfresco-CE-v5.0.d.amp"
