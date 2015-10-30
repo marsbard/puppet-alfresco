@@ -1,4 +1,4 @@
-==MIT License (MIT)==
+MIT License (MIT)
 
 The MIT License (MIT)
 
