@@ -1,16 +1,24 @@
 class alfresco::addons::aaar inherits alfresco::addons {
 
-	$aaarbase = "https://github.com/fcorti/alfresco-audit-analysis-reporting/releases/download/v3.1"
+	$aaarbase = "https://github.com/fcorti/alfresco-audit-analysis-reporting/releases/download/v4.0"
 
 case($alfresco_version){
       '4.2.f': {
-          $aaarrepofile = "aaar-repo-v1.1-Alfresco-CE-v4.2.x.amp"
-          $aaarsharefile = "aaar-share-v1.1-Alfresco-CE-v4.2.x.amp"
+          $aaarrepofile = "AAAR-Alfresco-CE-v4.2-Repository-v1.2.amp"
+          $aaarsharefile = "AAAR-Alfresco-CE-v4.2-Share-v1.2.amp"
       }
-  		'5.0.x','NIGHTLY': {
-				  $aaarrepofile = "aaar-repo-v1.1-Alfresco-CE-v5.0.d.amp"
-					$aaarsharefile = "aaar-share-v1.1-Alfresco-CE-v5.0.d.amp"
+  		'5.0.x': {
+				  $aaarrepofile = "AAAR-Alfresco-CE-v5.0.d-Repository-v1.2.amp"
+					$aaarsharefile = "AAAR-Alfresco-CE-v5.0.d-Share-v1.2.amp"
       }
+			'5.1.x': {
+          $aaarrepofile = "AAAR-Alfresco-CE-v5.1-Repository-v1.2.amp"
+					$aaarsharefile = "AAAR-Alfresco-CE-v5.1-Share-v1.2.amp"
+			}
+			'NIGHTLY': {
+          $aaarrepofile = "AAAR-Alfresco-CE-v5.1-Repository-v1.2.amp"
+					$aaarsharefile = "AAAR-Alfresco-CE-v5.1-Share-v1.2.amp"
+			}
 }
   $aaarshareurl = "${aaarbase}/${aaarsharefile}"
   $aaarrepourl = "${aaarbase}/${aaarrepofile}"
