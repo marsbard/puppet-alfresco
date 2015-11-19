@@ -19,7 +19,7 @@ class alfresco::install::iptables inherits alfresco {
   # let's restart and hope that if not already running it's not a failure
   exec { '/etc/init.d/iptables restart':
     require => File['/etc/init.d/iptables'], 
-		unless => '/sbin/iptables -nL -t nat | grep "tcp dpt:21 redir ports 2021"',
+    unless => '/sbin/iptables -nL -t nat | grep "tcp dpt:21 redir ports 2021"',
   }
 
 }

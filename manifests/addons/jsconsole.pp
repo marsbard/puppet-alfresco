@@ -1,13 +1,13 @@
 class alfresco::addons::jsconsole inherits alfresco::addons {
 
-	$filename_jsconsole = "javascript-console-0.5.1.zip"
-	$url_jsconsole = "https://share-extras.googlecode.com/files/${filename_jsconsole}"
+  $filename_jsconsole = "javascript-console-0.5.1.zip"
+  $url_jsconsole = "https://share-extras.googlecode.com/files/${filename_jsconsole}"
 
-	safe-download {'jsconsole':
-		url => $url_jsconsole,
-		filename => $filename_jsconsole,
-		download_path => $download_path,
-	}
+  safe-download {'jsconsole':
+    url => $url_jsconsole,
+    filename => $filename_jsconsole,
+    download_path => $download_path,
+  }
 
   exec { "unpack-jsconsole":
     user => 'tomcat',
@@ -17,7 +17,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
     require => [
       File["${download_path}/jsconsole"],
       Safe-download["jsconsole"],
-			Package["unzip"],
+      Package["unzip"],
     ],
     path => "/usr/bin",
   }
@@ -35,7 +35,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
     require => [
       Exec["unpack-jsconsole"],
     ],
-		notify => Exec["apply-addons"],
+    notify => Exec["apply-addons"],
     owner => 'tomcat',
   }
 
@@ -45,7 +45,7 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
     require => [
       Exec["unpack-jsconsole"],
     ],
-		notify => Exec["apply-addons"],
+    notify => Exec["apply-addons"],
     owner => 'tomcat',
   }
 

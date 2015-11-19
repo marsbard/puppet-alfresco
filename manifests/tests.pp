@@ -95,18 +95,18 @@ class alfresco::tests inherits alfresco {
   define runtests (
     $base_dir = ''
   ){ 
-		exec { $title:
-			command =>  "python ${title}",
+    exec { $title:
+      command =>  "python ${title}",
       cwd => "${base_dir}/tests",
-			path => '/bin:/usr/bin',
-		}
+      path => '/bin:/usr/bin',
+    }
   }
 
   vcsrepo { "${alfresco_base_dir}/tests":
-	ensure => latest,
-	provider => git,
-	source => 'git://github.com/digcat/alfresco-tests.git',
-	revision => 'master',
+  ensure => latest,
+  provider => git,
+  source => 'git://github.com/digcat/alfresco-tests.git',
+  revision => 'master',
   } ->
   file { "${alfresco_base_dir}/tests/config.yml":
     content => template('alfresco/tests-config.yml.erb'),
