@@ -47,9 +47,9 @@ class urls {
   $filename_tomcat = "${name_tomcat}.tar.gz"
   $url_tomcat = "http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/${filename_tomcat}"
 
-  $mysql_connector_name = 'mysql-connector-java-5.1.34'
-  $mysql_connector_file = "${mysql_connector_name}.tar.gz"
-  $mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
+  #$mysql_connector_name = 'mysql-connector-java-5.1.34'
+  #$mysql_connector_file = "${mysql_connector_name}.tar.gz"
+  #$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
 
   $mysql_root = 'http://central.maven.org'
 	$mysql_location = 'maven2/mysql/mysql-connector-java/5.1.36'

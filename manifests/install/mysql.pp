@@ -37,11 +37,11 @@ class alfresco::install::mysql inherits alfresco {
 		java_enable => 1,
 	}
 
-	safe-download { 'mysql-connector':
-		url => "${urls::mysql_connector_url}",
-		filename => "${urls::mysql_connector_file}",
-		download_path => $download_path,
-	}
+  safe-download { 'mysql-connector':
+    url => "${urls::mysql_connector_url}",
+    filename => "${urls::mysql_connector_file}",
+    download_path => $download_path,
+  }
 
 	#exec { "unpack-mysql-connector":
   #  user => 'tomcat',
@@ -52,15 +52,15 @@ class alfresco::install::mysql inherits alfresco {
 	#	creates => "${download_path}/${urls::mysql_connector_name}",
 	#}
 
-	exec { "copy-mysql-connector":
+  exec { "copy-mysql-connector":
     user => 'tomcat',
-		command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}.jar  ${tomcat_home}/shared/lib/",
-		path => "/bin:/usr/bin",
-		require => [
-			Exec["unpack-mysql-connector"],
-			File["${tomcat_home}/shared/lib"],
-		],
-		creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}.jar",
-	}
+    command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}.jar  ${tomcat_home}/shared/lib/",
+    path => "/bin:/usr/bin",
+    require => [
+      Exec["unpack-mysql-connector"],
+      File["${tomcat_home}/shared/lib"],
+    ],
+    creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}.jar",
+  }
 
 }
