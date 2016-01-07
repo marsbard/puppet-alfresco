@@ -51,11 +51,11 @@ class urls {
   #$mysql_connector_file = "${mysql_connector_name}.tar.gz"
   #$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
 
-  $mysql_root = 'http://central.maven.org'
+  $mysql_root = 'https://repo1.maven.org'
   $mysql_location = 'maven2/mysql/mysql-connector-java/5.1.36'
   $mysql_connector_name = 'mysql-connector-java-5.1.36'
   $mysql_connector_file = "${mysql_connector_name}.jar"
-  $mysql_connector_url = "${mysql_root}/${mysql_location}/${mysql_connector_name}/${mysql_connector_file}"
+  $mysql_connector_url = "${mysql_root}/${mysql_location}/${mysql_connector_file}"
 
   $solr_dl_file = 'alfresco-community-solr-4.2.f.zip'
   $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
