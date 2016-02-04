@@ -39,6 +39,7 @@ class alfresco::packages inherits alfresco {
       "curl",
       "ghostscript",
       "haveged",
+      "perl-Image-ExifTool",
     ]
 
     $rmpackages = [
@@ -77,6 +78,7 @@ class alfresco::packages inherits alfresco {
         "haveged",
         "sudo",
         "libxinerama1",
+        "libimage-exiftool-perl",
       ]
       $rmpackages = [
         "openjdk-6-jdk",
