@@ -1,6 +1,6 @@
 class alfresco::addons::aaar inherits alfresco::addons {
 
-  $aaarbase = "https://github.com/fcorti/alfresco-audit-analysis-reporting/releases/download/v4.0"
+  $aaarbase = "https://github.com/fcorti/alfresco-audit-analysis-reporting/releases/download/v4.1"
 
 case($alfresco_version){
       '4.2.f': {
