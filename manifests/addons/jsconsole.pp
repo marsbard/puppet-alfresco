@@ -1,54 +1,40 @@
 class alfresco::addons::jsconsole inherits alfresco::addons {
 
-	$filename_jsconsole = "javascript-console-0.5.1.zip"
-	$url_jsconsole = "https://share-extras.googlecode.com/files/${filename_jsconsole}"
+  $jsconsolebase = "https://github.com/share-extras/js-console/releases/download/v0.6.0-rc1"
 
-	safe-download {'jsconsole':
-		url => $url_jsconsole,
-		filename => $filename_jsconsole,
-		download_path => $download_path,
-	}
+  case($alfresco_version){
+      '4.2.f': {
+          $jsconsolerepofile = "javascript-console-repo-0.6.0.amp"
+          $jsconsolesharefile = "javascript-console-share-0.6.0.amp"
+      }
+      '5.0.x': {
+          $jsconsolerepofile = "javascript-console-repo-0.6.0.amp"
+          $jsconsolesharefile = "javascript-console-share-0.6.0.amp"
+      }
+      '5.1.x': {
+          $jsconsolerepofile = "javascript-console-repo-0.6.0.amp"
+          $jsconsolesharefile = "javascript-console-share-0.6.0.amp"
+      }
+      'NIGHTLY': {
+          $jsconsolerepofile = "javascript-console-repo-0.6.0.amp"
+          $jsconsolesharefile = "javascript-console-share-0.6.0.amp"
+      }
+  }
+  
+  $jsconsoleshareurl = "${jsconsolebase}/${jsconsolesharefile}"
+  $jsconsolerepourl = "${jsconsolebase}/${jsconsolerepofile}"
 
-  exec { "unpack-jsconsole":
-    user => 'tomcat',
-    creates => "${download_path}/jsconsole/README.txt",
-    cwd => "${download_path}/jsconsole",
-    command => "unzip -o ${download_path}/${filename_jsconsole}",
-    require => [
-      File["${download_path}/jsconsole"],
-      Safe-download["jsconsole"],
-			Package["unzip"],
-    ],
-    path => "/usr/bin",
+  safe-download { 'jsconsole-repo':
+    url => $jsconsolerepourl,
+    filename => $jsconsolerepofile,
+    download_path => "${alfresco_base_dir}/amps",
   }
 
-
-  file { "${download_path}/jsconsole":
-    ensure => directory,
-    before => Exec["unpack-jsconsole"],
-    owner => 'tomcat',
+  safe-download { 'jsconsole-share':
+    url => $jsconsoleshareurl,
+    filename => $jsconsolesharefile,
+    download_path => "${alfresco_base_dir}/amps_share",
   }
-
-  file { "${alfresco_base_dir}/amps/javascript-console-repo-0.5.1.amp":
-    source => "${download_path}/jsconsole/4.0.x/javascript-console-repo-0.5.1.amp",
-    ensure => present,
-    require => [
-      Exec["unpack-jsconsole"],
-    ],
-		notify => Exec["apply-addons"],
-    owner => 'tomcat',
-  }
-
-  file { "${alfresco_base_dir}/amps_share/javascript-console-share-0.5.1.amp":
-    source => "${download_path}/jsconsole/4.0.x/javascript-console-share-0.5.1.amp",
-    ensure => present,
-    require => [
-      Exec["unpack-jsconsole"],
-    ],
-		notify => Exec["apply-addons"],
-    owner => 'tomcat',
-  }
-
 
 }
 
