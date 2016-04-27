@@ -10,7 +10,7 @@
 * Reverse proxy and firewall preconfigured, offloading SSL to apache and forwarding real ports (for ftp, for example) to unprivileged ones managed by repo
 * Can specify tomcat home and alfresco base, useful for putting `alf_data/` on shared storage
 * Built in postfix mail server set up to deliver alfresco mails to the internet
-* Supports using your own SSL certificates and if not supplied will generate a self signed certificate, NOT MAKE EVERYONE USE THE SAME SSL LIKE ALFRESCO DOES!! :facepalm:
+* Supports using your own SSL certificates and if not supplied will generate a self signed certificate
 * Custom Order of the Bee theme
 
 #### <a name='included-addons'></a>Included addons
