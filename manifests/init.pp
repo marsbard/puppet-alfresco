@@ -198,6 +198,11 @@ class alfresco (
   }
 
 
+  file { "/opt":
+    ensure => directory,
+  }
+
+
   #http://askubuntu.com/a/519783/33804
   if($osfamily == 'Debian'){
     exec{ "reinstall-bsdutils":
