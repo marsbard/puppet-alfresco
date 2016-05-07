@@ -13,7 +13,7 @@ Environment=CATALINA_BASE=<%= @tomcat_home %>
 Environment='CATALINA_OPTS= -server -XX:+UseParallelGC'
 Environment='JAVA_OPTS=<%= @java_opts %> -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
 
-ExecStart=/opt/tomcat/bin/startup.sh
+ExecStart=<%= @tomcat_home %>/bin/startup.sh
 ExecStop=/bin/kill -15 $MAINPID
 
 User=tomcat
