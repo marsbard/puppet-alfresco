@@ -98,10 +98,10 @@ descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS. You cannot use decimal fra
 default[$IDX]="3600M"
 
 
-#IDX=$(( $IDX + 1 ))
-#params[$IDX]="mem_xxmaxpermsize"
-#descr[$IDX]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
-#default[$IDX]="256m"
+IDX=$(( $IDX + 1 ))
+params[$IDX]="mem_xxmaxpermsize"
+descr[$IDX]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
+default[$IDX]="256m"
 
 
 #IDX=$(( $IDX + 1 ))
