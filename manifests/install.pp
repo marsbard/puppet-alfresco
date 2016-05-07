@@ -360,6 +360,8 @@ class alfresco::install inherits alfresco {
 # trying to keep swftools config separate in case I can find a build with pdf2swf in
 ###################################################
 
+  $img_coders = "/usr/lib/x86_64-linux-gnu/ImageMagick-6.7.7/modules-Q16/coders"
+
   case $::osfamily {
     'RedHat': {
       $swfpkgs = [
@@ -371,6 +373,8 @@ class alfresco::install inherits alfresco {
         "gcc",
         "gcc-c++"
       ]
+
+      $img_coders = "/usr/lib64/ImageMagick-6.7.8/modules-Q16/coders"
 
       safe-download { 'swftools':
         url => $urls::swftools_src_url,
