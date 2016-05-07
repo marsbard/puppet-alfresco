@@ -9,14 +9,13 @@ class alfresco::addons inherits alfresco {
 
   #class { 'alfresco::addons::filebrowser':
   #}
-  
+
   class { 'alfresco::addons::ootbfrontpage':}
-   
+
   class { 'alfresco::addons::ootbbeetheme':
     notify => Exec['apply-addons'],
   }
 
-  
   # TODO this should be optional based on a parameter
   #class { 'alfresco::addons::aaar':
   #  notify => Exec['apply-addons'],
@@ -63,7 +62,6 @@ class alfresco::addons inherits alfresco {
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
   }
- 
   file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
     ensure => present,
     mode => '0755',
@@ -84,24 +82,24 @@ class alfresco::addons inherits alfresco {
   #  ]
   #}
 
-#  exec { "unpack-alfresco-war": 
+#  exec { "unpack-alfresco-war":
 #    require => [
 #      Exec["${tomcat_home}/webapps/alfresco.war"],
 #      Exec['apply-addons'],
 #    ],
 #    path => "/bin:/usr/bin",
-#    command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco", 
+#    command => "unzip -o -d ${tomcat_home}/webapps/alfresco ${tomcat_home}/webapps/alfresco.war && chown -R tomcat ${tomcat_home}/webapps/alfresco",
 #    creates => "${tomcat_home}/webapps/alfresco/",
 #    notify => Service['tomcat'],
 #  }
 #
-#  exec { "unpack-share-war": 
+#  exec { "unpack-share-war":
 #    require => [
 #      Exec["${tomcat_home}/webapps/share.war"],
 #      Exec['apply-addons'],
 #    ],
 #    path => "/bin:/usr/bin",
-#    command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share", 
+#    command => "unzip -o -d ${tomcat_home}/webapps/share ${tomcat_home}/webapps/share.war && chown -R tomcat ${tomcat_home}/webapps/share",
 #    creates => "${tomcat_home}/webapps/share/",
 #    notify => Service['tomcat'],
 #  }

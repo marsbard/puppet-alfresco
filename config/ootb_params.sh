@@ -95,13 +95,13 @@ default[$IDX]="3306"
 IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xmx"
 descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS. You cannot use decimal fractions, e.g. if you want 7.5G use 7500M instead"
-default[$IDX]="3500M"
+default[$IDX]="3600M"
 
 
-IDX=$(( $IDX + 1 ))
-params[$IDX]="mem_xxmaxpermsize"
-descr[$IDX]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
-default[$IDX]="256m"
+#IDX=$(( $IDX + 1 ))
+#params[$IDX]="mem_xxmaxpermsize"
+#descr[$IDX]="Setting to pass as '-XX:MaxPermSize' in JAVA_OPTS"
+#default[$IDX]="256m"
 
 
 #IDX=$(( $IDX + 1 ))

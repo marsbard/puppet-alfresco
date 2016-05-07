@@ -45,7 +45,11 @@ class alfresco::install::mysql inherits alfresco {
 
   exec { "unpack-mysql-connector":
     user => 'tomcat',
-    command => "tar xzvf ${urls::mysql_connector_file}",
+
+		# Hmm was this before
+    # command => "tar xzvf ${urls::mysql_connector_file}",
+		# now it's an echo? guess we download a file that doesn't need unpacking, anwyay, weird
+    command => "echo ${urls::mysql_connector_file}",
     cwd => $download_path,
     path => "/bin",
     require => Safe-download["mysql-connector"],
@@ -54,13 +58,14 @@ class alfresco::install::mysql inherits alfresco {
 
   exec { "copy-mysql-connector":
     user => 'tomcat',
-    command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
+		# was: command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
+    command => "cp ${download_path}/${urls::mysql_connector_name}.jar  ${tomcat_home}/shared/lib/",
     path => "/bin:/usr/bin",
     require => [
       Exec["unpack-mysql-connector"],
       File["${tomcat_home}/shared/lib"],
     ],
-    creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}-bin.jar",
+    creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}.jar",
   }
 
 }
