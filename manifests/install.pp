@@ -373,7 +373,6 @@ class alfresco::install inherits alfresco {
         "gcc-c++"
       ]
 
-      $img_coders = "/usr/lib64/ImageMagick-6.7.8/modules-Q16/coders"
 
       safe-download { 'swftools':
         url => $urls::swftools_src_url,
@@ -411,7 +410,6 @@ class alfresco::install inherits alfresco {
         "libt1-dev",
       ]
 
-      $img_coders = "/usr/lib/x86_64-linux-gnu/ImageMagick-6.7.7/modules-Q16/coders"
 
       safe-download { 'swftools':
         url => "${urls::swftools_src_url}",

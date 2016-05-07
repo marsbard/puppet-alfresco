@@ -134,10 +134,12 @@ class alfresco (
   'RedHat': {
     $loffice_dl="${urls::loffice_dl_red}"
     $loffice_name="${urls::loffice_name_red}"
+    $img_coders = "/usr/lib64/ImageMagick-6.7.8/modules-Q16/coders"
   }
   'Debian': {
     $loffice_dl="${urls::loffice_dl_deb}"
     $loffice_name="${urls::loffice_name_deb}"
+    $img_coders = "/usr/lib/x86_64-linux-gnu/ImageMagick-6.7.7/modules-Q16/coders"
   }
   default:{
     fail("Unsupported osfamily $osfamily")
