@@ -3,7 +3,13 @@ class alfresco::config inherits alfresco {
   case $::osfamily {
         'RedHat': {
       $init_template = "alfresco/tomcat-init-centos.erb"
-
+      
+			file { "/etc/systemd":
+			 ensure => directory,
+			} -> 
+			file { "/etc/systemd/system":
+				ensure => directory,
+			} ->
       file { "/etc/systemd/system/tomcat.service":
         ensure => present,
         content => template("alfresco/tomcat-systemd-centos.erb"),
