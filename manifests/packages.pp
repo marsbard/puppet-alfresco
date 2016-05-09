@@ -91,11 +91,11 @@ class alfresco::packages inherits alfresco {
     range  => "2 - 4",
   }
 
-  ensure_packages{ $packages:
+  alfresco::ensure_packages{ $packages:
     ensure => "installed",
   }
 
-  ensure_packages { $rmpackages:
+  alfresco::ensure_packages { $rmpackages:
     ensure => "absent",
   }
 }
