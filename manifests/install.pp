@@ -250,7 +250,7 @@ class alfresco::install inherits alfresco {
 
   # keystore files
 
-  download_file { [
+  alfresco::download_file { [
     "browser.p12",
     "generate_keystores.sh",
     "keystore",

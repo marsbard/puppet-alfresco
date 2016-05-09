@@ -1,5 +1,5 @@
 # http://projects.puppetlabs.com/projects/1/wiki/Download_File_Recipe_Patterns
-define download_file(
+define alfresco::download_file(
   $site="",
   $cwd="",
   $creates="",
