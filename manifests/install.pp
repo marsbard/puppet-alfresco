@@ -250,33 +250,6 @@ class alfresco::install inherits alfresco {
 
   # keystore files
 
-  # http://projects.puppetlabs.com/projects/1/wiki/Download_File_Recipe_Patterns
-  define download_file(
-    $site="",
-    $cwd="",
-    $creates="",
-    $require="",
-    $user="") {
-
-#    exec { $name:
-#      command => "wget ${site}/${name}",
-#      path => "/usr/bin",
-#      cwd => $cwd,
-#      creates => "${cwd}/${name}",
-#      require => $require,
-#      user => $user,
-#      timeout => 0,
-#    }
-
-    alfresco::safe_download { $name:
-      url => "${site}/${name}",
-      filename => $name,
-      user => $user,
-      download_path => $cwd,
-    }
-
-  }
-
   download_file { [
     "browser.p12",
     "generate_keystores.sh",
