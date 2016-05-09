@@ -23,8 +23,8 @@ class alfresco::addons::rm inherits alfresco::addons {
   }
   $filename_rm = $recmanfile
   $url_rm = "${recmanpath}/${filename_rm}"
-  $rm_repo = $repofilename 
-  $rm_share = $sharefilename
+  #$rm_repo = $repofilename 
+  #$rm_share = $sharefilename
 
   alfresco::safe_download { 'addons::rm':
     url => $url_rm,

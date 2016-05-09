@@ -21,7 +21,7 @@ class alfresco::addons inherits alfresco {
   #  notify => Exec['apply-addons'],
   #}
 
-  class { 'alfresco::addons::uploader-plus':
+  class { 'alfresco::addons::uploader_plus':
     notify => Exec['apply-addons'],
   }
 
