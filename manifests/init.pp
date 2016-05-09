@@ -97,7 +97,7 @@ class alfresco (
   $enable_proxy = true
 ) inherits alfresco::params {
 
-  include urls
+  include alfresco::urls
 
   $admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
