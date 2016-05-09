@@ -1,6 +1,6 @@
 class alfresco::install inherits alfresco {
 
-  class { 'alfresco::install::alfresco-ce': }
+  class { 'alfresco::install::alfresco_ce': }
   class { 'alfresco::install::postfix': }
   class { 'alfresco::install::mysql': }
   class { 'alfresco::install::proxy': }
@@ -46,13 +46,13 @@ class alfresco::install inherits alfresco {
 #  # the war files
 #  exec { "${tomcat_home}/webapps/alfresco.war":
 #    command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
-#    require => Exec["unpack-alfresco-ce"],
+#    require => Exec["unpack-alfresco_ce"],
 #    creates => "${tomcat_home}/webapps/alfresco.war",
 #    path => '/bin:/usr/bin',
 #  }
 #  exec { "${tomcat_home}/webapps/share.war":
 #    command => "cp ${alfresco_war_loc}/share.war ${tomcat_home}/webapps/share.war",
-#    require => Exec["unpack-alfresco-ce"],
+#    require => Exec["unpack-alfresco_ce"],
 #    creates => "${tomcat_home}/webapps/share.war",
 #    path => '/bin:/usr/bin',
 #  }

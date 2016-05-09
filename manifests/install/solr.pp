@@ -23,7 +23,7 @@ class alfresco::install::solr inherits alfresco {
       file { "${alfresco_base_dir}/solr/alf_data":
         ensure => absent,
         force => true,
-        require => Exec["unpack-alfresco-ce"],
+        require => Exec["unpack-alfresco_ce"],
         before => Service["alfresco-start"],
         owner => 'tomcat',
       }

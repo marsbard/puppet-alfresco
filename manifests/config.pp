@@ -81,7 +81,7 @@ class alfresco::config inherits alfresco {
   #  command => "${alfresco_base_dir}/bin/update-admin-passwd.sh ${admin_pass} ${db_name} ${db_user} ${db_pass} && touch ${alfresco_base_dir}/.puppet_set_admin_passwd",
   #  path => "/bin:/usr/bin",
   #  creates => "${alfresco_base_dir}/.puppet_set_admin_passwd",
-  #  require => Exec["unzip-alfresco-ce"],
+  #  require => Exec["unzip-alfresco_ce"],
   #}
 
 
@@ -90,7 +90,7 @@ class alfresco::config inherits alfresco {
 #  file { "${tomcat_home}/webapps/alfresco/WEB-INF/classes/alfresco/dbscripts/upgrade/4.2/org.hibernate.dialect.MySQLInnoDBDialect/admin-passwd-update.sql":
 #    content => template("alfresco/admin-passwd-update.sql.erb"),
 #    ensure => present,
-#    require => Exec["unzip-alfresco-ce"],
+#    require => Exec["unzip-alfresco_ce"],
 #  }
 
 

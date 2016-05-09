@@ -1,9 +1,9 @@
-class alfresco::install::alfresco-ce inherits alfresco::install {
+class alfresco::install::alfresco_ce inherits alfresco::install {
 
   case ($alfresco_version){
       '4.2.f', '4.2.x': {
 
-        safe_download { 'alfresco-ce':
+        safe_download { 'alfresco_ce':
           url => "${alfresco::urls::alfresco_ce_url}",
           filename => "${alfresco::urls::alfresco_ce_filename}",
           download_path => $download_path,
@@ -14,12 +14,12 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           owner => 'tomcat',
         }
 
-        exec { "unpack-alfresco-ce":
+        exec { "unpack-alfresco_ce":
           user => 'tomcat',
           command => "unzip -o ${download_path}/${alfresco::urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
-            Safe_download['alfresco-ce'],
+            Safe_download['alfresco_ce'],
             Exec["copy tomcat to ${tomcat_home}"], 
             Package["unzip"], 
             File["${download_path}/alfresco"],
@@ -32,7 +32,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         exec { "${tomcat_home}/webapps/alfresco.war":
           user => 'tomcat',
           command => "cp ${alfresco_war_loc}/alfresco.war ${tomcat_home}/webapps/alfresco.war",
-          require => Exec["unpack-alfresco-ce"],
+          require => Exec["unpack-alfresco_ce"],
           creates => "${tomcat_home}/webapps/alfresco.war",
           path => '/bin:/usr/bin',
           notify => Service['alfresco-start']
@@ -45,7 +45,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           notify => Service['alfresco-start'],
           require => [
             File["${alfresco_base_dir}/amps"],
-            Exec["unpack-alfresco-ce"],
+            Exec["unpack-alfresco_ce"],
           ]
         }
         safe_download { 'alfresco.war':
