@@ -1,4 +1,4 @@
-class urls {
+class alfresco::urls {
 
   $v50x = '5.0.d'
   $v42x = '4.2.f'
@@ -21,7 +21,7 @@ class urls {
 
   $solr_war_file = "alfresco-solr4-${v50x}-ssl.war"
   $solr_war_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/${v50x}/$solr_war_file"
-	
+  
   $solr_cfg_file = "alfresco-solr4-${v50x}-config-ssl.zip"
   $solr_cfg_dl = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/${v50x}/$solr_cfg_file"
 

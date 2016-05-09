@@ -106,8 +106,8 @@ class alfresco::install inherits alfresco {
 
 
   safe_download { 'tomcat':
-    url => "${urls::url_tomcat}",
-    filename => "${urls::filename_tomcat}",
+    url => "${alfresco::urls::url_tomcat}",
+    filename => "${alfresco::urls::filename_tomcat}",
     download_path => $download_path,
   }
 
@@ -115,14 +115,14 @@ class alfresco::install inherits alfresco {
     user => 'tomcat',
     cwd => "${download_path}",
     path => "/bin:/usr/bin",
-    command => "tar xzf ${download_path}/${urls::filename_tomcat}",
+    command => "tar xzf ${download_path}/${alfresco::urls::filename_tomcat}",
     require => Safe_download["tomcat"],
     creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
   }
 
   exec { "copy tomcat to ${tomcat_home}":
     user => 'tomcat',
-    command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat ${tomcat_home}",
+    command => "mkdir -p ${tomcat_home} && cp -r ${download_path}/${alfresco::urls::name_tomcat}/* ${tomcat_home} && chown -R tomcat ${tomcat_home}",
     path => "/bin:/usr/bin",
     provider => shell,
     require => [ Exec["unpack-tomcat"], User["tomcat"], ],
@@ -375,23 +375,23 @@ class alfresco::install inherits alfresco {
 
 
       safe_download { 'swftools':
-        url => $urls::swftools_src_url,
-        filename => "${urls::swftools_src_name}.tar.gz",
+        url => $alfresco::urls::swftools_src_url,
+        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
         download_path => $download_path,
       }
 
       exec { "unpack-swftools":
         user => 'tomcat',
-        command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
+        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
         cwd => $download_path,
         path => "/bin:/usr/bin",
-        creates => "${download_path}/${urls::swftools_src_name}",
+        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
         require => Safe_download["swftools"],
       }
 
       exec { "build-swftools":
         command => "bash ./configure && make && make install",
-        cwd => "${download_path}/${urls::swftools_src_name}",
+        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
         path => "/bin:/usr/bin",
         require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
         creates => "/usr/local/bin/pdf2swf",
@@ -412,24 +412,24 @@ class alfresco::install inherits alfresco {
 
 
       safe_download { 'swftools':
-        url => "${urls::swftools_src_url}",
-        filename => "${urls::swftools_src_name}.tar.gz",
+        url => "${alfresco::urls::swftools_src_url}",
+        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
         download_path => $download_path,
       }
 
       exec { "unpack-swftools":
         user => 'tomcat',
-        command => "tar xzvf ${urls::swftools_src_name}.tar.gz",
+        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
         cwd => $download_path,
         path => "/bin:/usr/bin",
-        creates => "${download_path}/${urls::swftools_src_name}",
+        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
         require => Safe_download["swftools"],
       }
 
 
       exec { "build-swftools":
         command => "bash ./configure && make && make install",
-        cwd => "${download_path}/${urls::swftools_src_name}",
+        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
         path => "/bin:/usr/bin",
         require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
         creates => "/usr/local/bin/pdf2swf",

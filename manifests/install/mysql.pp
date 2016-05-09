@@ -38,8 +38,8 @@ class alfresco::install::mysql inherits alfresco {
   }
 
   safe_download { 'mysql-connector':
-    url => "${urls::mysql_connector_url}",
-    filename => "${urls::mysql_connector_file}",
+    url => "${alfresco::urls::mysql_connector_url}",
+    filename => "${alfresco::urls::mysql_connector_file}",
     download_path => $download_path,
   }
 
@@ -47,25 +47,25 @@ class alfresco::install::mysql inherits alfresco {
     user => 'tomcat',
 
 		# Hmm was this before
-    # command => "tar xzvf ${urls::mysql_connector_file}",
+    # command => "tar xzvf ${alfresco::urls::mysql_connector_file}",
 		# now it's an echo? guess we download a file that doesn't need unpacking, anwyay, weird
-    command => "echo ${urls::mysql_connector_file}",
+    command => "echo ${alfresco::urls::mysql_connector_file}",
     cwd => $download_path,
     path => "/bin",
     require => Safe_download["mysql-connector"],
-    creates => "${download_path}/${urls::mysql_connector_name}",
+    creates => "${download_path}/${alfresco::urls::mysql_connector_name}",
   }
 
   exec { "copy-mysql-connector":
     user => 'tomcat',
-		# was: command => "cp ${download_path}/${urls::mysql_connector_name}/${urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
-    command => "cp ${download_path}/${urls::mysql_connector_name}.jar  ${tomcat_home}/shared/lib/",
+		# was: command => "cp ${download_path}/${alfresco::urls::mysql_connector_name}/${alfresco::urls::mysql_connector_name}-bin.jar  ${tomcat_home}/shared/lib/",
+    command => "cp ${download_path}/${alfresco::urls::mysql_connector_name}.jar  ${tomcat_home}/shared/lib/",
     path => "/bin:/usr/bin",
     require => [
       Exec["unpack-mysql-connector"],
       File["${tomcat_home}/shared/lib"],
     ],
-    creates => "${tomcat_home}/shared/lib/${urls::mysql_connector_name}.jar",
+    creates => "${tomcat_home}/shared/lib/${alfresco::urls::mysql_connector_name}.jar",
   }
 
 }
