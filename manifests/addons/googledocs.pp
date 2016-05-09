@@ -15,13 +15,13 @@ class alfresco::addons::googledocs inherits alfresco::addons {
       $gdsharefile = "alfresco-googledocs-share-3.0.0.amp"
       $gdshareurl = "https://artifacts.alfresco.com/nexus/service/local/repositories/releases/content/org/alfresco/integrations/alfresco-googledocs-share/3.0.0/${gdsharefile}"
 
-      safe-download { 'googledocs-repo':
+      safe_download { 'googledocs-repo':
         url => $gdrepourl,
         filename => $gdrepofile,
         download_path => "${alfresco_base_dir}/amps",
       }
 
-      safe-download { 'googledocs-share':
+      safe_download { 'googledocs-share':
         url => $gdshareurl,
         filename => $gdsharefile,
         download_path => "${alfresco_base_dir}/amps_share",

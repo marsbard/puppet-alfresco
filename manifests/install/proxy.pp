@@ -47,13 +47,13 @@ class alfresco::install::proxy inherits alfresco {
 			# do it in two stages as the vhost will require a File resource
 			# rather than an exec
 
-			safe-download { 'proxy::key':
+			safe_download { 'proxy::key':
 				url => "${ssl_cert_path}/${domain_name}.key",
 				filename => "${domain_name}.key",
 				download_path => $download_path,
 			}
 
-			safe-download { 'proxy::cert':
+			safe_download { 'proxy::cert':
 				url => "${ssl_cert_path}/${domain_name}.cert",
 				filename => "${domain_name}.cert",
 				download_path => $download_path,

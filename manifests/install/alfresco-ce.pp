@@ -3,7 +3,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
   case ($alfresco_version){
       '4.2.f', '4.2.x': {
 
-        safe-download { 'alfresco-ce':
+        safe_download { 'alfresco-ce':
           url => "${urls::alfresco_ce_url}",
           filename => "${urls::alfresco_ce_filename}",
           download_path => $download_path,
@@ -48,12 +48,12 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
             Exec["unpack-alfresco-ce"],
           ]
         }
-        safe-download { 'alfresco.war':
+        safe_download { 'alfresco.war':
           url => "${urls::alfresco_war_42x}",
           filename => "alfresco.war",
           download_path => "${tomcat_home}/webapps/",
         }
-        safe-download { 'share.war':
+        safe_download { 'share.war':
           url => "${urls::share_war_42x}",
           filename => "share.war",
           download_path => "${tomcat_home}/webapps/",
@@ -64,7 +64,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           owner => 'tomcat',
         }
 
-        safe-download { 'spp':
+        safe_download { 'spp':
           url => "${urls::spp_v4}",
           filename => "${urls::spp_v4_zipname}",
           download_path => $download_path,
@@ -108,12 +108,12 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
       }
       '5.0.c', '5.0.x': {
 
-        safe-download { 'alfresco.war':
+        safe_download { 'alfresco.war':
           url => "${urls::alfresco_war_50x}",
           filename => "alfresco.war",
           download_path => "${tomcat_home}/webapps/",
         }
-        safe-download { 'share.war':
+        safe_download { 'share.war':
           url => "${urls::share_war_50x}",
           filename => "share.war",
           download_path => "${tomcat_home}/webapps/",
@@ -125,7 +125,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           owner => 'tomcat',
         }
         
-        safe-download { 'spp-amp':
+        safe_download { 'spp-amp':
           url => "${urls::spp_amp_v5}",
           filename => "${urls::spp_amp_v5_name}",
           download_path => "${alfresco_base_dir}/amps",

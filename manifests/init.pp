@@ -160,7 +160,7 @@ class alfresco (
   $alfresco_war_loc = "${alfresco_unpacked}/web-server/webapps"
 
 
-  define safe-download (
+  define safe_download (
     $url,               # complete url to download the file from
     $filename,          # the filename of the download package
     $download_path,     # where to put the file

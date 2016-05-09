@@ -3,7 +3,7 @@ class alfresco::nightly inherits alfresco{
   case $alfresco_version {
     'NIGHTLY': {
 
-        safe-download { 'nightly':
+        safe_download { 'nightly':
           url => "${urls::nightly}",
           filename => "${urls::nightly_filename}",
           download_path => $download_path,

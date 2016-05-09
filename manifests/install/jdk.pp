@@ -13,21 +13,21 @@ class alfresco::install::jdk inherits alfresco {
         # packages not yet in trusty
         # get the vivid ones
 
-        safe-download { 'openjdk-8-jre-headless':
+        safe_download { 'openjdk-8-jre-headless':
           url => "${java_base_url}/openjdk-8-jre-headless_${java_release}_amd64.deb",
           filename => "openjdk-8-jre-headless_${java_release}_amd64.deb",
           download_path => $download_path,
         } -> exec {'gdebi-jre-headless':
           command => "/usr/bin/gdebi -n ${download_path}/openjdk-8-jre-headless_${java_release}_amd64.deb",
         } ->
-        safe-download { 'openjdk-8-jre':
+        safe_download { 'openjdk-8-jre':
           url => "${java_base_url}/openjdk-8-jre_${java_release}_amd64.deb",
           filename => "openjdk-8-jre_${java_release}_amd64.deb",
           download_path => $download_path,
         } -> exec {'gdebi-jre':
           command => "/usr/bin/gdebi -n ${download_path}/openjdk-8-jre_${java_release}_amd64.deb",
         } ->
-        safe-download { 'openjdk-8-jdk':
+        safe_download { 'openjdk-8-jdk':
           url => "${java_base_url}/openjdk-8-jdk_${java_release}_amd64.deb",
           filename => "openjdk-8-jdk_${java_release}_amd64.deb",
           download_path => $download_path,

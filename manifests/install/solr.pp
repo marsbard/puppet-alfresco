@@ -3,7 +3,7 @@ class alfresco::install::solr inherits alfresco {
   case ($alfresco_version) {
     '4.2.f': {
 
-      safe-download { 'solr':
+      safe_download { 'solr':
         url => "${urls::solr_dl}",
         filename => 'solr.zip',
         download_path => $download_path,
@@ -74,7 +74,7 @@ class alfresco::install::solr inherits alfresco {
 
     '5.0.c', '5.0.x', 'NIGHTLY': {
 
-      safe-download { 'solr-war':
+      safe_download { 'solr-war':
         url => "${urls::solr_war_dl}",
         filename => "solr4.war",
         download_path => "${tomcat_home}/webapps",
@@ -91,7 +91,7 @@ class alfresco::install::solr inherits alfresco {
         owner => 'tomcat',
       }
 
-      safe-download { 'solr-cfg':
+      safe_download { 'solr-cfg':
         url => "${urls::solr_cfg_dl}",
         filename => 'solrconfig.zip',
         download_path => $download_path,
