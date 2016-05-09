@@ -24,13 +24,13 @@ class alfresco::addons::jsconsole inherits alfresco::addons {
   $jsconsoleshareurl = "${jsconsolebase}/${jsconsolesharefile}"
   $jsconsolerepourl = "${jsconsolebase}/${jsconsolerepofile}"
 
-  safe_download { 'jsconsole-repo':
+  alfresco::safe_download { 'jsconsole-repo':
     url => $jsconsolerepourl,
     filename => $jsconsolerepofile,
     download_path => "${alfresco_base_dir}/amps",
   }
 
-  safe_download { 'jsconsole-share':
+  alfresco::safe_download { 'jsconsole-share':
     url => $jsconsoleshareurl,
     filename => $jsconsolesharefile,
     download_path => "${alfresco_base_dir}/amps_share",

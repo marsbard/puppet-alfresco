@@ -3,7 +3,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
   case ($alfresco_version){
       '4.2.f', '4.2.x': {
 
-        safe_download { 'alfresco_ce':
+        alfresco::safe_download { 'alfresco_ce':
           url => "${alfresco::urls::alfresco_ce_url}",
           filename => "${alfresco::urls::alfresco_ce_filename}",
           download_path => $download_path,
@@ -48,12 +48,12 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
             Exec["unpack-alfresco_ce"],
           ]
         }
-        safe_download { 'alfresco.war':
+        alfresco::safe_download { 'alfresco.war':
           url => "${alfresco::urls::alfresco_war_42x}",
           filename => "alfresco.war",
           download_path => "${tomcat_home}/webapps/",
         }
-        safe_download { 'share.war':
+        alfresco::safe_download { 'share.war':
           url => "${alfresco::urls::share_war_42x}",
           filename => "share.war",
           download_path => "${tomcat_home}/webapps/",
@@ -64,7 +64,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
           owner => 'tomcat',
         }
 
-        safe_download { 'spp':
+        alfresco::safe_download { 'spp':
           url => "${alfresco::urls::spp_v4}",
           filename => "${alfresco::urls::spp_v4_zipname}",
           download_path => $download_path,
@@ -108,12 +108,12 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
       }
       '5.0.c', '5.0.x': {
 
-        safe_download { 'alfresco.war':
+        alfresco::safe_download { 'alfresco.war':
           url => "${alfresco::urls::alfresco_war_50x}",
           filename => "alfresco.war",
           download_path => "${tomcat_home}/webapps/",
         }
-        safe_download { 'share.war':
+        alfresco::safe_download { 'share.war':
           url => "${alfresco::urls::share_war_50x}",
           filename => "share.war",
           download_path => "${tomcat_home}/webapps/",
@@ -125,7 +125,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
           owner => 'tomcat',
         }
         
-        safe_download { 'spp-amp':
+        alfresco::safe_download { 'spp-amp':
           url => "${alfresco::urls::spp_amp_v5}",
           filename => "${alfresco::urls::spp_amp_v5_name}",
           download_path => "${alfresco_base_dir}/amps",

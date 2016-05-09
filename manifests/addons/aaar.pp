@@ -24,13 +24,13 @@ case($alfresco_version){
   $aaarrepourl = "${aaarbase}/${aaarrepofile}"
 
 
-  safe_download { 'aaar-repo':
+  alfresco::safe_download { 'aaar-repo':
     url => $aaarrepourl,
     filename => $aaarrepofile,
     download_path => "${alfresco_base_dir}/amps",
   }
 
-  safe_download { 'aaar-share':
+  alfresco::safe_download { 'aaar-share':
     url => $aaarshareurl,
     filename => $aaarsharefile,
     download_path => "${alfresco_base_dir}/amps_share",

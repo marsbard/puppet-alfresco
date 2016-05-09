@@ -37,7 +37,7 @@ class alfresco::install::mysql inherits alfresco {
     java_enable => 1,
   }
 
-  safe_download { 'mysql-connector':
+  alfresco::safe_download { 'mysql-connector':
     url => "${alfresco::urls::mysql_connector_url}",
     filename => "${alfresco::urls::mysql_connector_file}",
     download_path => $download_path,

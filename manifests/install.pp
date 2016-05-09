@@ -105,7 +105,7 @@ class alfresco::install inherits alfresco {
   }
 
 
-  safe_download { 'tomcat':
+  alfresco::safe_download { 'tomcat':
     url => "${alfresco::urls::url_tomcat}",
     filename => "${alfresco::urls::filename_tomcat}",
     download_path => $download_path,
@@ -195,13 +195,13 @@ class alfresco::install inherits alfresco {
     owner => 'tomcat',
   }
 
-  safe_download { 'xalan-xalan-jar':
+  alfresco::safe_download { 'xalan-xalan-jar':
     url => "${xalan}/xalan.jar",
     filename => 'xalan.jar',
     download_path => "${tomcat_home}/endorsed",
   }
 
-  safe_download { 'xalan-serializer-jar':
+  alfresco::safe_download { 'xalan-serializer-jar':
     url => "${xalan}/serializer.jar",
     filename => 'serializer.jar',
     download_path => "${tomcat_home}/endorsed",
@@ -268,7 +268,7 @@ class alfresco::install inherits alfresco {
 #      timeout => 0,
 #    }
 
-    safe_download { $name:
+    alfresco::safe_download { $name:
       url => "${site}/${name}",
       filename => $name,
       user => $user,
@@ -307,7 +307,7 @@ class alfresco::install inherits alfresco {
 #    logoutput => true, # or else travis can get upset that nothing has happened for 10 mins :-!
 #  }
 
-  safe_download { 'loffice':
+  alfresco::safe_download { 'loffice':
     url => $loffice_dl,
     filename => "${loffice_name}.tar.gz",
     download_path => $download_path,
@@ -374,7 +374,7 @@ class alfresco::install inherits alfresco {
       ]
 
 
-      safe_download { 'swftools':
+      alfresco::safe_download { 'swftools':
         url => $alfresco::urls::swftools_src_url,
         filename => "${alfresco::urls::swftools_src_name}.tar.gz",
         download_path => $download_path,
@@ -411,7 +411,7 @@ class alfresco::install inherits alfresco {
       ]
 
 
-      safe_download { 'swftools':
+      alfresco::safe_download { 'swftools':
         url => "${alfresco::urls::swftools_src_url}",
         filename => "${alfresco::urls::swftools_src_name}.tar.gz",
         download_path => $download_path,

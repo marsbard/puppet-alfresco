@@ -26,7 +26,7 @@ class alfresco::addons::rm inherits alfresco::addons {
   $rm_repo = $repofilename 
   $rm_share = $sharefilename
 
-  safe_download { 'addons::rm':
+  alfresco::safe_download { 'addons::rm':
     url => $url_rm,
     filename => $filename_rm,
     download_path => $download_path,
