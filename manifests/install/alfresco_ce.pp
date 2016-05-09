@@ -19,7 +19,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
           command => "unzip -o ${download_path}/${alfresco::urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
-            Safe_download['alfresco_ce'],
+            Alfresco::Safe_download['alfresco_ce'],
             Exec["copy tomcat to ${tomcat_home}"], 
             Package["unzip"], 
             File["${download_path}/alfresco"],
