@@ -1,7 +1,7 @@
 class alfresco::packages inherits alfresco {
 
 
-  define ensure_packages ($ensure = "present") {
+  define alfresco::packages::ensure_packages ($ensure = "present") {
     if defined(Package[$title]) {}
     else {
       package { $title : ensure => $ensure, }
@@ -52,9 +52,9 @@ class alfresco::packages inherits alfresco {
         $jpackage=""
         # auto accept oracle license: http://askubuntu.com/a/190674/33804
 
-	      class { 'apt': } ->
+        class { 'apt': } ->
         apt::ppa { 'ppa:webupd8team/java': } ->
-	      package { 'oracle-java8-installer':
+        package { 'oracle-java8-installer':
           ensure => installed,
         }
       } else {
