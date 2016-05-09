@@ -38,7 +38,7 @@ class alfresco::install::jdk inherits alfresco {
 
       } else {
         $jpackage="openjdk-7-jdk"
-        alfresco::ensure_packages { "$jpackage": }
+        alfresco::packages::ensure_packages { "$jpackage": }
       }
     }
     'RedHat': {

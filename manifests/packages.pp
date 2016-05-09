@@ -59,7 +59,7 @@ class alfresco::packages inherits alfresco {
         }
       } else {
         $jpackage="openjdk-7-jdk"
-        alfresco::ensure_packages { "$jpackage": }
+        alfresco::packages::ensure_packages { "$jpackage": }
       }
 
 
@@ -100,11 +100,11 @@ class alfresco::packages inherits alfresco {
     range  => "2 - 4",
   }
 
-  alfresco::ensure_packages{ $packages:
+  alfresco::packages::ensure_packages{ $packages:
     ensure => "installed",
   }
 
-  alfresco::ensure_packages { $rmpackages:
+  alfresco::packages::ensure_packages { $rmpackages:
     ensure => "absent",
   }
 }
