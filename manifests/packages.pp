@@ -1,7 +1,5 @@
 class alfresco::packages inherits alfresco {
 
-
-
   case $::osfamily {
     'RedHat': {
 
@@ -93,11 +91,11 @@ class alfresco::packages inherits alfresco {
     range  => "2 - 4",
   }
 
-  alfresco::ensure_packages{ $packages:
+  ensure_packages{ $packages:
     ensure => "installed",
   }
 
-  alfresco::ensure_packages { $rmpackages:
+  ensure_packages { $rmpackages:
     ensure => "absent",
   }
 }
