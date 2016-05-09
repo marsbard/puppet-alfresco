@@ -9,7 +9,7 @@ class alfresco::install inherits alfresco {
 
   file { $download_path:
     ensure => "directory",
-    before => Safe-download["tomcat"],
+    before => Safe_download["tomcat"],
     owner => 'tomcat',
   }
 
@@ -116,7 +116,7 @@ class alfresco::install inherits alfresco {
     cwd => "${download_path}",
     path => "/bin:/usr/bin",
     command => "tar xzf ${download_path}/${urls::filename_tomcat}",
-    require => Safe-download["tomcat"],
+    require => Safe_download["tomcat"],
     creates => "${download_path}/apache-tomcat-7.0.55/NOTICE",
   }
 
@@ -319,7 +319,7 @@ class alfresco::install inherits alfresco {
     command => "tar xzvf ${download_path}/${loffice_name}.tar.gz",
     path => "/bin:/usr/bin",
     creates => "${download_path}/${loffice_name}",
-    require => Safe-download["loffice"],
+    require => Safe_download["loffice"],
     timeout => 0,
   }
 
@@ -386,7 +386,7 @@ class alfresco::install inherits alfresco {
         cwd => $download_path,
         path => "/bin:/usr/bin",
         creates => "${download_path}/${urls::swftools_src_name}",
-        require => Safe-download["swftools"],
+        require => Safe_download["swftools"],
       }
 
       exec { "build-swftools":
@@ -423,7 +423,7 @@ class alfresco::install inherits alfresco {
         cwd => $download_path,
         path => "/bin:/usr/bin",
         creates => "${download_path}/${urls::swftools_src_name}",
-        require => Safe-download["swftools"],
+        require => Safe_download["swftools"],
       }
 
 

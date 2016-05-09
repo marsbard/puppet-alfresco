@@ -12,7 +12,7 @@ class alfresco::nightly inherits alfresco{
         exec { 'unpack-nightly':
           user => 'tomcat',
           require => [
-            Safe-download['nightly'], 
+            Safe_download['nightly'], 
             #File[$alfresco_base_dir],
           ],
           command => "unzip ${download_path}/${urls::nightly_filename} ${download_path}/${urls::nightly_name}",

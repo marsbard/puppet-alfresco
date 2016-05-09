@@ -52,7 +52,7 @@ class alfresco::install::mysql inherits alfresco {
     command => "echo ${urls::mysql_connector_file}",
     cwd => $download_path,
     path => "/bin",
-    require => Safe-download["mysql-connector"],
+    require => Safe_download["mysql-connector"],
     creates => "${download_path}/${urls::mysql_connector_name}",
   }
 

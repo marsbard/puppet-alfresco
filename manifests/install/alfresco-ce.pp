@@ -19,7 +19,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           command => "unzip -o ${download_path}/${urls::alfresco_ce_filename} -d ${download_path}/alfresco",
           path => "/usr/bin",
           require => [ 
-            Safe-download['alfresco-ce'],
+            Safe_download['alfresco-ce'],
             Exec["copy tomcat to ${tomcat_home}"], 
             Package["unzip"], 
             File["${download_path}/alfresco"],
@@ -75,14 +75,14 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
           command => "/usr/bin/unzip ${download_path}/${urls::spp_v4_zipname}",
           cwd => "${alfresco_base_dir}/amps",
           creates => "${alfresco_base_dir}/amps/${urls::spp_v4_name}",
-          require => [ File[$download_path], Safe-download['spp'], ], 
+          require => [ File[$download_path], Safe_download['spp'], ], 
         }
 
 
         exec { "unpack-alfresco-war": 
           user => 'tomcat',
               require => [
-            Safe-download["alfresco.war"],
+            Safe_download["alfresco.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -94,7 +94,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         exec { "unpack-share-war": 
           user => 'tomcat',
           require => [
-            Safe-download["share.war"],
+            Safe_download["share.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -135,7 +135,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         exec { "unpack-alfresco-war": 
           user => 'tomcat',
               require => [
-            Safe-download["alfresco.war"],
+            Safe_download["alfresco.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -147,7 +147,7 @@ class alfresco::install::alfresco-ce inherits alfresco::install {
         exec { "unpack-share-war": 
           user => 'tomcat',
           require => [
-            Safe-download["share.war"],
+            Safe_download["share.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
