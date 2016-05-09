@@ -75,14 +75,14 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
           command => "/usr/bin/unzip ${download_path}/${alfresco::urls::spp_v4_zipname}",
           cwd => "${alfresco_base_dir}/amps",
           creates => "${alfresco_base_dir}/amps/${alfresco::urls::spp_v4_name}",
-          require => [ File[$download_path], Safe_download['spp'], ], 
+          require => [ File[$download_path], Alfresco::Safe_download['spp'], ], 
         }
 
 
         exec { "unpack-alfresco-war": 
           user => 'tomcat',
               require => [
-            Safe_download["alfresco.war"],
+            Alfresco::Safe_download["alfresco.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -94,7 +94,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
         exec { "unpack-share-war": 
           user => 'tomcat',
           require => [
-            Safe_download["share.war"],
+            Alfresco::Safe_download["share.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -135,7 +135,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
         exec { "unpack-alfresco-war": 
           user => 'tomcat',
               require => [
-            Safe_download["alfresco.war"],
+            Alfresco::Safe_download["alfresco.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],
@@ -147,7 +147,7 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
         exec { "unpack-share-war": 
           user => 'tomcat',
           require => [
-            Safe_download["share.war"],
+            Alfresco::Safe_download["share.war"],
             Exec['apply-addons'],
           ],
           before => Service['alfresco-start'],

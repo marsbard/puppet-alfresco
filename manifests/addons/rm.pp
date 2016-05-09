@@ -39,7 +39,7 @@ class alfresco::addons::rm inherits alfresco::addons {
     command => "unzip -o ${download_path}/${filename_rm}",
     require => [
       File["${download_path}/rm"],
-      Safe_download['addons::rm'],
+      Alfresco::Safe_download['addons::rm'],
       Package["unzip"],
     ],
     path => "/usr/bin",

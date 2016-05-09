@@ -64,7 +64,7 @@ class alfresco::install::proxy inherits alfresco {
 				source => "${download_path}/${domain_name}.cert",
 				ensure => present,
 				require => [
-					Safe_download["proxy::cert"],
+					Alfresco::Safe_download["proxy::cert"],
 					File['/etc/ssl'],
 				],
 			}	
@@ -74,7 +74,7 @@ class alfresco::install::proxy inherits alfresco {
 				source => "${download_path}/${domain_name}.key",
 				ensure => present,
 				require => [
-					Safe_download["proxy::key"],
+					Alfresco::Safe_download["proxy::key"],
 					File['/etc/ssl'],
 				],
 			}

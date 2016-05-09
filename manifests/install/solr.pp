@@ -16,7 +16,7 @@ class alfresco::install::solr inherits alfresco {
         path => '/usr/bin',
         creates => "${alfresco_base_dir}/solr/solr.xml",
         require => [
-          Safe_download["solr"],
+          Alfresco::Safe_download["solr"],
         ],
       }
 
@@ -103,7 +103,7 @@ class alfresco::install::solr inherits alfresco {
         cwd => "${alfresco_base_dir}/solr4",
         path => '/usr/bin',
         creates => "${alfresco_base_dir}/solr4/context.xml",
-        require => Safe_download['solr-cfg'],
+        require => Alfresco::Safe_download['solr-cfg'],
         notify => Service['alfresco-start'],
       }
 
