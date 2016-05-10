@@ -31,6 +31,7 @@ class alfresco::packages inherits alfresco {
       "ghostscript",
       "haveged",
       "perl-Image-ExifTool",
+			"ruby-devel",
     ]
 
     $rmpackages = [
