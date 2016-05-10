@@ -115,7 +115,7 @@ class alfresco (
 
   case($alfresco_version){
     '4.2.f': {
-      $alfresco_ce_url = $alfresco::urls::alfresco_ce
+      $alfresco_ce_url = $alfresco::urls::alfresco_ce_url
       $indexer = 'solr'
       $cmis_url = '/alfresco/s/cmis'
     }
