@@ -89,10 +89,8 @@ swf.exe=/usr/local/bin/pdf2swf
 #img.exe=<%= @alfresco_base_dir %>/bin/limitconvert.sh
 img.exe=/usr/bin/convert
 
-# TODO will this work with CentOS? prob not - needs to be parameterised in puppet template
 img.gslib=/usr/share/ghostscript/current/lib
-img.coders=/usr/lib/x86_64-linux-gnu/ImageMagick-6.7.7/modules-Q16/coders
-#img.coders=<%= @img_coders %>
+img.coders=<%= @coders_path %>
 
 #
 # Index

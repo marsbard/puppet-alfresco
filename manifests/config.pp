@@ -1,6 +1,9 @@
 class alfresco::config inherits alfresco {
 
-  case $::osfamily {
+  $coders_path = find_coders()
+  notice("coders_path = ${coders_path}")
+  
+	case $::osfamily {
         'RedHat': {
       $init_template = "alfresco/tomcat-init-centos.erb"
       
