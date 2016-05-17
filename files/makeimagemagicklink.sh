@@ -1,7 +1,5 @@
 #!/bin/bash
 
-IMAGEMAGICK=`rpm -ql ImageMagick | grep "/coders" | head -n1`
-echo ${IMAGEMAGICK}
 IMAGEMAGICK=`sudo find /usr -name jpeg.so  | grep coders | sed "s/\/jpeg.so$//"`
 echo ${IMAGEMAGICK}
 DESTLINK="/opt/alfresco/ImageMagickCoders"
