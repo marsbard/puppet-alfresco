@@ -62,6 +62,15 @@ class alfresco::addons inherits alfresco {
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
   }
+
+  file { "${alfresco_base_dir}/bin/makeimagemagicklink.sh":
+    ensure => present,
+    mode => '0755',
+    source => 'puppet:///modules/alfresco/makeimagemagicklink.sh',
+    require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat',
+  }
+
   file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
     ensure => present,
     mode => '0755',
