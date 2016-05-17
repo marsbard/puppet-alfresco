@@ -1,5 +1,8 @@
 ## Order of the Bee "Honeycomb" edition of Alfresco
 
+#### New in 1.1
+* ImageMagick paths updated on each run
+
 #### <a name='features'></a>Features
 * Standalone build with repo, share, mysql and solr on one server. Remote mysql supported now, remote solr and pentaho next version
 * Choose from version 4.2.f, latest 5.0.x or NIGHTLY
