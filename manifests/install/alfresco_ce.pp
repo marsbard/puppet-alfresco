@@ -171,6 +171,11 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
     #filename => "${alfresco::urls::jolokia_dl_file}",
 		filename => "jolokia.war",
     download_path => "${alfresco_base_dir}/tomcat/webapps",
-		notify => Service['tomcat'],
   }
+  # hawtio
+	alfresco::safe_download { 'hawtio':
+    url => "${alfresco::urls::hawtio_dl_url}",
+		filename => "hawtio.war",
+    download_path => "${alfresco_base_dir}/tomcat/webapps",
+	}
 }

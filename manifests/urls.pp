@@ -63,4 +63,7 @@ class alfresco::urls {
   $jolokia_dl_file = "jolokia-war-1.3.3.war"
   $jolokia_dl_url = "http://search.maven.org/remotecontent?filepath=org/jolokia/jolokia-war/1.3.3/${jolokia_dl_file}"
 
+  $hawtio_dl_url = "https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/1.4.64/hawtio-default-1.4.64.war"
+
+
 }
