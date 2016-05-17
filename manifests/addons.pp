@@ -69,17 +69,13 @@ class alfresco::addons inherits alfresco {
     source => 'puppet:///modules/alfresco/makeimagemagicklink.sh',
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
-  }
-  
+  } ->
   exec { "makeimagemagicklink":
-    require => [
-       Exec["${alfresco_base_dir}/bin/makeimagemagicklink.sh"],
-      ],
-      path => "/bin:/usr/bin",
-      command => "${alfresco_base_dir}/bin/makeimagemagicklink.sh",
-      creates => "${alfresco_base_dir}/ImageMagickCoders/",
-      notify => Service['tomcat'],
-    }
+    path => "/bin:/usr/bin",
+    command => "${alfresco_base_dir}/bin/makeimagemagicklink.sh",
+    creates => "${alfresco_base_dir}/ImageMagickCoders/",
+    notify => Service['tomcat'],
+  }
 
 
   file { "${alfresco_base_dir}/bin/alfresco-mmt.jar":
