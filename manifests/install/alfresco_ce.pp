@@ -173,9 +173,9 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
     download_path => "${alfresco_base_dir}/tomcat/webapps",
   }
   # hawtio
-  alfresco::safe_download { 'hawtio':
-    url => "${alfresco::urls::hawtio_dl_url}",
-    filename => "hawtio.war",
-    download_path => "${alfresco_base_dir}/tomcat/webapps",
-  }
+  #alfresco::safe_download { 'hawtio':
+  #  url => "${alfresco::urls::hawtio_dl_url}",
+  #  filename => "hawtio.war",
+  #  download_path => "${alfresco_base_dir}/tomcat/webapps",
+  #}
 }
