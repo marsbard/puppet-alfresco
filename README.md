@@ -2,6 +2,7 @@
 
 #### New in 1.1
 * ImageMagick paths updated on each run
+* Added jolokia agent
 
 #### <a name='features'></a>Features
 * Standalone build with repo, share, mysql and solr on one server. Remote mysql supported now, remote solr and pentaho next version
