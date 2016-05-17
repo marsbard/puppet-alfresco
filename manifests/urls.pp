@@ -60,4 +60,7 @@ class alfresco::urls {
   $solr_dl_file = 'alfresco-community-solr-4.2.f.zip'
   $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
 
+  $jolokia_dl_file = "jolokia-war-1.3.3.war"
+	$jokokia_dl_url = "http://search.maven.org/remotecontent?filepath=org/jolokia/jolokia-war/1.3.3/${jolokia_dl_file}"
+
 }

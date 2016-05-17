@@ -163,10 +163,12 @@ class alfresco::install::alfresco_ce inherits alfresco::install {
 
       }
 
-
-
-
-
   }
 
+  # jolokia agent
+  alfresco::safe_download { 'jolokia':
+    url => "${alfresco::urls::jolokia_dl_url}",
+    filename => "${alfresco::urls::jolokia_dl_file}",
+    download_path => "${alfresco_base_dir}/tomcat/webapps",
+  }
 }
