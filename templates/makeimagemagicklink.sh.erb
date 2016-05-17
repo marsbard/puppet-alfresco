@@ -2,7 +2,7 @@
 
 IMAGEMAGICK=`sudo find /usr -name jpeg.so  | grep coders | sed "s/\/jpeg.so$//"`
 echo ${IMAGEMAGICK}
-DESTLINK="<%= @alfresco_base_dir %>/opt/alfresco/ImageMagickCoders"
+DESTLINK="<%= @alfresco_base_dir %>/ImageMagickCoders"
 
 #if test -e "/opt/alfresco/ImageMagickCoders"; then
 #   ln -sfn ${IMAGEMAGICK} ${DESTLINK} 
