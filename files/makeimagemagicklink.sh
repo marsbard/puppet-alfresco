@@ -4,6 +4,10 @@ IMAGEMAGICK=`rpm -ql ImageMagick | grep "/coders" | head -n1`
 echo ${IMAGEMAGICK}
 IMAGEMAGICK=`sudo find /usr -name jpeg.so  | grep coders | sed "s/\/jpeg.so$//"`
 echo ${IMAGEMAGICK}
+DESTLINK="/opt/alfresco/ImageMagickCoders"
 
-rm -f /opt/alfresco/ImageMagickCoders
-ln -s ${IMAGEMAGICK} /opt/alfresco/ImageMagickCoders
+if test -e "/opt/alfresco/ImageMagickCoders"; then
+   ln -sfn ${IMAGEMAGICK} ${DESTLINK} 
+else
+   ln -s ${IMAGEMAGICK} ${DESTLINK} 
+fi;
