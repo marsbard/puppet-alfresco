@@ -12,6 +12,8 @@ class alfresco::addons inherits alfresco {
 
   class { 'alfresco::addons::ootbfrontpage':}
 
+  class { 'alfresco::addons::monitorix': }
+
   class { 'alfresco::addons::ootbbeetheme':
     notify => Exec['apply-addons'],
   }
