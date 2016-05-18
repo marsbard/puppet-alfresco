@@ -420,7 +420,7 @@ secure_log_date_format = %b %e
 	list = localhost
 #	list = /var/lib/mysql/mysql.sock
 	<desc>
-		localhost = 3306, user, secret
+	localhost = 3306, <%= @db_user %>, <%= @db_pass %>
 	</desc>
 	rigid = 0, 2, 0, 0, 0, 0
 	limit = 100, 100, 100, 100, 100, 100
