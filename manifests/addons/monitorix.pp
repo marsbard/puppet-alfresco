@@ -19,6 +19,13 @@ class alfresco::addons::monitorix inherits alfresco::addons {
 
   package { 'monitorix':
     ensure => installed,
+  } -> 
+  file { '/etc/monitorix/monitorix.conf':
+    content => template('alfresco/monitorix.conf.erb'),
+    ensure => present,
+  } ~>
+  service {'monitorix':
+    ensure => running,
   }
 
 }
