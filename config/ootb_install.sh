@@ -13,6 +13,9 @@ then
 fi
 
 # install external modules
+
+gem install librarian-puppet
+
 ./install/modules-for-vagrant.sh
 
 # ensure that our module is in the right place
