@@ -8,6 +8,8 @@ mod "puppetlabs/concat"
 
 mod "puppetlabs/stdlib"
 
+mod "puppetlabs/ast"
+
 mod "puppetlabs/apt"
 
 mod "puppetlabs/vcsrepo"
