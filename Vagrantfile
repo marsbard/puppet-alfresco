@@ -24,7 +24,7 @@ config.vm.box = "puppetlabs/centos-6.6-64-puppet"
   config.vm.network :forwarded_port, guest: 8443, host: 8443
 
   config.vm.provision :shell do |shell|
-    shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; install/modules-for-vagrant.sh"
+    shell.inline = "OS=`cat /etc/issue | head -n1 | cut -f1 -d' '`; if [ \"$OS\" == \"Debian\" -o \"$OS\" == \"Ubuntu\" ]; then apt-get update; else yum -y update; fi; cd /vagrant; config/ootb_install.sh"
   end
 
   config.vm.provision :puppet do |puppet|
