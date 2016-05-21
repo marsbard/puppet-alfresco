@@ -15,9 +15,7 @@ fi
 # install external modules
 
 gem install librarian-puppet
-cd ..
-librarian-puppet install --verbose
-#./install/modules-for-vagrant.sh
+/usr/local/bin/librarian-puppet install --verbose
 
 # ensure that our module is in the right place
 if [ ! -d modules/alfresco ]

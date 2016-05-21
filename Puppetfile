@@ -1,4 +1,4 @@
-forge "http://forge.puppetlabs.com"
+forge "https://forgeapi.puppetlabs.com"
 
 mod "puppetlabs/mysql"
 
@@ -8,7 +8,7 @@ mod "puppetlabs/concat"
 
 mod "puppetlabs/stdlib"
 
-mod "puppetlabs/apt"
+mod "puppetlabs/apt", "2.2.1"
 
 mod "puppetlabs/vcsrepo"
 
