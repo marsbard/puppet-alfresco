@@ -9,10 +9,18 @@ class alfresco::addons::monitorix inherits alfresco::addons {
     #  before => Package['monitorix'],
     #}
 
+    alfresco::safe-download { 'izzysoft gpg key':
+      url => 'http://apt.izzysoft.de/izzysoft.asc',
+      filename => 'izzysoft.asc',
+      download_path => '/tmp',
+    } -> 
+    exec { '/usr/bin/apt-key add /tmp/izzysoft.asc':
+    } ->
     file { '/etc/apt/sources.list.d/izzysoft.list':
       ensure => present,
       content => "deb http://apt.izzysoft.de/ubuntu generic universe",
-    } -> exec { '/usr/bin/apt-get update': 
+    } -> 
+    exec { '/usr/bin/apt-get update': 
       before => Package['monitorix'],
     }
 
