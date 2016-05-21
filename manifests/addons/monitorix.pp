@@ -12,7 +12,9 @@ class alfresco::addons::monitorix inherits alfresco::addons {
     file { '/etc/apt/sources.list.d/izzysoft.list':
       ensure => present,
       content => "deb http://apt.izzysoft.de/ubuntu generic universe",
-    } -> exec { 'apt-get update': }
+    } -> exec { 'apt-get update': 
+      before => Package['monitorix'],
+    }
 
   }
 
