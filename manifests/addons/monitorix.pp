@@ -2,11 +2,18 @@ class alfresco::addons::monitorix inherits alfresco::addons {
   if ( $osfamily == "Debian" ) {
     # deb http://apt.izzysoft.de/ubuntu generic universe
 
-    apt::source { 'izzysoft':
-      location => 'http://apt.izzysoft.de/ubuntu',
-      repos => 'generic universe',
-      before => Package['monitorix'],
-    } 
+    # this ends up adding 'trusty' to the source for some reason
+    #apt::source { 'izzysoft':
+    #  location => 'http://apt.izzysoft.de/ubuntu',
+    #  repos => 'generic universe',
+    #  before => Package['monitorix'],
+    #}
+
+    file { '/etc/apt/sources.list.d/izzysoft.list':
+      ensure => present,
+      content => "deb http://apt.izzysoft.de/ubuntu generic universe",
+    } -> exec { 'apt-get update': }
+
   }
 
   if ( $osfamily == "RedHat" ) {
