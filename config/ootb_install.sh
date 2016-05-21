@@ -13,7 +13,9 @@ then
 fi
 
 # install external modules
-./install/modules-for-vagrant.sh
+
+gem install librarian-puppet
+/usr/local/bin/librarian-puppet install --verbose
 
 # ensure that our module is in the right place
 if [ ! -d modules/alfresco ]
