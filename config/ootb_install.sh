@@ -17,7 +17,7 @@ fi
 gem install librarian-puppet
 cd ..
 librarian-puppet install --verbose
-./install/modules-for-vagrant.sh
+#./install/modules-for-vagrant.sh
 
 # ensure that our module is in the right place
 if [ ! -d modules/alfresco ]

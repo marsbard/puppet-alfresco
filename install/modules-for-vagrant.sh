@@ -1,10 +1,10 @@
 #!/bin/bash
 
-gem install librarian-puppet
-cd ..
-librarian-puppet install --verbose
+#gem install librarian-puppet
+#cd ..
+#librarian-puppet install --verbose
 
-exit 0
+#exit 0
 
 MODULES="puppetlabs-mysql puppetlabs-stdlib stankevich-python puppetlabs-apache puppetlabs-apt\
   puppetlabs-concat spantree/java8 puppetlabs-vcsrepo"
