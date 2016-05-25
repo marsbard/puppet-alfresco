@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGEMAGICK=`sudo find /usr -name jpeg.so  | grep coders | sed "s/\/jpeg.so$//"`
+IMAGEMAGICK=`find /usr -name jpeg.so  | grep coders | sed "s/\/jpeg.so$//"`
 echo ${IMAGEMAGICK}
 DESTLINK="<%= @alfresco_base_dir %>/ImageMagickCoders"
 
