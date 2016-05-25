@@ -8,13 +8,13 @@ class alfresco::install::postgresql inherits alfresco {
        version             => '9.3',
     }->
     class { '::postgresql::server': }
-       postgresql::server::role { "marmot":
+       postgresql::server::role { "${alfresco_db_user}":
           password_hash => postgresql_password("marmot", "${alfresco_db_pass}"),
        }
        postgresql::server::database_grant { "${alfresco_db_name}":
           privilege => 'ALL',
           db        => "${alfresco_db_name}",
-          role      => "marmot",
+          role      => "${alfresco_db_user}",
        }
        postgresql::server::db { "${alfresco_db_name}":
           user     => "${alfresco_db_user}",
