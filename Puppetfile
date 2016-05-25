@@ -2,7 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod "puppetlabs/mysql"
 
-mod "puppetlabs/postgresql"
+mod "puppetlabs/postgresql", "4.7.1"
 
 mod "puppetlabs/apache"
 
