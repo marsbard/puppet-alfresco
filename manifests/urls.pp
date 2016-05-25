@@ -51,11 +51,19 @@ class alfresco::urls {
   #$mysql_connector_file = "${mysql_connector_name}.tar.gz"
   #$mysql_connector_url = "http://dev.mysql.com/get/Downloads/Connector-J/${mysql_connector_file}"
 
+  $mysql_connector_version = '5.1.36'
   $mysql_root = 'https://repo1.maven.org'
-  $mysql_location = 'maven2/mysql/mysql-connector-java/5.1.36'
-  $mysql_connector_name = 'mysql-connector-java-5.1.36'
+  $mysql_location = 'maven2/mysql/mysql-connector-java/${mysql_connector_version}'
+  $mysql_connector_name = 'mysql-connector-java-${mysql_connector_version}'
   $mysql_connector_file = "${mysql_connector_name}.jar"
   $mysql_connector_url = "${mysql_root}/${mysql_location}/${mysql_connector_file}"
+
+  $postgresql_connector_version = '9.1-901.jdbc4'
+  $postgresql_root = 'https://repo1.maven.org'
+  $postgresql_location = 'maven2/postgresql/postgresql/${postgresql_connector_version}'
+  $postgresql_connector_name = 'postgresql-${postgresql_connector_version}'
+  $postgresql_connector_file = "${postgresql_connector_name}.jar"
+  $postgresql_connector_url = "{$postgresql_root}/${postgresql_location}/$postgresql_connector_file"
 
   $solr_dl_file = 'alfresco-community-solr-4.2.f.zip'
   $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"

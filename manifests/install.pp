@@ -3,6 +3,7 @@ class alfresco::install inherits alfresco {
   class { 'alfresco::install::alfresco_ce': }
   class { 'alfresco::install::postfix': }
   class { 'alfresco::install::mysql': }
+  class { 'alfresco::install::postgresql': }
   class { 'alfresco::install::proxy': }
   class { 'alfresco::install::iptables': }
   class { 'alfresco::install::jdk': }
