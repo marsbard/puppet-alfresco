@@ -40,13 +40,14 @@ db.password=<%= @alfresco_db_pass %>
 db.name=<%= @alfresco_db_name %>
 db.host=<%= @alfresco_db_host %>
 db.port=<%= @alfresco_db_port %>
+db.type=<%= @alfresco_db_type %>
 
 #db.driver=com.mysql.jdbc.Driver
 #db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true
 
 db.driver=org.postgresql.Driver
-db.port=5432
-db.url=jdbc:postgresql://${db.host}:${db.port}/${db.name}
+db.port=${db.port}
+db.url=jdbc:${db.type}://${db.host}:${db.port}/${db.name}
 
 db.pool.initial=10
 db.pool.max=275
