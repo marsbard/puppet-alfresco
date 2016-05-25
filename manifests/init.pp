@@ -87,6 +87,7 @@ class alfresco (
   $db_host			= $alfresco::params::db_host,
   $db_port			= 3306,
   $db_type                      = $alfresco::params::db_type,
+  $db_driver                    = $alfresco::params::db_driver,
   $mail_host    = 'localhost',
   $mail_port    = 25,
   $mem_xmx			= "32G",
@@ -155,6 +156,8 @@ class alfresco (
   $alfresco_db_pass = $db_pass
   $alfresco_db_host = $db_host
   $alfresco_db_port = $db_port
+  $alfresco_db_type = $db_type
+  $alfresco_db_driver = $db_driver
 
 
   $alfresco_unpacked = "${download_path}/alfresco"

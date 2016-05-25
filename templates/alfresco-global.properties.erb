@@ -42,6 +42,8 @@ db.host=<%= @alfresco_db_host %>
 db.port=<%= @alfresco_db_port %>
 db.type=<%= @alfresco_db_type %>
 
+#mysql only
+#db.pool.validate.query=select 1
 #db.driver=com.mysql.jdbc.Driver
 #db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true
 
@@ -51,8 +53,6 @@ db.url=jdbc:${db.type}://${db.host}:${db.port}/${db.name}
 
 db.pool.initial=10
 db.pool.max=275
-#mysql only
-db.pool.validate.query=select 1
 
 #
 # System paramaters
@@ -89,8 +89,6 @@ ooo.enabled=true
 ooo.port=8100
 swf.exe=/usr/local/bin/pdf2swf
 img.exe=<%= @alfresco_base_dir %>/bin/limitconvert.sh
-#img.exe=/usr/bin/convert
-
 img.gslib=/usr/share/ghostscript/current/lib
 img.coders=<%= @alfresco_base_dir %>/ImageMagickCoders
 

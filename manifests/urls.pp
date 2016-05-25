@@ -57,6 +57,7 @@ class alfresco::urls {
   $mysql_connector_name = "mysql-connector-java-${mysql_connector_version}"
   $mysql_connector_file = "${mysql_connector_name}.jar"
   $mysql_connector_url = "${mysql_root}/${mysql_location}/${mysql_connector_file}"
+  $mysql_driver = "com.mysql.jdbc.Driver"
 
   $postgresql_connector_version = "9.4.1208"
   $postgresql_root = "https://jdbc.postgresql.org"
@@ -64,6 +65,7 @@ class alfresco::urls {
   $postgresql_connector_name = "postgresql-${postgresql_connector_version}"
   $postgresql_connector_file = "${postgresql_connector_name}.jar"
   $postgresql_connector_url = "${postgresql_root}/${postgresql_location}/${postgresql_connector_file}"
+  $postgresql_driver = "org.postgresql.Driver"
 
   $solr_dl_file = 'alfresco-community-solr-4.2.f.zip'
   $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
