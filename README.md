@@ -4,6 +4,7 @@
 * ImageMagick paths updated on each run
 * Now using Librarian-puppet to manage puppet modules
 * Monitoring with monitorix on port 8088
+* Support both Mysql & Postgresql as local or remote DB
 
 #### <a name='features'></a>Features
 * Standalone build with repo, share, mysql and solr on one server. Remote mysql supported now, remote solr and pentaho next version
