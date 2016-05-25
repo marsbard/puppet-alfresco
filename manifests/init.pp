@@ -86,6 +86,7 @@ class alfresco (
   $db_name			= $alfresco::params::db_name,
   $db_host			= $alfresco::params::db_host,
   $db_port			= 3306,
+  $db_type                      = $alfresco::params::db_type,
   $mail_host    = 'localhost',
   $mail_port    = 25,
   $mem_xmx			= "32G",
