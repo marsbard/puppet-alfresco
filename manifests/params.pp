@@ -22,4 +22,5 @@ class alfresco::params {
 	$db_name		= "alfresco"
 	$db_host		= "localhost"
         $db_type                = "mysql"
+        $db_port                = "3306"
 }
