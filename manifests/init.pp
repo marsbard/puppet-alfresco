@@ -79,24 +79,24 @@ class alfresco (
   $alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
   $tomcat_home			= $alfresco::params::tomcat_home,
   $alfresco_version		= $alfresco::params::alfresco_version,
-  $download_path			= $alfresco::params::download_path,
+  $download_path		= $alfresco::params::download_path,
   $db_root_password		= $alfresco::params::db_root_password	,
   $db_user			= $alfresco::params::db_user,
   $db_pass			= $alfresco::params::db_pass,
   $db_name			= $alfresco::params::db_name,
   $db_host			= $alfresco::params::db_host,
-  $db_port			= 3306,
+  $db_port			= $alfresco::params::db_port,
   $db_type                      = $alfresco::params::db_type,
   $db_driver                    = $alfresco::params::db_driver,
-  $mail_host    = 'localhost',
-  $mail_port    = 25,
+  $mail_host                    = 'localhost',
+  $mail_port                    = 25,
   $mem_xmx			= "32G",
   $mem_xxmaxpermsize		= "512m",
-  $delay_before_tests = 1,
-  $apt_cache_host = '',
-  $apt_cache_port = 3142,
-  $ssl_cert_path = '',
-  $enable_proxy = true
+  $delay_before_tests           = 1,
+  $apt_cache_host               = '',
+  $apt_cache_port               = 3142,
+  $ssl_cert_path                = '',
+  $enable_proxy                 = true
 ) inherits alfresco::params {
 
   include alfresco::urls
