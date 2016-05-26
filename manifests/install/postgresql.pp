@@ -28,27 +28,27 @@ class alfresco::install::postgresql inherits alfresco {
        package_ensure => 'present',
     }
     alfresco::safe_download { 'postgresql-connector':
-       url => "${alfresco::urls::postgresql_connector_url}",
-       filename => "${alfresco::urls::postgresql_connector_file}",
+       url => "${alfresco::dbdetails::postgresql_connector_url}",
+       filename => "${alfresco::dbdetails::postgresql_connector_file}",
        download_path => $download_path,
     }
     exec { "unpack-postgresql-connector":
        user => 'tomcat',
-       command => "echo ${alfresco::urls::postgresql_connector_file}",
+       command => "echo ${alfresco::dbdetails::postgresql_connector_file}",
        cwd => $download_path,
        path => "/bin",
        require => Alfresco::Safe_download["postgresql-connector"],
-       creates => "${download_path}/${alfresco::urls::postgresql_connector_name}",
+       creates => "${download_path}/${alfresco::dbdetails::postgresql_connector_name}",
     }
     exec { "copy-postgresql-connector":
        user => 'tomcat',
-       command => "cp ${download_path}/${alfresco::urls::postgresql_connector_name}.jar  ${tomcat_home}/shared/lib/",
+       command => "cp ${download_path}/${alfresco::dbdetails::postgresql_connector_name}.jar  ${tomcat_home}/shared/lib/",
        path => "/bin:/usr/bin",
        require => [
           Exec["unpack-postgresql-connector"],
           File["${tomcat_home}/shared/lib"],
        ],
-       creates => "${tomcat_home}/shared/lib/${alfresco::urls::postgresql_connector_name}.jar",
+       creates => "${tomcat_home}/shared/lib/${alfresco::dbdetails::postgresql_connector_name}.jar",
     }
     }
 }
