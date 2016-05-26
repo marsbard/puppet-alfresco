@@ -32,7 +32,8 @@ class alfresco::install::mysql inherits alfresco {
       grant    => ['ALL'],
     }
   }
-
+  
+  if $db_type == 'mysql' {
   class { '::mysql::bindings':
     java_enable => 1,
   }
@@ -67,5 +68,5 @@ class alfresco::install::mysql inherits alfresco {
     ],
     creates => "${tomcat_home}/shared/lib/${alfresco::urls::mysql_connector_name}.jar",
   }
-
+  }
 }

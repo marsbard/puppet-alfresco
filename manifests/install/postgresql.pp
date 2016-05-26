@@ -21,6 +21,9 @@ class alfresco::install::postgresql inherits alfresco {
           password => postgresql_password("${db_name}","${db_pass}"),
        }
     }
+
+    if $db_type == 'postgresql' {
+
     class { '::postgresql::lib::java':
        package_ensure => 'present',
     }
@@ -46,5 +49,6 @@ class alfresco::install::postgresql inherits alfresco {
           File["${tomcat_home}/shared/lib"],
        ],
        creates => "${tomcat_home}/shared/lib/${alfresco::urls::postgresql_connector_name}.jar",
+    }
     }
 }
