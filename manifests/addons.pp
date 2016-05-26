@@ -64,6 +64,15 @@ class alfresco::addons inherits alfresco {
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
   }
+  
+  file { "${alfresco_base_dir}/bin/clean_solrindex.sh":
+    ensure => present,
+    mode => '0755',
+    #source => "${download_path}/alfresco/bin/clean_solrindex.sh",
+    source => 'puppet:///modules/alfresco/clean_solrindex.sh',
+    require => File["${alfresco_base_dir}/bin"],
+    owner => 'tomcat',
+  }
 
   file { "${alfresco_base_dir}/bin/makeimagemagicklink.sh":
     ensure => present,
