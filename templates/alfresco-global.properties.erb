@@ -47,8 +47,10 @@ db.type=<%= @alfresco_db_type %>
 #db.driver=com.mysql.jdbc.Driver
 #db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true
 
-db.driver=org.postgresql.Driver
-db.url=jdbc:${db.type}://${db.host}:${db.port}/${db.name}
+##org.postgresql.Driver
+
+db.driver=<%= @db_driver %>
+db.url=jdbc:<%= @db_type %>://<%= @db_host %>:<%= @db_port %>/<%= @db_name %>
 
 db.pool.initial=10
 db.pool.max=275
