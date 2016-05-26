@@ -7,8 +7,6 @@ class alfresco::urls {
   $nightly_name = 'alfresco-community-distribution'
   $nightly_filename = 'alfresco-community-distribution-SNAPSHOT-LATEST.zip'
 
-
-
   # v4 wars
   $alfresco_ce_filename = 'alfresco-community-4.2.f.zip'
   $alfresco_ce_url = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${alfresco_ce_filename}"
@@ -58,6 +56,7 @@ class alfresco::urls {
   $mysql_connector_file = "${mysql_connector_name}.jar"
   $mysql_connector_url = "${mysql_root}/${mysql_location}/${mysql_connector_file}"
   $mysql_driver = "com.mysql.jdbc.Driver"
+  $mysql_params = "?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true"
 
   $postgresql_connector_version = "9.4.1208"
   $postgresql_root = "https://jdbc.postgresql.org"
@@ -66,6 +65,7 @@ class alfresco::urls {
   $postgresql_connector_file = "${postgresql_connector_name}.jar"
   $postgresql_connector_url = "${postgresql_root}/${postgresql_location}/${postgresql_connector_file}"
   $postgresql_driver = "org.postgresql.Driver"
+  $postgresql_params = ""
 
   $solr_dl_file = 'alfresco-community-solr-4.2.f.zip'
   $solr_dl = "http://dl.alfresco.com/release/community/4.2.f-build-00012/${solr_dl_file}"
