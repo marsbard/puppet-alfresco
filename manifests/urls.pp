@@ -41,9 +41,9 @@ class alfresco::urls {
   $swftools_src_name = 'swftools-2013-04-09-1007'
   $swftools_src_url = "http://www.swftools.org/${swftools_src_name}.tar.gz"
 
-  $name_tomcat = 'apache-tomcat-7.0.55'
+  $name_tomcat = 'apache-tomcat-7.0.59'
   $filename_tomcat = "${name_tomcat}.tar.gz"
-  $url_tomcat = "http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/${filename_tomcat}"
+  $url_tomcat = "http://apache.org/dist/tomcat/tomcat-7/v7.0.59/bin/${filename_tomcat}"
 
   #$mysql_connector_name = 'mysql-connector-java-5.1.34'
   #$mysql_connector_file = "${mysql_connector_name}.tar.gz"
