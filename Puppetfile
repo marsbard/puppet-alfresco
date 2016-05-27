@@ -4,8 +4,6 @@ mod "puppetlabs/mysql"
 
 mod "puppetlabs/postgresql", "4.7.1"
 
-mod "wilrnh/ffmpeg"
-
 mod "puppetlabs/apache"
 
 mod "puppetlabs/concat"
