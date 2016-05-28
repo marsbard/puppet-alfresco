@@ -3,11 +3,10 @@ class alfresco::install::mysql inherits alfresco {
   if $db_host == 'localhost' and $db_type == 'mysql' {
     class { '::mysql::server':
       root_password    => $db_root_password,
- #     remove_default_accounts=> true,
+#     remove_default_accounts=> true,
       service_enabled => true,
       override_options => {
         'mysqld' => {
-          'useUnicode' => 'yes',
           'max_connections' => 300,
 #          'innodb_buffer_pool_size' => '4GB',
 #          'innodb_log_buffer_size' => 50331648,
