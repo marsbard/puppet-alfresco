@@ -15,12 +15,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y wget git ca-cer
 RUN wget --no-check-certificate $PUPPET_URL
 RUN dpkg -i $PUPPET_PACKAGE
 
-
-#RUN git -c http.sslVerify=false clone http://github.com/marsbard/puppet-alfresco.git
 RUN git clone http://github.com/marsbard/puppet-alfresco.git
+
+COPY files/go.sh /go.sh
+RUN chmod +x /go.sh
 
 WORKDIR puppet-alfresco
 
-
-
-ENTRYPOINT ./install.sh
+ENTRYPOINT /go.sh
