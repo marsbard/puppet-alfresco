@@ -23,4 +23,4 @@ RUN chmod +x /go.sh
 
 WORKDIR puppet-alfresco
 
-ENTRYPOINT /go.sh $BRANCH
+ENTRYPOINT /install.sh
