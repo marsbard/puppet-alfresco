@@ -7,7 +7,7 @@
 
 #### <a name='features'></a>Features
 * Standalone build with repo, share, mysql and solr on one server. Remote mysql supported now, remote solr and pentaho next version
-* Choose from version 4.2.f, latest 5.0.x or NIGHTLY
+* Choose from version 4.2.f, 5.0.x, 5.1.x or NIGHTLY
 * Installation supported on Ubuntu and CentOS. 
 * Puppet based, so makes idempotent changes and if interrupted can pick up where it left off
 * Simple bash based configuration

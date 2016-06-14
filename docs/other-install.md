@@ -45,7 +45,7 @@ Here's a more complete example, showing the default values (domain_name has no d
 	}
 
 
-Note that currently the only supported values for "alfresco_version" are "4.2.f",  "5.0.x", and "NIGHTLY".
+Note that currently the only supported values for "alfresco_version" are "4.2.f",  "5.0.x", "5.1.x", and "NIGHTLY".
 
 If you choose something other than 'localhost' for "db_host" then no mysql server will be installed on the local machine and in this case you must have already created the database on the remote server and configured remote permissions correctly.
 

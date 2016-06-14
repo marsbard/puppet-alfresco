@@ -1,5 +1,7 @@
 class alfresco::addons::jsconsole inherits alfresco::addons {
 
+	# TODO 51x
+
   $jsconsolebase = "https://github.com/share-extras/js-console/releases/download/v0.6.0-rc1"
 
   case($alfresco_version){

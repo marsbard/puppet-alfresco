@@ -1,5 +1,8 @@
 class alfresco::addons::rm inherits alfresco::addons {
 
+	# TODO 51x
+
+
   case($alfresco_version){
     '4.2.f': {
       $recmanpath = 'http://download2.polytechnic.edu.na/pub4/sourceforge/a/al/alfresco/Alfresco%204.2.f%20Community'
