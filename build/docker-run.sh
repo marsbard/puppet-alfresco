@@ -9,14 +9,9 @@ then
 fi
 
 export BRANCH=$1
+rm -rf puppet-alfresco
+git clone https://github.com/marsbard/puppet-alfresco.git -b $BRANCH
 
-if [ ! -d ./puppet-alfresco ]
-then
-	git clone http://github.com/marsbard/puppet-alfresco.git -b $BRANCH
-fi
-
-cd puppet-alfresco
-git checkout $BRANCH
-git pull
-
+docker build -t puppet-alfresco-build .
+pwd
 docker run -ti puppet-alfresco-build 

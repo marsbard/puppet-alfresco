@@ -9,6 +9,7 @@ ENV PUPPET_PACKAGE puppetlabs-release-pc1-xenial.deb
 ENV PUPPET_URL http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
 
 ENV SHELL bash
+ENV BRANCH $BRANCH
 
 RUN apt-get update && apt-get install --no-install-recommends -y wget git ca-certificates
 
@@ -22,4 +23,4 @@ RUN chmod +x /go.sh
 
 WORKDIR puppet-alfresco
 
-ENTRYPOINT /go.sh
+ENTRYPOINT /go.sh $BRANCH
