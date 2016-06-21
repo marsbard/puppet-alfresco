@@ -1,6 +1,6 @@
 class alfresco::dbdetails {
 
-  $mysql_connector_version = '5.1.36'
+  $mysql_connector_version = '5.1.39'
   $mysql_root = "https://repo1.maven.org"
   $mysql_location = "maven2/mysql/mysql-connector-java/${mysql_connector_version}"
   $mysql_connector_name = "mysql-connector-java-${mysql_connector_version}"
