@@ -87,7 +87,6 @@ class alfresco (
   $db_host			= $alfresco::params::db_host,
   $db_port			= $alfresco::params::db_port,
   $db_type                      = $alfresco::params::db_type,
-  $db_driver                    = $alfresco::params::db_driver,
   $mail_host                    = 'localhost',
   $mail_port                    = 25,
   $mem_xmx			= "32G",
@@ -131,7 +130,19 @@ class alfresco (
     }	
   }
 
-
+ case($db_type){
+    'mysql': {
+       $alfresco_db_driver = "${alfresco::dbdetails::mysql_driver}"
+       $alfresco_db_params = "${alfresco::dbdetails::mysql_params}"
+    }
+    'postgresql': {
+       $alfresco_db_driver = "${alfresco::dbdetails::postgresql_driver}"       
+       $alfresco_db_params = "${alfresco::dbdetails::postgresql_params}"
+    }
+    default: {
+      fail("Database not supported ${alfresco::params::db_type}")
+    }
+ }
 
  case $::osfamily {
   'RedHat': {
@@ -158,8 +169,6 @@ class alfresco (
   $alfresco_db_host = $db_host
   $alfresco_db_port = $db_port
   $alfresco_db_type = $db_type
-  $alfresco_db_driver = $db_driver
-
 
   $alfresco_unpacked = "${download_path}/alfresco"
   $alfresco_war_loc = "${alfresco_unpacked}/web-server/webapps"

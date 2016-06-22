@@ -23,5 +23,4 @@ class alfresco::params {
 	$db_host		= "localhost"
         $db_type                = "mysql"
         $db_port                = "3306"
-        $db_driver              = "com.mysql.jdbc.Driver"
 }

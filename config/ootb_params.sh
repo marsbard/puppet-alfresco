@@ -97,12 +97,6 @@ descr[$IDX]="Database type"
 default[$IDX]="mysql"
 
 IDX=$(( $IDX + 1 ))
-params[$IDX]="db_driver"
-descr[$IDX]="Database driver"
-default[$IDX]="com.mysql.jdbc.Driver"
-choices[$IDX]="com.mysql.jdbc.Driver|org.postgresql.Driver"
-
-IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xmx"
 descr[$IDX]="Setting to pass as '-Xmx' for JAVA_OPTS. You cannot use decimal fractions, e.g. if you want 7.5G use 7500M instead"
 default[$IDX]="3600M"
