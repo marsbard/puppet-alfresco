@@ -6,7 +6,11 @@ class alfresco::install::jdk inherits alfresco {
 
     'Debian': {
 
-      $java_release = '8u45-b14-1'
+			# TODO this URL stuff should be in urls.pp!
+			# http://mirrors.kernel.org/ubuntu/pool/universe/o/openjdk-8/openjdk-8-jre-headless_8u91-b14-0ubuntu4~15.10.1_amd64.deb
+
+      # $java_release = '8u45-b14-1'
+      $java_release = '8u91-b14-0ubuntu4~15.10.1'
       $java_base_url = 'http://mirrors.kernel.org/ubuntu/pool/universe/o/openjdk-8'
 
       if $java_version == 8 {

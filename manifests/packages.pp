@@ -31,7 +31,7 @@ class alfresco::packages inherits alfresco {
       "ghostscript",
       "haveged",
       "perl-Image-ExifTool",
-			"ruby-devel",
+      "ruby-devel",
     ]
 
     $rmpackages = [
@@ -40,19 +40,19 @@ class alfresco::packages inherits alfresco {
 
     'Debian': {
 
-      if $java_version == 8 {
-        $jpackage=""
-        # auto accept oracle license: http://askubuntu.com/a/190674/33804
-
-        class { 'apt': } ->
-        apt::ppa { 'ppa:webupd8team/java': } ->
-        package { 'oracle-java8-installer':
-          ensure => installed,
-        }
-      } else {
-        $jpackage="openjdk-7-jdk"
-        alfresco::ensure_packages { "$jpackage": }
-      }
+ #     if $java_version == 8 {
+ #       $jpackage=""
+ #       # auto accept oracle license: http://askubuntu.com/a/190674/33804
+#
+#        class { 'apt': } ->
+#        apt::ppa { 'ppa:webupd8team/java': } ->
+#        package { 'oracle-java8-installer':
+#          ensure => installed,
+#        }
+#      } else {
+#        $jpackage="openjdk-7-jdk"
+#        alfresco::ensure_packages { "$jpackage": }
+#      }
 
 
       $packages = [
