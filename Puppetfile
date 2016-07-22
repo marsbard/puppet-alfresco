@@ -18,5 +18,6 @@ mod "spantree/java8"
 
 mod "stankevich/python"
 
-mod "tylerwalts/jdk_oracle"
+#mod "tylerwalts/jdk_oracle"
+mod "puppetlabs/java"
 

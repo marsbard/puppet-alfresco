@@ -40,7 +40,8 @@ class alfresco::packages inherits alfresco {
 
     'Debian': {
 
- #     if $java_version == 8 {
+ #     if $install_java_version == 8 {
+
  #       $jpackage=""
  #       # auto accept oracle license: http://askubuntu.com/a/190674/33804
 #
