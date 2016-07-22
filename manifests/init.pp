@@ -120,10 +120,12 @@ class alfresco (
       $alfresco_ce_url = $alfresco::urls::alfresco_ce_url
       $indexer = 'solr'
       $cmis_url = '/alfresco/s/cmis'
+      $java_version = 7
     }
     '5.0.x', 'NIGHTLY': {
       $indexer = 'solr4'
       $cmis_url = '/alfresco/cmisatom'
+      $java_version = 8
     }
     default: {
       fail("Unsupported version ${alfresco_version}")
