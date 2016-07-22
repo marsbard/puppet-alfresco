@@ -61,6 +61,10 @@ descr[$IDX]="Database type - IMPORTANT - if you change this you probably need to
 default[$IDX]="mysql"
 choices[$IDX]="mysql|postgresql"
 
+IDX=$(( $IDX + 1 ))
+params[$IDX]="db_port"
+descr[$IDX]="Database port - Defaults are 3306 for mysql and 5432 for postgresql"
+default[$IDX]="3306"
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="db_root_password"
@@ -91,11 +95,6 @@ params[$IDX]="db_host"
 descr[$IDX]="Database host. Not really useful yet. In future, if this is localhost then the DB will be installed locally, if anything  else then no local DB server is installed"
 default[$IDX]="localhost"
 
-
-IDX=$(( $IDX + 1 ))
-params[$IDX]="db_port"
-descr[$IDX]="Database port"
-default[$IDX]="3306"
 
 IDX=$(( $IDX + 1 ))
 params[$IDX]="mem_xmx"
