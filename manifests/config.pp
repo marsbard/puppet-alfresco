@@ -4,17 +4,6 @@ class alfresco::config inherits alfresco {
         'RedHat': {
       $init_template = "alfresco/tomcat-init-centos.erb"
       
-			file { "/etc/systemd":
-			 ensure => directory,
-			} -> 
-			file { "/etc/systemd/system":
-				ensure => directory,
-			} ->
-      file { "/etc/systemd/system/tomcat.service":
-        ensure => present,
-        content => template("alfresco/tomcat-systemd-centos.erb"),
-        before => Service["alfresco-start"],
-      }
 
 
     }
@@ -26,13 +15,28 @@ class alfresco::config inherits alfresco {
     } 
   }
 
-  if($osfamily == "Debian") {
-    # tomcat memory set in here TODO: what TODO for Centos?
-    file { "/etc/default/tomcat":
-      require => Exec["copy tomcat to ${tomcat_home}"],
-      content => template("alfresco/default-tomcat.erb")
-    }
+
+
+	file { "/etc/systemd":
+		ensure => directory,
+	} -> 
+	file { "/etc/systemd/system":
+		ensure => directory,
+	} ->
+  file { "/etc/systemd/system/tomcat.service":
+    ensure => present,
+    content => template("alfresco/tomcat-systemd.erb"),
+    before => Service["alfresco-start"],
   }
+
+
+#  if($osfamily == "Debian") {
+#    # tomcat memory set in here TODO: what TODO for Centos?
+#    file { "/etc/default/tomcat":
+#      require => Exec["copy tomcat to ${tomcat_home}"],
+#      content => template("alfresco/default-tomcat.erb")
+#    }
+#  }
 
   file { "${tomcat_home}/shared/classes/alfresco-global.properties":
     require => File["${tomcat_home}/shared/classes"],

@@ -30,9 +30,14 @@ class alfresco::install::jdk inherits alfresco {
     }
   }
    
-	package { 'jdk':
+  package { 'jdk':
     name => $jdkpkg,
     ensure => installed,
+  } ->
+  exec { 'jvm default link':
+    command => 'ln -s /usr/lib/jvm/`update-alternatives --list java | cut -f5 -d/` /usr/lib/jvm/jre',
+    path => '/bin:/usr/bin',
+    creates => '/usr/lib/jvm/jre', 
   }
 
 }

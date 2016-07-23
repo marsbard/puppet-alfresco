@@ -77,7 +77,7 @@ class alfresco::addons inherits alfresco {
   file { "${alfresco_base_dir}/bin/makeimagemagicklink.sh":
     ensure => present,
     mode => '0755',
-		content => template('alfresco/makeimagemagicklink.sh.erb'),
+    content => template('alfresco/makeimagemagicklink.sh.erb'),
     require => File["${alfresco_base_dir}/bin"],
     owner => 'tomcat',
     notify => Service['tomcat'],
