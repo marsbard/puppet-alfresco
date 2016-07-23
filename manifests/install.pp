@@ -381,7 +381,7 @@ class alfresco::install inherits alfresco {
         "libjpeg62-dev",
         "libfreetype6-dev",
         "libpng12-dev",
-        "libt1-dev",
+        #"libt1-dev",
       ]
 
 

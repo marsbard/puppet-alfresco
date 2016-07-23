@@ -6,8 +6,33 @@ class alfresco::install::jdk inherits alfresco {
 #    default_java => true,
 #  }
 
-  class { 'java':
-    version => $install_java_version,
+#  class { 'java':
+#    version => $install_java_version,
+#  }
+
+  case $::osfamily {
+    'Debian': {
+
+      if $install_java_version == 8 {
+        $jdkpkg = "openjdk-8-jdk"
+      } else {
+        $jdkpkg = "openjdk-7-jdk"
+      }
+    }
+
+  
+    'RedHat': {
+      if $install_java_version == 8 {
+        $jdkpkg = "java-1.8.0-openjdk"
+      } else {
+        $jdkpkg = "java-1.7.0-openjdk"
+      }
+    }
+  }
+   
+	package { 'jdk':
+    name => $jdkpkg,
+    ensure => installed,
   }
 
 }

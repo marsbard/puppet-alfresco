@@ -63,7 +63,7 @@ class alfresco::packages inherits alfresco {
         "zip",
         "curl",
         "fonts-liberation",
-        "fonts-droid",
+        "fonts-droid-fallback",
         "imagemagick",
         "ghostscript",
         "libjpeg62",
