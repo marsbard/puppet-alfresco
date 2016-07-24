@@ -10,11 +10,23 @@ class alfresco::dbdetails {
   $mysql_params = "?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true"
   $mysql_default_port = "3306"
 
-  $postgresql_connector_version = "9.4.1208"
+  $postgresql_connector_version = "9.4.1209"
   $postgresql_root = "https://jdbc.postgresql.org"
   $postgresql_location = "download"
   $postgresql_connector_name = "postgresql-${postgresql_connector_version}"
-  $postgresql_connector_file = "${postgresql_connector_name}.jar"
+
+  case($install_java_version ){ 
+    7: {
+      $postgresql_connector_file = "${postgresql_connector_name}.jre7.jar"
+    }
+    8: {
+      $postgresql_connector_file = "${postgresql_connector_name}.jar"
+    }
+    default: {
+      fail("Unsupported java version ${install_java_version}")
+    }
+  }
+
   $postgresql_connector_url = "${postgresql_root}/${postgresql_location}/${postgresql_connector_file}"
   $postgresql_driver = "org.postgresql.Driver"
   $postgresql_params = ""

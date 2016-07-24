@@ -5,7 +5,7 @@ class alfresco::install::postgresql inherits alfresco {
        encoding => 'UTF-8',
        locale   => 'en_US.UTF-8',
        manage_package_repo => true,
-       version             => '9.3',
+       version             => '9.5',
     }->
     class { '::postgresql::server': }
        postgresql::server::role { "${db_user}":
