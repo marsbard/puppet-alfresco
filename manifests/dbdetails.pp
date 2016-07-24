@@ -1,4 +1,4 @@
-class alfresco::dbdetails {
+class alfresco::dbdetails inherits alfresco {
 
   $mysql_connector_version = '5.1.39'
   $mysql_root = "https://repo1.maven.org"
@@ -23,7 +23,7 @@ class alfresco::dbdetails {
       $postgresql_connector_file = "${postgresql_connector_name}.jar"
     }
     default: {
-      fail("Unsupported java version ${install_java_version}")
+      fail("Unsupported java version '${install_java_version}'")
     }
   }
 

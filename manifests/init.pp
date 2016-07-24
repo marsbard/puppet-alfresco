@@ -73,24 +73,24 @@
 #
 
 class alfresco (
-  $domain_name			= $alfresco::params::domain_name,
-  $initial_admin_pass		= $alfresco::params::initial_admin_pass,
-  $mail_from_default		= $alfresco::params::mail_from_default,	
-  $alfresco_base_dir		= $alfresco::params::alfresco_base_dir,
-  $tomcat_home			= $alfresco::params::tomcat_home,
-  $alfresco_version		= $alfresco::params::alfresco_version,
-  $download_path		= $alfresco::params::download_path,
-  $db_root_password		= $alfresco::params::db_root_password	,
-  $db_user			= $alfresco::params::db_user,
-  $db_pass			= $alfresco::params::db_pass,
-  $db_name			= $alfresco::params::db_name,
-  $db_host			= $alfresco::params::db_host,
-  $db_port			= $alfresco::params::db_port,
+  $domain_name      = $alfresco::params::domain_name,
+  $initial_admin_pass    = $alfresco::params::initial_admin_pass,
+  $mail_from_default    = $alfresco::params::mail_from_default,  
+  $alfresco_base_dir    = $alfresco::params::alfresco_base_dir,
+  $tomcat_home      = $alfresco::params::tomcat_home,
+  $alfresco_version    = $alfresco::params::alfresco_version,
+  $download_path    = $alfresco::params::download_path,
+  $db_root_password    = $alfresco::params::db_root_password  ,
+  $db_user      = $alfresco::params::db_user,
+  $db_pass      = $alfresco::params::db_pass,
+  $db_name      = $alfresco::params::db_name,
+  $db_host      = $alfresco::params::db_host,
+  $db_port      = $alfresco::params::db_port,
   $db_type                      = $alfresco::params::db_type,
   $mail_host                    = 'localhost',
   $mail_port                    = 25,
-  $mem_xmx			= "32G",
-  $mem_xxmaxpermsize		= "512m",
+  $mem_xmx      = "32G",
+  $mem_xxmaxpermsize    = "512m",
   $delay_before_tests           = 1,
   $apt_cache_host               = '',
   $apt_cache_port               = 3142,
@@ -99,7 +99,6 @@ class alfresco (
 ) inherits alfresco::params {
 
   include alfresco::urls
-  include alfresco::dbdetails
 
   $admin_pass_hash = calc_ntlm_hash($initial_admin_pass)
 
@@ -129,10 +128,14 @@ class alfresco (
     }
     default: {
       fail("Unsupported version ${alfresco_version}")
-    }	
+    }  
   }
 
- case($db_type){
+  notice("install_java_version = ${install_java_version}")
+
+  include alfresco::dbdetails
+
+  case($db_type){
     'mysql': {
        $alfresco_db_driver = "${alfresco::dbdetails::mysql_driver}"
        $alfresco_db_params = "${alfresco::dbdetails::mysql_params}"
@@ -144,7 +147,7 @@ class alfresco (
     default: {
       fail("Database not supported ${alfresco::params::db_type}")
     }
- }
+  }
 
  case $::osfamily {
   'RedHat': {
@@ -197,8 +200,8 @@ class alfresco (
   if($osfamily == 'Debian'){
     exec{ "reinstall-bsdutils":
     command => "apt-get -y --reinstall install bsdutils",
-    path => "/bin:/usr/bin:/sbin:/usr/sbin",	
-    creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs		
+    path => "/bin:/usr/bin:/sbin:/usr/sbin",  
+    creates => "/usr/bin/logger", # <-- this is what is missing on some ubuntu installs    
     }
   }
 
@@ -208,11 +211,11 @@ class alfresco (
       ensure => installed,
       before => Class['alfresco::install'],
     }
-  }	
+  }  
 
   # for some reason packages are being applied out of order, so bind them to a run stage:
   stage { 'deps':
-   before => Stage['main'],	
+   before => Stage['main'],  
   }
   class { 'alfresco::packages':
    stage => 'deps',
