@@ -7,3 +7,9 @@ do_backup.pp
 */.*.swp
 .IS*
 modules/
+.librarian/
+.rnd
+.tmp/
+Puppetfile.lock
+puppetlabs-release-trusty.deb
+
