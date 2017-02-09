@@ -95,6 +95,7 @@ class alfresco::packages inherits alfresco {
         "libimage-exiftool-perl",
       ]
       $rmpackages = [
+        "plymouth",
         "openjdk-6-jdk",
         "openjdk-6-jre-lib",
       ]
@@ -114,11 +115,11 @@ class alfresco::packages inherits alfresco {
     range  => "2 - 4",
   }
 
-  alfresco::ensure_packages{ $packages:
-    ensure => "installed",
-  }
 
   alfresco::ensure_packages { $rmpackages:
     ensure => "absent",
+  } ->
+  alfresco::ensure_packages{ $packages:
+    ensure => "installed",
   }
 }

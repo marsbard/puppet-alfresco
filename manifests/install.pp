@@ -334,88 +334,88 @@ class alfresco::install inherits alfresco {
 ###################################################
 
 
-  case $::osfamily {
-    'RedHat': {
-      $swfpkgs = [
-        "ImageMagick",
-        "zlib-devel",
-        "libjpeg-turbo-devel",
-        "giflib-devel",
-        "freetype-devel",
-        "gcc",
-        "gcc-c++"
-      ]
-
-
-      alfresco::safe_download { 'swftools':
-        url => $alfresco::urls::swftools_src_url,
-        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
-        download_path => $download_path,
-      }
-
-      exec { "unpack-swftools":
-        user => 'tomcat',
-        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
-        cwd => $download_path,
-        path => "/bin:/usr/bin",
-        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
-        require => Alfresco::Safe_download["swftools"],
-      }
-
-      exec { "build-swftools":
-        command => "bash ./configure && make && make install",
-        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
-        path => "/bin:/usr/bin",
-        require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-        creates => "/usr/local/bin/pdf2swf",
-      }
-
-    }
-    'Debian': {
-      $swfpkgs = [
-        "build-essential",
-        "ccache",
-        "g++",
-        "libgif-dev",
-        "libjpeg62-dev",
-        "libfreetype6-dev",
-        "libpng12-dev",
-      ]
-
-
-      alfresco::safe_download { 'swftools':
-        url => "${alfresco::urls::swftools_src_url}",
-        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
-        download_path => $download_path,
-      }
-
-      exec { "unpack-swftools":
-        user => 'tomcat',
-        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
-        cwd => $download_path,
-        path => "/bin:/usr/bin",
-        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
-        require => Alfresco::Safe_download["swftools"],
-      }
-
-
-      exec { "build-swftools":
-        command => "bash ./configure && make && make install",
-        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
-        path => "/bin:/usr/bin",
-        require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
-        creates => "/usr/local/bin/pdf2swf",
-      }
-
-
-    }
-    default:{
-      fail("Unsupported osfamily $osfamily")
-    }
-  }
-
-      package { $swfpkgs:
-          ensure => "installed",
-      }
+#  case $::osfamily {
+#    'RedHat': {
+#      $swfpkgs = [
+#        "ImageMagick",
+#        "zlib-devel",
+#        "libjpeg-turbo-devel",
+#        "giflib-devel",
+#        "freetype-devel",
+#        "gcc",
+#        "gcc-c++"
+#      ]
+#
+#
+#      alfresco::safe_download { 'swftools':
+#        url => $alfresco::urls::swftools_src_url,
+#        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
+#        download_path => $download_path,
+#      }
+#
+#      exec { "unpack-swftools":
+#        user => 'tomcat',
+#        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
+#        cwd => $download_path,
+#        path => "/bin:/usr/bin",
+#        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
+#        require => Alfresco::Safe_download["swftools"],
+#      }
+#
+#      exec { "build-swftools":
+#        command => "bash ./configure && make && make install",
+#        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
+#        path => "/bin:/usr/bin",
+#        require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+#        creates => "/usr/local/bin/pdf2swf",
+#      }
+#
+#    }
+#    'Debian': {
+#      $swfpkgs = [
+#        "build-essential",
+#        "ccache",
+#        "g++",
+#        "libgif-dev",
+#        "libjpeg62-dev",
+#        "libfreetype6-dev",
+#        "libpng12-dev",
+#      ]
+#
+#
+#      alfresco::safe_download { 'swftools':
+#        url => "${alfresco::urls::swftools_src_url}",
+#        filename => "${alfresco::urls::swftools_src_name}.tar.gz",
+#        download_path => $download_path,
+#      }
+#
+#      exec { "unpack-swftools":
+#        user => 'tomcat',
+#        command => "tar xzvf ${alfresco::urls::swftools_src_name}.tar.gz",
+#        cwd => $download_path,
+#        path => "/bin:/usr/bin",
+#        creates => "${download_path}/${alfresco::urls::swftools_src_name}",
+#        require => Alfresco::Safe_download["swftools"],
+#      }
+#
+#
+#      exec { "build-swftools":
+#        command => "bash ./configure && make && make install",
+#        cwd => "${download_path}/${alfresco::urls::swftools_src_name}",
+#        path => "/bin:/usr/bin",
+#        require => [ Exec["unpack-swftools"], Package[$swfpkgs], ],
+#        creates => "/usr/local/bin/pdf2swf",
+#      }
+#
+#
+#    }
+#    default:{
+#      fail("Unsupported osfamily $osfamily")
+#    }
+#  }
+#
+#      package { $swfpkgs:
+#          ensure => "installed",
+#      }
 
 }

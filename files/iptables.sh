@@ -4,6 +4,16 @@
 # 
 # Copyright 2013 Loftux AB, Peter Löen
 
+### BEGIN INIT INFO
+# Provides: vpnagentd_init
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start iptables rules at boot time
+### END INIT INFO
+
+
 # Change to public ip-adress on alfresco server
 export IPADDRESS=`hostname -I`
 
