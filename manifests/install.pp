@@ -5,7 +5,8 @@ class alfresco::install inherits alfresco {
   class { 'alfresco::install::mysql': }
   class { 'alfresco::install::proxy': }
   class { 'alfresco::install::iptables': }
-  class { 'alfresco::install::jdk': }
+# now we do oracle in packages.pp
+#  class { 'alfresco::install::jdk': }
 
   file { $download_path:
     ensure => "directory",

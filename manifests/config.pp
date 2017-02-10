@@ -1,29 +1,24 @@
 class alfresco::config inherits alfresco {
 
   case $::osfamily {
-        'RedHat': {
-      $init_template = "alfresco/tomcat-init-centos.erb"
-      
-			file { "/etc/systemd":
-			 ensure => directory,
-			} -> 
-			file { "/etc/systemd/system":
-				ensure => directory,
-			} ->
-      file { "/etc/systemd/system/tomcat.service":
-        ensure => present,
-        content => template("alfresco/tomcat-systemd-centos.erb"),
-        before => Service["alfresco-start"],
-      }
-
-
+    'RedHat': {
+      $init_template = "alfresco/tomcat-systemd-centos.erb"
     }
     'Debian': {
-      $init_template = "alfresco/tomcat-init.erb"
+       $init_template = "alfresco/tomcat-systemd-ubuntu.erb"
     }
-    default:{
-      fail("Unsupported osfamily $osfamily")
-    } 
+  }
+      
+  file { "/etc/systemd":
+    ensure => directory,
+  } -> 
+  file { "/etc/systemd/system":
+    ensure => directory,
+  } ->
+  file { "/etc/systemd/system/tomcat.service":
+    ensure => present,
+    content => template($init_template),
+    before => Service["alfresco-start"],
   }
 
   if($osfamily == "Debian") {
@@ -48,12 +43,12 @@ class alfresco::config inherits alfresco {
     content => template('alfresco/share-config-custom.xml.erb'),
   }
 
-  file { "/etc/init.d/tomcat":
-    ensure => present,
-    content => template($init_template),
-    mode => "0755",
-    owner => 'tomcat',
-  }
+  #file { "/etc/init.d/tomcat":
+  #  ensure => present,
+  #  content => template($init_template),
+  #  mode => "0755",
+  #  owner => 'tomcat',
+  #}
 
   file { "${tomcat_home}/conf/server.xml":
     ensure => present,
