@@ -1,5 +1,9 @@
 ## Order of the Bee "Honeycomb" edition of Alfresco
 
+#### New as of February 2017
+* Fixed for xenial
+* Converted to systemd
+
 #### New in 1.1
 * ImageMagick paths updated on each run
 * Now using Librarian-puppet to manage puppet modules
